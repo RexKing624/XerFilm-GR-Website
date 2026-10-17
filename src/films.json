@@ -1,0 +1,159 @@
+[
+  {
+    "name": "PROVIA",
+    "icon": 721,
+    "brand": "FUJIFILM",
+    "variants": []
+  },
+  {
+    "name": "Velvia",
+    "icon": 722,
+    "brand": "FUJIFILM",
+    "variants": []
+  },
+  {
+    "name": "ASTIA",
+    "icon": 723,
+    "brand": "FUJIFILM",
+    "variants": []
+  },
+  {
+    "name": "CLASSIC CHROME",
+    "icon": 724,
+    "brand": "FUJIFILM",
+    "variants": []
+  },
+  {
+    "name": "CLASSIC Neg.",
+    "icon": 725,
+    "brand": "FUJIFILM",
+    "variants": []
+  },
+  {
+    "name": "PRO Neg. Std",
+    "icon": 726,
+    "brand": "FUJIFILM",
+    "variants": []
+  },
+  {
+    "name": "REALA ACE",
+    "icon": 727,
+    "brand": "FUJIFILM",
+    "variants": []
+  },
+  {
+    "name": "ACROS",
+    "icon": 728,
+    "brand": "FUJIFILM",
+    "variants": []
+  },
+  {
+    "name": "ETERNA",
+    "icon": 729,
+    "brand": "FUJIFILM",
+    "variants": []
+  },
+  {
+    "name": "ETERNA BLEACH BYPASS",
+    "icon": 730,
+    "brand": "FUJIFILM",
+    "variants": []
+  },
+  {
+    "name": "T-MAX",
+    "icon": 731,
+    "brand": "KODAK",
+    "variants": [
+      {
+        "name": "100",
+        "icon": 733
+      },
+      {
+        "name": "400",
+        "icon": 734
+      },
+      {
+        "name": "3200",
+        "icon": 735
+      }
+    ]
+  },
+  {
+    "name": "PORTRA",
+    "icon": 736,
+    "brand": "KODAK",
+    "variants": [
+      {
+        "name": "160",
+        "icon": 742
+      },
+      {
+        "name": "160 NC",
+        "icon": 743
+      },
+      {
+        "name": "160 VC",
+        "icon": 744
+      },
+      {
+        "name": "400",
+        "icon": 745
+      },
+      {
+        "name": "400 NC",
+        "icon": 746
+      },
+      {
+        "name": "400 VC",
+        "icon": 747
+      },
+      {
+        "name": "800",
+        "icon": 748
+      }
+    ]
+  },
+  {
+    "name": "GOLD 200",
+    "icon": 737,
+    "brand": "KODAK",
+    "variants": []
+  },
+  {
+    "name": "EKTAR 100",
+    "icon": 738,
+    "brand": "KODAK",
+    "variants": []
+  },
+  {
+    "name": "ULTRAMAX 400",
+    "icon": 739,
+    "brand": "KODAK",
+    "variants": []
+  },
+  {
+    "name": "DOUBLE-X",
+    "icon": 740,
+    "brand": "KODAK",
+    "variants": []
+  },
+  {
+    "name": "VISION3",
+    "icon": 741,
+    "brand": "KODAK",
+    "variants": [
+      {
+        "name": "50D",
+        "icon": 749
+      },
+      {
+        "name": "250D",
+        "icon": 750
+      },
+      {
+        "name": "500T",
+        "icon": 751
+      }
+    ]
+  }
+]

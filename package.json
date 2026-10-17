@@ -1,0 +1,23 @@
+{
+  "name": "xerfilm-gr-website",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5178",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 5178"
+  },
+  "dependencies": {
+    "vue": "3.5.22"
+  },
+  "devDependencies": {
+    "vite": "5.4.21",
+    "@vitejs/plugin-vue": "5.2.4"
+  },
+  "license": "GPL-2.0-only",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RexKing624/XerFilm-GR-Website.git"
+  }
+}

@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.DS_Store
+.env
+.env.*
+!.env.example
+.openai/
+public/downloads/*
+!public/downloads/README.md
+*.bin
+*.part*
+*.zip
+*.tar.gz
