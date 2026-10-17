@@ -1,7 +1,5 @@
 export const copy = {
   "zh": {
-    "visitDownloadSite": "前往下载站点",
-    "externalDownload": "固件单独保留在原下载站点。此入口需要该站点的访问权限，本站不在 GitHub 托管固件文件。",
     "externalSource": "固件对应源码与许可随原下载站点的发布包提供；需要该站点访问权限。",
     "projectSource": "网站源码",
     "demo": "交互示意 · 不会修改相机",
@@ -105,11 +103,9 @@ export const copy = {
     "search": "搜索胶片名称",
     "built": "为 GR IV 而作。",
     "gr3Status": "验证中，敬请期待",
-    "gr3Deadline": "（最晚10月18日晚上线）"
+    "gr3Deadline": "（最晚10月19日晚上线）"
   },
   "en": {
-    "visitDownloadSite": "Open download site",
-    "externalDownload": "Firmware remains on the original download site, which requires access permission. This website does not host firmware files on GitHub.",
     "externalSource": "Corresponding firmware source and licenses are provided with the release on the original download site. Access permission is required.",
     "projectSource": "Website source",
     "demo": "INTERACTIVE DEMO · NO CAMERA CHANGES",
@@ -213,11 +209,9 @@ export const copy = {
     "search": "Search film names",
     "built": "Made for GR IV.",
     "gr3Status": "Validation in progress · coming soon",
-    "gr3Deadline": "(By the evening of October 18, JST)"
+    "gr3Deadline": "(By the evening of October 19, JST)"
   },
   "ja": {
-    "visitDownloadSite": "ダウンロードサイトへ",
-    "externalDownload": "ファームウェアは元のダウンロードサイトで別途配布し、アクセス権限が必要です。このサイトでは GitHub にファームウェアを置きません。",
     "externalSource": "対応するファームウェアのソースとライセンスは、元の配布サイトのリリースに同梱されています。アクセス権限が必要です。",
     "projectSource": "サイトのソース",
     "demo": "操作デモ・カメラは変更しません",
@@ -321,6 +315,6 @@ export const copy = {
     "search": "フィルム名を検索",
     "built": "GR IV のために。",
     "gr3Status": "検証中・公開をお待ちください",
-    "gr3Deadline": "（10月18日夜までに公開予定）"
+    "gr3Deadline": "（10月19日夜までに公開予定）"
   }
 };

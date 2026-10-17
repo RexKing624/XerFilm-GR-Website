@@ -1,5 +1,5 @@
-# Separate download hosting
+# V1.1 same-site download assets
 
-Git source and GitHub Pages publish website files only. They do not contain firmware binaries, firmware parts, or firmware source archives. The public UI links to the original separately hosted download site, which currently requires access permission.
+These exact release files deploy with the website. The browser validates each part and the full SHA-256, then saves the original `fwdc248b.bin`. Never flash an individual part.
 
-For an authorized deployment on that separate download host, maintainers can place the existing release assets here and run `npm run check:release`. The browser will validate and reconstruct the original firmware. Never flash an individual part. These files remain ignored by Git.
+The matching source archive and GPL-2.0 license are distributed here as well. Run `npm run check:release` before building or publishing. Other local versions remain ignored by Git.

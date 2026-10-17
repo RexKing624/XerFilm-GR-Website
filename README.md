@@ -4,7 +4,7 @@
 
 [网站源码](https://github.com/RexKing624/XerFilm-GR-Website) · [作者](https://xergnik.com/) · [联系](mailto:hello@xergnik.com)
 
-> 本仓库仅开源网站，**不包含相机固件、固件注入代码、固件源码压缩包或原厂固件**。页面显示的 V1 是公开发行名称。
+> 本项目包含 Vue 网站与 V1.1 发布资源，点击下载会在本页完成校验并保存原始 `.bin`，无需跳转或登录其他下载站点。固件对应源码及许可证随发布资源一同提供。
 
 ## 功能
 
@@ -36,15 +36,12 @@ npm run preview
 
 网站使用 GitHub Actions → GitHub Pages，正式域名为 https://filmgr.xergnik.com/ 。推送 main 后自动构建并发布，`public/CNAME` 保留该域名。
 
-GitHub Pages 仅发布网站界面与页面素材，不上传固件、固件分片或固件源码压缩包。下载入口指向原独立下载站点，该站点当前需要访问权限。
-
-维护者在独立下载站点部署时，可以将现有下载文件放入 `public/downloads/`，执行 `npm run check:release` 后再构建。构建配置会检测下载文件是否齐全；源码仓库构建不会生成缺失文件的下载链接。
+GitHub Pages 同时部署网站与 `public/downloads/` 中的 V1.1 发布文件。浏览器从当前站点下载三个分片，校验每段和完整文件的 SHA-256 后，保存为 `fwdc248b.bin`。分片不能单独用于刷机。
 
 - 安装：`npm ci`
+- 发布校验：`npm run check:release`
 - 构建：`npm run build`
 - 输出：`dist`
-- 源码站点强制使用独立下载入口：`VITE_RELEASE_MODE=external npm run build`
-- 原下载站点地址可在 `src/App.vue` 的 `downloadSite` 中调整。
 
 ## 修改内容
 
@@ -59,7 +56,7 @@ GitHub Pages 仅发布网站界面与页面素材，不上传固件、固件分�
 
 ## 许可证与来源
 
-网站代码以 GPL-2.0-only 发布，详见 [LICENSE](LICENSE)。相关来源、图标和品牌说明见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。这是网站的开源仓库，不代表对未包含在仓库中的固件或第三方资源重新授权。
+网站代码以 GPL-2.0-only 发布，详见 [LICENSE](LICENSE)。相关来源、图标和品牌说明见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。固件对应源码随 `public/downloads/griv-v1.1-source.zip` 提供；第三方素材遵循各自授权。
 
 ## 品牌素材
 

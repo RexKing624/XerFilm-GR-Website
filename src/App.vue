@@ -25,9 +25,7 @@ const filteredFilms = computed(() => films.filter(f => (filter.value === 'all' |
 const assetBase = import.meta.env.BASE_URL;
 const filmIcon = id => `${import.meta.env.BASE_URL}films/${id}.png`;
 const publicFile = name => `${import.meta.env.BASE_URL}downloads/${name}`;
-const packagedRelease = __PACKAGED_RELEASE__;
-const downloadSite = 'https://xergnik-griv-film.rexking624.chatgpt.site/#download';
-const sourceArchiveURL = packagedRelease ? publicFile(release.sourceArchive) : downloadSite;
+const sourceArchiveURL = publicFile(release.sourceArchive);
 const licenseURL = `${assetBase}licenses/GPL-2.0.txt`;
 const busy = ref(false);
 const progress = ref(0);
@@ -140,8 +138,8 @@ onBeforeUnmount(() => { controller?.abort(); document.body.style.overflow = ''; 
      <p class="drawer-intro">{{ t.downloadIntro }}</p>
      <dl class="file-details"><div><dt>{{ t.camera }}</dt><dd>RICOH GR IV</dd></div><div><dt>{{ t.release }}</dt><dd>{{ release.version }}</dd></div><div><dt>{{ t.filename }}</dt><dd>fwdc248b.bin</dd></div><div><dt>{{ t.sizeLabel }}</dt><dd>{{ t.size }} · {{ release.size.toLocaleString('en-US') }} bytes</dd></div></dl><p class="release-description">{{ t.releaseNote }}</p>
      <div class="checksum"><span>{{ t.checksum }}</span><code>{{ release.sha256 }}</code></div>
-     <a v-if="!packagedRelease" class="primary actual-download" :href="downloadSite" target="_blank" rel="noopener noreferrer"><span>{{ t.visitDownloadSite }}</span><span aria-hidden="true">↗</span></a><button v-else class="primary actual-download" :disabled="busy || !verified" @click="downloadFirmware"><span>{{ busy ? t[downloadState] : t.downloadFile }}</span><span aria-hidden="true">↓</span></button><progress v-if="busy" :value="progress" max="1" :aria-label="t.downloading"></progress><div class="download-feedback" aria-live="polite"><span v-if="downloadState">{{ t[downloadState] }} {{ busy ? `${Math.round(progress*100)}%` : '' }}</span><button v-if="busy" class="text-link" @click="cancelDownload">{{ t.cancel }}</button></div>
-     <p class="download-hint">{{ packagedRelease ? t.downloadHint : t.externalDownload }}</p>
+     <button class="primary actual-download" :disabled="busy || !verified" @click="downloadFirmware"><span>{{ busy ? t[downloadState] : t.downloadFile }}</span><span aria-hidden="true">↓</span></button><progress v-if="busy" :value="progress" max="1" :aria-label="t.downloading"></progress><div class="download-feedback" aria-live="polite"><span v-if="downloadState">{{ t[downloadState] }} {{ busy ? `${Math.round(progress*100)}%` : '' }}</span><button v-if="busy" class="text-link" @click="cancelDownload">{{ t.cancel }}</button></div>
+     <p class="download-hint">{{ t.downloadHint }}</p>
     </template>
    </div>
   </dialog>

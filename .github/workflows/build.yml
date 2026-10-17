@@ -21,9 +21,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm run check:release
       - run: npm run build
-        env:
-          VITE_RELEASE_MODE: external
       - uses: actions/configure-pages@v5
         if: github.event_name != 'pull_request'
       - uses: actions/upload-pages-artifact@v3
