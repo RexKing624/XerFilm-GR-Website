@@ -22,8 +22,13 @@ const drawer = ref('');
 const filter = ref('all');
 const search = ref('');
 const filteredFilms = computed(() => films.filter(f => (filter.value === 'all' || f.brand === filter.value) && f.name.toLowerCase().includes(search.value.trim().toLowerCase())));
+const assetBase = import.meta.env.BASE_URL;
 const filmIcon = id => `${import.meta.env.BASE_URL}films/${id}.png`;
 const publicFile = name => `${import.meta.env.BASE_URL}downloads/${name}`;
+const packagedRelease = __PACKAGED_RELEASE__;
+const downloadSite = 'https://xergnik-griv-film.rexking624.chatgpt.site/#download';
+const sourceArchiveURL = packagedRelease ? publicFile('griv-v1-source.zip') : downloadSite;
+const licenseURL = `${assetBase}licenses/GPL-2.0.txt`;
 const busy = ref(false);
 const progress = ref(0);
 const downloadState = ref('');
@@ -84,7 +89,7 @@ onBeforeUnmount(() => { controller?.abort(); document.body.style.overflow = ''; 
 <template>
  <div id="top" class="site-shell">
   <header class="site-header">
-   <a href="https://xergnik.com/" class="brand" aria-label="XER_GNIK"><span class="brand-mark" aria-hidden="true">x<span>r</span></span><span>XER_GNIK<span class="brand-sub">XerFilm GR / V1</span></span></a>
+   <a href="#top" class="brand" aria-label="XerFilm GR"><img class="brand-logo" :src="`${assetBase}brand/xerfilm-gr-${theme}.svg`" alt=""><span>XerFilm GR<span class="brand-sub">BY XER_GNIK / V1</span></span></a>
    <div class="header-tools">
     <a class="nav-link" href="#features">{{ t.nav }}</a>
     <div class="language-switch" role="group" :aria-label="t.lang"><button v-for="item in [{ id:'zh',label:'中' },{ id:'en',label:'EN' },{ id:'ja',label:'日' }]" :key="item.id" :aria-pressed="language === item.id" @click="language = item.id">{{ item.label }}</button></div>
@@ -119,10 +124,10 @@ onBeforeUnmount(() => { controller?.abort(); document.body.style.overflow = ''; 
     <section class="interaction-feature"><div class="interaction-copy"><span class="tiny-number">02—</span><h3>{{ t.adjTitle }}</h3><p>{{ t.adjDesc }}</p><h4>{{ t.listTitle }}</h4><p>{{ t.listDesc }}</p></div><div class="camera-demo"><div class="demo-title"><img :src="filmIcon(732)" alt="FILM"><span>FILM LIST</span><span class="demo-dot"></span></div><p class="demo-caption">{{ t.demo }}</p><div class="demo-grid"><button v-for="(film,i) in heroFilms" :key="film.name" :class="{ selected:selectedMock === i, off:!mockEnabled[i] }" :aria-label="film.name" :aria-pressed="mockEnabled[i]" @click="selectedMock = i; mockEnabled[i] = !mockEnabled[i]"><img :src="filmIcon(film.icon)" :alt="film.name"><span v-if="mockEnabled[i]" class="demo-check">✓</span></button></div><div class="demo-bottom"><span>{{ heroFilms[selectedMock].name }}</span><span>OK <b>↵</b></span></div></div></section>
     <div class="two-features"><section><span class="tiny-number">03—</span><h3>{{ t.grainTitle }}</h3><div class="grain-samples" aria-hidden="true"><div v-for="(level,i) in t.grainLevels" :key="i" :class="`grain-${i}`"><span>{{ level }}</span></div></div><p>{{ t.grainDesc }}</p></section><section><span class="tiny-number">04—</span><h3>{{ t.stampTitle }}</h3><div class="date-sample" aria-hidden="true"><span>26.10.17</span><span>14:36</span></div><p>{{ t.stampDesc }}</p></section></div>
     <section class="raw-feature"><span class="raw-symbol">RAW<span>+</span>JPG</span><div><h3>{{ t.rawTitle }}</h3><p>{{ t.rawDesc }}</p></div></section>
-    <section class="changelog"><div class="release-heading"><span class="eyebrow">03 / {{ t.changes }}</span><b>V1</b></div><p class="release-compat">{{ t.compatible }}</p><ul><li v-for="item in t.changesItems" :key="item">{{ item }}</li></ul><a class="text-link" :href="publicFile('griv-v1-source.zip')" download>{{ t.source }} ↗</a></section>
+    <section class="changelog"><div class="release-heading"><span class="eyebrow">03 / {{ t.changes }}</span><b>V1</b></div><p class="release-compat">{{ t.compatible }}</p><ul><li v-for="item in t.changesItems" :key="item">{{ item }}</li></ul><a class="text-link" :href="sourceArchiveURL" download>{{ t.source }} ↗</a></section>
    </div>
   </main>
-  <footer class="site-footer"><div class="footer-main"><a href="https://xergnik.com/">© 2026 XER_GNIK <span>↗</span></a><div><p>{{ t.location }}</p></div><div><a class="footer-email" href="mailto:hello@xergnik.com">hello@xergnik.com</a></div></div><div class="footer-bottom"><p>{{ t.footerNote }}</p><a class="project-source" href="https://github.com/RexKing624/XerFilm-GR-Website" target="_blank" rel="noopener noreferrer">{{ t.projectSource }} ↗</a><details><summary>{{ t.licenses }}</summary><p>{{ t.origin }}</p><div class="credit-links"><a :href="publicFile('LICENSE.txt')" target="_blank" rel="noopener">GPL-2.0</a><a href="https://github.com/Maxwooow/Ricoh-GRMod" target="_blank" rel="noopener">Ricoh-GRMod</a><a href="https://github.com/DoYitNow/gr-custom-tool" target="_blank" rel="noopener">gr-custom-tool</a><a :href="publicFile('griv-v1-source.zip')" download>{{ t.source }}</a></div></details><a href="#top" :aria-label="t.home">↑</a></div></footer>
+  <footer class="site-footer"><div class="footer-main"><a href="https://xergnik.com/">© 2026 XER_GNIK <span>↗</span></a><div><p>{{ t.location }}</p></div><div><a class="footer-email" href="mailto:hello@xergnik.com">hello@xergnik.com</a></div></div><div class="footer-bottom"><p>{{ t.footerNote }}</p><a class="project-source" href="https://github.com/RexKing624/XerFilm-GR-Website" target="_blank" rel="noopener noreferrer">{{ t.projectSource }} ↗</a><details><summary>{{ t.licenses }}</summary><p>{{ t.origin }}</p><div class="credit-links"><a :href="licenseURL" target="_blank" rel="noopener">GPL-2.0</a><a href="https://github.com/Maxwooow/Ricoh-GRMod" target="_blank" rel="noopener">Ricoh-GRMod</a><a href="https://github.com/DoYitNow/gr-custom-tool" target="_blank" rel="noopener">gr-custom-tool</a><a :href="sourceArchiveURL" download>{{ t.source }}</a></div></details><a href="#top" :aria-label="t.home">↑</a></div></footer>
 
   <dialog ref="dialog" class="drawer" :class="{ 'download-drawer':drawer === 'download' }" :aria-labelledby="'drawer-title'" @close="onDialogClose" @cancel.prevent="closeDrawer" @click="($event.target === dialog) && closeDrawer()">
    <div class="drawer-surface">
@@ -135,8 +140,8 @@ onBeforeUnmount(() => { controller?.abort(); document.body.style.overflow = ''; 
      <p class="drawer-intro">{{ t.downloadIntro }}</p>
      <dl class="file-details"><div><dt>{{ t.camera }}</dt><dd>RICOH GR IV</dd></div><div><dt>{{ t.release }}</dt><dd>V1</dd></div><div><dt>{{ t.filename }}</dt><dd>fwdc248b.bin</dd></div><div><dt>{{ t.sizeLabel }}</dt><dd>{{ t.size }} · 43,791,220 bytes</dd></div></dl><p class="release-description">{{ t.releaseNote }}</p>
      <div class="checksum"><span>{{ t.checksum }}</span><code>{{ release.sha256 }}</code></div>
-     <button class="primary actual-download" :disabled="busy || !verified" @click="downloadFirmware"><span>{{ busy ? t[downloadState] : t.downloadFile }}</span><span aria-hidden="true">↓</span></button><progress v-if="busy" :value="progress" max="1" :aria-label="t.downloading"></progress><div class="download-feedback" aria-live="polite"><span v-if="downloadState">{{ t[downloadState] }} {{ busy ? `${Math.round(progress*100)}%` : '' }}</span><button v-if="busy" class="text-link" @click="cancelDownload">{{ t.cancel }}</button></div>
-     <p class="download-hint">{{ t.downloadHint }}</p><div class="source-download"><a class="text-link" :href="publicFile('griv-v1-source.zip')" download>{{ t.source }} ↗</a><p>{{ t.sourceDesc }}</p><a :href="publicFile('LICENSE.txt')" target="_blank" rel="noopener">GPL-2.0</a></div>
+     <a v-if="!packagedRelease" class="primary actual-download" :href="downloadSite" target="_blank" rel="noopener noreferrer"><span>{{ t.visitDownloadSite }}</span><span aria-hidden="true">↗</span></a><button v-else class="primary actual-download" :disabled="busy || !verified" @click="downloadFirmware"><span>{{ busy ? t[downloadState] : t.downloadFile }}</span><span aria-hidden="true">↓</span></button><progress v-if="busy" :value="progress" max="1" :aria-label="t.downloading"></progress><div class="download-feedback" aria-live="polite"><span v-if="downloadState">{{ t[downloadState] }} {{ busy ? `${Math.round(progress*100)}%` : '' }}</span><button v-if="busy" class="text-link" @click="cancelDownload">{{ t.cancel }}</button></div>
+     <p class="download-hint">{{ packagedRelease ? t.downloadHint : t.externalDownload }}</p><div class="source-download"><a class="text-link" :href="sourceArchiveURL" download>{{ t.source }} ↗</a><p>{{ packagedRelease ? t.sourceDesc : t.externalSource }}</p><a :href="licenseURL" target="_blank" rel="noopener">GPL-2.0</a></div>
     </template>
    </div>
   </dialog>

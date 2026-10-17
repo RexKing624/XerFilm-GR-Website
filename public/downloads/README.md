@@ -1,13 +1,5 @@
-# Release assets
+# Separate download hosting
 
-This repository contains the website source only. Firmware binaries and firmware source archives are distributed separately by the maintainer.
+Git source and GitHub Pages publish website files only. They do not contain firmware binaries, firmware parts, or firmware source archives. The public UI links to the original separately hosted download site, which currently requires access permission.
 
-For a complete production deployment, copy the maintained release assets into this directory **before** running `npm run build`:
-
-- The three parts listed in `src/release.json` (preserve their names).
-- `griv-v1-source.zip` — corresponding firmware source and verification records.
-- `LICENSE.txt` — the license shipped with the firmware source.
-
-The browser validates SHA-256 and reconstructs the original `fwdc248b.bin`. Never flash an individual part.
-
-These release assets are intentionally ignored by Git. A source-only build can preview the interface; firmware download requires the separately maintained assets.
+For an authorized deployment on that separate download host, maintainers can place the existing release assets here and run `npm run check:release`. The browser will validate and reconstruct the original firmware. Never flash an individual part. These files remain ignored by Git.

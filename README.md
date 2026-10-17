@@ -34,15 +34,17 @@ npm run preview
 
 ## 部署与自定义域名
 
-1. 使用 `npm ci` 安装依赖。
-2. 由项目维护者将实际发布资源放入 `public/downloads/`，文件清单见该目录的 README。资源不会提交到这个仓库。
-3. 执行 `npm run build`。
-4. 将完整 `dist/` 部署到支持 HTTPS 的静态托管服务；构建命令为 `npm run build`，输出目录为 `dist`。
-5. 在你选择的托管服务中添加自定义域名，再按其要求配置 DNS。
+网站使用 GitHub Actions → GitHub Pages，正式域名为 https://filmgr.xergnik.com/ 。推送 main 后自动构建并发布，`public/CNAME` 保留该域名。
 
-若使用 GitHub 连接静态托管，必须在私有构建步骤中补齐发布资源，或在部署时单独上传它们。单纯从本仓库构建不包含固件下载文件。
+GitHub Pages 仅发布网站界面与页面素材，不上传固件、固件分片或固件源码压缩包。下载入口指向原独立下载站点，该站点当前需要访问权限。
 
-单个固件资源不超过 16 MiB。完整文件会在浏览器中校验后保存为 `fwdc248b.bin`。必须使用 HTTPS 或 localhost；不要通过 `file://` 打开。
+维护者在独立下载站点部署时，可以将现有下载文件放入 `public/downloads/`，执行 `npm run check:release` 后再构建。构建配置会检测下载文件是否齐全；源码仓库构建不会生成缺失文件的下载链接。
+
+- 安装：`npm ci`
+- 构建：`npm run build`
+- 输出：`dist`
+- 源码站点强制使用独立下载入口：`VITE_RELEASE_MODE=external npm run build`
+- 原下载站点地址可在 `src/App.vue` 的 `downloadSite` 中调整。
 
 ## 修改内容
 
@@ -58,3 +60,7 @@ npm run preview
 ## 许可证与来源
 
 网站代码以 GPL-2.0-only 发布，详见 [LICENSE](LICENSE)。相关来源、图标和品牌说明见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。这是网站的开源仓库，不代表对未包含在仓库中的固件或第三方资源重新授权。
+
+## 品牌素材
+
+新标志为两张错位胶片框与几何 F，提供深浅色 SVG、favicon 和 PNG。`public/brand/` 包含三语胶片列表拼贴项目图，保留原有胶片图标。可用 `python3 tools/design-brand.py` 重新生成矢量稿。
