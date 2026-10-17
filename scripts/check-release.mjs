@@ -11,5 +11,5 @@ for (const part of release.parts) {
 }
 const full = Buffer.concat(parts);
 if (full.length !== release.size || hash(full) !== release.sha256) throw new Error('Complete firmware failed SHA-256 validation');
-for (const name of ['griv-v1-source.zip', 'LICENSE.txt']) if (!(await stat(new URL(name, base))).size) throw new Error(`Missing release asset: ${name}`);
+for (const name of [release.sourceArchive, 'LICENSE.txt']) if (!(await stat(new URL(name, base))).size) throw new Error(`Missing release asset: ${name}`);
 console.log(`${release.version}: all release assets verified; original firmware bytes preserved.`);

@@ -1,6 +1,8 @@
 export const copy = {
   "zh": {
-    "visitDownloadSite": "前往下载站点",    "externalDownload": "固件单独保留在原下载站点。此入口需要该站点的访问权限，本站不在 GitHub 托管固件文件。",    "externalSource": "固件对应源码与许可随原下载站点的发布包提供；需要该站点访问权限。",
+    "visitDownloadSite": "前往下载站点",
+    "externalDownload": "固件单独保留在原下载站点。此入口需要该站点的访问权限，本站不在 GitHub 托管固件文件。",
+    "externalSource": "固件对应源码与许可随原下载站点的发布包提供；需要该站点访问权限。",
     "projectSource": "网站源码",
     "demo": "交互示意 · 不会修改相机",
     "lang": "语言",
@@ -16,7 +18,7 @@ export const copy = {
     "release": "当前版本",
     "compatible": "仅适用 RICOH GR IV · 原厂基础版本 1.11",
     "size": "41.8 MiB",
-    "releaseNote": "V1 首次公开发布：胶片模拟、胶片列表、ADJ 母子菜单、ISO 自适应颗粒与日期打印。",
+    "releaseNote": "V1.1：修正 INFO 胶片图标错位；子菜单按 OK 即确认并返回母菜单，无需二次确认。已完成 GR IV 实机验证。",
     "get": "先读说明，再开始。",
     "getSub": "免费使用。下载前，请确认以下内容。",
     "riskTitle": "刷机风险与责任",
@@ -50,7 +52,7 @@ export const copy = {
     "curatedTitle": "由我制作，持续更新。",
     "curated": "不提供使用者自行添加模拟的入口。我会持续更新自己制作的胶片 LUT 模拟，随固件版本提供。",
     "adjTitle": "选择，留在 ADJ。",
-    "adjDesc": "固定 FILM 入口图标。PORTRA、T-MAX 与 VISION3 保留子菜单；在胶片间预览，确认后生效。OFF 与设置中的胶片总开关同步，关闭后回到原生影像控制。",
+    "adjDesc": "固定 FILM 入口图标。PORTRA、T-MAX 与 VISION3 保留子菜单；在胶片间预览，子菜单按 OK 即确认并返回母菜单。OFF 与设置中的胶片总开关同步，关闭后回到原生影像控制。",
     "listTitle": "只留下你想用的。",
     "listDesc": "在设置的「胶片列表」多选启用。启用项保持彩色并带勾，停用项变灰；ADJ 只显示已启用的家族。",
     "grainTitle": "颗粒，随 ISO 呼吸。",
@@ -64,10 +66,11 @@ export const copy = {
     "stampDesc": "两位年份，六种模式：关闭、年月日时分、日月时分年、日期＋时间（两行）、仅日期、仅时间。黑白胶片使用中性灰白日期，彩色胶片保留橙色。",
     "rawTitle": "JPG 的质感，RAW 的余地。",
     "rawDesc": "颗粒和日期仅作用于 JPG 成片，不绘制到 RAW 原始像素。关闭胶片模拟时，自定义颗粒与时间戳也同时关闭。",
-    "changes": "V1 功能",
+    "changes": "V1.1 更新",
     "changesItems": [
-      "17 个胶片家族、27 种效果；胶片列表多选启用，与 ADJ 同步。",
-      "固定 FILM 入口，保留胶片子菜单与实时预览；OFF 同步总开关。",
+      "修正回放 INFO 胶片图标错后一张的问题，按本次拍摄记录型号。",
+      "子菜单按 OK 即应用所选子型号并返回母菜单，无需再次确认。",
+      "保留 17 个胶片家族、27 种效果、胶片列表与 ADJ 同步。",
       "ISO 自适应颗粒、六种日期模式，仅作用于 JPG 成片。"
     ],
     "library": "已装胶片",
@@ -100,10 +103,14 @@ export const copy = {
     "home": "返回顶部",
     "noResult": "没有匹配的胶片。",
     "search": "搜索胶片名称",
-    "built": "为 GR IV 而作。"
+    "built": "为 GR IV 而作。",
+    "gr3Status": "验证中，敬请期待",
+    "gr3Deadline": "（最晚10月18日晚上线）"
   },
   "en": {
-    "visitDownloadSite": "Open download site",    "externalDownload": "Firmware remains on the original download site, which requires access permission. This website does not host firmware files on GitHub.",    "externalSource": "Corresponding firmware source and licenses are provided with the release on the original download site. Access permission is required.",
+    "visitDownloadSite": "Open download site",
+    "externalDownload": "Firmware remains on the original download site, which requires access permission. This website does not host firmware files on GitHub.",
+    "externalSource": "Corresponding firmware source and licenses are provided with the release on the original download site. Access permission is required.",
     "projectSource": "Website source",
     "demo": "INTERACTIVE DEMO · NO CAMERA CHANGES",
     "lang": "Language",
@@ -119,7 +126,7 @@ export const copy = {
     "release": "CURRENT RELEASE",
     "compatible": "RICOH GR IV only · based on official firmware 1.11",
     "size": "41.8 MiB",
-    "releaseNote": "V1, the first public release: film simulations, Film List, ADJ submenus, ISO-aware grain, and date stamping.",
+    "releaseNote": "V1.1 fixes the one-photo delay in INFO film icons. Submenu OK now applies the selected variant and returns to the parent menu, with no second confirmation. Tested on a GR IV.",
     "get": "Read first. Then begin.",
     "getSub": "Free to use. Please acknowledge the following before downloading.",
     "riskTitle": "Installation risk & responsibility",
@@ -153,7 +160,7 @@ export const copy = {
     "curatedTitle": "Made by me. Kept evolving.",
     "curated": "There is no user-import option for adding simulations. I will continue updating my curated film LUT simulations through firmware releases.",
     "adjTitle": "Your choice, right in ADJ.",
-    "adjDesc": "A fixed FILM entry icon. PORTRA, T-MAX, and VISION3 keep their submenus. Preview a look, then confirm. OFF stays in sync with the main film switch and restores native Image Control.",
+    "adjDesc": "A fixed FILM entry icon. PORTRA, T-MAX, and VISION3 keep their submenus. Preview a look; submenu OK applies the variant and returns to the parent menu. OFF stays in sync with the main film switch and restores native Image Control.",
     "listTitle": "Only the films you reach for.",
     "listDesc": "Enable multiple families in the Film List settings. Enabled films stay colored and checked; disabled films turn gray. Only enabled families appear in ADJ.",
     "grainTitle": "Grain that follows ISO.",
@@ -167,10 +174,11 @@ export const copy = {
     "stampDesc": "Two-digit years. Six modes: off, year/month/day/time, day/month/time/year, date + time on two lines, date only, and time only. Neutral gray-white for monochrome films; orange for color.",
     "rawTitle": "Character in JPG. Latitude in RAW.",
     "rawDesc": "Grain and dates are applied to the JPG, without drawing on RAW pixel data. Turning film simulation off also disables custom grain and date stamps.",
-    "changes": "V1 FEATURES",
+    "changes": "V1.1 UPDATE",
     "changesItems": [
-      "17 film families and 27 looks. Enable families in Film List and keep ADJ in sync.",
-      "A fixed FILM entry, film submenus, live preview, and OFF synchronized with the main switch.",
+      "Fixed INFO showing the previous photo’s film icon; each shot now records its own film identity.",
+      "Submenu OK applies the variant and returns to the parent menu without a second confirmation.",
+      "Keeps 17 film families, 27 looks, and Film List / ADJ synchronization.",
       "ISO-aware grain and six date modes, applied to JPG only."
     ],
     "library": "Installed films",
@@ -203,10 +211,14 @@ export const copy = {
     "home": "Back to top",
     "noResult": "No matching films.",
     "search": "Search film names",
-    "built": "Made for GR IV."
+    "built": "Made for GR IV.",
+    "gr3Status": "Validation in progress · coming soon",
+    "gr3Deadline": "(By the evening of October 18, JST)"
   },
   "ja": {
-    "visitDownloadSite": "ダウンロードサイトへ",    "externalDownload": "ファームウェアは元のダウンロードサイトで別途配布し、アクセス権限が必要です。このサイトでは GitHub にファームウェアを置きません。",    "externalSource": "対応するファームウェアのソースとライセンスは、元の配布サイトのリリースに同梱されています。アクセス権限が必要です。",
+    "visitDownloadSite": "ダウンロードサイトへ",
+    "externalDownload": "ファームウェアは元のダウンロードサイトで別途配布し、アクセス権限が必要です。このサイトでは GitHub にファームウェアを置きません。",
+    "externalSource": "対応するファームウェアのソースとライセンスは、元の配布サイトのリリースに同梱されています。アクセス権限が必要です。",
     "projectSource": "サイトのソース",
     "demo": "操作デモ・カメラは変更しません",
     "lang": "言語",
@@ -222,7 +234,7 @@ export const copy = {
     "release": "現在のバージョン",
     "compatible": "RICOH GR IV 専用・純正 1.11 ベース",
     "size": "41.8 MiB",
-    "releaseNote": "初の公開版 V1。フィルムシミュレーション、フィルム一覧、ADJ 子メニュー、ISO 連動粒状感、日付印字を搭載。",
+    "releaseNote": "V1.1：INFO に前の写真のフィルムアイコンが表示される問題を修正。子メニューの OK で設定を適用して親メニューに戻り、再確認は不要です。GR IV 実機で動作確認済み。",
     "get": "説明を読んで、はじめる。",
     "getSub": "無料で利用できます。ダウンロード前にご確認ください。",
     "riskTitle": "導入リスクと責任",
@@ -256,7 +268,7 @@ export const copy = {
     "curatedTitle": "自分で作り、育てていく。",
     "curated": "利用者がシミュレーションを追加する機能は提供しません。作者が制作したフィルム LUT シミュレーションを、今後のファームウェアで更新していきます。",
     "adjTitle": "選択は、ADJ から。",
-    "adjDesc": "入口は固定の FILM アイコン。PORTRA・T-MAX・VISION3 は子メニューを備えます。ルックをプレビューして確定。OFF は設定のメインスイッチと連動し、純正の画像設定に戻ります。",
+    "adjDesc": "FILM の入口アイコンは固定。PORTRA・T-MAX・VISION3 は子メニューを保持。プレビュー後、子メニューの OK で適用して親メニューへ戻ります。OFF は全体スイッチと同期し、純正の画像仕上を復元します。",
     "listTitle": "使いたいフィルムだけ。",
     "listDesc": "設定の「フィルム一覧」で複数のファミリーを有効化。有効はカラーとチェック、無効はグレーで表示。ADJ には有効なものだけが並びます。",
     "grainTitle": "ISO とともに変わる粒状感。",
@@ -270,11 +282,12 @@ export const copy = {
     "stampDesc": "年は下 2 桁。切・年月日時分・日月時分年・日付＋時刻（2 行）・日付のみ・時刻のみの 6 モード。白黒では無彩色の白、カラーではオレンジ色で印字します。",
     "rawTitle": "JPG に質感を。RAW に余白を。",
     "rawDesc": "粒状感と日付は JPG のみに適用し、RAW の元画素には描画しません。フィルムシミュレーションを切ると、独自の粒状感・日付印字も停止します。",
-    "changes": "V1 の機能",
+    "changes": "V1.1 更新内容",
     "changesItems": [
-      "17 ファミリー、27 ルック。フィルム一覧の有効設定を ADJ と同期。",
-      "固定 FILM アイコン、フィルム子メニュー、ライブプレビュー。OFF はメインスイッチと連動。",
-      "ISO 連動粒状感と 6 種類の日付モード。JPG のみに適用。"
+      "INFO に前の写真のアイコンが表示される問題を修正。撮影ごとにフィルム情報を記録。",
+      "子メニューの OK で選択を適用して親メニューに戻ります。再確認は不要です。",
+      "17 ファミリー、27 種類の効果、フィルム一覧と ADJ の同期を継続。",
+      "ISO 連動の粒状感と 6 種類の日付モードは JPG のみに適用。"
     ],
     "library": "搭載フィルム",
     "libraryIntro": "現在のファームウェアに含まれる全ファミリーと子モデル。表示はカメラ用アイコンと選択肢であり、作例写真ではありません。",
@@ -306,6 +319,8 @@ export const copy = {
     "home": "ページ上部へ",
     "noResult": "該当するフィルムがありません。",
     "search": "フィルム名を検索",
-    "built": "GR IV のために。"
+    "built": "GR IV のために。",
+    "gr3Status": "検証中・公開をお待ちください",
+    "gr3Deadline": "（10月18日夜までに公開予定）"
   }
 };

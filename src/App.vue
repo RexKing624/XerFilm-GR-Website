@@ -27,7 +27,7 @@ const filmIcon = id => `${import.meta.env.BASE_URL}films/${id}.png`;
 const publicFile = name => `${import.meta.env.BASE_URL}downloads/${name}`;
 const packagedRelease = __PACKAGED_RELEASE__;
 const downloadSite = 'https://xergnik-griv-film.rexking624.chatgpt.site/#download';
-const sourceArchiveURL = packagedRelease ? publicFile('griv-v1-source.zip') : downloadSite;
+const sourceArchiveURL = packagedRelease ? publicFile(release.sourceArchive) : downloadSite;
 const licenseURL = `${assetBase}licenses/GPL-2.0.txt`;
 const busy = ref(false);
 const progress = ref(0);
@@ -89,7 +89,7 @@ onBeforeUnmount(() => { controller?.abort(); document.body.style.overflow = ''; 
 <template>
  <div id="top" class="site-shell">
   <header class="site-header">
-   <a href="#top" class="brand" aria-label="XerFilm GR"><img class="brand-logo" :src="`${assetBase}brand/xerfilm-gr-${theme}.svg`" alt=""><span>XerFilm GR<span class="brand-sub">BY XER_GNIK / V1</span></span></a>
+   <a href="#top" class="brand" aria-label="XerFilm GR"><img class="brand-logo" :src="`${assetBase}brand/xerfilm-gr-${theme}.svg`" alt=""><span>XerFilm GR<span class="brand-sub">BY XER_GNIK / {{ release.version }}</span></span></a>
    <div class="header-tools">
     <a class="nav-link" href="#features">{{ t.nav }}</a>
     <div class="language-switch" role="group" :aria-label="t.lang"><button v-for="item in [{ id:'zh',label:'中' },{ id:'en',label:'EN' },{ id:'ja',label:'日' }]" :key="item.id" :aria-pressed="language === item.id" @click="language = item.id">{{ item.label }}</button></div>
@@ -102,9 +102,9 @@ onBeforeUnmount(() => { controller?.abort(); document.body.style.overflow = ''; 
   </section>
   <main class="main-layout">
    <aside id="download" class="download-panel" :aria-label="t.download">
-    <div class="panel-top"><span class="eyebrow">01 / {{ t.download }}</span><span class="version-pill">V1</span></div>
+    <div class="panel-top"><span class="eyebrow">01 / {{ t.download }}</span><span class="version-pill">{{ release.version }}</span></div>
     <h2>{{ t.get }}</h2><p class="subtle">{{ t.getSub }}</p>
-    <div class="release-mini"><div><strong>GR IV <span>V1</span></strong><span>{{ t.size }} · .bin</span></div></div>
+    <div class="release-mini"><div><strong>GR IV <span>{{ release.version }}</span></strong><span>{{ t.size }} · .bin</span></div><div class="upcoming-release" aria-label="RICOH GR III"><strong>GR III</strong><span class="upcoming-status">{{ t.gr3Status }}<small>{{ t.gr3Deadline }}</small></span></div></div>
     <div class="terms"><section><h3><span>!</span>{{ t.riskTitle }}</h3><p>{{ t.risk }}</p><p>{{ t.compatibility }}</p></section><section><h3>{{ t.communityTitle }}</h3><p>{{ t.community }}</p><p class="license-note">{{ t.license }}</p></section></div>
     <fieldset class="acknowledgements"><legend class="sr-only">{{ t.getSub }}</legend><label v-for="(label,i) in t.checks" :key="i" :class="{ checked: acks[i] }"><input v-model="acks[i]" type="checkbox" required :data-testid="`ack-${i}`"><span class="custom-check" aria-hidden="true">{{ acks[i] ? '✓' : '' }}</span><span>{{ label }}</span></label></fieldset>
     <div class="ack-progress"><span>{{ acknowledged }}/3 {{ t.acknowledged }}</span><span class="mini-bars"><i v-for="i in 3" :key="i" :class="{ done: acknowledged >= i }"></i></span></div>
@@ -124,24 +124,24 @@ onBeforeUnmount(() => { controller?.abort(); document.body.style.overflow = ''; 
     <section class="interaction-feature"><div class="interaction-copy"><span class="tiny-number">02—</span><h3>{{ t.adjTitle }}</h3><p>{{ t.adjDesc }}</p><h4>{{ t.listTitle }}</h4><p>{{ t.listDesc }}</p></div><div class="camera-demo"><div class="demo-title"><img :src="filmIcon(732)" alt="FILM"><span>FILM LIST</span><span class="demo-dot"></span></div><p class="demo-caption">{{ t.demo }}</p><div class="demo-grid"><button v-for="(film,i) in heroFilms" :key="film.name" :class="{ selected:selectedMock === i, off:!mockEnabled[i] }" :aria-label="film.name" :aria-pressed="mockEnabled[i]" @click="selectedMock = i; mockEnabled[i] = !mockEnabled[i]"><img :src="filmIcon(film.icon)" :alt="film.name"><span v-if="mockEnabled[i]" class="demo-check">✓</span></button></div><div class="demo-bottom"><span>{{ heroFilms[selectedMock].name }}</span><span>OK <b>↵</b></span></div></div></section>
     <div class="two-features"><section><span class="tiny-number">03—</span><h3>{{ t.grainTitle }}</h3><div class="grain-samples" aria-hidden="true"><div v-for="(level,i) in t.grainLevels" :key="i" :class="`grain-${i}`"><span>{{ level }}</span></div></div><p>{{ t.grainDesc }}</p></section><section><span class="tiny-number">04—</span><h3>{{ t.stampTitle }}</h3><div class="date-sample" aria-hidden="true"><span>26.10.17</span><span>14:36</span></div><p>{{ t.stampDesc }}</p></section></div>
     <section class="raw-feature"><span class="raw-symbol">RAW<span>+</span>JPG</span><div><h3>{{ t.rawTitle }}</h3><p>{{ t.rawDesc }}</p></div></section>
-    <section class="changelog"><div class="release-heading"><span class="eyebrow">03 / {{ t.changes }}</span><b>V1</b></div><p class="release-compat">{{ t.compatible }}</p><ul><li v-for="item in t.changesItems" :key="item">{{ item }}</li></ul><a class="text-link" :href="sourceArchiveURL" download>{{ t.source }} ↗</a></section>
+    <section class="changelog"><div class="release-heading"><span class="eyebrow">03 / {{ t.changes }}</span><b>{{ release.version }}</b></div><p class="release-compat">{{ t.compatible }}</p><ul><li v-for="item in t.changesItems" :key="item">{{ item }}</li></ul><a class="text-link" :href="sourceArchiveURL" download>{{ t.source }} ↗</a></section>
    </div>
   </main>
   <footer class="site-footer"><div class="footer-main"><a href="https://xergnik.com/">© 2026 XER_GNIK <span>↗</span></a><div><p>{{ t.location }}</p></div><div><a class="footer-email" href="mailto:hello@xergnik.com">hello@xergnik.com</a></div></div><div class="footer-bottom"><p>{{ t.footerNote }}</p><a class="project-source" href="https://github.com/RexKing624/XerFilm-GR-Website" target="_blank" rel="noopener noreferrer">{{ t.projectSource }} ↗</a><details><summary>{{ t.licenses }}</summary><p>{{ t.origin }}</p><div class="credit-links"><a :href="licenseURL" target="_blank" rel="noopener">GPL-2.0</a><a href="https://github.com/Maxwooow/Ricoh-GRMod" target="_blank" rel="noopener">Ricoh-GRMod</a><a href="https://github.com/DoYitNow/gr-custom-tool" target="_blank" rel="noopener">gr-custom-tool</a><a :href="sourceArchiveURL" download>{{ t.source }}</a></div></details><a href="#top" :aria-label="t.home">↑</a></div></footer>
 
   <dialog ref="dialog" class="drawer" :class="{ 'download-drawer':drawer === 'download' }" :aria-labelledby="'drawer-title'" @close="onDialogClose" @cancel.prevent="closeDrawer" @click="($event.target === dialog) && closeDrawer()">
    <div class="drawer-surface">
-    <div class="drawer-header"><div><span class="eyebrow">{{ drawer === 'films' ? 'FILM CATALOG / V1' : 'DOWNLOAD / V1' }}</span><h2 id="drawer-title">{{ drawer === 'films' ? t.library : t.downloadTitle }}</h2></div><button class="close-button" :aria-label="t.close" @click="closeDrawer">✕</button></div>
+    <div class="drawer-header"><div><span class="eyebrow">{{ `${drawer === 'films' ? 'FILM CATALOG' : 'DOWNLOAD'} / ${release.version}` }}</span><h2 id="drawer-title">{{ drawer === 'films' ? t.library : t.downloadTitle }}</h2></div><button class="close-button" :aria-label="t.close" @click="closeDrawer">✕</button></div>
     <template v-if="drawer === 'films'">
      <p class="drawer-intro">{{ t.libraryIntro }}</p><div class="catalog-toolbar"><div class="filters" role="group" :aria-label="t.library"><button v-for="brand in ['all','FUJIFILM','KODAK']" :key="brand" :class="{ active:filter === brand }" :aria-pressed="filter === brand" @click="filter = brand">{{ brand === 'all' ? t.all : brand }}</button></div><input v-model="search" type="search" :placeholder="t.search" :aria-label="t.search"></div><p class="catalog-count">{{ t.count }}</p>
      <div class="catalog-grid"><article v-for="film in filteredFilms" :key="film.name" class="catalog-film"><div class="catalog-family"><img :src="filmIcon(film.icon)" :alt="film.name"><div><span>{{ film.brand }}</span><h3>{{ film.name }}</h3></div></div><div v-if="film.variants.length" class="variants"><span>{{ t.variants }}</span><div class="variant" v-for="variant in film.variants" :key="variant.name"><img :src="filmIcon(variant.icon)" :alt="`${film.name} ${variant.name}`"><span>{{ variant.name }}</span></div></div></article></div><p v-if="!filteredFilms.length" class="empty">{{ t.noResult }}</p><div class="catalog-footer">{{ t.curated }}</div>
     </template>
     <template v-if="drawer === 'download'">
      <p class="drawer-intro">{{ t.downloadIntro }}</p>
-     <dl class="file-details"><div><dt>{{ t.camera }}</dt><dd>RICOH GR IV</dd></div><div><dt>{{ t.release }}</dt><dd>V1</dd></div><div><dt>{{ t.filename }}</dt><dd>fwdc248b.bin</dd></div><div><dt>{{ t.sizeLabel }}</dt><dd>{{ t.size }} · 43,791,220 bytes</dd></div></dl><p class="release-description">{{ t.releaseNote }}</p>
+     <dl class="file-details"><div><dt>{{ t.camera }}</dt><dd>RICOH GR IV</dd></div><div><dt>{{ t.release }}</dt><dd>{{ release.version }}</dd></div><div><dt>{{ t.filename }}</dt><dd>fwdc248b.bin</dd></div><div><dt>{{ t.sizeLabel }}</dt><dd>{{ t.size }} · {{ release.size.toLocaleString('en-US') }} bytes</dd></div></dl><p class="release-description">{{ t.releaseNote }}</p>
      <div class="checksum"><span>{{ t.checksum }}</span><code>{{ release.sha256 }}</code></div>
      <a v-if="!packagedRelease" class="primary actual-download" :href="downloadSite" target="_blank" rel="noopener noreferrer"><span>{{ t.visitDownloadSite }}</span><span aria-hidden="true">↗</span></a><button v-else class="primary actual-download" :disabled="busy || !verified" @click="downloadFirmware"><span>{{ busy ? t[downloadState] : t.downloadFile }}</span><span aria-hidden="true">↓</span></button><progress v-if="busy" :value="progress" max="1" :aria-label="t.downloading"></progress><div class="download-feedback" aria-live="polite"><span v-if="downloadState">{{ t[downloadState] }} {{ busy ? `${Math.round(progress*100)}%` : '' }}</span><button v-if="busy" class="text-link" @click="cancelDownload">{{ t.cancel }}</button></div>
-     <p class="download-hint">{{ packagedRelease ? t.downloadHint : t.externalDownload }}</p><div class="source-download"><a class="text-link" :href="sourceArchiveURL" download>{{ t.source }} ↗</a><p>{{ packagedRelease ? t.sourceDesc : t.externalSource }}</p><a :href="licenseURL" target="_blank" rel="noopener">GPL-2.0</a></div>
+     <p class="download-hint">{{ packagedRelease ? t.downloadHint : t.externalDownload }}</p>
     </template>
    </div>
   </dialog>
