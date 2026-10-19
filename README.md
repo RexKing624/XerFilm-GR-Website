@@ -4,7 +4,7 @@
 
 [网站源码](https://github.com/RexKing624/XerFilm-GR-Website) · [作者](https://xergnik.com/) · [联系](mailto:hello@xergnik.com)
 
-> 本项目包含 Vue 网站与 V1.1 发布资源，点击下载会在本页完成校验并保存原始 `.bin`，无需跳转或登录其他下载站点。固件对应源码及许可证随发布资源一同提供。
+> 本项目包含 Vue 网站与 V1.1 发布资源，点击下载会在本页完成校验并保存原始 `.bin`，无需跳转或登录其他下载站点。固件许可证保留在发布资源中。
 
 ## 功能
 
@@ -56,7 +56,7 @@ GitHub Pages 同时部署网站与 `public/downloads/` 中的 V1.1 发布文件�
 
 ## 许可证与来源
 
-网站代码以 GPL-2.0-only 发布，详见 [LICENSE](LICENSE)。相关来源、图标和品牌说明见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。固件对应源码随 `public/downloads/griv-v1.1-source.zip` 提供；第三方素材遵循各自授权。
+网站代码以 GPL-2.0-only 发布，详见 [LICENSE](LICENSE)。相关来源、图标和品牌说明见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。第三方素材遵循各自授权。
 
 ## 品牌素材
 

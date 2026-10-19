@@ -1,6 +1,5 @@
 export const copy = {
   "zh": {
-    "externalSource": "固件对应源码与许可随原下载站点的发布包提供；需要该站点访问权限。",
     "projectSource": "网站源码",
     "demo": "交互示意 · 不会修改相机",
     "lang": "语言",
@@ -86,8 +85,6 @@ export const copy = {
     "failed": "下载失败或校验不一致，请重试；不要使用不完整文件。",
     "cancel": "取消下载",
     "checksum": "完整文件 SHA-256",
-    "source": "源码与验证",
-    "sourceDesc": "GPL-2.0 源码与验证记录，不受手动确认流程限制。",
     "sizeLabel": "文件大小",
     "status": "版本状态",
     "camera": "适用相机",
@@ -106,7 +103,6 @@ export const copy = {
     "gr3Deadline": "（最晚10月19日晚上线）"
   },
   "en": {
-    "externalSource": "Corresponding firmware source and licenses are provided with the release on the original download site. Access permission is required.",
     "projectSource": "Website source",
     "demo": "INTERACTIVE DEMO · NO CAMERA CHANGES",
     "lang": "Language",
@@ -192,8 +188,6 @@ export const copy = {
     "failed": "Download failed or the checksum did not match. Retry; do not use an incomplete file.",
     "cancel": "Cancel download",
     "checksum": "FULL FILE SHA-256",
-    "source": "Source & verification",
-    "sourceDesc": "GPL-2.0 source and verification records are available without the typing gate.",
     "sizeLabel": "File size",
     "status": "Release status",
     "camera": "Camera",
@@ -212,7 +206,6 @@ export const copy = {
     "gr3Deadline": "(By the evening of October 19, JST)"
   },
   "ja": {
-    "externalSource": "対応するファームウェアのソースとライセンスは、元の配布サイトのリリースに同梱されています。アクセス権限が必要です。",
     "projectSource": "サイトのソース",
     "demo": "操作デモ・カメラは変更しません",
     "lang": "言語",
@@ -298,8 +291,6 @@ export const copy = {
     "failed": "取得失敗、またはチェックサムが一致しません。再試行し、不完全なファイルは使わないでください。",
     "cancel": "ダウンロードを中止",
     "checksum": "ファイル全体の SHA-256",
-    "source": "ソースと検証記録",
-    "sourceDesc": "GPL-2.0 のソースと検証記録は、手入力の確認なしで取得できます。",
     "sizeLabel": "ファイルサイズ",
     "status": "状態",
     "camera": "対応機種",
