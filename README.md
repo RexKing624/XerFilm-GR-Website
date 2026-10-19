@@ -61,3 +61,7 @@ GitHub Pages 同时部署网站与 `public/downloads/` 中的 V1.1 发布文件�
 ## 品牌素材
 
 新标志为两张错位胶片框与几何 F，提供深浅色 SVG、favicon 和 PNG。`public/brand/` 包含三语胶片列表拼贴项目图，保留原有胶片图标。可用 `python3 tools/design-brand.py` 重新生成矢量稿。
+
+## Enhanced installation test build
+
+The download drawer has a separate collapsed section for GR IV bodies that cannot install the standard build. After the failure acknowledgement, a temporary browser-local password check unlocks direct download of v23-H (installation version 1.12.10.7). This is a reading/test gate, not server-side authentication; static download assets remain addressable. Both builds are checked by `npm run check:release`. The enhanced build remains explicitly not hardware-tested. Firmware source ZIP downloads remain removed.

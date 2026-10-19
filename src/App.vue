@@ -4,6 +4,7 @@ import { copy } from './i18n';
 import films from './films.json';
 import release from './release.json';
 import { loadFirmware } from './download';
+import EnhancedDownload from './EnhancedDownload.vue';
 
 const readPreference = (name) => { try { return localStorage.getItem(name); } catch { return null; } };
 const savePreference = (name, value) => { try { localStorage.setItem(name, value); } catch {} };
@@ -26,6 +27,7 @@ const assetBase = import.meta.env.BASE_URL;
 const filmIcon = id => `${import.meta.env.BASE_URL}films/${id}.png`;
 const licenseURL = `${assetBase}licenses/GPL-2.0.txt`;
 const busy = ref(false);
+const enhancedBusy = ref(false);
 const progress = ref(0);
 const downloadState = ref('');
 let controller;
@@ -65,7 +67,7 @@ function onDialogClose() { cancelDownload(); drawer.value = ''; document.body.st
 function blockTransfer(event) { event.preventDefault(); inputHint.value = t.value.blocked; }
 function beforeInput(event) { if (['insertFromPaste', 'insertFromDrop', 'insertReplacementText'].includes(event.inputType)) blockTransfer(event); }
 async function downloadFirmware() {
-  if (!verified.value || busy.value) return;
+  if (!verified.value || busy.value || enhancedBusy.value) return;
   const attempt = ++downloadAttempt;
   const activeController = new AbortController(); controller = activeController; busy.value = true; progress.value = 0; downloadState.value = 'downloading';
   try {
@@ -136,8 +138,9 @@ onBeforeUnmount(() => { controller?.abort(); document.body.style.overflow = ''; 
      <p class="drawer-intro">{{ t.downloadIntro }}</p>
      <dl class="file-details"><div><dt>{{ t.camera }}</dt><dd>RICOH GR IV</dd></div><div><dt>{{ t.release }}</dt><dd>{{ release.version }}</dd></div><div><dt>{{ t.filename }}</dt><dd>fwdc248b.bin</dd></div><div><dt>{{ t.sizeLabel }}</dt><dd>{{ t.size }} · {{ release.size.toLocaleString('en-US') }} bytes</dd></div></dl><p class="release-description">{{ t.releaseNote }}</p>
      <div class="checksum"><span>{{ t.checksum }}</span><code>{{ release.sha256 }}</code></div>
-     <button class="primary actual-download" :disabled="busy || !verified" @click="downloadFirmware"><span>{{ busy ? t[downloadState] : t.downloadFile }}</span><span aria-hidden="true">↓</span></button><progress v-if="busy" :value="progress" max="1" :aria-label="t.downloading"></progress><div class="download-feedback" aria-live="polite"><span v-if="downloadState">{{ t[downloadState] }} {{ busy ? `${Math.round(progress*100)}%` : '' }}</span><button v-if="busy" class="text-link" @click="cancelDownload">{{ t.cancel }}</button></div>
+     <button class="primary actual-download" :disabled="busy || enhancedBusy || !verified" @click="downloadFirmware"><span>{{ busy ? t[downloadState] : t.downloadFile }}</span><span aria-hidden="true">↓</span></button><progress v-if="busy" :value="progress" max="1" :aria-label="t.downloading"></progress><div class="download-feedback" aria-live="polite"><span v-if="downloadState">{{ t[downloadState] }} {{ busy ? `${Math.round(progress*100)}%` : '' }}</span><button v-if="busy" class="text-link" @click="cancelDownload">{{ t.cancel }}</button></div>
      <p class="download-hint">{{ t.downloadHint }}</p>
+     <EnhancedDownload :t="t" :verified="verified" :base-busy="busy" @busy="enhancedBusy = $event" />
     </template>
    </div>
   </dialog>

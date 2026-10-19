@@ -20,3 +20,29 @@ body{min-width:1100px}
 .brand-logo{width:46px;height:46px;flex-shrink:0}.brand>span{font-size:21px;font-weight:550;letter-spacing:-.04em}.brand .brand-sub{font-size:8px;letter-spacing:.13em;margin-top:5px;font-weight:400}
 
 .release-mini .upcoming-release{border-top:1px solid var(--line);margin-top:15px;padding-top:15px;align-items:flex-start}.release-mini .upcoming-release strong{color:var(--muted)}.upcoming-status{max-width:70%;text-align:right;line-height:1.7}.upcoming-status small{display:block;font-size:9px;margin-top:3px;color:var(--muted)}
+
+/* Separate test build from the standard firmware download. */
+.enhanced-download{margin-top:64px;padding-top:32px;border-top:1px solid var(--line)}
+.enhanced-intro{font-size:12px;line-height:1.9;color:var(--muted);margin-bottom:20px}
+.enhanced-panel{border:1px solid var(--line);background:var(--panel)}
+.enhanced-panel>summary{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 16px;font-size:13px;line-height:1.6;cursor:pointer;list-style:none}
+.enhanced-panel>summary::-webkit-details-marker{display:none}
+.enhanced-chevron{font-size:23px;line-height:1;transition:transform .15s}
+.enhanced-panel[open] .enhanced-chevron{transform:rotate(45deg)}
+.enhanced-content{border-top:1px solid var(--line);padding:20px 16px}
+.enhanced-warning{display:block;padding:12px;border-left:3px solid #f17467;background:#e8564912;color:#c83c30;font-size:13px;font-weight:750;line-height:1.8}
+[data-theme=dark] .enhanced-warning{color:#ff9487;background:#ff75691a}
+.enhanced-test-note{font-size:11px;line-height:1.9;color:var(--muted);margin:16px 0 20px}
+.enhanced-ack{display:flex;align-items:flex-start;gap:10px;padding:13px;border:1px solid var(--line);position:relative;font-size:12px;line-height:1.8;cursor:pointer}
+.enhanced-ack.checked{border-color:var(--accent)}
+.enhanced-ack>input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;margin:0}
+.enhanced-ack:focus-within{outline:2px solid var(--accent);outline-offset:3px}
+.enhanced-password{display:grid;gap:12px;margin-top:22px}
+.enhanced-password>label{font-size:11px;color:var(--muted)}
+.enhanced-password>input{background:var(--bg);border:1px solid var(--line);color:var(--ink);padding:12px;font-size:13px;min-width:0;width:100%}
+.enhanced-password>input[aria-invalid=true]{border-color:#c83c30}
+.enhanced-error{font-size:11px;color:#c83c30;line-height:1.8}
+[data-theme=dark] .enhanced-error{color:#ff9487}
+.enhanced-unlock{justify-content:space-between;display:flex;width:100%;text-align:left}
+.enhanced-file{margin-top:22px}
+.enhanced-file-meta{font:10px/1.8 ui-monospace,monospace;color:var(--muted);margin-bottom:14px}

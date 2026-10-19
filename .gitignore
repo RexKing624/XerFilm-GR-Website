@@ -17,3 +17,8 @@ public/downloads/*
 !public/downloads/firmware-v23.part2
 !public/downloads/firmware-v23.part3
 !public/downloads/LICENSE.txt
+
+# Enhanced installation test build (explicitly approved for on-site download)
+!public/downloads/firmware-v23h.part1
+!public/downloads/firmware-v23h.part2
+!public/downloads/firmware-v23h.part3

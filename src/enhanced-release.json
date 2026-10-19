@@ -1,0 +1,28 @@
+{
+  "version": "V1.1 Enhanced Test",
+  "internalVersion": "v23-H",
+  "installationVersion": "1.12.10.7",
+  "baseVersion": "1.11",
+  "camera": "RICOH GR IV",
+  "filename": "fwdc248b.bin",
+  "size": 43883632,
+  "sha256": "e394f2b6e5119c88feb132d9d198fb3f653393f17fef5a9cb7e82aae318850fe",
+  "hardwareTested": false,
+  "parts": [
+    {
+      "file": "firmware-v23h.part1",
+      "size": 16777216,
+      "sha256": "417b74fb68beb2c692f6131e0baf15d6dd82e6fee0854813c0d9307729a4979e"
+    },
+    {
+      "file": "firmware-v23h.part2",
+      "size": 16777216,
+      "sha256": "ffa255eedd0e265416733df9dacfc859a1e10a980d103477f2660708ae9ccf8d"
+    },
+    {
+      "file": "firmware-v23h.part3",
+      "size": 10329200,
+      "sha256": "a517a4625c901e9ab602cd9da8624cbae0cdcd00611e2bce3ddbc586dd20d94a"
+    }
+  ]
+}
