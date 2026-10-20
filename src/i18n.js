@@ -3,7 +3,7 @@ export const copy = {
     "enhancedIntro": "部分新出厂或已安装理光官方 30 周年固件的 GR IV 机身存在固件安装限制。基础版无法安装时，再尝试下方增强型固件。",
     "enhancedTitle": "增强型固件 · 测试下载",
     "enhancedWarning": "只有在基础版固件安装失败时使用",
-    "enhancedTestNote": "仅供符合上述情况的 GR IV 实机测试。包含完整 V1.1 功能，增强版尚未完成实机验证。",
+    "enhancedTestNote": "适用于上述情况的 GR IV。包含完整 V1.1 功能，增强版已由使用者完成实机测试。",
     "enhancedAck": "基础版安装失败，申请下载增强型固件。",
     "enhancedDownloadFile": "下载增强型 .bin 固件",
     "projectSource": "网站源码",
@@ -147,10 +147,6 @@ export const copy = {
         ]
       }
     },
-    "enhancedPassword": "测试密码",
-    "enhancedPasswordPlaceholder": "输入测试密码",
-    "enhancedPasswordError": "密码不正确，请重新输入。",
-    "enhancedUnlock": "验证密码",
     "restoreWarning": "如果你目前正在使用其他非官方固件，请先刷回原版。",
     "originalFirmware": "原版固件",
     "originalFirmwareURL": "https://www.ricoh-imaging.com.cn/china/support/download/"
@@ -159,7 +155,7 @@ export const copy = {
     "enhancedIntro": "Some newly manufactured GR IV bodies, or bodies updated with Ricoh’s official 30th Anniversary firmware, have firmware installation restrictions. If the standard build cannot be installed, try the enhanced build below.",
     "enhancedTitle": "Enhanced firmware · test download",
     "enhancedWarning": "USE ONLY IF THE STANDARD FIRMWARE FAILS TO INSTALL",
-    "enhancedTestNote": "For testing on GR IV cameras meeting the conditions above. Includes all V1.1 features; the enhanced build has not yet been verified on a physical camera.",
+    "enhancedTestNote": "For GR IV cameras meeting the conditions above. Includes all V1.1 features; the enhanced build has been tested successfully on a physical camera by a user.",
     "enhancedAck": "The standard firmware failed to install. I request the enhanced build.",
     "enhancedDownloadFile": "Download enhanced .bin",
     "projectSource": "Website source",
@@ -303,10 +299,6 @@ export const copy = {
         ]
       }
     },
-    "enhancedPassword": "Test password",
-    "enhancedPasswordPlaceholder": "Enter the test password",
-    "enhancedPasswordError": "Incorrect password. Please try again.",
-    "enhancedUnlock": "Verify password",
     "restoreWarning": "If you are currently using other unofficial firmware, restore the original firmware first.",
     "originalFirmware": "Original firmware",
     "originalFirmwareURL": "https://www.ricoh-imaging.co.jp/english/support/download_digital.html"
@@ -315,7 +307,7 @@ export const copy = {
     "enhancedIntro": "新しく製造された GR IV、またはリコー公式の 30 周年ファームウェアを適用した機体には、導入制限がある場合があります。通常版をインストールできない場合に、下の拡張版をお試しください。",
     "enhancedTitle": "拡張版ファームウェア・テスト配布",
     "enhancedWarning": "通常版のインストールに失敗した場合のみ使用",
-    "enhancedTestNote": "上記に該当する GR IV での実機テスト用です。V1.1 の全機能を含みますが、拡張版の実機検証はまだ完了していません。",
+    "enhancedTestNote": "上記に該当する GR IV 向けです。V1.1 の全機能を含み、利用者による実機テストで正常動作を確認しました。",
     "enhancedAck": "通常版をインストールできなかったため、拡張版のダウンロードを希望します。",
     "enhancedDownloadFile": "拡張版 .bin をダウンロード",
     "projectSource": "サイトのソース",
@@ -459,10 +451,6 @@ export const copy = {
         ]
       }
     },
-    "enhancedPassword": "テスト用パスワード",
-    "enhancedPasswordPlaceholder": "テスト用パスワードを入力",
-    "enhancedPasswordError": "パスワードが違います。再入力してください。",
-    "enhancedUnlock": "パスワードを確認",
     "restoreWarning": "ほかの非公式ファームウェアを使用している場合は、先に純正ファームウェアに戻してください。",
     "originalFirmware": "純正ファームウェア",
     "originalFirmwareURL": "https://www.ricoh-imaging.co.jp/japan/dc/download/"

@@ -14,7 +14,7 @@ for (const manifest of ['release.json', 'gr3-release.json', 'gr3x-release.json',
   if (full.length !== (release.downloadSize ?? release.size) || hash(full) !== (release.transportSha256 ?? release.sha256)) throw new Error('Complete firmware failed SHA-256 validation');
   if (manifest === 'gr3x-release.json' && (!release.encryption || release.encryption.algorithm !== 'AES-GCM' || release.filename !== 'fwdc243b.bin')) throw new Error('IIIx requires encrypted test assets and the correct filename');
   if (manifest === 'gr3-release.json' && (release.encryption || release.filename !== 'fwdc239b.bin')) throw new Error('III must remain password-free with its own filename');
-  if (manifest === 'enhanced-release.json' && (release.hardwareTested !== false || release.installationVersion !== '1.12.10.7')) throw new Error('Enhanced release must remain explicitly untested');
+  if (manifest === 'enhanced-release.json' && (release.hardwareTested !== true || release.installationVersion !== '1.12.10.7')) throw new Error('Enhanced release must retain its camera-tested status and installation version');
   console.log(`${release.version}: release assets verified; original firmware bytes preserved.`);
 }
 for (const name of ['LICENSE.txt']) if (!(await stat(new URL(name, base))).size) throw new Error(`Missing release asset: ${name}`);

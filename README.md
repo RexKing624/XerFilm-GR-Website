@@ -66,7 +66,7 @@ GitHub Pages 同时部署网站与 `public/downloads/` 中的各机型发布文�
 
 ## Enhanced installation test build
 
-GR IV keeps a separate collapsed download section for bodies that cannot install the standard build, including newer/anniversary bodies with installation restrictions. The installation-failure acknowledgement reveals v23-H (installation version 1.12.10.7), after entering the temporary download password. This enhanced build is not hardware-tested. It is not offered for GR III or IIIx. Firmware source ZIP downloads remain removed.
+GR IV keeps a separate collapsed download section for bodies that cannot install the standard build, including newer/anniversary bodies with installation restrictions. The installation-failure acknowledgement reveals v23-H (installation version 1.12.10.7), without a password. A user has confirmed successful camera testing of this enhanced build. It is not offered for GR III or IIIx. Firmware source ZIP downloads remain removed.
 
 ## Model releases
 

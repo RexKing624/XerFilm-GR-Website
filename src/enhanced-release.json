@@ -7,7 +7,7 @@
   "filename": "fwdc248b.bin",
   "size": 43883632,
   "sha256": "e394f2b6e5119c88feb132d9d198fb3f653393f17fef5a9cb7e82aae318850fe",
-  "hardwareTested": false,
+  "hardwareTested": true,
   "parts": [
     {
       "file": "firmware-v23h.part1",
