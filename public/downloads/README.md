@@ -1,5 +1,7 @@
-# V1.1 same-site download assets
+# Same-site download assets
 
-These exact release files deploy with the website. The browser validates each part and the full SHA-256, then saves the original `fwdc248b.bin`. Never flash an individual part.
+The website deploys GR IV / HDF V1.1, GR III / HDF V1 and GR IIIx / HDF V1 test-release resources. Each model has its own manifest and output filename (fwdc248b.bin, fwdc239b.bin, fwdc243b.bin). Never flash an individual part.
 
-The GPL-2.0 license is retained here. Source archives are not deployed from this directory. Run `npm run check:release` before building or publishing. Other local versions remain ignored by Git.
+The browser checks every part and the complete file. IIIx parts are AES-GCM encrypted; its download password derives the decryption key. The browser verifies the decrypted BIN against its original SHA-256 before saving. GR IV, its enhanced installation build, and GR III have no password.
+
+The GPL-2.0 license is retained here. Source archives are not deployed from this directory. Run npm run check:release and npm run test:downloads before publishing. Other local versions remain ignored by Git.

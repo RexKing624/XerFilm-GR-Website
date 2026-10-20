@@ -1,0 +1,40 @@
+{
+  "version": "V1",
+  "internalVersion": "R12",
+  "baseVersion": "1.60",
+  "camera": "RICOH GR IIIx / HDF",
+  "filename": "fwdc243b.bin",
+  "size": 35398628,
+  "sha256": "dafab8e1244ea41a8039a122cd289e5a23c3bcb6bb92d339b7aa816edc962f07",
+  "hardwareTested": false,
+  "downloadSize": 35398644,
+  "transportSha256": "81ae72c02fabeaf2fb75d20137561197a1e8110876d0d32722cf42cc3527964c",
+  "encryption": {
+    "algorithm": "AES-GCM",
+    "kdf": "PBKDF2-SHA256",
+    "iterations": 210000,
+    "salt": "Sd4qXAy0xGQjxrNn/NG53Q==",
+    "iv": "UwHEEFTFqoz7K0/Y",
+    "check": {
+      "iv": "ziVWov0wL/i5zHAs",
+      "ciphertext": "HhxizCNYeb700hucBg5631hYHuR7JOk76IMmdL6GbuDjEEZZ0nrmQgJqST8BpyLgrSawMaY="
+    }
+  },
+  "parts": [
+    {
+      "file": "firmware-gr3x-r12.part1.enc",
+      "size": 16777216,
+      "sha256": "aa75072ca11ee056a1876ce42b5b2e720927004c631d4aad81b9e4e5dec09287"
+    },
+    {
+      "file": "firmware-gr3x-r12.part2.enc",
+      "size": 16777216,
+      "sha256": "0ab2f5e8d8e57fd478421fa5d92368908d99fcc3a002d48b451bdfca7fa3e8d6"
+    },
+    {
+      "file": "firmware-gr3x-r12.part3.enc",
+      "size": 1844212,
+      "sha256": "7023c532bc548d8e4bf6a71b5e1c06f0f888dacf555cf314546a7851713d441e"
+    }
+  ]
+}

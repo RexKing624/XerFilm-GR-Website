@@ -2,7 +2,7 @@ import { readFile, stat, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 const base = new URL('../public/downloads/', import.meta.url);
 const hash = b => createHash('sha256').update(b).digest('hex');
-for (const manifest of ['release.json', 'enhanced-release.json']) {
+for (const manifest of ['release.json', 'gr3-release.json', 'gr3x-release.json', 'enhanced-release.json']) {
   const release = JSON.parse(await readFile(new URL(`../src/${manifest}`, import.meta.url)));
   const parts = [];
   for (const part of release.parts) {
@@ -11,7 +11,9 @@ for (const manifest of ['release.json', 'enhanced-release.json']) {
     parts.push(bytes);
   }
   const full = Buffer.concat(parts);
-  if (full.length !== release.size || hash(full) !== release.sha256) throw new Error('Complete firmware failed SHA-256 validation');
+  if (full.length !== (release.downloadSize ?? release.size) || hash(full) !== (release.transportSha256 ?? release.sha256)) throw new Error('Complete firmware failed SHA-256 validation');
+  if (manifest === 'gr3x-release.json' && (!release.encryption || release.encryption.algorithm !== 'AES-GCM' || release.filename !== 'fwdc243b.bin')) throw new Error('IIIx requires encrypted test assets and the correct filename');
+  if (manifest === 'gr3-release.json' && (release.encryption || release.filename !== 'fwdc239b.bin')) throw new Error('III must remain password-free with its own filename');
   if (manifest === 'enhanced-release.json' && (release.hardwareTested !== false || release.installationVersion !== '1.12.10.7')) throw new Error('Enhanced release must remain explicitly untested');
   console.log(`${release.version}: release assets verified; original firmware bytes preserved.`);
 }

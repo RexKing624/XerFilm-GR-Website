@@ -1,0 +1,27 @@
+{
+  "version": "V1",
+  "internalVersion": "R12",
+  "baseVersion": "2.10",
+  "camera": "RICOH GR III / HDF",
+  "filename": "fwdc239b.bin",
+  "size": 35398620,
+  "sha256": "681ff39f658e650948ea0c36b78529db42082f5568d284372e878652a3371b24",
+  "hardwareTested": true,
+  "parts": [
+    {
+      "file": "firmware-gr3-r12.part1",
+      "size": 16777216,
+      "sha256": "02ee0d97360fc480f34be730724cf3bbd1859ae356f75c6b994475ff2d99b245"
+    },
+    {
+      "file": "firmware-gr3-r12.part2",
+      "size": 16777216,
+      "sha256": "d234cbb6f9d947d3b3d524fe33464d9e40d7559dc5b456b6e02b98661389a698"
+    },
+    {
+      "file": "firmware-gr3-r12.part3",
+      "size": 1844188,
+      "sha256": "b6d359d0b180d97a6d932b225757eb24a2258215e4a9ae75b41e5f7c434fd861"
+    }
+  ]
+}

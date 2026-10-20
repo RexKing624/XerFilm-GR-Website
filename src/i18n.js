@@ -1,14 +1,10 @@
 export const copy = {
   "zh": {
-    "enhancedIntro": "如果是新出厂的机器，或曾刷入理光官方 30 周年版本，且上方基础版固件无法安装，请使用下方增强型固件。",
+    "enhancedIntro": "部分新出厂或已安装理光官方 30 周年固件的 GR IV 机身存在固件安装限制。基础版无法安装时，再尝试下方增强型固件。",
     "enhancedTitle": "增强型固件 · 测试下载",
     "enhancedWarning": "只有在基础版固件安装失败时使用",
     "enhancedTestNote": "仅供符合上述情况的 GR IV 实机测试。包含完整 V1.1 功能，增强版尚未完成实机验证。",
     "enhancedAck": "基础版安装失败，申请下载增强型固件。",
-    "enhancedPassword": "测试密码",
-    "enhancedPasswordPlaceholder": "输入测试密码",
-    "enhancedPasswordError": "密码不正确，请重新输入。",
-    "enhancedUnlock": "验证密码",
     "enhancedDownloadFile": "下载增强型 .bin 固件",
     "projectSource": "网站源码",
     "demo": "交互示意 · 不会修改相机",
@@ -99,7 +95,7 @@ export const copy = {
     "status": "版本状态",
     "camera": "适用相机",
     "filename": "文件名",
-    "downloadHint": "下载会校验完整文件，然后以 fwdc248b.bin 保存。保留原文件名；本页不会执行刷机。",
+    "downloadHint": "下载会校验完整文件，然后以 {filename} 保存。保留原文件名；本页不会执行刷机。",
     "manualOnly": "手动确认仅用于阅读提醒，不是加密或防破解措施。",
     "location": "Tokyo · Japan",
     "footerNote": "个人实验项目，与 RICOH、FUJIFILM、Kodak 无官方关联。品牌名称仅用于说明模拟风格。",
@@ -109,19 +105,55 @@ export const copy = {
     "noResult": "没有匹配的胶片。",
     "search": "搜索胶片名称",
     "built": "为 GR IV 而作。",
-    "gr3Status": "验证中，敬请期待",
-    "gr3Deadline": "（最晚10月19日晚上线）"
+    "chooseCamera": "选择相机型号",
+    "downloadPassword": "GR IIIx / HDF 下载密码",
+    "downloadPasswordHelp": "此版本暂需密码。验证后即可下载。",
+    "downloadPasswordPlaceholder": "输入下载密码",
+    "downloadPasswordError": "密码不正确，请重新输入。",
+    "checkingPassword": "正在验证密码",
+    "unlockDownload": "解锁下载",
+    "modelReleases": {
+      "gr4": {
+        "compatible": "RICOH GR IV / HDF · 原厂基础版本 1.11",
+        "note": "V1.1：修正 INFO 胶片图标错位；子菜单按 OK 即确认并返回母菜单，无需二次确认。已完成 GR IV 实机验证。",
+        "changesTitle": "V1.1 更新",
+        "changes": [
+          "修正回放 INFO 胶片图标错后一张的问题，按本次拍摄记录型号。",
+          "子菜单按 OK 即应用所选子型号并返回母菜单，无需再次确认。",
+          "保留 17 个胶片家族、27 种效果、胶片列表与 ADJ 同步。",
+          "ISO 自适应颗粒、六种日期模式，仅作用于 JPG 成片。"
+        ]
+      },
+      "gr3": {
+        "compatible": "RICOH GR III / HDF · 原厂基础版本 2.10",
+        "note": "V1 首发：胶片列表、ADJ 家族及子菜单、实时胶片图标、Std 隔离、ISO 颗粒和时间戳。已完成 GR III 实机验证。",
+        "changesTitle": "V1 首发",
+        "changes": [
+          "独立胶片模拟；启用时使用中性 Std，关闭后恢复原生影像控制。",
+          "胶片列表同步 ADJ，子菜单 OK 同时确认家族与子项。",
+          "拍摄顶部显示当前胶片图标，保留原生自定义图标。",
+          "ISO 自适应颗粒与日期时间仅用于 JPG。"
+        ]
+      },
+      "gr3x": {
+        "compatible": "RICOH GR IIIx / HDF · 原厂基础版本 1.60",
+        "note": "V1 测试发布：与 GR III 同样的完整胶片功能。此版暂需下载密码，等待 IIIx 实机测试反馈。",
+        "changesTitle": "V1 测试发布",
+        "changes": [
+          "包含胶片列表、ADJ 家族和子菜单的完整功能。",
+          "子菜单 OK 同时确认家族及子项，拍摄顶部展示具体胶片图标。",
+          "胶片启用时使用中性 Std，保留原生自定义图标。",
+          "ISO 颗粒与日期时间仅用于 JPG；下载暂需密码。"
+        ]
+      }
+    }
   },
   "en": {
-    "enhancedIntro": "If your GR IV is newly manufactured or has used Ricoh’s official 30th Anniversary firmware, and the standard firmware above cannot be installed, use the enhanced build below.",
+    "enhancedIntro": "Some newly manufactured GR IV bodies, or bodies updated with Ricoh’s official 30th Anniversary firmware, have firmware installation restrictions. If the standard build cannot be installed, try the enhanced build below.",
     "enhancedTitle": "Enhanced firmware · test download",
     "enhancedWarning": "USE ONLY IF THE STANDARD FIRMWARE FAILS TO INSTALL",
     "enhancedTestNote": "For testing on GR IV cameras meeting the conditions above. Includes all V1.1 features; the enhanced build has not yet been verified on a physical camera.",
     "enhancedAck": "The standard firmware failed to install. I request the enhanced build.",
-    "enhancedPassword": "Test password",
-    "enhancedPasswordPlaceholder": "Enter the test password",
-    "enhancedPasswordError": "Incorrect password. Please try again.",
-    "enhancedUnlock": "Verify password",
     "enhancedDownloadFile": "Download enhanced .bin",
     "projectSource": "Website source",
     "demo": "INTERACTIVE DEMO · NO CAMERA CHANGES",
@@ -212,7 +244,7 @@ export const copy = {
     "status": "Release status",
     "camera": "Camera",
     "filename": "File name",
-    "downloadHint": "The complete file is checked, then saved as fwdc248b.bin. Keep this name. This page does not flash the camera.",
+    "downloadHint": "The complete file is verified, then saved as {filename}. Keep this name. This page does not flash the camera.",
     "manualOnly": "Manual confirmation is a reading reminder, not encryption or copy protection.",
     "location": "Tokyo · Japan",
     "footerNote": "An independent experiment. Not affiliated with RICOH, FUJIFILM, or Kodak. Brand names identify simulated styles.",
@@ -222,19 +254,55 @@ export const copy = {
     "noResult": "No matching films.",
     "search": "Search film names",
     "built": "Made for GR IV.",
-    "gr3Status": "Validation in progress · coming soon",
-    "gr3Deadline": "(By the evening of October 19, JST)"
+    "chooseCamera": "Choose your camera model",
+    "downloadPassword": "GR IIIx / HDF download password",
+    "downloadPasswordHelp": "This release currently requires a password. Verify it to download.",
+    "downloadPasswordPlaceholder": "Enter the download password",
+    "downloadPasswordError": "Incorrect password. Please try again.",
+    "checkingPassword": "Checking password",
+    "unlockDownload": "Unlock download",
+    "modelReleases": {
+      "gr4": {
+        "compatible": "RICOH GR IV / HDF · based on official firmware 1.11",
+        "note": "V1.1 fixes the one-photo delay in INFO film icons. Submenu OK now applies the selected variant and returns to the parent menu, with no second confirmation. Tested on a GR IV.",
+        "changesTitle": "V1.1 UPDATE",
+        "changes": [
+          "Fixed INFO showing the previous photo’s film icon; each shot now records its own film identity.",
+          "Submenu OK applies the variant and returns to the parent menu without a second confirmation.",
+          "Keeps 17 film families, 27 looks, and Film List / ADJ synchronization.",
+          "ISO-aware grain and six date modes, applied to JPG only."
+        ]
+      },
+      "gr3": {
+        "compatible": "RICOH GR III / HDF · based on official firmware 2.10",
+        "note": "V1 debut: Film List, ADJ families and submenus, live film icons, Std isolation, ISO-aware grain, and date stamps. Tested on a GR III.",
+        "changesTitle": "V1 DEBUT",
+        "changes": [
+          "Independent film simulation: neutral Std while enabled, native Image Control restored when off.",
+          "Film List syncs with ADJ; submenu OK confirms both family and variant.",
+          "Current film icon on the shooting display; native custom icons preserved.",
+          "ISO-aware grain and date/time stamps apply to JPG only."
+        ]
+      },
+      "gr3x": {
+        "compatible": "RICOH GR IIIx / HDF · based on official firmware 1.60",
+        "note": "V1 test release with the same full film features as GR III. A download password is currently required; IIIx camera feedback is pending.",
+        "changesTitle": "V1 TEST RELEASE",
+        "changes": [
+          "Full Film List, ADJ families, and submenu features.",
+          "Submenu OK confirms family and variant; the shooting display shows the current film icon.",
+          "Neutral Std during film use, with native custom icons preserved.",
+          "ISO grain and date/time stamps apply to JPG only; password currently required."
+        ]
+      }
+    }
   },
   "ja": {
-    "enhancedIntro": "新しく製造された GR IV、またはリコー公式の 30 周年版を適用した機体で、上の通常版ファームウェアをインストールできない場合は、下の拡張版をご利用ください。",
+    "enhancedIntro": "新しく製造された GR IV、またはリコー公式の 30 周年ファームウェアを適用した機体には、導入制限がある場合があります。通常版をインストールできない場合に、下の拡張版をお試しください。",
     "enhancedTitle": "拡張版ファームウェア・テスト配布",
     "enhancedWarning": "通常版のインストールに失敗した場合のみ使用",
     "enhancedTestNote": "上記に該当する GR IV での実機テスト用です。V1.1 の全機能を含みますが、拡張版の実機検証はまだ完了していません。",
     "enhancedAck": "通常版をインストールできなかったため、拡張版のダウンロードを希望します。",
-    "enhancedPassword": "テスト用パスワード",
-    "enhancedPasswordPlaceholder": "テスト用パスワードを入力",
-    "enhancedPasswordError": "パスワードが違います。再入力してください。",
-    "enhancedUnlock": "パスワードを確認",
     "enhancedDownloadFile": "拡張版 .bin をダウンロード",
     "projectSource": "サイトのソース",
     "demo": "操作デモ・カメラは変更しません",
@@ -325,7 +393,7 @@ export const copy = {
     "status": "状態",
     "camera": "対応機種",
     "filename": "ファイル名",
-    "downloadHint": "ファイル全体を検証し、fwdc248b.bin として保存します。名前を変更しないでください。このページはカメラへの書き込みを行いません。",
+    "downloadHint": "ファイル全体を検証し、{filename} として保存します。名前を変更しないでください。このページはカメラへの書き込みを行いません。",
     "manualOnly": "手入力は説明の確認用であり、暗号化やコピー保護ではありません。",
     "location": "Tokyo · Japan",
     "footerNote": "個人の実験プロジェクトです。RICOH・FUJIFILM・Kodak との公式な関係はありません。ブランド名はシミュレーションの説明用です。",
@@ -335,7 +403,47 @@ export const copy = {
     "noResult": "該当するフィルムがありません。",
     "search": "フィルム名を検索",
     "built": "GR IV のために。",
-    "gr3Status": "検証中・公開をお待ちください",
-    "gr3Deadline": "（10月19日夜までに公開予定）"
+    "chooseCamera": "カメラの機種を選択",
+    "downloadPassword": "GR IIIx / HDF ダウンロード用パスワード",
+    "downloadPasswordHelp": "このバージョンは現在、パスワードが必要です。確認後にダウンロードできます。",
+    "downloadPasswordPlaceholder": "ダウンロード用パスワードを入力",
+    "downloadPasswordError": "パスワードが違います。再入力してください。",
+    "checkingPassword": "パスワードを確認中",
+    "unlockDownload": "ダウンロードを解除",
+    "modelReleases": {
+      "gr4": {
+        "compatible": "RICOH GR IV / HDF・純正 1.11 ベース",
+        "note": "V1.1：INFO に前の写真のフィルムアイコンが表示される問題を修正。子メニューの OK で設定を適用して親メニューに戻り、再確認は不要です。GR IV 実機で動作確認済み。",
+        "changesTitle": "V1.1 更新内容",
+        "changes": [
+          "INFO に前の写真のアイコンが表示される問題を修正。撮影ごとにフィルム情報を記録。",
+          "子メニューの OK で選択を適用して親メニューに戻ります。再確認は不要です。",
+          "17 ファミリー、27 種類の効果、フィルム一覧と ADJ の同期を継続。",
+          "ISO 連動の粒状感と 6 種類の日付モードは JPG のみに適用。"
+        ]
+      },
+      "gr3": {
+        "compatible": "RICOH GR III / HDF・純正 2.10 ベース",
+        "note": "V1 初公開：フィルム一覧、ADJ のファミリーと子メニュー、撮影中のアイコン、Std 分離、ISO 連動粒状感、日付印字。GR III 実機で動作確認済み。",
+        "changesTitle": "V1 初公開",
+        "changes": [
+          "独立したフィルム機能。有効時は中立の Std、無効時は純正の画像仕上に戻ります。",
+          "フィルム一覧と ADJ が同期。子メニューの OK でファミリーと子モデルを確定。",
+          "撮影画面に選択中のフィルムアイコンを表示。純正カスタムアイコンは維持。",
+          "ISO 連動粒状感と日付・時刻は JPG のみに適用。"
+        ]
+      },
+      "gr3x": {
+        "compatible": "RICOH GR IIIx / HDF・純正 1.60 ベース",
+        "note": "V1 テスト公開。GR III と同じフィルム機能を搭載。現在はダウンロードにパスワードが必要で、IIIx 実機での確認を待っています。",
+        "changesTitle": "V1 テスト公開",
+        "changes": [
+          "フィルム一覧、ADJ のファミリーと子メニューの全機能を搭載。",
+          "子メニューの OK でファミリーと子モデルを確定。撮影画面に選択中のアイコンを表示。",
+          "フィルム有効時は中立の Std を使い、純正カスタムアイコンは維持。",
+          "ISO 連動粒状感と日付・時刻は JPG のみ。現在はダウンロードにパスワードが必要。"
+        ]
+      }
+    }
   }
 };

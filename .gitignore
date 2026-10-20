@@ -22,3 +22,11 @@ public/downloads/*
 !public/downloads/firmware-v23h.part1
 !public/downloads/firmware-v23h.part2
 !public/downloads/firmware-v23h.part3
+
+# GR III first release and encrypted GR IIIx test release.
+!public/downloads/firmware-gr3-r12.part1
+!public/downloads/firmware-gr3-r12.part2
+!public/downloads/firmware-gr3-r12.part3
+!public/downloads/firmware-gr3x-r12.part1.enc
+!public/downloads/firmware-gr3x-r12.part2.enc
+!public/downloads/firmware-gr3x-r12.part3.enc
