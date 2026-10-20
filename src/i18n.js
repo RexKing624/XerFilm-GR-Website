@@ -146,7 +146,14 @@ export const copy = {
           "ISO 颗粒与日期时间仅用于 JPG；下载暂需密码。"
         ]
       }
-    }
+    },
+    "enhancedPassword": "测试密码",
+    "enhancedPasswordPlaceholder": "输入测试密码",
+    "enhancedPasswordError": "密码不正确，请重新输入。",
+    "enhancedUnlock": "验证密码",
+    "restoreWarning": "如果你目前正在使用其他非官方固件，请先刷回原版。",
+    "originalFirmware": "原版固件",
+    "originalFirmwareURL": "https://www.ricoh-imaging.com.cn/china/support/download/"
   },
   "en": {
     "enhancedIntro": "Some newly manufactured GR IV bodies, or bodies updated with Ricoh’s official 30th Anniversary firmware, have firmware installation restrictions. If the standard build cannot be installed, try the enhanced build below.",
@@ -295,7 +302,14 @@ export const copy = {
           "ISO grain and date/time stamps apply to JPG only; password currently required."
         ]
       }
-    }
+    },
+    "enhancedPassword": "Test password",
+    "enhancedPasswordPlaceholder": "Enter the test password",
+    "enhancedPasswordError": "Incorrect password. Please try again.",
+    "enhancedUnlock": "Verify password",
+    "restoreWarning": "If you are currently using other unofficial firmware, restore the original firmware first.",
+    "originalFirmware": "Original firmware",
+    "originalFirmwareURL": "https://www.ricoh-imaging.co.jp/english/support/download_digital.html"
   },
   "ja": {
     "enhancedIntro": "新しく製造された GR IV、またはリコー公式の 30 周年ファームウェアを適用した機体には、導入制限がある場合があります。通常版をインストールできない場合に、下の拡張版をお試しください。",
@@ -444,6 +458,13 @@ export const copy = {
           "ISO 連動粒状感と日付・時刻は JPG のみ。現在はダウンロードにパスワードが必要。"
         ]
       }
-    }
+    },
+    "enhancedPassword": "テスト用パスワード",
+    "enhancedPasswordPlaceholder": "テスト用パスワードを入力",
+    "enhancedPasswordError": "パスワードが違います。再入力してください。",
+    "enhancedUnlock": "パスワードを確認",
+    "restoreWarning": "ほかの非公式ファームウェアを使用している場合は、先に純正ファームウェアに戻してください。",
+    "originalFirmware": "純正ファームウェア",
+    "originalFirmwareURL": "https://www.ricoh-imaging.co.jp/japan/dc/download/"
   }
 };
