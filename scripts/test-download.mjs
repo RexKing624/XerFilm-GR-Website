@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { loadFirmware, unlockFirmware } from '../src/download.js';
+import { loadFirmware } from '../src/download.js';
 import { copy } from '../src/i18n.js';
 
 const root = new URL('../', import.meta.url);
@@ -15,13 +15,9 @@ globalThis.fetch = async (url, { signal } = {}) => {
   return new Response(await readFile(file));
 };
 try {
-  const encrypted = releases[2];
-  await assert.rejects(unlockFirmware(encrypted, 'wrong-password'));
-  await assert.rejects(loadFirmware(encrypted), /Password required/);
-  assert.equal(requests, 0, 'locked IIIx must not start downloading');
-  const key = await unlockFirmware(encrypted, '2222');
   for (const release of releases) {
-    const blob = await loadFirmware(release, { decryptionKey: release.encryption ? key : undefined });
+    assert.equal(release.encryption, undefined, `${release.camera} must download without a password`);
+    const blob = await loadFirmware(release);
     const bytes = new Uint8Array(await blob.arrayBuffer());
     assert.equal(bytes.length, release.size);
     assert.equal(createHash('sha256').update(bytes).digest('hex'), release.sha256);
@@ -48,5 +44,5 @@ try {
     assert.equal(text.checks.length, 3);
     assert.equal(text.gr3Deadline, undefined, 'expired placeholder removed');
   }
-  console.log('Password rejection, exact BIN identity, cancellation, corruption and all three languages passed.');
+  console.log('Password-free downloads, exact BIN identity, cancellation, corruption and all three languages passed.');
 } finally { globalThis.fetch = realFetch; }

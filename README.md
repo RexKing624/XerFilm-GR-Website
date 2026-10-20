@@ -11,7 +11,7 @@
 - 桌面左右 1:2 布局，中文 / English / 日本語，明暗主题。
 - 当前版本与功能介绍，17 个胶片家族 / 27 种效果的目录抽屉。
 - 三款机型单选卡片 → 三项必选确认 → 手动输入 → 独立下载抽屉。
-- 仅 GR IIIx / HDF 需要下载密码；其下载资源以 AES-GCM 加密，解密后再校验原始固件。
+- 三款机型及 GR IV 增强版均免密码，保留阅读确认及增强版安装失败确认。
 - 分段下载、单段与完整文件 SHA-256 校验。
 - 固件风险说明、从作者网站获取的提示及独立的网站源码页脚链接。
 
@@ -41,7 +41,7 @@ GitHub Pages 同时部署网站与 `public/downloads/` 中的各机型发布文�
 
 - 安装：`npm ci`
 - 发布校验：`npm run check:release`
-- 下载、密码、完整性及三语回归：`npm run test:downloads`
+- 免密码下载、完整性及三语回归：`npm run test:downloads`
 - 构建：`npm run build`
 - 输出：`dist`
 
@@ -72,4 +72,4 @@ GR IV keeps a separate collapsed download section for bodies that cannot install
 
 - GR IV / HDF: V1.1, v23, base firmware 1.11.
 - GR III / HDF: V1, R12, base firmware 2.10; user camera-tested.
-- GR IIIx / HDF: V1 test release, R12, base firmware 1.60; pending camera feedback. Its password gate is separate from the common reading reminders. A short shared password is not an anti-reverse-engineering guarantee.
+- GR IIIx / HDF: V1, R12, base firmware 1.60; user camera-tested. Downloads are password-free, with the common reading reminders preserved.

@@ -6,35 +6,22 @@
   "filename": "fwdc243b.bin",
   "size": 35398628,
   "sha256": "dafab8e1244ea41a8039a122cd289e5a23c3bcb6bb92d339b7aa816edc962f07",
-  "hardwareTested": false,
-  "downloadSize": 35398644,
-  "transportSha256": "81ae72c02fabeaf2fb75d20137561197a1e8110876d0d32722cf42cc3527964c",
-  "encryption": {
-    "algorithm": "AES-GCM",
-    "kdf": "PBKDF2-SHA256",
-    "iterations": 210000,
-    "salt": "Sd4qXAy0xGQjxrNn/NG53Q==",
-    "iv": "UwHEEFTFqoz7K0/Y",
-    "check": {
-      "iv": "ziVWov0wL/i5zHAs",
-      "ciphertext": "HhxizCNYeb700hucBg5631hYHuR7JOk76IMmdL6GbuDjEEZZ0nrmQgJqST8BpyLgrSawMaY="
-    }
-  },
+  "hardwareTested": true,
   "parts": [
     {
-      "file": "firmware-gr3x-r12.part1.enc",
+      "file": "firmware-gr3x-r12.part1",
       "size": 16777216,
-      "sha256": "aa75072ca11ee056a1876ce42b5b2e720927004c631d4aad81b9e4e5dec09287"
+      "sha256": "7d0ee95736875acd00db5e9224c289d0c466ad9a72f94e5fa57fc0c35cc55e43"
     },
     {
-      "file": "firmware-gr3x-r12.part2.enc",
+      "file": "firmware-gr3x-r12.part2",
       "size": 16777216,
-      "sha256": "0ab2f5e8d8e57fd478421fa5d92368908d99fcc3a002d48b451bdfca7fa3e8d6"
+      "sha256": "f7478165cf1d6fbdcbf4645a1fc61c2635e01a89f50487af4396e18c388a1b82"
     },
     {
-      "file": "firmware-gr3x-r12.part3.enc",
-      "size": 1844212,
-      "sha256": "7023c532bc548d8e4bf6a71b5e1c06f0f888dacf555cf314546a7851713d441e"
+      "file": "firmware-gr3x-r12.part3",
+      "size": 1844196,
+      "sha256": "3da3b73a1b5bfa56cda7d3d906558be4b43044f83abd00a2fbb7badba2352373"
     }
   ]
 }

@@ -137,13 +137,13 @@ export const copy = {
       },
       "gr3x": {
         "compatible": "RICOH GR IIIx / HDF · 原厂基础版本 1.60",
-        "note": "V1 测试发布：与 GR III 同样的完整胶片功能。此版暂需下载密码，等待 IIIx 实机测试反馈。",
-        "changesTitle": "V1 测试发布",
+        "note": "V1 首发：与 GR III 同样的完整胶片功能。已由使用者完成 GR IIIx 实机测试，下载无需密码。",
+        "changesTitle": "V1 首发",
         "changes": [
           "包含胶片列表、ADJ 家族和子菜单的完整功能。",
           "子菜单 OK 同时确认家族及子项，拍摄顶部展示具体胶片图标。",
           "胶片启用时使用中性 Std，保留原生自定义图标。",
-          "ISO 颗粒与日期时间仅用于 JPG；下载暂需密码。"
+          "ISO 颗粒与日期时间仅用于 JPG。"
         ]
       }
     },
@@ -289,13 +289,13 @@ export const copy = {
       },
       "gr3x": {
         "compatible": "RICOH GR IIIx / HDF · based on official firmware 1.60",
-        "note": "V1 test release with the same full film features as GR III. A download password is currently required; IIIx camera feedback is pending.",
-        "changesTitle": "V1 TEST RELEASE",
+        "note": "V1 release with the same full film features as GR III. Successfully tested on a GR IIIx by a user; no download password is required.",
+        "changesTitle": "V1 RELEASE",
         "changes": [
           "Full Film List, ADJ families, and submenu features.",
           "Submenu OK confirms family and variant; the shooting display shows the current film icon.",
           "Neutral Std during film use, with native custom icons preserved.",
-          "ISO grain and date/time stamps apply to JPG only; password currently required."
+          "ISO grain and date/time stamps apply to JPG only."
         ]
       }
     },
@@ -441,13 +441,13 @@ export const copy = {
       },
       "gr3x": {
         "compatible": "RICOH GR IIIx / HDF・純正 1.60 ベース",
-        "note": "V1 テスト公開。GR III と同じフィルム機能を搭載。現在はダウンロードにパスワードが必要で、IIIx 実機での確認を待っています。",
-        "changesTitle": "V1 テスト公開",
+        "note": "V1 公開。GR III と同じフィルム機能を搭載。利用者による GR IIIx 実機テストで正常動作を確認し、ダウンロードのパスワードは不要になりました。",
+        "changesTitle": "V1 公開",
         "changes": [
           "フィルム一覧、ADJ のファミリーと子メニューの全機能を搭載。",
           "子メニューの OK でファミリーと子モデルを確定。撮影画面に選択中のアイコンを表示。",
           "フィルム有効時は中立の Std を使い、純正カスタムアイコンは維持。",
-          "ISO 連動粒状感と日付・時刻は JPG のみ。現在はダウンロードにパスワードが必要。"
+          "ISO 連動粒状感と日付・時刻は JPG のみに適用。"
         ]
       }
     },
