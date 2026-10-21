@@ -1,4 +1,6 @@
 import gr4 from './release.json';
+import availability from './download-availability.json';
+export const isModelAvailable = id => availability[id] === true;
 import gr3 from './gr3-release.json';
 import gr3x from './gr3x-release.json';
 import gr4Enhanced from './enhanced-release.json';

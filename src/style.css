@@ -73,3 +73,9 @@ body{min-width:1100px}
 .release-rollback{margin-top:18px;border-left:2px solid var(--warm);padding:10px 12px;background:var(--panel);font-size:11px;line-height:1.9;color:var(--muted)}
 
 .original-firmware-button{color:inherit;font:inherit;font-size:11px;font-weight:600;white-space:nowrap;text-decoration:underline;text-underline-offset:5px;cursor:pointer}.official-update-alert{margin:18px 0 24px;padding:15px 17px;border:1px solid var(--warm);border-left:4px solid var(--warm);background:var(--panel);font-size:11px;line-height:1.9}.official-update-alert strong{display:block;color:var(--warm);font-size:12px}.official-update-alert p{margin-top:7px;color:var(--muted)}.original-firmware-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:24px}.original-firmware-card{border:1px solid var(--line);background:var(--panel);padding:20px 16px;min-width:0}.original-firmware-card h3{font-size:16px;font-weight:500}.original-firmware-card>p{font-size:11px;line-height:1.8;color:var(--muted);margin:12px 0 7px}.original-firmware-card>code{display:block;font:10px ui-monospace,monospace;color:var(--muted)}.original-firmware-card>.outlined{margin-top:24px;font-size:11px;padding:11px 10px;width:100%;justify-content:space-between}.original-checksum{font-size:9px;margin-top:18px;color:var(--muted)}.original-checksum summary{cursor:pointer}.original-checksum code{display:block;font-size:9px;line-height:1.7;overflow-wrap:anywhere;margin-top:8px}
+
+.camera-choice.unavailable{opacity:.4;cursor:not-allowed;filter:grayscale(1);background:transparent;border-color:var(--line)}
+.camera-choice.unavailable:hover{border-color:var(--line)}
+.camera-choice.unavailable input{cursor:not-allowed}
+.download-suspension{font-size:11px;line-height:1.8;color:var(--warm);margin:-8px 0 24px}
+.original-firmware-card .outlined:disabled{opacity:.4;cursor:not-allowed;background:transparent}

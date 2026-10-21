@@ -169,7 +169,9 @@ export const copy = {
         "enhancedIntro": "用于官方活动更换关机画面后，仍显示 1.60、但无法安装普通版的 GR IIIx / HDF。请先尝试普通版，再考虑下方增强测试版。",
         "enhancedTestNote": "增强版已由使用者完成实机测试，无需下载密码。保留 V1.1 全部功能，安装版本提高至 1.61。这不是官方 1.70 的兼容版本；已升级至该版本的机身请勿尝试。"
       }
-    }
+    },
+    "downloadSuspended": "暂停下载",
+    "downloadSuspensionNotice": "GR III / IIIx（含 HDF）所有下载已临时下架，正在排查设置菜单问题。"
   },
   "en": {
     "enhancedIntro": "Some newly manufactured GR IV bodies, or bodies updated with Ricoh’s official 30th Anniversary firmware, have firmware installation restrictions. If the standard build cannot be installed, try the enhanced build below.",
@@ -341,7 +343,9 @@ export const copy = {
         "enhancedIntro": "For GR IIIx / HDF cameras that still show 1.60 after an official event shutdown-screen service but reject the standard build. Try the standard build first.",
         "enhancedTestNote": "The enhanced build has been tested successfully on a physical camera by a user. No download password is required. Includes all V1.1 features with installation version 1.61. This is not a compatible build for official 1.70; do not use it on cameras already running that version."
       }
-    }
+    },
+    "downloadSuspended": "Downloads paused",
+    "downloadSuspensionNotice": "All GR III / IIIx downloads, including HDF, are temporarily unavailable while a settings-menu issue is investigated."
   },
   "ja": {
     "enhancedIntro": "新しく製造された GR IV、またはリコー公式の 30 周年ファームウェアを適用した機体には、導入制限がある場合があります。通常版をインストールできない場合に、下の拡張版をお試しください。",
@@ -513,6 +517,8 @@ export const copy = {
         "enhancedIntro": "公式イベントで終了画面を変更した後も 1.60 と表示され、通常版を導入できない GR IIIx / HDF 向けです。まず通常版をお試しください。",
         "enhancedTestNote": "利用者による実機テストで正常動作を確認しました。ダウンロードパスワードは不要です。V1.1 の全機能を保持し、導入バージョンを 1.61 に引き上げています。純正 1.70 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。"
       }
-    }
+    },
+    "downloadSuspended": "ダウンロード停止中",
+    "downloadSuspensionNotice": "設定メニューの問題を調査するため、GR III / IIIx（HDF を含む）のすべてのダウンロードを一時停止しています。"
   }
 };
