@@ -7,6 +7,8 @@ import { copy } from '../src/i18n.js';
 const root = new URL('../', import.meta.url);
 const manifests = ['release.json', 'gr3-release.json', 'gr3x-release.json', 'enhanced-release.json'];
 const releases = await Promise.all(manifests.map(async name => JSON.parse(await readFile(new URL(`src/${name}`, root)))));
+const originals = JSON.parse(await readFile(new URL('src/original-releases.json', root)));
+releases.push(...originals);
 const realFetch = globalThis.fetch;
 let requests = 0;
 globalThis.fetch = async (url, { signal } = {}) => {
@@ -50,10 +52,15 @@ try {
       assert.ok(info.rollback && info.note.includes('V1.1'));
       assert.ok(info.changes.some(item => item.includes('Cinema')));
     }
+    assert.ok(text.originalTitle && text.originalIntro && text.officialUpdateTitle && text.officialUpdateNotice && text.originalDownload && text.originalBackupOnly);
+    assert.equal(text.originalFirmwareURL, undefined, 'official download redirect removed');
     assert.ok(text.downloadPassword && text.downloadPasswordError && text.unlockDownload);
     assert.ok(text.downloadHint.includes('{filename}'));
     assert.equal(text.checks.length, 3);
     assert.equal(text.gr3Deadline, undefined, 'expired placeholder removed');
   }
+  assert.deepEqual(originals.map(r => [r.id, r.version, r.filename]), [['gr3','2.10','fwdc239b.bin'], ['gr3x','1.60','fwdc243b.bin'], ['gr4','1.11','fwdc248b.bin']]);
+  const app = await readFile(new URL('src/App.vue', root), 'utf8');
+  assert.ok(app.includes("openDrawer('original')") && !app.includes('t.originalFirmwareURL'));
   console.log('Password-free downloads, exact BIN identity, cancellation, corruption and all three languages passed.');
 } finally { globalThis.fetch = realFetch; }

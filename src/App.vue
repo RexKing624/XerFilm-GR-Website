@@ -3,6 +3,7 @@ import { computed, nextTick, onBeforeUnmount, ref, shallowRef, watch } from 'vue
 import { copy } from './i18n';
 import films from './films.json';
 import release from './release.json';
+import originalReleases from './original-releases.json';
 import { loadFirmware, unlockFirmware } from './download';
 import { cameras, fileSize } from './releases';
 import EnhancedDownload from './EnhancedDownload.vue';
@@ -40,6 +41,7 @@ const busy = ref(false);
 const enhancedBusy = ref(false);
 const progress = ref(0);
 const downloadState = ref('');
+const stockDownloadId = ref('');
 let controller;
 let downloadAttempt = 0;
 let lastFocus;
@@ -65,14 +67,14 @@ async function openDrawer(kind) {
   if (kind === 'download' && !verified.value) return;
   lastFocus = document.activeElement;
   drawer.value = kind;
-  downloadState.value = ''; progress.value = 0;
+  downloadState.value = ''; stockDownloadId.value = ''; progress.value = 0;
   await nextTick();
   if (!dialog.value.open) dialog.value.showModal();
   document.body.style.overflow = 'hidden';
   dialog.value.querySelector('button')?.focus();
 }
 function resetPassword() { unlockAttempt++; password.value = ''; passwordError.value = false; unlocking.value = false; decryptionKey.value = null; }
-function cancelDownload() { controller?.abort(); downloadAttempt++; busy.value = false; downloadState.value = ''; }
+function cancelDownload() { controller?.abort(); downloadAttempt++; busy.value = false; downloadState.value = ''; stockDownloadId.value = ''; }
 function closeDrawer() {
   cancelDownload(); resetPassword();
   dialog.value?.close(); drawer.value = '';
@@ -96,6 +98,19 @@ async function downloadFirmware() {
     document.body.append(anchor); anchor.click(); anchor.remove();
     setTimeout(() => URL.revokeObjectURL(url), 60000);
     downloadState.value = 'saved';
+  } catch (error) { if (attempt === downloadAttempt && error.name !== 'AbortError') downloadState.value = 'failed'; }
+  finally { if (attempt === downloadAttempt) busy.value = false; }
+}
+async function downloadOriginal(target) {
+  if (drawer.value !== 'original' || busy.value || enhancedBusy.value) return;
+  const attempt = ++downloadAttempt;
+  const activeController = new AbortController(); controller = activeController;
+  busy.value = true; stockDownloadId.value = target.id; progress.value = 0; downloadState.value = 'downloading';
+  try {
+    const blob = await loadFirmware(target, { signal: activeController.signal, onProgress: value => { if (attempt !== downloadAttempt) return; progress.value = value; if (value === 1) downloadState.value = 'checking'; } });
+    if (attempt !== downloadAttempt || drawer.value !== 'original') return;
+    const url = URL.createObjectURL(blob); const anchor = document.createElement('a'); anchor.href = url; anchor.download = target.filename;
+    document.body.append(anchor); anchor.click(); anchor.remove(); setTimeout(() => URL.revokeObjectURL(url), 60000); downloadState.value = 'saved';
   } catch (error) { if (attempt === downloadAttempt && error.name !== 'AbortError') downloadState.value = 'failed'; }
   finally { if (attempt === downloadAttempt) busy.value = false; }
 }
@@ -132,7 +147,8 @@ onBeforeUnmount(() => { controller?.abort(); document.body.style.overflow = ''; 
    <aside id="download" class="download-panel" :aria-label="t.download">
     <div class="panel-top"><span class="eyebrow">01 / {{ t.download }}</span><span class="version-pill">{{ selectedRelease.version }}</span></div>
     <h2>{{ t.get }}</h2><p class="subtle">{{ t.getSub }}</p>
-    <div class="restore-warning"><strong>{{ t.restoreWarning }}</strong><a :href="t.originalFirmwareURL" target="_blank" rel="noopener noreferrer">{{ t.originalFirmware }} <span aria-hidden="true">↗</span></a></div>
+    <div class="restore-warning"><strong>{{ t.restoreWarning }}</strong><button type="button" class="original-firmware-button" @click="openDrawer('original')">{{ t.originalFirmware }} <span aria-hidden="true">↗</span></button></div>
+    <div class="official-update-alert" role="note"><strong>{{ t.officialUpdateTitle }}</strong><p>{{ t.officialUpdateNotice }}</p></div>
     <fieldset class="camera-choices"><legend class="sr-only">{{ t.chooseCamera }}</legend><label v-for="camera in cameras" :key="camera.id" class="camera-choice" :class="{ checked: selectedModel === camera.id }"><input v-model="selectedModel" type="radio" name="camera-model" :value="camera.id" :data-testid="`camera-${camera.id}`"><strong>{{ camera.label }}</strong><small>{{ camera.release.version }} {{ fileSize(camera.release) }} · .bin</small></label></fieldset>
     <div class="terms"><section><h3><span>!</span>{{ t.riskTitle }}</h3><p>{{ t.risk }}</p><p>{{ t.compatibility }}</p></section><section><h3>{{ t.communityTitle }}</h3><p>{{ t.community }}</p><p class="license-note">{{ t.license }}</p></section></div>
     <fieldset class="acknowledgements"><legend class="sr-only">{{ t.getSub }}</legend><label v-for="(label,i) in t.checks" :key="i" :class="{ checked: acks[i] }"><input v-model="acks[i]" type="checkbox" required :data-testid="`ack-${i}`"><span class="custom-check" aria-hidden="true">{{ acks[i] ? '✓' : '' }}</span><span>{{ label }}</span></label></fieldset>
@@ -160,10 +176,20 @@ onBeforeUnmount(() => { controller?.abort(); document.body.style.overflow = ''; 
 
   <dialog ref="dialog" class="drawer" :class="{ 'download-drawer':drawer === 'download' }" :aria-labelledby="'drawer-title'" @close="onDialogClose" @cancel.prevent="closeDrawer" @click="($event.target === dialog) && closeDrawer()">
    <div class="drawer-surface">
-    <div class="drawer-header"><div><span class="eyebrow">{{ `${drawer === 'films' ? 'FILM CATALOG' : 'DOWNLOAD'} / ${selectedRelease.version}` }}</span><h2 id="drawer-title">{{ drawer === 'films' ? t.library : selectedCamera.label }}</h2></div><button class="close-button" :aria-label="t.close" @click="closeDrawer">✕</button></div>
+    <div class="drawer-header"><div><span class="eyebrow">{{ `${drawer === 'original' ? 'ORIGINAL FIRMWARE' : drawer === 'films' ? 'FILM CATALOG' : 'DOWNLOAD'} / ${drawer === 'original' ? 'BACKUPS' : selectedRelease.version}` }}</span><h2 id="drawer-title">{{ drawer === 'original' ? t.originalTitle : drawer === 'films' ? t.library : selectedCamera.label }}</h2></div><button class="close-button" :aria-label="t.close" @click="closeDrawer">✕</button></div>
     <template v-if="drawer === 'films'">
      <p class="drawer-intro">{{ t.libraryIntro }}</p><div class="catalog-toolbar"><div class="filters" role="group" :aria-label="t.library"><button v-for="brand in ['all','FUJIFILM','KODAK']" :key="brand" :class="{ active:filter === brand }" :aria-pressed="filter === brand" @click="filter = brand">{{ brand === 'all' ? t.all : brand }}</button></div><input v-model="search" type="search" :placeholder="t.search" :aria-label="t.search"></div><p class="catalog-count">{{ t.count }}</p>
      <div class="catalog-grid"><article v-for="film in filteredFilms" :key="film.name" class="catalog-film"><div class="catalog-family"><img :src="filmIcon(film.icon)" :alt="film.name"><div><span>{{ film.brand }}</span><h3>{{ film.name }}</h3></div></div><div v-if="film.variants.length" class="variants"><span>{{ t.variants }}</span><div class="variant" v-for="variant in film.variants" :key="variant.name"><img :src="filmIcon(variant.icon)" :alt="`${film.name} ${variant.name}`"><span>{{ variant.name }}</span></div></div></article></div><p v-if="!filteredFilms.length" class="empty">{{ t.noResult }}</p><div class="catalog-footer">{{ t.curated }}</div>
+    </template>
+    <template v-if="drawer === 'original'">
+     <p class="drawer-intro">{{ t.originalIntro }}</p>
+     <div class="official-update-alert" role="note"><strong>{{ t.officialUpdateTitle }}</strong><p>{{ t.officialUpdateNotice }}</p></div>
+     <div class="original-firmware-grid"><article v-for="stock in originalReleases" :key="stock.id" class="original-firmware-card">
+      <h3>{{ stock.label }}</h3><p>{{ t.originalVersion }} {{ stock.version }} · {{ fileSize(stock) }}</p><code>{{ stock.filename }}</code>
+      <button class="outlined" type="button" :disabled="busy || enhancedBusy" @click="downloadOriginal(stock)">{{ busy && stockDownloadId === stock.id ? t[downloadState] : t.originalDownload }} <span aria-hidden="true">↓</span></button>
+      <template v-if="stockDownloadId === stock.id"><progress v-if="busy" :value="progress" max="1" :aria-label="t.downloading"></progress><div class="download-feedback" aria-live="polite"><span>{{ t[downloadState] }} {{ busy ? `${Math.round(progress*100)}%` : '' }}</span><button v-if="busy" class="text-link" @click="cancelDownload">{{ t.cancel }}</button></div></template>
+      <details class="original-checksum"><summary>{{ t.checksum }}</summary><code>{{ stock.sha256 }}</code></details>
+     </article></div><p class="download-hint">{{ t.originalBackupOnly }}</p>
     </template>
     <template v-if="drawer === 'download'">
      <p class="drawer-intro">{{ t.downloadIntro }}</p>

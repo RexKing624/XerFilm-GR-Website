@@ -1,0 +1,73 @@
+[
+  {
+    "id": "gr3",
+    "label": "GR III / HDF",
+    "camera": "RICOH GR III / HDF",
+    "version": "2.10",
+    "filename": "fwdc239b.bin",
+    "size": 30391780,
+    "sha256": "d6a3c9c288d784080e7b283222ecdd8752adfeed6faa36dab44f73115354bfd4",
+    "originalFirmware": true,
+    "parts": [
+      {
+        "file": "stock-gr3-210.part1",
+        "size": 16777216,
+        "sha256": "88f55724e99eabf7a5e7042811da4f849e86be5d0cc4141c9c82535565096a56"
+      },
+      {
+        "file": "stock-gr3-210.part2",
+        "size": 13614564,
+        "sha256": "528bda8e0c34ed77cf28a06c9e8d3a4b39a2bbc7a7109da8fa210bdea162fe4c"
+      }
+    ]
+  },
+  {
+    "id": "gr3x",
+    "label": "GR IIIx / HDF",
+    "camera": "RICOH GR IIIx / HDF",
+    "version": "1.60",
+    "filename": "fwdc243b.bin",
+    "size": 30391788,
+    "sha256": "708e79f3b7b96a7e1581b4acf4c412233050a1832718ef7f06c8397db1b431c7",
+    "originalFirmware": true,
+    "parts": [
+      {
+        "file": "stock-gr3x-160.part1",
+        "size": 16777216,
+        "sha256": "d49744cfe74d0f1de0f7e6e7ba948dc3758a328a8ee54ca222ee717cb931f05e"
+      },
+      {
+        "file": "stock-gr3x-160.part2",
+        "size": 13614572,
+        "sha256": "2db563d490a41fb9113e2a943e46b77e7aa501a9087d299a31c059027f3a373b"
+      }
+    ]
+  },
+  {
+    "id": "gr4",
+    "label": "GR IV / HDF",
+    "camera": "RICOH GR IV / HDF",
+    "version": "1.11",
+    "filename": "fwdc248b.bin",
+    "size": 38648776,
+    "sha256": "a2f664dfca034059eb0fd6e18ab08684c326b4a034d85c164dad7e1ec9b5655f",
+    "originalFirmware": true,
+    "parts": [
+      {
+        "file": "stock-gr4-111.part1",
+        "size": 16777216,
+        "sha256": "7ab1628592b25dc776483cc0f26377203d7fe047cbb0e07c18f46398703aa9e9"
+      },
+      {
+        "file": "stock-gr4-111.part2",
+        "size": 16777216,
+        "sha256": "e0bb99ba72eba1152cb321920c43c035c0631b8a248602144c4f16545504c7f1"
+      },
+      {
+        "file": "stock-gr4-111.part3",
+        "size": 5094344,
+        "sha256": "abb6b0ae8e2c498b7d4cac40eb78aa2180a2b588abaf9321fa519aea9b8130ba"
+      }
+    ]
+  }
+]

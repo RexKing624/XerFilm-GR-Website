@@ -38,3 +38,12 @@ public/downloads/*
 !public/downloads/firmware-gr3x-r13.part1
 !public/downloads/firmware-gr3x-r13.part2
 !public/downloads/firmware-gr3x-r13.part3
+
+# Pinned original firmware backups, explicitly approved for same-site download.
+!public/downloads/stock-gr3-210.part1
+!public/downloads/stock-gr3-210.part2
+!public/downloads/stock-gr3x-160.part1
+!public/downloads/stock-gr3x-160.part2
+!public/downloads/stock-gr4-111.part1
+!public/downloads/stock-gr4-111.part2
+!public/downloads/stock-gr4-111.part3

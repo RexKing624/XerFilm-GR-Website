@@ -8,4 +8,6 @@ for (const manifest of ['release.json','gr3-release.json','gr3x-release.json','e
     throw new Error(`Missing download files for ${manifest}. Restore the release assets before building.`);
   }
 }
+const originals = JSON.parse(readFileSync(resolve('src/original-releases.json'), 'utf8'));
+for (const release of originals) if (!release.parts.every(part => existsSync(resolve('public/downloads', part.file)))) throw new Error('Missing original firmware backup: '+release.camera);
 export default defineConfig({ plugins: [vue()], base: './' });

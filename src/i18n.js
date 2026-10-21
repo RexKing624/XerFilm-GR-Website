@@ -152,8 +152,14 @@ export const copy = {
       }
     },
     "restoreWarning": "如果你目前正在使用其他非官方固件，请先刷回原版。",
-    "originalFirmware": "原版固件",
-    "originalFirmwareURL": "https://www.ricoh-imaging.com.cn/china/support/download/"
+    "originalFirmware": "原版固件备份",
+    "originalTitle": "原版固件备份",
+    "originalIntro": "以下为我们保存的旧版原厂固件，不含 XerFilm 修改。请核对机型和版本；提供备份不代表已升级的相机能够降级。",
+    "officialUpdateTitle": "如需使用本项目，请暂勿更新官方固件。",
+    "officialUpdateNotice": "理光已发布新版官方固件，可能影响第三方固件安装。本项目当前适配 GR III 2.10、GR IIIx 1.60、GR IV 1.11。若已更新，请勿强行降级或刷入本项目，等待后续兼容版本通知；目前暂无发布时间。",
+    "originalDownload": "下载原版 .bin",
+    "originalVersion": "原厂版本",
+    "originalBackupOnly": "仅下载文件，不会连接或刷写相机。每个文件均按备份的完整 SHA-256 校验，保持原始文件名。"
   },
   "en": {
     "enhancedIntro": "Some newly manufactured GR IV bodies, or bodies updated with Ricoh’s official 30th Anniversary firmware, have firmware installation restrictions. If the standard build cannot be installed, try the enhanced build below.",
@@ -308,8 +314,14 @@ export const copy = {
       }
     },
     "restoreWarning": "If you are currently using other unofficial firmware, restore the original firmware first.",
-    "originalFirmware": "Original firmware",
-    "originalFirmwareURL": "https://www.ricoh-imaging.co.jp/english/support/download_digital.html"
+    "originalFirmware": "Original firmware backups",
+    "originalTitle": "Original firmware backups",
+    "originalIntro": "These are archived original firmware files, without XerFilm modifications. Check the model and version. Providing these backups does not mean an updated camera can be downgraded.",
+    "officialUpdateTitle": "To keep using this project, please do not update the official firmware for now.",
+    "officialUpdateNotice": "Ricoh has released newer official firmware that may affect third-party firmware installation. This project currently targets GR III 2.10, GR IIIx 1.60 and GR IV 1.11. If you have already updated, do not force a downgrade or install this project. Wait for a future compatibility announcement; no release date is available yet.",
+    "originalDownload": "Download original .bin",
+    "originalVersion": "Original version",
+    "originalBackupOnly": "Downloads files only; it does not connect to or flash your camera. Each file is checked against its archived full SHA-256 and saved with its original filename."
   },
   "ja": {
     "enhancedIntro": "新しく製造された GR IV、またはリコー公式の 30 周年ファームウェアを適用した機体には、導入制限がある場合があります。通常版をインストールできない場合に、下の拡張版をお試しください。",
@@ -464,7 +476,13 @@ export const copy = {
       }
     },
     "restoreWarning": "ほかの非公式ファームウェアを使用している場合は、先に純正ファームウェアに戻してください。",
-    "originalFirmware": "純正ファームウェア",
-    "originalFirmwareURL": "https://www.ricoh-imaging.co.jp/japan/dc/download/"
+    "originalFirmware": "純正ファームウェアのバックアップ",
+    "originalTitle": "純正ファームウェアのバックアップ",
+    "originalIntro": "保存済みの旧バージョンの純正ファームウェアです。XerFilm の変更は含みません。機種とバージョンを確認してください。ファイルの提供は、更新済みのカメラをダウングレードできることを意味しません。",
+    "officialUpdateTitle": "本プロジェクトを引き続き使う場合は、当面、純正ファームウェアを更新しないでください。",
+    "officialUpdateNotice": "リコーから新しい純正ファームウェアが公開され、非公式ファームウェアの導入に影響する可能性があります。本プロジェクトの対象は GR III 2.10、GR IIIx 1.60、GR IV 1.11 です。更新済みの場合、無理なダウングレードや本プロジェクトの導入は行わず、今後の対応のお知らせをお待ちください。公開時期は未定です。",
+    "originalDownload": "純正 .bin をダウンロード",
+    "originalVersion": "純正バージョン",
+    "originalBackupOnly": "ファイルのダウンロードのみで、カメラへの接続や書き込みは行いません。保存済みファイルの SHA-256 と照合し、元のファイル名で保存します。"
   }
 };

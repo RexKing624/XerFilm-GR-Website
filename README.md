@@ -75,3 +75,7 @@ GR IV keeps a separate collapsed download section for bodies that cannot install
 - GR IIIx / HDF: V1.1, R13, base firmware 1.60; local ARM and model-parity checks passed, new R13 features await IIIx hardware testing. Downloads remain password-free.
 
 R13 Cinema is separate from the independent Film List and ADJ. Enabling film simulation still forces neutral Standard. The two Cinema effects have fixed parameters and are not claimed as a calibrated GR IV color match. Before reverting, switch film off, select native Std and restart to confirm it is saved; older firmware does not recognize Cinema tone IDs. These details are localized in Chinese, English and Japanese.
+
+## Archived original firmware (2026-10-21)
+
+The former external official-download link now opens an on-site modal. It offers pinned, unmodified GR III/HDF 2.10, GR IIIx/HDF 1.60 and GR IV/HDF 1.11 archives. Each browser download uses the existing per-part and full SHA-256 checks and retains the manufacturer's BIN filename. These files do not imply that already-updated cameras can be downgraded. A Chinese/English/Japanese compatibility notice asks users of this project to avoid updating official firmware for now and to wait for a future compatibility announcement if already updated. No future release date is promised. Ricoh's GR IV 1.20 release notes explicitly prohibit reverting to earlier firmware.

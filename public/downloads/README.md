@@ -7,3 +7,5 @@ The browser checks every part and the complete file. All three model releases ar
 The GPL-2.0 license is retained here. Source archives are not deployed from this directory. Run npm run check:release and npm run test:downloads before publishing. Other local versions remain ignored by Git.
 
 GR III and IIIx use R13 native Cinema integration. GR III R13 was camera-tested by the user; IIIx R13 is locally verified but awaits separate hardware testing. GR IV v23 and its enhanced build remain unchanged.
+
+Pinned original backups are also served here: GR III/HDF 2.10, GR IIIx/HDF 1.60 and GR IV/HDF 1.11. stock-*.part* are storage chunks and cannot be flashed individually. Use the website's original-firmware modal to obtain the checked BIN. These remain manufacturer files, without XerFilm modifications.
