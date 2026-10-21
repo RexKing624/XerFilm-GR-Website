@@ -32,12 +32,6 @@ public/downloads/*
 !public/downloads/firmware-gr3x-r12.part3
 
 # V1.1 native Cinema updates explicitly approved for website distribution.
-!public/downloads/firmware-gr3-r13.part1
-!public/downloads/firmware-gr3-r13.part2
-!public/downloads/firmware-gr3-r13.part3
-!public/downloads/firmware-gr3x-r13.part1
-!public/downloads/firmware-gr3x-r13.part2
-!public/downloads/firmware-gr3x-r13.part3
 
 # Pinned original firmware backups, explicitly approved for same-site download.
 !public/downloads/stock-gr3-210.part1
@@ -48,9 +42,15 @@ public/downloads/*
 !public/downloads/stock-gr4-111.part2
 !public/downloads/stock-gr4-111.part3
 
-!public/downloads/firmware-gr3-r13h.part1
-!public/downloads/firmware-gr3-r13h.part2
-!public/downloads/firmware-gr3-r13h.part3
-!public/downloads/firmware-gr3x-r13h.part1
-!public/downloads/firmware-gr3x-r13h.part2
-!public/downloads/firmware-gr3x-r13h.part3
+!public/downloads/firmware-gr3-r14.part1
+!public/downloads/firmware-gr3-r14.part2
+!public/downloads/firmware-gr3-r14.part3
+!public/downloads/firmware-gr3x-r14.part1
+!public/downloads/firmware-gr3x-r14.part2
+!public/downloads/firmware-gr3x-r14.part3
+!public/downloads/firmware-gr3-r14h.part1
+!public/downloads/firmware-gr3-r14h.part2
+!public/downloads/firmware-gr3-r14h.part3
+!public/downloads/firmware-gr3x-r14h.part1
+!public/downloads/firmware-gr3x-r14h.part2
+!public/downloads/firmware-gr3x-r14h.part3

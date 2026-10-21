@@ -12,16 +12,18 @@ for (const manifest of ['release.json', 'gr3-release.json', 'gr3x-release.json',
   }
   const full = Buffer.concat(parts);
   if (full.length !== (release.downloadSize ?? release.size) || hash(full) !== (release.transportSha256 ?? release.sha256)) throw new Error('Complete firmware failed SHA-256 validation');
-  if (manifest === 'gr3x-release.json' && (release.encryption || release.hardwareTested !== false || release.version !== 'V1.1' || release.internalVersion !== 'R13' || release.filename !== 'fwdc243b.bin')) throw new Error('IIIx R13 must accurately retain pending camera status, V1.1 identity and password-free model-specific download');
+  if (manifest === 'gr3x-release.json' && (release.encryption || release.hardwareTested !== true || release.version !== 'V1.1' || release.internalVersion !== 'R14' || release.filename !== 'fwdc243b.bin')) throw new Error('IIIx R14 must retain its camera-tested status, V1.1 identity and password-free model-specific download');
   if (manifest === 'gr3-release.json' && (release.encryption || release.filename !== 'fwdc239b.bin')) throw new Error('III must remain password-free with its own filename');
   if (manifest === 'enhanced-release.json' && (release.hardwareTested !== true || release.installationVersion !== '1.12.10.7')) throw new Error('Enhanced release must retain its camera-tested status and installation version');
   if (manifest === 'gr3-enhanced-release.json' || manifest === 'gr3x-enhanced-release.json') {
     const gr3 = manifest === 'gr3-enhanced-release.json';
     const expected = gr3
-      ? ['2.11.21.27', '2.10', 'fwdc239b.bin', '5044d8f1a9bab32ac93c6a5e0e7a1c90d25b9760aa9cee27d33d66a1cc7f868b']
-      : ['1.61.11.17', '1.60', 'fwdc243b.bin', '2cfd3e0214e17e785ca0a5d5158869be4b409a1a32756fc2193f433f81a14dda'];
-    if (release.encryption || release.hardwareTested !== true || release.internalVersion !== 'R13-H' || JSON.stringify([release.installationVersion, release.baseVersion, release.filename, release.sha256]) !== JSON.stringify(expected)) throw new Error('Enhanced package must be camera-tested and password-free with unchanged firmware identity');
+      ? ['2.11.21.27', '2.10', 'fwdc239b.bin', '9ae280c3e5a3eb5230c1480ecb2d949baeac1c7791e8b9ec173020cb191f4e53']
+      : ['1.61.11.17', '1.60', 'fwdc243b.bin', '0f4d1610471c7a1be66a09508fc15029f89360451960ff5300400a8223fc5cb9'];
+    if (release.encryption || release.hardwareTested !== true || release.internalVersion !== 'R14-H' || JSON.stringify([release.installationVersion, release.baseVersion, release.filename, release.sha256]) !== JSON.stringify(expected)) throw new Error('Enhanced package must be camera-tested and password-free with unchanged firmware identity');
   }
+  const ordinaryPins = { 'gr3-release.json': '67d62f0f9a66ce71743cf9cecb7faaa1c02930f2edaa2bda69bf0b5f77ccf6cd', 'gr3x-release.json': '00770c1b1d9d9b7098c7833df89a8dd293f47629ea58b3576ae5ecd8e511b974' };
+  if (ordinaryPins[manifest] && (release.sha256 !== ordinaryPins[manifest] || release.internalVersion !== 'R14' || release.hardwareTested !== true || release.version !== 'V1.1')) throw new Error('Ordinary download must be the tested menu fix, still public V1.1');
   console.log(`${release.version}: release assets verified; original firmware bytes preserved.`);
 }
 for (const name of ['LICENSE.txt']) if (!(await stat(new URL(name, base))).size) throw new Error(`Missing release asset: ${name}`);
