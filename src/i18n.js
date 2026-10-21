@@ -163,13 +163,11 @@ export const copy = {
     "enhancedModels": {
       "gr3": {
         "enhancedIntro": "用于官方活动更换关机画面后，仍显示 2.10、但无法安装普通版的 GR III / HDF。请先尝试普通版，再考虑下方增强测试版。",
-        "enhancedTestNote": "未经实机验证，暂设密码供测试。保留 V1.1 全部功能，安装版本提高至 2.11。这不是官方 2.20 的兼容版本；已升级至该版本的机身请勿尝试。",
-        "enhancedPassword": "增强测试版下载密码"
+        "enhancedTestNote": "增强版已由使用者完成实机测试，无需下载密码。保留 V1.1 全部功能，安装版本提高至 2.11。这不是官方 2.20 的兼容版本；已升级至该版本的机身请勿尝试。"
       },
       "gr3x": {
         "enhancedIntro": "用于官方活动更换关机画面后，仍显示 1.60、但无法安装普通版的 GR IIIx / HDF。请先尝试普通版，再考虑下方增强测试版。",
-        "enhancedTestNote": "未经实机验证，暂设密码供测试。保留 V1.1 全部功能，安装版本提高至 1.61。这不是官方 1.70 的兼容版本；已升级至该版本的机身请勿尝试。",
-        "enhancedPassword": "增强测试版下载密码"
+        "enhancedTestNote": "增强版已由使用者完成实机测试，无需下载密码。保留 V1.1 全部功能，安装版本提高至 1.61。这不是官方 1.70 的兼容版本；已升级至该版本的机身请勿尝试。"
       }
     }
   },
@@ -337,13 +335,11 @@ export const copy = {
     "enhancedModels": {
       "gr3": {
         "enhancedIntro": "For GR III / HDF cameras that still show 2.10 after an official event shutdown-screen service but reject the standard build. Try the standard build first.",
-        "enhancedTestNote": "Not yet tested on a physical camera. Password-protected for testing. Includes all V1.1 features with installation version 2.11. This is not a compatible build for official 2.20; do not use it on cameras already running that version.",
-        "enhancedPassword": "Enhanced test build password"
+        "enhancedTestNote": "The enhanced build has been tested successfully on a physical camera by a user. No download password is required. Includes all V1.1 features with installation version 2.11. This is not a compatible build for official 2.20; do not use it on cameras already running that version."
       },
       "gr3x": {
         "enhancedIntro": "For GR IIIx / HDF cameras that still show 1.60 after an official event shutdown-screen service but reject the standard build. Try the standard build first.",
-        "enhancedTestNote": "Not yet tested on a physical camera. Password-protected for testing. Includes all V1.1 features with installation version 1.61. This is not a compatible build for official 1.70; do not use it on cameras already running that version.",
-        "enhancedPassword": "Enhanced test build password"
+        "enhancedTestNote": "The enhanced build has been tested successfully on a physical camera by a user. No download password is required. Includes all V1.1 features with installation version 1.61. This is not a compatible build for official 1.70; do not use it on cameras already running that version."
       }
     }
   },
@@ -511,13 +507,11 @@ export const copy = {
     "enhancedModels": {
       "gr3": {
         "enhancedIntro": "公式イベントで終了画面を変更した後も 2.10 と表示され、通常版を導入できない GR III / HDF 向けです。まず通常版をお試しください。",
-        "enhancedTestNote": "実機未検証のため、テスト用パスワードを設定しています。V1.1 の全機能を保持し、導入バージョンを 2.11 に引き上げています。純正 2.20 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。",
-        "enhancedPassword": "拡張テスト版のダウンロードパスワード"
+        "enhancedTestNote": "利用者による実機テストで正常動作を確認しました。ダウンロードパスワードは不要です。V1.1 の全機能を保持し、導入バージョンを 2.11 に引き上げています。純正 2.20 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。"
       },
       "gr3x": {
         "enhancedIntro": "公式イベントで終了画面を変更した後も 1.60 と表示され、通常版を導入できない GR IIIx / HDF 向けです。まず通常版をお試しください。",
-        "enhancedTestNote": "実機未検証のため、テスト用パスワードを設定しています。V1.1 の全機能を保持し、導入バージョンを 1.61 に引き上げています。純正 1.70 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。",
-        "enhancedPassword": "拡張テスト版のダウンロードパスワード"
+        "enhancedTestNote": "利用者による実機テストで正常動作を確認しました。ダウンロードパスワードは不要です。V1.1 の全機能を保持し、導入バージョンを 1.61 に引き上げています。純正 1.70 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。"
       }
     }
   }

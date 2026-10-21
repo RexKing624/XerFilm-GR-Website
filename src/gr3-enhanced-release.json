@@ -7,33 +7,22 @@
   "filename": "fwdc239b.bin",
   "size": 35566368,
   "sha256": "5044d8f1a9bab32ac93c6a5e0e7a1c90d25b9760aa9cee27d33d66a1cc7f868b",
-  "hardwareTested": false,
-  "downloadSize": 35566384,
-  "transportSha256": "e40da25a5e9526408fd5e6b8e8db3b52fc565e1986038db317085aabc1bbc6d2",
-  "encryption": {
-    "salt": "5auB4iS4Oh5DRPiNM5Rt7Q==",
-    "iterations": 210000,
-    "iv": "69qoiDq41GKHgm5f",
-    "check": {
-      "iv": "Cx7nwYVAK0SXfpcW",
-      "ciphertext": "VpIe7TAXsmj+UC9D/MDCAZ2lwIVlzNEAdJPgxk7YmUPl8Wn/39qnewqlRl4yC80cUdx6QDkq8D2VUMaOJ60="
-    }
-  },
+  "hardwareTested": true,
   "parts": [
     {
-      "file": "firmware-gr3-r13h.enc.part1",
+      "file": "firmware-gr3-r13h.part1",
       "size": 16777216,
-      "sha256": "94f1663f8790bee841e6dcc60ba474df589d31c42c03f19e2d98318d0c6caa59"
+      "sha256": "79713b041bb5009c7da7399c48ee80e61fa2cbbf1e5e566d979feb18c54f1cab"
     },
     {
-      "file": "firmware-gr3-r13h.enc.part2",
+      "file": "firmware-gr3-r13h.part2",
       "size": 16777216,
-      "sha256": "ec57a857e04f4df4c7dc2387bd366d64bc8edff807bce00683d6e2761926eb59"
+      "sha256": "b400d3a63e8f4cd2f60a0434cf3ad7d6256ae20607bdbad6eba318e4ba2f633e"
     },
     {
-      "file": "firmware-gr3-r13h.enc.part3",
-      "size": 2011952,
-      "sha256": "72723fc2a768ed510126471c7993760257dd3141c045b36c1c030b0975e0e4d7"
+      "file": "firmware-gr3-r13h.part3",
+      "size": 2011936,
+      "sha256": "ff0aca00d389c218fcf238131420f85417e402de77c47c43377a14755c80f453"
     }
   ]
 }

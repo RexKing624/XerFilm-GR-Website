@@ -20,7 +20,7 @@ for (const manifest of ['release.json', 'gr3-release.json', 'gr3x-release.json',
     const expected = gr3
       ? ['2.11.21.27', '2.10', 'fwdc239b.bin', '5044d8f1a9bab32ac93c6a5e0e7a1c90d25b9760aa9cee27d33d66a1cc7f868b']
       : ['1.61.11.17', '1.60', 'fwdc243b.bin', '2cfd3e0214e17e785ca0a5d5158869be4b409a1a32756fc2193f433f81a14dda'];
-    if (!release.encryption || release.hardwareTested !== false || release.internalVersion !== 'R13-H' || JSON.stringify([release.installationVersion, release.baseVersion, release.filename, release.sha256]) !== JSON.stringify(expected)) throw new Error('Enhanced test package identity or password protection mismatch');
+    if (release.encryption || release.hardwareTested !== true || release.internalVersion !== 'R13-H' || JSON.stringify([release.installationVersion, release.baseVersion, release.filename, release.sha256]) !== JSON.stringify(expected)) throw new Error('Enhanced package must be camera-tested and password-free with unchanged firmware identity');
   }
   console.log(`${release.version}: release assets verified; original firmware bytes preserved.`);
 }

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { loadFirmware, unlockFirmware } from '../src/download.js';
+import { loadFirmware } from '../src/download.js';
 import { copy } from '../src/i18n.js';
 
 const root = new URL('../', import.meta.url);
@@ -26,31 +26,27 @@ try {
     console.log(`${release.camera} ${release.version}: saved BIN matches original SHA-256`);
   }
   const enhanced = await Promise.all(['gr3', 'gr3x'].map(async id => JSON.parse(await readFile(new URL(`src/${id}-enhanced-release.json`, root)))));
-  const keys = [];
   for (const release of enhanced) {
-    const before = requests;
-    await assert.rejects(loadFirmware(release), /Password required/);
-    assert.equal(requests, before, 'locked downloads must not fetch assets');
-    await assert.rejects(unlockFirmware(release, '1234'));
-    const key = await unlockFirmware(release, '2222'); keys.push(key);
-    const blob = await loadFirmware(release, { decryptionKey: key });
+    assert.equal(release.encryption, undefined, 'camera-tested enhanced releases must not require passwords');
+    assert.equal(release.downloadSize, undefined, 'download should use original BIN chunks');
+    const blob = await loadFirmware(release);
     const bytes = new Uint8Array(await blob.arrayBuffer());
     assert.equal(bytes.length, release.size);
     assert.equal(createHash('sha256').update(bytes).digest('hex'), release.sha256);
-    assert.equal(release.hardwareTested, false);
+    assert.equal(release.hardwareTested, true);
     assert.equal(release.internalVersion, 'R13-H');
-    console.log(`${release.camera} enhanced: password gate and decrypted BIN identity passed`);
+    console.log(`${release.camera} enhanced: password-free download matches camera-tested BIN`);
+    const corrupted = structuredClone(release); corrupted.parts[0].sha256 = '0'.repeat(64);
+    await assert.rejects(loadFirmware(corrupted), /Part checksum mismatch/);
+    const cancelled = new AbortController(); cancelled.abort();
+    await assert.rejects(loadFirmware(release, { signal: cancelled.signal }), { name: 'AbortError' });
   }
-  await assert.rejects(loadFirmware(enhanced[1], { decryptionKey: keys[0] }), { name: 'OperationError' });
-  const encryptedCorrupted = structuredClone(enhanced[0]); encryptedCorrupted.parts[0].sha256 = '0'.repeat(64);
-  await assert.rejects(loadFirmware(encryptedCorrupted, { decryptionKey: keys[0] }), /Part checksum mismatch/);
-  const encryptedCancelled = new AbortController(); encryptedCancelled.abort();
-  await assert.rejects(loadFirmware(enhanced[0], { decryptionKey: keys[0], signal: encryptedCancelled.signal }), { name: 'AbortError' });
   for (const locale of ['zh', 'en', 'ja']) {
     for (const id of ['gr3', 'gr3x']) {
       const content = copy[locale].enhancedModels[id];
-      assert.ok(content.enhancedIntro && content.enhancedTestNote && content.enhancedPassword);
+      assert.ok(content.enhancedIntro && content.enhancedTestNote && !content.enhancedPassword);
       assert.ok(content.enhancedIntro.includes(id === 'gr3' ? '2.10' : '1.60'));
+      assert.ok(!/未经实机|Not yet tested|実機未検証/.test(content.enhancedTestNote));
       assert.ok(content.enhancedTestNote.includes(id === 'gr3' ? '2.20' : '1.70'));
     }
   }
