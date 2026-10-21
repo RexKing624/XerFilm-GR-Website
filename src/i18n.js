@@ -159,7 +159,19 @@ export const copy = {
     "officialUpdateNotice": "理光已发布新版官方固件，可能影响第三方固件安装。本项目适用于当前原厂固件为 GR III 2.10 及以下、GR IIIx 1.60 及以下、GR IV 1.11 及以下的相机。若已升级至高于上述范围的版本，请勿强行降级或刷入本项目，等待后续兼容版本通知；目前暂无发布时间。",
     "originalDownload": "下载原版 .bin",
     "originalVersion": "原厂版本",
-    "originalBackupOnly": "仅下载文件，不会连接或刷写相机。每个文件均按备份的完整 SHA-256 校验，保持原始文件名。"
+    "originalBackupOnly": "仅下载文件，不会连接或刷写相机。每个文件均按备份的完整 SHA-256 校验，保持原始文件名。",
+    "enhancedModels": {
+      "gr3": {
+        "enhancedIntro": "用于官方活动更换关机画面后，仍显示 2.10、但无法安装普通版的 GR III / HDF。请先尝试普通版，再考虑下方增强测试版。",
+        "enhancedTestNote": "未经实机验证，暂设密码供测试。保留 V1.1 全部功能，安装版本提高至 2.11。这不是官方 2.20 的兼容版本；已升级至该版本的机身请勿尝试。",
+        "enhancedPassword": "增强测试版下载密码"
+      },
+      "gr3x": {
+        "enhancedIntro": "用于官方活动更换关机画面后，仍显示 1.60、但无法安装普通版的 GR IIIx / HDF。请先尝试普通版，再考虑下方增强测试版。",
+        "enhancedTestNote": "未经实机验证，暂设密码供测试。保留 V1.1 全部功能，安装版本提高至 1.61。这不是官方 1.70 的兼容版本；已升级至该版本的机身请勿尝试。",
+        "enhancedPassword": "增强测试版下载密码"
+      }
+    }
   },
   "en": {
     "enhancedIntro": "Some newly manufactured GR IV bodies, or bodies updated with Ricoh’s official 30th Anniversary firmware, have firmware installation restrictions. If the standard build cannot be installed, try the enhanced build below.",
@@ -321,7 +333,19 @@ export const copy = {
     "officialUpdateNotice": "Ricoh has released newer official firmware that may affect third-party firmware installation. This project is for cameras currently running official GR III firmware 2.10 or earlier, GR IIIx firmware 1.60 or earlier, or GR IV firmware 1.11 or earlier. If you have updated beyond these versions, do not force a downgrade or install this project. Wait for a future compatibility announcement; no release date is available yet.",
     "originalDownload": "Download original .bin",
     "originalVersion": "Original version",
-    "originalBackupOnly": "Downloads files only; it does not connect to or flash your camera. Each file is checked against its archived full SHA-256 and saved with its original filename."
+    "originalBackupOnly": "Downloads files only; it does not connect to or flash your camera. Each file is checked against its archived full SHA-256 and saved with its original filename.",
+    "enhancedModels": {
+      "gr3": {
+        "enhancedIntro": "For GR III / HDF cameras that still show 2.10 after an official event shutdown-screen service but reject the standard build. Try the standard build first.",
+        "enhancedTestNote": "Not yet tested on a physical camera. Password-protected for testing. Includes all V1.1 features with installation version 2.11. This is not a compatible build for official 2.20; do not use it on cameras already running that version.",
+        "enhancedPassword": "Enhanced test build password"
+      },
+      "gr3x": {
+        "enhancedIntro": "For GR IIIx / HDF cameras that still show 1.60 after an official event shutdown-screen service but reject the standard build. Try the standard build first.",
+        "enhancedTestNote": "Not yet tested on a physical camera. Password-protected for testing. Includes all V1.1 features with installation version 1.61. This is not a compatible build for official 1.70; do not use it on cameras already running that version.",
+        "enhancedPassword": "Enhanced test build password"
+      }
+    }
   },
   "ja": {
     "enhancedIntro": "新しく製造された GR IV、またはリコー公式の 30 周年ファームウェアを適用した機体には、導入制限がある場合があります。通常版をインストールできない場合に、下の拡張版をお試しください。",
@@ -483,6 +507,18 @@ export const copy = {
     "officialUpdateNotice": "リコーから新しい純正ファームウェアが公開され、非公式ファームウェアの導入に影響する可能性があります。本プロジェクトは、現在の純正ファームウェアが GR III 2.10 以下、GR IIIx 1.60 以下、GR IV 1.11 以下のカメラが対象です。上記を超えるバージョンに更新済みの場合、無理なダウングレードや本プロジェクトの導入は行わず、今後の対応のお知らせをお待ちください。公開時期は未定です。",
     "originalDownload": "純正 .bin をダウンロード",
     "originalVersion": "純正バージョン",
-    "originalBackupOnly": "ファイルのダウンロードのみで、カメラへの接続や書き込みは行いません。保存済みファイルの SHA-256 と照合し、元のファイル名で保存します。"
+    "originalBackupOnly": "ファイルのダウンロードのみで、カメラへの接続や書き込みは行いません。保存済みファイルの SHA-256 と照合し、元のファイル名で保存します。",
+    "enhancedModels": {
+      "gr3": {
+        "enhancedIntro": "公式イベントで終了画面を変更した後も 2.10 と表示され、通常版を導入できない GR III / HDF 向けです。まず通常版をお試しください。",
+        "enhancedTestNote": "実機未検証のため、テスト用パスワードを設定しています。V1.1 の全機能を保持し、導入バージョンを 2.11 に引き上げています。純正 2.20 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。",
+        "enhancedPassword": "拡張テスト版のダウンロードパスワード"
+      },
+      "gr3x": {
+        "enhancedIntro": "公式イベントで終了画面を変更した後も 1.60 と表示され、通常版を導入できない GR IIIx / HDF 向けです。まず通常版をお試しください。",
+        "enhancedTestNote": "実機未検証のため、テスト用パスワードを設定しています。V1.1 の全機能を保持し、導入バージョンを 1.61 に引き上げています。純正 1.70 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。",
+        "enhancedPassword": "拡張テスト版のダウンロードパスワード"
+      }
+    }
   }
 };

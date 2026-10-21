@@ -1,0 +1,39 @@
+{
+  "version": "V1.1 Enhanced Test",
+  "internalVersion": "R13-H",
+  "installationVersion": "2.11.21.27",
+  "baseVersion": "2.10",
+  "camera": "RICOH GR III",
+  "filename": "fwdc239b.bin",
+  "size": 35566368,
+  "sha256": "5044d8f1a9bab32ac93c6a5e0e7a1c90d25b9760aa9cee27d33d66a1cc7f868b",
+  "hardwareTested": false,
+  "downloadSize": 35566384,
+  "transportSha256": "e40da25a5e9526408fd5e6b8e8db3b52fc565e1986038db317085aabc1bbc6d2",
+  "encryption": {
+    "salt": "5auB4iS4Oh5DRPiNM5Rt7Q==",
+    "iterations": 210000,
+    "iv": "69qoiDq41GKHgm5f",
+    "check": {
+      "iv": "Cx7nwYVAK0SXfpcW",
+      "ciphertext": "VpIe7TAXsmj+UC9D/MDCAZ2lwIVlzNEAdJPgxk7YmUPl8Wn/39qnewqlRl4yC80cUdx6QDkq8D2VUMaOJ60="
+    }
+  },
+  "parts": [
+    {
+      "file": "firmware-gr3-r13h.enc.part1",
+      "size": 16777216,
+      "sha256": "94f1663f8790bee841e6dcc60ba474df589d31c42c03f19e2d98318d0c6caa59"
+    },
+    {
+      "file": "firmware-gr3-r13h.enc.part2",
+      "size": 16777216,
+      "sha256": "ec57a857e04f4df4c7dc2387bd366d64bc8edff807bce00683d6e2761926eb59"
+    },
+    {
+      "file": "firmware-gr3-r13h.enc.part3",
+      "size": 2011952,
+      "sha256": "72723fc2a768ed510126471c7993760257dd3141c045b36c1c030b0975e0e4d7"
+    }
+  ]
+}

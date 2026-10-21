@@ -5,7 +5,7 @@ import films from './films.json';
 import release from './release.json';
 import originalReleases from './original-releases.json';
 import { loadFirmware, unlockFirmware } from './download';
-import { cameras, fileSize } from './releases';
+import { cameras, fileSize, enhancedReleases } from './releases';
 import EnhancedDownload from './EnhancedDownload.vue';
 
 const readPreference = (name) => { try { return localStorage.getItem(name); } catch { return null; } };
@@ -17,6 +17,7 @@ const t = computed(() => copy[language.value]);
 const selectedModel = ref('gr4');
 const selectedCamera = computed(() => cameras.find(camera => camera.id === selectedModel.value));
 const selectedRelease = computed(() => selectedCamera.value.release);
+const enhancedCopy = computed(() => ({ ...t.value, ...(t.value.enhancedModels?.[selectedModel.value] ?? {}) }));
 const releaseCopy = computed(() => t.value.modelReleases[selectedModel.value]);
 const password = ref('');
 const passwordError = ref(false);
@@ -199,7 +200,7 @@ onBeforeUnmount(() => { controller?.abort(); document.body.style.overflow = ''; 
      <form v-if="selectedRelease.encryption && !decryptionKey" class="model-password" @submit.prevent="unlockDownload"><label for="download-password">{{ t.downloadPassword }}</label><p>{{ t.downloadPasswordHelp }}</p><input id="download-password" v-model="password" type="password" inputmode="numeric" autocomplete="off" :placeholder="t.downloadPasswordPlaceholder" :aria-invalid="passwordError" :aria-describedby="passwordError ? 'download-password-error' : undefined" :disabled="unlocking" required><p v-if="passwordError" id="download-password-error" class="enhanced-error" role="alert">{{ t.downloadPasswordError }}</p><button class="outlined" type="submit" :disabled="unlocking || !verified">{{ unlocking ? t.checkingPassword : t.unlockDownload }} <span aria-hidden="true">↗</span></button></form>
      <template v-else><button class="primary actual-download" :disabled="busy || enhancedBusy || !verified" @click="downloadFirmware"><span>{{ busy ? t[downloadState] : t.downloadFile }}</span><span aria-hidden="true">↓</span></button><progress v-if="busy" :value="progress" max="1" :aria-label="t.downloading"></progress><div class="download-feedback" aria-live="polite"><span v-if="downloadState">{{ t[downloadState] }} {{ busy ? `${Math.round(progress*100)}%` : '' }}</span><button v-if="busy" class="text-link" @click="cancelDownload">{{ t.cancel }}</button></div></template>
      <p class="download-hint">{{ t.downloadHint.replace('{filename}', selectedRelease.filename) }}</p>
-     <EnhancedDownload v-if="selectedModel === 'gr4'" :t="t" :verified="verified" :base-busy="busy" @busy="enhancedBusy = $event" />
+     <EnhancedDownload :key="selectedModel" :release="enhancedReleases[selectedModel]" :t="enhancedCopy" :verified="verified" :base-busy="busy" @busy="enhancedBusy = $event" />
     </template>
    </div>
   </dialog>

@@ -2,7 +2,7 @@ import { readFile, stat, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 const base = new URL('../public/downloads/', import.meta.url);
 const hash = b => createHash('sha256').update(b).digest('hex');
-for (const manifest of ['release.json', 'gr3-release.json', 'gr3x-release.json', 'enhanced-release.json']) {
+for (const manifest of ['release.json', 'gr3-release.json', 'gr3x-release.json', 'enhanced-release.json', 'gr3-enhanced-release.json', 'gr3x-enhanced-release.json']) {
   const release = JSON.parse(await readFile(new URL(`../src/${manifest}`, import.meta.url)));
   const parts = [];
   for (const part of release.parts) {
@@ -15,6 +15,13 @@ for (const manifest of ['release.json', 'gr3-release.json', 'gr3x-release.json',
   if (manifest === 'gr3x-release.json' && (release.encryption || release.hardwareTested !== false || release.version !== 'V1.1' || release.internalVersion !== 'R13' || release.filename !== 'fwdc243b.bin')) throw new Error('IIIx R13 must accurately retain pending camera status, V1.1 identity and password-free model-specific download');
   if (manifest === 'gr3-release.json' && (release.encryption || release.filename !== 'fwdc239b.bin')) throw new Error('III must remain password-free with its own filename');
   if (manifest === 'enhanced-release.json' && (release.hardwareTested !== true || release.installationVersion !== '1.12.10.7')) throw new Error('Enhanced release must retain its camera-tested status and installation version');
+  if (manifest === 'gr3-enhanced-release.json' || manifest === 'gr3x-enhanced-release.json') {
+    const gr3 = manifest === 'gr3-enhanced-release.json';
+    const expected = gr3
+      ? ['2.11.21.27', '2.10', 'fwdc239b.bin', '5044d8f1a9bab32ac93c6a5e0e7a1c90d25b9760aa9cee27d33d66a1cc7f868b']
+      : ['1.61.11.17', '1.60', 'fwdc243b.bin', '2cfd3e0214e17e785ca0a5d5158869be4b409a1a32756fc2193f433f81a14dda'];
+    if (!release.encryption || release.hardwareTested !== false || release.internalVersion !== 'R13-H' || JSON.stringify([release.installationVersion, release.baseVersion, release.filename, release.sha256]) !== JSON.stringify(expected)) throw new Error('Enhanced test package identity or password protection mismatch');
+  }
   console.log(`${release.version}: release assets verified; original firmware bytes preserved.`);
 }
 for (const name of ['LICENSE.txt']) if (!(await stat(new URL(name, base))).size) throw new Error(`Missing release asset: ${name}`);

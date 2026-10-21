@@ -9,3 +9,5 @@ The GPL-2.0 license is retained here. Source archives are not deployed from this
 GR III and IIIx use R13 native Cinema integration. GR III R13 was camera-tested by the user; IIIx R13 is locally verified but awaits separate hardware testing. GR IV v23 and its enhanced build remain unchanged.
 
 Pinned original backups are also served here: GR III/HDF 2.10, GR IIIx/HDF 1.60 and GR IV/HDF 1.11. stock-*.part* are storage chunks and cannot be flashed individually. Use the website's original-firmware modal to obtain the checked BIN. These remain manufacturer files, without XerFilm modifications.
+
+GR III and IIIx R13-H enhanced installation test builds are encrypted separately. Their own installation-failure acknowledgement and test password are required. Neither has been hardware-tested. GR III uses 2.11.21.27; IIIx uses 1.61.11.17. Intended for event-serviced cameras still displaying 2.10 / 1.60, not official 2.20 / 1.70. The ordinary builds and camera-tested GR IV enhanced build remain password-free.
