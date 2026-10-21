@@ -10,7 +10,7 @@
 
 - 桌面左右 1:2 布局，中文 / English / 日本語，明暗主题。
 - 当前版本与功能介绍，17 个胶片家族 / 27 种效果的目录抽屉。
-- 三款机型单选卡片 → 三项必选确认 → 手动输入 → 独立下载抽屉。
+- 三款机型单选卡片 → 四项必选确认 → 手动输入 → 独立下载抽屉。
 - 三款机型及 GR IV 增强版均免密码，保留阅读确认及增强版安装失败确认。
 - 分段下载、单段与完整文件 SHA-256 校验。
 - 固件风险说明、从作者网站获取的提示及独立的网站源码页脚链接。
@@ -64,18 +64,13 @@ GitHub Pages 同时部署网站与 `public/downloads/` 中的各机型发布文�
 
 新标志为两张错位胶片框与几何 F，提供深浅色 SVG、favicon 和 PNG。`public/brand/` 包含三语胶片列表拼贴项目图，保留原有胶片图标。可用 `python3 tools/design-brand.py` 重新生成矢量稿。
 
-## Enhanced installation test build
+## V2.0 — 2026-10-22
 
-GR IV keeps a separate collapsed download section for bodies that cannot install the standard build, including newer/anniversary bodies with installation restrictions. The installation-failure acknowledgement reveals v23-H (installation version 1.12.10.7), without a password. A user has confirmed successful camera testing of this enhanced build. GR III and IIIx now also have their own enhanced R13-H builds (installation versions 2.11.21.27 and 1.61.11.17). Both have passed user hardware testing and download without passwords after the same installation-failure acknowledgement. Their BIN identities are unchanged from the tested packages. Firmware source ZIP downloads remain removed.
+The latest local page and all six camera-tested firmware files are published together as V2.0. GR IV uses v32/v32-H, GR III and IIIx use R20/R20-H. The installed firmware metadata stays model-specific (1.11/1.12.10.7, 2.10/2.11.21.27, 1.60/1.61.21.27); V2.0 is the public project release.
 
-## Model releases (2026-10-21)
+- All models: Highlight Simulation (white HDF-style diffusion and red800T halation; Off/Weak/Medium/Strong); frame selection (645/67/4433/XPan, live mask and white frame border, JPG crop with full RAW retained).
+- III/IIIx: Film ADJ is available in all five slots.
+- All modified downloads stay password-free. The enhanced-installation acknowledgement and original-firmware archive modal are preserved.
+- Current local page includes effect examples, frame demonstration and a fourth acknowledgement about resetting settings before restoring stock firmware. Chinese, English and Japanese are included.
 
-- GR IV / HDF: V1.1, v23, base firmware 1.11.
-- GR III / HDF: V1.1, R13, base firmware 2.10; user camera-tested. Adds native Cinema Yellow/Green while preserving Custom 1/2.
-- GR IIIx / HDF: V1.1, R13, base firmware 1.60; local ARM and model-parity checks passed, new R13 features await IIIx hardware testing. Downloads remain password-free.
-
-R13 Cinema is separate from the independent Film List and ADJ. Enabling film simulation still forces neutral Standard. The two Cinema effects have fixed parameters and are not claimed as a calibrated GR IV color match. Before reverting, switch film off, select native Std and restart to confirm it is saved; older firmware does not recognize Cinema tone IDs. These details are localized in Chinese, English and Japanese.
-
-## Archived original firmware (2026-10-21)
-
-The former external official-download link now opens an on-site modal. It offers pinned, unmodified GR III/HDF 2.10, GR IIIx/HDF 1.60 and GR IV/HDF 1.11 archives. Each browser download uses the existing per-part and full SHA-256 checks and retains the manufacturer's BIN filename. These files do not imply that already-updated cameras can be downgraded. A Chinese/English/Japanese compatibility notice asks users of this project to avoid updating official firmware for now and to wait for a future compatibility announcement if already updated. No future release date is promised. Ricoh's GR IV 1.20 release notes explicitly prohibit reverting to earlier firmware.
+Archived original firmware remains pinned to GR III/HDF2.10, GR IIIx/HDF1.60 and GR IV/HDF1.11. Providing backups does not establish downgrade compatibility. Existing compatibility messages are retained.

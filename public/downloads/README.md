@@ -1,13 +1,9 @@
-# Same-site download assets
+# Same-site V2.0 downloads
 
-The website deploys GR IV / HDF V1.1, GR III / HDF V1.1 and GR IIIx / HDF V1.1 resources. Each model has its own manifest and output filename (fwdc248b.bin, fwdc239b.bin, fwdc243b.bin). Never flash an individual part.
+GR IV / HDF (v32), GR III / HDF (R20) and GR IIIx / HDF (R20), ordinary and enhanced, have been camera-tested by the user. The public version is V2.0 for all six downloads.
 
-The browser checks every part and the complete file. All three model releases are password-free. The browser verifies each original BIN against its SHA-256 before saving. The GR IV enhanced installation build is also password-free, after its separate installation-failure acknowledgement.
+The browser reconstructs the model-specific original BIN from16 MiB storage parts, validates each part and the full SHA-256, and saves fwdc248b.bin, fwdc239b.bin or fwdc243b.bin. Do not flash parts individually. Downloads are password-free; the separate enhanced-installation acknowledgement remains.
 
-The GPL-2.0 license is retained here. Source archives are not deployed from this directory. Run npm run check:release and npm run test:downloads before publishing. Other local versions remain ignored by Git.
+Enhanced installation versions: GR IV1.12.10.7, GR III2.11.21.27, GR IIIx1.61.21.27. These do not change the compatible official base versions (1.11 /2.10 /1.60).
 
-GR III and IIIx use R13 native Cinema integration. GR III R13 was camera-tested by the user; IIIx R13 is locally verified but awaits separate hardware testing. GR IV v23 and its enhanced build remain unchanged.
-
-Pinned original backups are also served here: GR III/HDF 2.10, GR IIIx/HDF 1.60 and GR IV/HDF 1.11. stock-*.part* are storage chunks and cannot be flashed individually. Use the website's original-firmware modal to obtain the checked BIN. These remain manufacturer files, without XerFilm modifications.
-
-GR III and IIIx R13-H enhanced installation builds have both passed user hardware testing. Their installation-failure acknowledgement remains; download passwords and asset encryption have been removed. The browser verifies the exact same camera-tested BIN bytes before saving. GR III uses 2.11.21.27; IIIx uses 1.61.11.17. Intended for event-serviced cameras still displaying 2.10 / 1.60, not official 2.20 / 1.70. The ordinary builds and camera-tested GR IV enhanced build remain password-free.
+Pinned unmodified manufacturer backups and LICENSE.txt remain available. Firmware source archives are not deployed here.

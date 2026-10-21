@@ -69,6 +69,9 @@ body{min-width:1100px}
 .restore-warning strong{flex:1;min-width:0;font-weight:650}
 .restore-warning a{flex:0 0 auto;max-width:36%;font-size:10px;font-weight:600;text-align:right;text-decoration:underline;text-underline-offset:4px}
 [data-theme=light] .restore-warning{border-color:#bc8d40;border-left-color:#ad741a;background:#fff0cb;color:#68400b}
+/* Longer translations get the full line; the action sits beneath the reminder. */
+html:is([lang=en],[lang=ja]) .restore-warning{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+html:is([lang=en],[lang=ja]) .restore-warning .original-firmware-button{justify-self:end;max-width:100%;padding:0;text-align:right;white-space:normal;overflow-wrap:anywhere}
 
 .release-rollback{margin-top:18px;border-left:2px solid var(--warm);padding:10px 12px;background:var(--panel);font-size:11px;line-height:1.9;color:var(--muted)}
 
@@ -79,3 +82,34 @@ body{min-width:1100px}
 .camera-choice.unavailable input{cursor:not-allowed}
 .download-suspension{font-size:11px;line-height:1.8;color:var(--warm);margin:-8px 0 24px}
 .original-firmware-card .outlined:disabled{opacity:.4;cursor:not-allowed;background:transparent}
+
+/* Compact, aligned illustrations for the four finishing tools. */
+.two-features{row-gap:0}
+.two-features>section{min-width:0;display:grid;grid-template-rows:subgrid;grid-row:span 5}
+.two-features figure{margin:0}
+.effect-features .grain-samples,.highlight-samples{height:130px;margin-top:20px}
+.highlight-samples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.highlight-samples figure{position:relative;min-width:0;overflow:hidden;background:#242721}
+.highlight-samples img{width:100%;height:100%;object-fit:cover;object-position:center 46%}
+.highlight-samples figcaption{position:absolute;inset:auto 0 0;padding:17px 8px 7px;background:linear-gradient(transparent,#0009);color:#f1f0e8;font-size:9px;line-height:1.5}
+.example-note{display:block;margin-top:9px;color:var(--muted);font-size:9px;line-height:1.8}
+.highlight-notes{display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 12px}
+.highlight-notes .playback-note{margin-left:auto;text-align:right}
+.terms .reset-warning{padding:13px 12px;border:1px solid var(--warm);border-left:3px solid var(--warm)}
+.terms .reset-warning h3{color:var(--warm)}
+.reset-menu-path{display:block;margin:10px 0;font-size:11px;line-height:1.8;color:var(--ink);font-weight:600}
+.terms .reset-settings-note{font-size:10px;margin-bottom:0}
+.framing-features .stamp-sample,.framing-features .frame-sample{margin:20px 0 0}
+.framing-features .date-sample{margin:0}
+.framing-features .date-sample,.frame-stage{height:180px;background:var(--panel)}
+.framing-features .date-sample{font-size:23px}
+.frame-stage{display:flex;justify-content:center;align-items:center;overflow:hidden}
+.frame-view{position:relative;aspect-ratio:3/2;width:270px;max-width:100%;overflow:hidden;background:#171b18;isolation:isolate}
+.frame-view>img{width:100%;height:100%;object-fit:cover}
+.frame-native-grid{position:absolute;inset:0;background:linear-gradient(to right,transparent calc(33.333% - .5px),#ffffff38 33.333%,transparent calc(33.333% + .5px),transparent calc(66.667% - .5px),#ffffff38 66.667%,transparent calc(66.667% + .5px)),linear-gradient(to bottom,transparent calc(33.333% - .5px),#ffffff38 33.333%,transparent calc(33.333% + .5px),transparent calc(66.667% - .5px),#ffffff38 66.667%,transparent calc(66.667% + .5px))}
+.frame-mask{position:absolute;left:0;right:0;height:22.307692%;background:#0008}
+.frame-mask-top{top:0}.frame-mask-bottom{bottom:0}
+.frame-boundary{position:absolute;inset:22.307692% 0;border-top:2px solid #fff;border-bottom:2px solid #fff}
+.frame-format{position:absolute;top:6px;left:8px;font:8px/1.5 ui-monospace,monospace;color:#fff;letter-spacing:.06em;text-shadow:0 1px 3px #000}
+.frame-format>span{margin-left:7px;color:#ddd}
+.framing-features figcaption{font-size:9px;line-height:1.8;color:var(--muted);margin-top:8px}

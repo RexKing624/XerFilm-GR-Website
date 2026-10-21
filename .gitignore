@@ -12,45 +12,26 @@ public/downloads/*
 *.zip
 *.tar.gz
 
-# V1.1 distribution files for same-site downloads
-!public/downloads/firmware-v23.part1
-!public/downloads/firmware-v23.part2
-!public/downloads/firmware-v23.part3
+# V2.0 distribution files for same-site downloads
 !public/downloads/LICENSE.txt
+!public/downloads/firmware-gr4-v2.part1
+!public/downloads/firmware-gr4-v2.part2
+!public/downloads/firmware-gr4-v2.part3
+!public/downloads/firmware-gr4-v2-enhanced.part1
+!public/downloads/firmware-gr4-v2-enhanced.part2
+!public/downloads/firmware-gr4-v2-enhanced.part3
+!public/downloads/firmware-gr3-v2.part1
+!public/downloads/firmware-gr3-v2.part2
+!public/downloads/firmware-gr3-v2.part3
+!public/downloads/firmware-gr3-v2-enhanced.part1
+!public/downloads/firmware-gr3-v2-enhanced.part2
+!public/downloads/firmware-gr3-v2-enhanced.part3
+!public/downloads/firmware-gr3x-v2.part1
+!public/downloads/firmware-gr3x-v2.part2
+!public/downloads/firmware-gr3x-v2.part3
+!public/downloads/firmware-gr3x-v2-enhanced.part1
+!public/downloads/firmware-gr3x-v2-enhanced.part2
+!public/downloads/firmware-gr3x-v2-enhanced.part3
 
-# Enhanced installation test build (explicitly approved for on-site download)
-!public/downloads/firmware-v23h.part1
-!public/downloads/firmware-v23h.part2
-!public/downloads/firmware-v23h.part3
-
-# GR III and GR IIIx first releases.
-!public/downloads/firmware-gr3-r12.part1
-!public/downloads/firmware-gr3-r12.part2
-!public/downloads/firmware-gr3-r12.part3
-!public/downloads/firmware-gr3x-r12.part1
-!public/downloads/firmware-gr3x-r12.part2
-!public/downloads/firmware-gr3x-r12.part3
-
-# V1.1 native Cinema updates explicitly approved for website distribution.
-
-# Pinned original firmware backups, explicitly approved for same-site download.
-!public/downloads/stock-gr3-210.part1
-!public/downloads/stock-gr3-210.part2
-!public/downloads/stock-gr3x-160.part1
-!public/downloads/stock-gr3x-160.part2
-!public/downloads/stock-gr4-111.part1
-!public/downloads/stock-gr4-111.part2
-!public/downloads/stock-gr4-111.part3
-
-!public/downloads/firmware-gr3-r14.part1
-!public/downloads/firmware-gr3-r14.part2
-!public/downloads/firmware-gr3-r14.part3
-!public/downloads/firmware-gr3x-r14.part1
-!public/downloads/firmware-gr3x-r14.part2
-!public/downloads/firmware-gr3x-r14.part3
-!public/downloads/firmware-gr3-r14h.part1
-!public/downloads/firmware-gr3-r14h.part2
-!public/downloads/firmware-gr3-r14h.part3
-!public/downloads/firmware-gr3x-r14h.part1
-!public/downloads/firmware-gr3x-r14h.part2
-!public/downloads/firmware-gr3x-r14h.part3
+# Pinned manufacturer firmware backups
+!public/downloads/stock-*.part*

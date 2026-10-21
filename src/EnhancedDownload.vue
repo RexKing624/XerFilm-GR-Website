@@ -76,7 +76,7 @@ onBeforeUnmount(reset);
           <span>{{ t.enhancedAck }}</span>
         </label>
         <div v-if="accepted" class="enhanced-file">
-          <p class="enhanced-file-meta">{{ release.internalVersion }} · {{ release.installationVersion }} · {{ (release.size / 1048576).toFixed(1) }} MiB</p>
+          <p class="enhanced-file-meta">{{ release.version }} · {{ release.installationVersion }} · {{ (release.size / 1048576).toFixed(1) }} MiB</p>
           <form v-if="release.encryption && !decryptionKey" class="enhanced-password" @submit.prevent="unlock">
             <label for="enhanced-password">{{ t.enhancedPassword }}</label>
             <input id="enhanced-password" v-model="password" type="password" inputmode="numeric" autocomplete="off" :placeholder="t.downloadPasswordPlaceholder" :aria-invalid="passwordError" :aria-describedby="passwordError ? 'enhanced-password-error' : undefined" :disabled="baseBusy || unlocking" required>

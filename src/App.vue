@@ -24,9 +24,10 @@ const passwordError = ref(false);
 const unlocking = ref(false);
 const decryptionKey = shallowRef(null);
 let unlockAttempt = 0;
-const acks = ref([false, false, false]);
+const emptyAcknowledgements = () => t.value.checks.map(() => false);
+const acks = ref(emptyAcknowledgements());
 const acknowledged = computed(() => acks.value.filter(Boolean).length);
-const allAcknowledged = computed(() => acknowledged.value === 3);
+const allAcknowledged = computed(() => acknowledged.value === t.value.checks.length);
 const typed = ref('');
 const inputHint = ref('');
 const verified = computed(() => allAcknowledged.value && typed.value === t.value.phrase);
@@ -51,12 +52,12 @@ const mockEnabled = ref([true, true, true, true, true, false]);
 const selectedMock = ref(2);
 
 watch(language, () => {
-  acks.value = [false, false, false]; typed.value = ''; inputHint.value = '';
+  acks.value = emptyAcknowledgements(); typed.value = ''; inputHint.value = '';
   closeDrawer(); savePreference('site-language', language.value);
 });
 watch(selectedModel, () => {
   closeDrawer();
-  acks.value = [false, false, false]; typed.value = ''; inputHint.value = '';
+  acks.value = emptyAcknowledgements(); typed.value = ''; inputHint.value = '';
 });
 watch(password, () => { passwordError.value = false; });
 watch(language, value => { document.documentElement.lang = value === 'zh' ? 'zh-CN' : value; document.title = `XerFilm GR · ${copy[value].download}`; }, { immediate: true });
@@ -152,9 +153,9 @@ onBeforeUnmount(() => { controller?.abort(); document.body.style.overflow = ''; 
     <div class="official-update-alert" role="note"><strong>{{ t.officialUpdateTitle }}</strong><p>{{ t.officialUpdateNotice }}</p></div>
     <fieldset class="camera-choices"><legend class="sr-only">{{ t.chooseCamera }}</legend><label v-for="camera in cameras" :key="camera.id" class="camera-choice" :class="{ checked: selectedModel === camera.id, unavailable: !isModelAvailable(camera.id) }"><input v-model="selectedModel" type="radio" :disabled="!isModelAvailable(camera.id)" name="camera-model" :value="camera.id" :data-testid="`camera-${camera.id}`"><strong>{{ camera.label }}</strong><small>{{ isModelAvailable(camera.id) ? `${camera.release.version} ${fileSize(camera.release)} · .bin` : t.downloadSuspended }}</small></label></fieldset>
     <p v-if="cameras.some(camera => !isModelAvailable(camera.id))" class="download-suspension" role="status">{{ t.downloadSuspensionNotice }}</p>
-    <div class="terms"><section><h3><span>!</span>{{ t.riskTitle }}</h3><p>{{ t.risk }}</p><p>{{ t.compatibility }}</p></section><section><h3>{{ t.communityTitle }}</h3><p>{{ t.community }}</p><p class="license-note">{{ t.license }}</p></section></div>
+    <div class="terms"><section><h3><span>!</span>{{ t.riskTitle }}</h3><p>{{ t.risk }}</p><p>{{ t.compatibility }}</p></section><section class="reset-warning" role="note"><h3><span>!</span>{{ t.resetTitle }}</h3><p>{{ t.resetWarning }}</p><strong class="reset-menu-path">{{ t.resetPath }}</strong><p class="reset-settings-note">{{ t.resetSettingsNote }}</p></section><section><h3>{{ t.communityTitle }}</h3><p>{{ t.community }}</p><p class="license-note">{{ t.license }}</p></section></div>
     <fieldset class="acknowledgements"><legend class="sr-only">{{ t.getSub }}</legend><label v-for="(label,i) in t.checks" :key="i" :class="{ checked: acks[i] }"><input v-model="acks[i]" type="checkbox" required :data-testid="`ack-${i}`"><span class="custom-check" aria-hidden="true">{{ acks[i] ? '✓' : '' }}</span><span>{{ label }}</span></label></fieldset>
-    <div class="ack-progress"><span>{{ acknowledged }}/3 {{ t.acknowledged }}</span><span class="mini-bars"><i v-for="i in 3" :key="i" :class="{ done: acknowledged >= i }"></i></span></div>
+    <div class="ack-progress"><span>{{ acknowledged }}/{{ t.checks.length }} {{ t.acknowledged }}</span><span class="mini-bars"><i v-for="i in t.checks.length" :key="i" :class="{ done: acknowledged >= i }"></i></span></div>
     <div v-if="allAcknowledged" class="manual-confirm"><label for="confirmation">{{ t.typeTitle }}</label><p>{{ t.typeHelp }}</p><p class="confirmation-phrase" @copy.prevent @cut.prevent @contextmenu.prevent @dragstart.prevent>{{ t.phrase }}</p><input id="confirmation" v-model="typed" :placeholder="t.placeholder" :aria-describedby="'confirmation-hint'" autocomplete="off" autocorrect="off" autocapitalize="off" :spellcheck="false" @paste="blockTransfer" @copy.prevent @cut.prevent @drop="blockTransfer" @dragover.prevent @contextmenu.prevent @beforeinput="beforeInput" @input="inputHint = ''"><p id="confirmation-hint" role="status" class="input-hint">{{ inputHint || (verified ? t.valid : t.typing) }}</p></div>
     <button class="primary request-button" :disabled="!verified" @click="openDrawer('download')"><span>{{ verified ? t.request : allAcknowledged ? t.typeTitle : t.locked }}</span><span aria-hidden="true">↗</span></button>
     <p class="gate-note">{{ t.manualOnly }}</p>
@@ -169,9 +170,16 @@ onBeforeUnmount(() => { controller?.abort(); document.body.style.overflow = ''; 
      <div class="curated"><span aria-hidden="true">↳</span><div><strong>{{ t.curatedTitle }}</strong><p>{{ t.curated }}</p></div></div>
     </section>
     <section class="interaction-feature"><div class="interaction-copy"><span class="tiny-number">02—</span><h3>{{ t.adjTitle }}</h3><p>{{ t.adjDesc }}</p><h4>{{ t.listTitle }}</h4><p>{{ t.listDesc }}</p></div><div class="camera-demo"><div class="demo-title"><img :src="filmIcon(732)" alt="FILM"><span>FILM LIST</span><span class="demo-dot"></span></div><p class="demo-caption">{{ t.demo }}</p><div class="demo-grid"><button v-for="(film,i) in heroFilms" :key="film.name" :class="{ selected:selectedMock === i, off:!mockEnabled[i] }" :aria-label="film.name" :aria-pressed="mockEnabled[i]" @click="selectedMock = i; mockEnabled[i] = !mockEnabled[i]"><img :src="filmIcon(film.icon)" :alt="film.name"><span v-if="mockEnabled[i]" class="demo-check">✓</span></button></div><div class="demo-bottom"><span>{{ heroFilms[selectedMock].name }}</span><span>OK <b>↵</b></span></div></div></section>
-    <div class="two-features"><section><span class="tiny-number">03—</span><h3>{{ t.grainTitle }}</h3><div class="grain-samples" aria-hidden="true"><div v-for="(level,i) in t.grainLevels" :key="i" :class="`grain-${i}`"><span>{{ level }}</span></div></div><p>{{ t.grainDesc }}</p></section><section><span class="tiny-number">04—</span><h3>{{ t.stampTitle }}</h3><div class="date-sample" aria-hidden="true"><span>26.10.17</span><span>14:36</span></div><p>{{ t.stampDesc }}</p></section></div>
+    <div id="finishing" class="two-features effect-features">
+     <section><span class="tiny-number">03—</span><h3>{{ t.grainTitle }}</h3><div class="grain-samples" aria-hidden="true"><div v-for="(level,i) in t.grainLevels" :key="i" :class="`grain-${i}`"><span>{{ level }}</span></div></div><p>{{ t.grainDesc }}</p></section>
+     <section><span class="tiny-number">04—</span><h3>{{ t.highlightTitle }}</h3><div class="highlight-samples"><figure v-for="sample in [{ file: 'highlight-white.jpg', label: t.highlightWhite }, { file: 'highlight-red-800t.jpg', label: t.highlightRed }]" :key="sample.file"><img :src="`${assetBase}examples/${sample.file}`" :alt="sample.label" loading="lazy"><figcaption>{{ sample.label }}</figcaption></figure></div><p>{{ t.highlightDesc }}</p><small class="example-note highlight-notes"><span>{{ t.highlightNote }}</span><span class="playback-note">{{ t.highlightPlaybackNote }}</span></small></section>
+    </div>
+    <div class="two-features framing-features">
+     <section><span class="tiny-number">05—</span><h3>{{ t.stampTitle }}</h3><figure class="stamp-sample"><div class="date-sample" aria-hidden="true"><span>26.10.17</span><span>14:36</span></div><figcaption>{{ t.stampCaption }}</figcaption></figure><p>{{ t.stampDesc }}</p></section>
+     <section><span class="tiny-number">06—</span><h3>{{ t.frameTitle }}</h3><figure class="frame-sample" :aria-label="t.frameAlt"><div class="frame-stage"><div class="frame-view"><img :src="`${assetBase}examples/frame-seaside.jpg`" alt="" loading="lazy"><div class="frame-native-grid" aria-hidden="true"></div><div class="frame-mask frame-mask-top" aria-hidden="true"></div><div class="frame-mask frame-mask-bottom" aria-hidden="true"></div><div class="frame-boundary" aria-hidden="true"></div><span class="frame-format" aria-hidden="true">XPAN <span>65:24</span></span></div></div><figcaption>{{ t.frameCaption }}</figcaption></figure><p>{{ t.frameDesc }}</p><small class="example-note">{{ t.frameIndependent }}</small></section>
+    </div>
     <section class="raw-feature"><span class="raw-symbol">RAW<span>+</span>JPG</span><div><h3>{{ t.rawTitle }}</h3><p>{{ t.rawDesc }}</p></div></section>
-    <section class="changelog"><div class="release-heading"><span class="eyebrow">03 / {{ releaseCopy.changesTitle }}</span><b>{{ selectedRelease.version }}</b></div><p class="release-compat">{{ releaseCopy.compatible }}</p><p v-if="selectedRelease.nativeCinema" class="release-description">{{ releaseCopy.note }}</p><ul><li v-for="item in releaseCopy.changes" :key="item">{{ item }}</li></ul><p v-if="releaseCopy.rollback" class="release-rollback">{{ releaseCopy.rollback }}</p></section>
+    <section class="changelog"><div class="release-heading"><span class="eyebrow">03 / {{ releaseCopy.changesTitle }}</span><b>{{ selectedRelease.version }}</b></div><p class="release-compat">{{ releaseCopy.compatible }}</p><ul><li v-for="item in releaseCopy.changes" :key="item">{{ item }}</li></ul></section>
    </div>
   </main>
   <footer class="site-footer"><div class="footer-main"><a href="https://xergnik.com/">© 2026 XER_GNIK <span>↗</span></a><div><p>{{ t.location }}</p></div><div><a class="footer-email" href="mailto:hello@xergnik.com">hello@xergnik.com</a></div></div><div class="footer-bottom"><p>{{ t.footerNote }}</p><a class="project-source" href="https://github.com/RexKing624/XerFilm-GR-Website" target="_blank" rel="noopener noreferrer">{{ t.projectSource }} ↗</a><details><summary>{{ t.licenses }}</summary><p>{{ t.origin }}</p><div class="credit-links"><a :href="licenseURL" target="_blank" rel="noopener">GPL-2.0</a><a href="https://github.com/Maxwooow/Ricoh-GRMod" target="_blank" rel="noopener">Ricoh-GRMod</a><a href="https://github.com/DoYitNow/gr-custom-tool" target="_blank" rel="noopener">gr-custom-tool</a></div></details><a href="#top" :aria-label="t.home">↑</a></div></footer>

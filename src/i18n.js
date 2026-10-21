@@ -3,7 +3,7 @@ export const copy = {
     "enhancedIntro": "部分新出厂或已安装理光官方 30 周年固件的 GR IV 机身存在固件安装限制。基础版无法安装时，再尝试下方增强型固件。",
     "enhancedTitle": "增强型固件 · 测试下载",
     "enhancedWarning": "只有在基础版固件安装失败时使用",
-    "enhancedTestNote": "适用于上述情况的 GR IV。包含完整 V1.1 功能，增强版已由使用者完成实机测试。",
+    "enhancedTestNote": "适用于上述情况的 GR IV。包含完整 V2.0 功能，增强版已由使用者完成实机测试。",
     "enhancedAck": "基础版安装失败，申请下载增强型固件。",
     "enhancedDownloadFile": "下载增强型 .bin 固件",
     "projectSource": "网站源码",
@@ -21,19 +21,24 @@ export const copy = {
     "release": "当前版本",
     "compatible": "仅适用 RICOH GR IV · 原厂基础版本 1.11",
     "size": "41.8 MiB",
-    "releaseNote": "V1.1：修正 INFO 胶片图标错位；子菜单按 OK 即确认并返回母菜单，无需二次确认。已完成 GR IV 实机验证。",
+    "releaseNote": "V2.0：新增高光模拟与画幅选择。",
     "get": "先读说明，再开始。",
     "getSub": "免费使用。下载前，请确认以下内容。",
     "riskTitle": "刷机风险与责任",
     "risk": "安装非官方固件可能导致相机变砖、无法开机、数据丢失，也可能影响保修。请自行评估并承担风险。作者在适用法律允许范围内不承担由此造成的损失；不排除依法不能排除的责任。",
     "compatibility": "请核对机型与版本，备份照片，并保留已确认可用的回退固件。本页不会连接或刷写相机。",
+    "resetTitle": "刷回原版前，请先重设全部",
+    "resetWarning": "本固件包含多项自定义功能。为减少残留设置引发异常的风险，刷回原版前，请先在相机中执行「重设全部」，再安装原版固件。",
+    "resetPath": "设置 → 重设 → 重设全部",
+    "resetSettingsNote": "重设会清除相机的自定义设置，请提前记录需要保留的设置。",
     "communityTitle": "关于创作与复用",
     "community": "请勿桥接本固件或拼接其他功能。桥接可能造成兼容性问题、程序异常，甚至导致相机变砖。欢迎学习实现方法，但请不要直接桥接本固件。",
     "license": "建议从我的网站获取固件，不要直接分享或转发固件文件。请分享下载页面，让使用者先阅读风险说明，并获取当前版本。",
     "checks": [
       "我已知晓固件安装风险。",
       "我已知晓桥接固件有风险，不桥接本固件。",
-      "我已知晓创新点，不做完整复制；方法可供学习。"
+      "我已知晓创新点，不做完整复制；方法可供学习。",
+      "我已知晓：刷回原版前，须先执行「设置 → 重设 → 重设全部」。"
     ],
     "acknowledged": "项已确认",
     "typeTitle": "最后一步：手动输入",
@@ -44,7 +49,7 @@ export const copy = {
     "blocked": "请手动输入，粘贴和拖入不可用。",
     "valid": "校验通过",
     "request": "打开下载抽屉",
-    "locked": "完成三项确认后继续",
+    "locked": "完成四项确认后继续",
     "featureTitle": "为拍摄而做的细节。",
     "featureKicker": "WHAT’S INSIDE",
     "filmTitle": "胶片模拟",
@@ -65,16 +70,26 @@ export const copy = {
       "中",
       "强"
     ],
+    "highlightTitle": "高光模拟，让光有余韵。",
+    "highlightWhite": "白色 · HDF",
+    "highlightRed": "红色 · 800T",
+    "highlightDesc": "白色模拟 HDF 的柔和漫射，推荐弱；红色模拟 800T 的胶片光晕，推荐中。关闭、弱、中、强四档，仅作用于 JPG 成片。",
+    "highlightNote": "效果示意 · 基于同一张照片模拟",
+    "highlightPlaybackNote": "受性能限制，首次回放需稍候加载。",
+    "frameTitle": "画幅选择，看见框外。",
+    "frameCaption": "XPan 取景示意 · 半透明蒙版与白色分界线",
+    "frameAlt": "海边照片的完整 3:2 取景，上下半透明蒙版压暗画幅外区域，两条白线标出中间 65:24 的 XPan 成片范围。",
+    "frameDesc": "原机、645、67、4433、XPan。取景保留完整 3:2 画面，用半透明蒙版压暗画幅外区域，加粗白线标出成片边界。JPG 按所选比例裁切，RAW 保留完整画面。",
+    "frameIndependent": "画幅独立于胶片开关；选择「原机」恢复机内长宽比。",
     "stampTitle": "把时间留在照片上。",
+    "stampCaption": "日期＋时间 · 两行样式",
     "stampDesc": "两位年份，六种模式：关闭、年月日时分、日月时分年、日期＋时间（两行）、仅日期、仅时间。黑白胶片使用中性灰白日期，彩色胶片保留橙色。",
     "rawTitle": "JPG 的质感，RAW 的余地。",
-    "rawDesc": "颗粒和日期仅作用于 JPG 成片，不绘制到 RAW 原始像素。关闭胶片模拟时，自定义颗粒与时间戳也同时关闭。",
-    "changes": "V1.1 更新",
+    "rawDesc": "颗粒、高光模拟、日期与画幅裁切仅作用于 JPG 成片，RAW 保留原始像素与完整画面。关闭胶片模拟时，颗粒、高光模拟与时间戳随之关闭，画幅仍可独立使用。",
+    "changes": "V2.0 更新",
     "changesItems": [
-      "修正回放 INFO 胶片图标错后一张的问题，按本次拍摄记录型号。",
-      "子菜单按 OK 即应用所选子型号并返回母菜单，无需再次确认。",
-      "保留 17 个胶片家族、27 种效果、胶片列表与 ADJ 同步。",
-      "ISO 自适应颗粒、六种日期模式，仅作用于 JPG 成片。"
+      "新增高光模拟：白色 HDF 柔光、红色 800T 光晕，支持关／弱／中／强。",
+      "新增画幅选择：645、67、4433、XPan；实时蒙版与白色边界线，JPG 裁切、RAW 保留完整画面。"
     ],
     "library": "已装胶片",
     "libraryIntro": "当前固件的完整目录。按家族展示，有子菜单的胶片列出全部子型号。此处展示机内图标与选项，不是照片效果样张。",
@@ -115,38 +130,32 @@ export const copy = {
     "modelReleases": {
       "gr4": {
         "compatible": "RICOH GR IV / HDF · 原厂基础版本 1.11",
-        "note": "V1.1：修正 INFO 胶片图标错位；子菜单按 OK 即确认并返回母菜单，无需二次确认。已完成 GR IV 实机验证。",
-        "changesTitle": "V1.1 更新",
+        "note": "V2.0：新增高光模拟与画幅选择。",
+        "changesTitle": "V2.0 更新",
         "changes": [
-          "修正回放 INFO 胶片图标错后一张的问题，按本次拍摄记录型号。",
-          "子菜单按 OK 即应用所选子型号并返回母菜单，无需再次确认。",
-          "保留 17 个胶片家族、27 种效果、胶片列表与 ADJ 同步。",
-          "ISO 自适应颗粒、六种日期模式，仅作用于 JPG 成片。"
+          "新增高光模拟：白色 HDF 柔光、红色 800T 光晕，支持关／弱／中／强。",
+          "新增画幅选择：645、67、4433、XPan；实时蒙版与白色边界线，JPG 裁切、RAW 保留完整画面。"
         ]
       },
       "gr3": {
         "compatible": "RICOH GR III / HDF · 原厂基础版本 2.10",
-        "note": "V1.1：在原生影像控制中新增电影黄／电影绿，保留原有滤镜和自定义 1／2。开启独立胶片模拟时仍锁定中性 Std。已完成 GR III 实机验证。",
-        "changesTitle": "V1.1 更新",
+        "note": "V2.0：新增高光模拟与画幅选择。",
+        "changesTitle": "V2.0 更新",
         "changes": [
-          "影像控制新增 Cinema (Yellow)／Cinema (Green)，保留自定义 1／2；不加入独立胶片列表。",
-          "开启胶片模拟时继续锁定中性 Std，避免与原生电影效果叠加。",
-          "保留胶片列表、ADJ 家族和子菜单；子菜单 OK 同时确认家族及子项。",
-          "保留 ISO 自适应颗粒、日期时间、拍摄胶片图标和当前照片 INFO 图标。",
-          "电影两项目前使用固定参数，暂不支持滑块调整；移植效果不代表与 GR IV 实拍色彩完全一致。"
+          "新增高光模拟：白色 HDF 柔光、红色 800T 光晕，支持关／弱／中／强。",
+          "新增画幅选择：645、67、4433、XPan；实时蒙版与白色边界线，JPG 裁切、RAW 保留完整画面。",
+          "修复胶片模拟仅在 ADJ 第一槽位显示的问题，现支持全部五个槽位。"
         ],
         "rollback": "回退到旧版或原厂前：先关闭胶片模拟，把影像控制选回 Std，并重启确认已保存。旧固件不识别新增的电影编号。"
       },
       "gr3x": {
         "compatible": "RICOH GR IIIx / HDF · 原厂基础版本 1.60",
-        "note": "V1.1：同步加入原生电影黄／电影绿，保留原有滤镜和自定义 1／2。IIIx 本地检查已通过，本次新增功能待 IIIx 实机验证。",
-        "changesTitle": "V1.1 更新",
+        "note": "V2.0：新增高光模拟与画幅选择。",
+        "changesTitle": "V2.0 更新",
         "changes": [
-          "影像控制新增 Cinema (Yellow)／Cinema (Green)，保留自定义 1／2；不加入独立胶片列表。",
-          "开启胶片模拟时继续锁定中性 Std，避免与原生电影效果叠加。",
-          "保留胶片列表、ADJ 家族和子菜单；子菜单 OK 同时确认家族及子项。",
-          "保留 ISO 自适应颗粒、日期时间、拍摄胶片图标和当前照片 INFO 图标。",
-          "电影两项目前使用固定参数，暂不支持滑块调整；移植效果不代表与 GR IV 实拍色彩完全一致。"
+          "新增高光模拟：白色 HDF 柔光、红色 800T 光晕，支持关／弱／中／强。",
+          "新增画幅选择：645、67、4433、XPan；实时蒙版与白色边界线，JPG 裁切、RAW 保留完整画面。",
+          "修复胶片模拟仅在 ADJ 第一槽位显示的问题，现支持全部五个槽位。"
         ],
         "rollback": "回退到旧版或原厂前：先关闭胶片模拟，把影像控制选回 Std，并重启确认已保存。旧固件不识别新增的电影编号。"
       }
@@ -163,11 +172,11 @@ export const copy = {
     "enhancedModels": {
       "gr3": {
         "enhancedIntro": "用于官方活动更换关机画面后，仍显示 2.10、但无法安装普通版的 GR III / HDF。请先尝试普通版，再考虑下方增强测试版。",
-        "enhancedTestNote": "增强版已由使用者完成实机测试，无需下载密码。保留 V1.1 全部功能，安装版本提高至 2.11。这不是官方 2.20 的兼容版本；已升级至该版本的机身请勿尝试。"
+        "enhancedTestNote": "增强版已由使用者完成实机测试，无需下载密码。保留 V2.0 全部功能，安装版本提高至 2.11。这不是官方 2.20 的兼容版本；已升级至该版本的机身请勿尝试。"
       },
       "gr3x": {
         "enhancedIntro": "用于官方活动更换关机画面后，仍显示 1.60、但无法安装普通版的 GR IIIx / HDF。请先尝试普通版，再考虑下方增强测试版。",
-        "enhancedTestNote": "增强版已由使用者完成实机测试，无需下载密码。保留 V1.1 全部功能，安装版本提高至 1.61。这不是官方 1.70 的兼容版本；已升级至该版本的机身请勿尝试。"
+        "enhancedTestNote": "增强版已由使用者完成实机测试，无需下载密码。保留 V2.0 全部功能，安装版本提高至 1.61。这不是官方 1.70 的兼容版本；已升级至该版本的机身请勿尝试。"
       }
     },
     "downloadSuspended": "暂停下载",
@@ -177,7 +186,7 @@ export const copy = {
     "enhancedIntro": "Some newly manufactured GR IV bodies, or bodies updated with Ricoh’s official 30th Anniversary firmware, have firmware installation restrictions. If the standard build cannot be installed, try the enhanced build below.",
     "enhancedTitle": "Enhanced firmware · test download",
     "enhancedWarning": "USE ONLY IF THE STANDARD FIRMWARE FAILS TO INSTALL",
-    "enhancedTestNote": "For GR IV cameras meeting the conditions above. Includes all V1.1 features; the enhanced build has been tested successfully on a physical camera by a user.",
+    "enhancedTestNote": "For GR IV cameras meeting the conditions above. Includes all V2.0 features; the enhanced build has been tested successfully on a physical camera by a user.",
     "enhancedAck": "The standard firmware failed to install. I request the enhanced build.",
     "enhancedDownloadFile": "Download enhanced .bin",
     "projectSource": "Website source",
@@ -195,19 +204,24 @@ export const copy = {
     "release": "CURRENT RELEASE",
     "compatible": "RICOH GR IV only · based on official firmware 1.11",
     "size": "41.8 MiB",
-    "releaseNote": "V1.1 fixes the one-photo delay in INFO film icons. Submenu OK now applies the selected variant and returns to the parent menu, with no second confirmation. Tested on a GR IV.",
+    "releaseNote": "V2.0 adds highlight simulation and frame selection.",
     "get": "Read first. Then begin.",
     "getSub": "Free to use. Please acknowledge the following before downloading.",
     "riskTitle": "Installation risk & responsibility",
     "risk": "Unofficial firmware may brick your camera, prevent startup, cause data loss, or affect warranty coverage. Assess and accept these risks yourself. To the extent permitted by applicable law, the author accepts no liability for resulting loss; rights that cannot lawfully be excluded remain unaffected.",
     "compatibility": "Check your model and version, back up photographs, and keep a known working recovery firmware. This page does not connect to or flash your camera.",
+    "resetTitle": "Reset all settings before restoring stock firmware",
+    "resetWarning": "This firmware adds several custom features. To reduce the risk of issues caused by retained settings, run Reset All on the camera before installing the original firmware.",
+    "resetPath": "Setup → Reset → Reset All",
+    "resetSettingsNote": "Resetting clears your custom camera settings. Record any settings you want to keep beforehand.",
     "communityTitle": "Creation & reuse",
     "community": "Please do not splice this firmware into another firmware or graft additional features onto it. This can cause incompatibilities, software faults, or even brick the camera. You are welcome to study the methods, but please do not directly integrate this firmware.",
     "license": "Please download firmware from my website rather than sharing or forwarding the firmware file itself. Share the download page so users can read the risks and get the current release.",
     "checks": [
       "I understand the risks of installing custom firmware.",
       "I understand the risks of splicing firmware and will not splice this firmware.",
-      "I understand the original interaction work and will not copy the whole project as my own; its methods are open to learning."
+      "I understand the original interaction work and will not copy the whole project as my own; its methods are open to learning.",
+      "I understand that I must run Setup → Reset → Reset All before restoring the original firmware."
     ],
     "acknowledged": "acknowledged",
     "typeTitle": "One last step: type to confirm",
@@ -218,7 +232,7 @@ export const copy = {
     "blocked": "Please type manually. Pasting and dropping are disabled.",
     "valid": "Confirmation complete",
     "request": "Open download drawer",
-    "locked": "Complete all three acknowledgements",
+    "locked": "Complete all four acknowledgements",
     "featureTitle": "Details made for shooting.",
     "featureKicker": "WHAT’S INSIDE",
     "filmTitle": "Film simulation",
@@ -239,16 +253,26 @@ export const copy = {
       "Medium",
       "Strong"
     ],
+    "highlightTitle": "Let highlights linger.",
+    "highlightWhite": "White · HDF",
+    "highlightRed": "Red · 800T",
+    "highlightDesc": "White simulates soft HDF-style diffusion; try Weak. Red simulates 800T film halation; try Medium. Off, Weak, Medium, and Strong. Applied to JPG only.",
+    "highlightNote": "Effect illustration · simulated from the same photo",
+    "highlightPlaybackNote": "Processing limits may delay first playback.",
+    "frameTitle": "Choose a frame. See beyond it.",
+    "frameCaption": "XPan viewfinder illustration · translucent mask, white borders",
+    "frameAlt": "A full 3:2 seaside view with translucent masks above and below. Two white lines mark the central 65:24 XPan image area.",
+    "frameDesc": "Original, 645, 67, 4433, or XPan. Keep the full 3:2 live view, with a translucent mask outside the frame and bold white lines marking the final image. JPG is cropped to your choice; RAW keeps the full image.",
+    "frameIndependent": "Framing works independently of the film switch. Original restores the camera’s native aspect ratio.",
     "stampTitle": "Let the photograph keep the time.",
+    "stampCaption": "Date + time · two-line layout",
     "stampDesc": "Two-digit years. Six modes: off, year/month/day/time, day/month/time/year, date + time on two lines, date only, and time only. Neutral gray-white for monochrome films; orange for color.",
     "rawTitle": "Character in JPG. Latitude in RAW.",
-    "rawDesc": "Grain and dates are applied to the JPG, without drawing on RAW pixel data. Turning film simulation off also disables custom grain and date stamps.",
-    "changes": "V1.1 UPDATE",
+    "rawDesc": "Grain, highlight simulation, date stamps, and cropping apply to JPG only. RAW retains its original pixels and full image. Film OFF also turns off grain, highlight simulation, and stamps; framing remains independent.",
+    "changes": "V2.0 UPDATE",
     "changesItems": [
-      "Fixed INFO showing the previous photo’s film icon; each shot now records its own film identity.",
-      "Submenu OK applies the variant and returns to the parent menu without a second confirmation.",
-      "Keeps 17 film families, 27 looks, and Film List / ADJ synchronization.",
-      "ISO-aware grain and six date modes, applied to JPG only."
+      "Highlight simulation: white HDF-style diffusion or red 800T halation, with Off, Weak, Medium and Strong settings.",
+      "Frame selection: 645, 67, 4433 and XPan, with live masks and white borders. JPG is cropped; RAW keeps the full image."
     ],
     "library": "Installed films",
     "libraryIntro": "The complete catalog in this firmware, grouped by family with all submenu variants. These are camera icons and options, not sample photographs.",
@@ -289,38 +313,32 @@ export const copy = {
     "modelReleases": {
       "gr4": {
         "compatible": "RICOH GR IV / HDF · based on official firmware 1.11",
-        "note": "V1.1 fixes the one-photo delay in INFO film icons. Submenu OK now applies the selected variant and returns to the parent menu, with no second confirmation. Tested on a GR IV.",
-        "changesTitle": "V1.1 UPDATE",
+        "note": "V2.0 adds highlight simulation and frame selection.",
+        "changesTitle": "V2.0 UPDATE",
         "changes": [
-          "Fixed INFO showing the previous photo’s film icon; each shot now records its own film identity.",
-          "Submenu OK applies the variant and returns to the parent menu without a second confirmation.",
-          "Keeps 17 film families, 27 looks, and Film List / ADJ synchronization.",
-          "ISO-aware grain and six date modes, applied to JPG only."
+          "Highlight simulation: white HDF-style diffusion or red 800T halation, with Off, Weak, Medium and Strong settings.",
+          "Frame selection: 645, 67, 4433 and XPan, with live masks and white borders. JPG is cropped; RAW keeps the full image."
         ]
       },
       "gr3": {
         "compatible": "RICOH GR III / HDF · based on official firmware 2.10",
-        "note": "V1.1 adds Cinema (Yellow) and Cinema (Green) to native Image Control, preserving existing effects and Custom 1/2. Independent film simulation still locks native processing to neutral Std. Tested on a GR III.",
-        "changesTitle": "V1.1 UPDATE",
+        "note": "V2.0 adds highlight simulation and frame selection.",
+        "changesTitle": "V2.0 UPDATE",
         "changes": [
-          "Cinema (Yellow) and Cinema (Green) are added to native Image Control. Custom 1/2 remain; the independent Film List is unchanged.",
-          "Film simulation still locks native processing to neutral Std, preventing Cinema from stacking with a film look.",
-          "Film List, ADJ families and submenus remain; submenu OK confirms both family and variant.",
-          "ISO-aware grain, date/time stamps, live film icons and current-photo INFO icons are retained.",
-          "Both Cinema effects currently use fixed parameters, without slider adjustment. This port is not a verified match to GR IV camera output."
+          "Highlight simulation: white HDF-style diffusion or red 800T halation, with Off, Weak, Medium and Strong settings.",
+          "Frame selection: 645, 67, 4433 and XPan, with live masks and white borders. JPG is cropped; RAW keeps the full image.",
+          "Fixed film simulation appearing only in the first ADJ slot. All five slots are now supported."
         ],
         "rollback": "Before restoring an older or official firmware: switch film simulation off, select Std in Image Control, then restart and confirm it was saved. Older firmware does not recognize the new Cinema IDs."
       },
       "gr3x": {
         "compatible": "RICOH GR IIIx / HDF · based on official firmware 1.60",
-        "note": "V1.1 adds the same native Cinema effects, preserving existing effects and Custom 1/2. Local checks passed; the new IIIx features still need camera testing.",
-        "changesTitle": "V1.1 UPDATE",
+        "note": "V2.0 adds highlight simulation and frame selection.",
+        "changesTitle": "V2.0 UPDATE",
         "changes": [
-          "Cinema (Yellow) and Cinema (Green) are added to native Image Control. Custom 1/2 remain; the independent Film List is unchanged.",
-          "Film simulation still locks native processing to neutral Std, preventing Cinema from stacking with a film look.",
-          "Film List, ADJ families and submenus remain; submenu OK confirms both family and variant.",
-          "ISO-aware grain, date/time stamps, live film icons and current-photo INFO icons are retained.",
-          "Both Cinema effects currently use fixed parameters, without slider adjustment. This port is not a verified match to GR IV camera output."
+          "Highlight simulation: white HDF-style diffusion or red 800T halation, with Off, Weak, Medium and Strong settings.",
+          "Frame selection: 645, 67, 4433 and XPan, with live masks and white borders. JPG is cropped; RAW keeps the full image.",
+          "Fixed film simulation appearing only in the first ADJ slot. All five slots are now supported."
         ],
         "rollback": "Before restoring an older or official firmware: switch film simulation off, select Std in Image Control, then restart and confirm it was saved. Older firmware does not recognize the new Cinema IDs."
       }
@@ -337,11 +355,11 @@ export const copy = {
     "enhancedModels": {
       "gr3": {
         "enhancedIntro": "For GR III / HDF cameras that still show 2.10 after an official event shutdown-screen service but reject the standard build. Try the standard build first.",
-        "enhancedTestNote": "The enhanced build has been tested successfully on a physical camera by a user. No download password is required. Includes all V1.1 features with installation version 2.11. This is not a compatible build for official 2.20; do not use it on cameras already running that version."
+        "enhancedTestNote": "The enhanced build has been tested successfully on a physical camera by a user. No download password is required. Includes all V2.0 features with installation version 2.11. This is not a compatible build for official 2.20; do not use it on cameras already running that version."
       },
       "gr3x": {
         "enhancedIntro": "For GR IIIx / HDF cameras that still show 1.60 after an official event shutdown-screen service but reject the standard build. Try the standard build first.",
-        "enhancedTestNote": "The enhanced build has been tested successfully on a physical camera by a user. No download password is required. Includes all V1.1 features with installation version 1.61. This is not a compatible build for official 1.70; do not use it on cameras already running that version."
+        "enhancedTestNote": "The enhanced build has been tested successfully on a physical camera by a user. No download password is required. Includes all V2.0 features with installation version 1.61. This is not a compatible build for official 1.70; do not use it on cameras already running that version."
       }
     },
     "downloadSuspended": "Downloads paused",
@@ -351,7 +369,7 @@ export const copy = {
     "enhancedIntro": "新しく製造された GR IV、またはリコー公式の 30 周年ファームウェアを適用した機体には、導入制限がある場合があります。通常版をインストールできない場合に、下の拡張版をお試しください。",
     "enhancedTitle": "拡張版ファームウェア・テスト配布",
     "enhancedWarning": "通常版のインストールに失敗した場合のみ使用",
-    "enhancedTestNote": "上記に該当する GR IV 向けです。V1.1 の全機能を含み、利用者による実機テストで正常動作を確認しました。",
+    "enhancedTestNote": "上記に該当する GR IV 向けです。V2.0 の全機能を含み、利用者による実機テストで正常動作を確認しました。",
     "enhancedAck": "通常版をインストールできなかったため、拡張版のダウンロードを希望します。",
     "enhancedDownloadFile": "拡張版 .bin をダウンロード",
     "projectSource": "サイトのソース",
@@ -369,19 +387,24 @@ export const copy = {
     "release": "現在のバージョン",
     "compatible": "RICOH GR IV 専用・純正 1.11 ベース",
     "size": "41.8 MiB",
-    "releaseNote": "V1.1：INFO に前の写真のフィルムアイコンが表示される問題を修正。子メニューの OK で設定を適用して親メニューに戻り、再確認は不要です。GR IV 実機で動作確認済み。",
+    "releaseNote": "V2.0：ハイライト効果と画角選択を追加。",
     "get": "説明を読んで、はじめる。",
     "getSub": "無料で利用できます。ダウンロード前にご確認ください。",
     "riskTitle": "導入リスクと責任",
     "risk": "非公式ファームウェアの導入により、起動不能、故障、データ消失、保証への影響が生じる可能性があります。リスクを判断し、ご自身の責任でご利用ください。適用法で認められる範囲で、作者は発生した損失の責任を負いません。法律上免除できない責任は除外されません。",
     "compatibility": "機種とバージョンを確認し、写真をバックアップしてください。動作確認済みの復旧用ファームウェアも保管してください。このページからカメラへの接続・書き込みは行いません。",
+    "resetTitle": "純正に戻す前に、すべてリセット",
+    "resetWarning": "本ファームウェアには複数の独自機能が含まれます。残った設定による不具合のリスクを減らすため、純正ファームウェアを書き込む前に、カメラですべての設定をリセットしてください。",
+    "resetPath": "設定 → リセット → すべてリセット",
+    "resetSettingsNote": "リセットでカメラのカスタム設定が消去されます。必要な設定は事前に控えてください。",
     "communityTitle": "制作と再利用について",
     "community": "本ファームウェアを他のファームウェアへ継ぎ足したり、別の機能を継ぎ合わせたりしないでください。互換性の問題や不具合、カメラの起動不能につながるおそれがあります。実装方法の学習は歓迎しますが、本ファームウェアの直接的な継ぎ合わせはご遠慮ください。",
     "license": "ファームウェア本体を直接共有・転送せず、作者のサイトから取得することをおすすめします。ダウンロードページを共有し、利用者がリスク説明を読んで現在のバージョンを取得できるようにしてください。",
     "checks": [
       "非公式ファームウェアの導入リスクを理解しました。",
       "継ぎ合わせのリスクを理解し、本ファームウェアを継ぎ合わせません。",
-      "独自の操作設計を理解し、全体を自作として複製しません。手法は学習できます。"
+      "独自の操作設計を理解し、全体を自作として複製しません。手法は学習できます。",
+      "純正に戻す前に「設定 → リセット → すべてリセット」を実行する必要があることを理解しました。"
     ],
     "acknowledged": "項目を確認済み",
     "typeTitle": "最後に、手入力で確認",
@@ -392,7 +415,7 @@ export const copy = {
     "blocked": "手入力してください。貼り付け・ドロップは利用できません。",
     "valid": "確認できました",
     "request": "ダウンロード画面を開く",
-    "locked": "3 項目すべての確認が必要です",
+    "locked": "4 項目すべての確認が必要です",
     "featureTitle": "撮るための、細やかな工夫。",
     "featureKicker": "WHAT’S INSIDE",
     "filmTitle": "フィルムシミュレーション",
@@ -413,16 +436,26 @@ export const copy = {
       "中",
       "強"
     ],
+    "highlightTitle": "光に、余韻を。",
+    "highlightWhite": "白 · HDF",
+    "highlightRed": "赤 · 800T",
+    "highlightDesc": "白は HDF 風の柔らかな拡散を再現し、弱を推奨。赤は 800T のフィルムハレーションを再現し、中を推奨。切・弱・中・強の 4 段階で、JPG のみに適用します。",
+    "highlightNote": "効果イメージ · 同じ写真からシミュレーション",
+    "highlightPlaybackNote": "処理性能により、初回再生は読み込みに時間がかかる場合があります。",
+    "frameTitle": "画角を選び、枠の外も見る。",
+    "frameCaption": "XPan 撮影画面イメージ · 半透明マスクと白い境界線",
+    "frameAlt": "海辺の写真を 3:2 の全画面で表示。上下の半透明マスクと 2 本の白線で、中央の 65:24 の XPan 記録範囲を示しています。",
+    "frameDesc": "純正・645・67・4433・XPan から選択。ライブビューは 3:2 全体を保ち、枠外を半透明マスクで暗くし、太い白線で記録範囲を表示。JPG は選んだ比率に切り抜き、RAW は全画面を保持します。",
+    "frameIndependent": "画角はフィルムの切り替えと独立。「純正」でカメラ本来のアスペクト比に戻ります。",
     "stampTitle": "写真に、時を残す。",
+    "stampCaption": "日付＋時刻 · 2 行表示",
     "stampDesc": "年は下 2 桁。切・年月日時分・日月時分年・日付＋時刻（2 行）・日付のみ・時刻のみの 6 モード。白黒では無彩色の白、カラーではオレンジ色で印字します。",
     "rawTitle": "JPG に質感を。RAW に余白を。",
-    "rawDesc": "粒状感と日付は JPG のみに適用し、RAW の元画素には描画しません。フィルムシミュレーションを切ると、独自の粒状感・日付印字も停止します。",
-    "changes": "V1.1 更新内容",
+    "rawDesc": "粒状感・ハイライト効果・日付・切り抜きは JPG のみに適用。RAW の元画素と全画面を保持します。フィルムを切ると粒状感・ハイライト効果・日付も停止しますが、画角は独立して使えます。",
+    "changes": "V2.0 更新内容",
     "changesItems": [
-      "INFO に前の写真のアイコンが表示される問題を修正。撮影ごとにフィルム情報を記録。",
-      "子メニューの OK で選択を適用して親メニューに戻ります。再確認は不要です。",
-      "17 ファミリー、27 種類の効果、フィルム一覧と ADJ の同期を継続。",
-      "ISO 連動の粒状感と 6 種類の日付モードは JPG のみに適用。"
+      "ハイライト効果を追加：白の HDF 風拡散、赤の 800T 風ハレーション。オフ／弱／中／強を選択可能。",
+      "画角選択を追加：645、67、4433、XPan。ライブビューに半透明マスクと白い境界線を表示。JPG のみクロップし、RAW は全画面を保持。"
     ],
     "library": "搭載フィルム",
     "libraryIntro": "現在のファームウェアに含まれる全ファミリーと子モデル。表示はカメラ用アイコンと選択肢であり、作例写真ではありません。",
@@ -463,38 +496,32 @@ export const copy = {
     "modelReleases": {
       "gr4": {
         "compatible": "RICOH GR IV / HDF・純正 1.11 ベース",
-        "note": "V1.1：INFO に前の写真のフィルムアイコンが表示される問題を修正。子メニューの OK で設定を適用して親メニューに戻り、再確認は不要です。GR IV 実機で動作確認済み。",
-        "changesTitle": "V1.1 更新内容",
+        "note": "V2.0：ハイライト効果と画角選択を追加。",
+        "changesTitle": "V2.0 更新内容",
         "changes": [
-          "INFO に前の写真のアイコンが表示される問題を修正。撮影ごとにフィルム情報を記録。",
-          "子メニューの OK で選択を適用して親メニューに戻ります。再確認は不要です。",
-          "17 ファミリー、27 種類の効果、フィルム一覧と ADJ の同期を継続。",
-          "ISO 連動の粒状感と 6 種類の日付モードは JPG のみに適用。"
+          "ハイライト効果を追加：白の HDF 風拡散、赤の 800T 風ハレーション。オフ／弱／中／強を選択可能。",
+          "画角選択を追加：645、67、4433、XPan。ライブビューに半透明マスクと白い境界線を表示。JPG のみクロップし、RAW は全画面を保持。"
         ]
       },
       "gr3": {
         "compatible": "RICOH GR III / HDF・純正 2.10 ベース",
-        "note": "V1.1：純正のイメージコントロールに Cinema (Yellow)／Cinema (Green) を追加。既存の効果とカスタム 1／2 は維持します。独立フィルムシミュレーションの有効時は中立の Std に固定。GR III で実機確認済みです。",
-        "changesTitle": "V1.1 更新",
+        "note": "V2.0：ハイライト効果と画角選択を追加。",
+        "changesTitle": "V2.0 更新内容",
         "changes": [
-          "純正イメージコントロールに Cinema (Yellow)／Cinema (Green) を追加。カスタム 1／2 と独立フィルム一覧は維持します。",
-          "フィルム有効時は中立の Std に固定し、Cinema との重ね掛けを防ぎます。",
-          "フィルム一覧、ADJ のファミリーと子メニューを維持。子メニューの OK でファミリーと子モデルを確定します。",
-          "ISO 連動の粒状感、日時、撮影中のアイコンと現在の写真の INFO アイコンを維持します。",
-          "Cinema 2 種は現在、固定パラメーターで動作し、スライダー調整には対応していません。GR IV の実写と色が完全に一致することを保証する移植ではありません。"
+          "ハイライト効果を追加：白の HDF 風拡散、赤の 800T 風ハレーション。オフ／弱／中／強を選択可能。",
+          "画角選択を追加：645、67、4433、XPan。ライブビューに半透明マスクと白い境界線を表示。JPG のみクロップし、RAW は全画面を保持。",
+          "フィルムシミュレーションが ADJ の第1枠にしか表示されない問題を修正。全5枠に対応。"
         ],
         "rollback": "旧版・純正へ戻す前に：フィルムを無効にし、イメージコントロールを Std に戻して再起動し、保存を確認してください。旧ファームウェアは追加した Cinema の番号を認識しません。"
       },
       "gr3x": {
         "compatible": "RICOH GR IIIx / HDF・純正 1.60 ベース",
-        "note": "V1.1：同じ Cinema 2 種を純正イメージコントロールに追加し、既存の効果とカスタム 1／2 を維持。IIIx のローカル検証は完了しましたが、今回の追加機能は IIIx 実機での確認待ちです。",
-        "changesTitle": "V1.1 更新",
+        "note": "V2.0：ハイライト効果と画角選択を追加。",
+        "changesTitle": "V2.0 更新内容",
         "changes": [
-          "純正イメージコントロールに Cinema (Yellow)／Cinema (Green) を追加。カスタム 1／2 と独立フィルム一覧は維持します。",
-          "フィルム有効時は中立の Std に固定し、Cinema との重ね掛けを防ぎます。",
-          "フィルム一覧、ADJ のファミリーと子メニューを維持。子メニューの OK でファミリーと子モデルを確定します。",
-          "ISO 連動の粒状感、日時、撮影中のアイコンと現在の写真の INFO アイコンを維持します。",
-          "Cinema 2 種は現在、固定パラメーターで動作し、スライダー調整には対応していません。GR IV の実写と色が完全に一致することを保証する移植ではありません。"
+          "ハイライト効果を追加：白の HDF 風拡散、赤の 800T 風ハレーション。オフ／弱／中／強を選択可能。",
+          "画角選択を追加：645、67、4433、XPan。ライブビューに半透明マスクと白い境界線を表示。JPG のみクロップし、RAW は全画面を保持。",
+          "フィルムシミュレーションが ADJ の第1枠にしか表示されない問題を修正。全5枠に対応。"
         ],
         "rollback": "旧版・純正へ戻す前に：フィルムを無効にし、イメージコントロールを Std に戻して再起動し、保存を確認してください。旧ファームウェアは追加した Cinema の番号を認識しません。"
       }
@@ -511,11 +538,11 @@ export const copy = {
     "enhancedModels": {
       "gr3": {
         "enhancedIntro": "公式イベントで終了画面を変更した後も 2.10 と表示され、通常版を導入できない GR III / HDF 向けです。まず通常版をお試しください。",
-        "enhancedTestNote": "利用者による実機テストで正常動作を確認しました。ダウンロードパスワードは不要です。V1.1 の全機能を保持し、導入バージョンを 2.11 に引き上げています。純正 2.20 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。"
+        "enhancedTestNote": "利用者による実機テストで正常動作を確認しました。ダウンロードパスワードは不要です。V2.0 の全機能を保持し、導入バージョンを 2.11 に引き上げています。純正 2.20 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。"
       },
       "gr3x": {
         "enhancedIntro": "公式イベントで終了画面を変更した後も 1.60 と表示され、通常版を導入できない GR IIIx / HDF 向けです。まず通常版をお試しください。",
-        "enhancedTestNote": "利用者による実機テストで正常動作を確認しました。ダウンロードパスワードは不要です。V1.1 の全機能を保持し、導入バージョンを 1.61 に引き上げています。純正 1.70 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。"
+        "enhancedTestNote": "利用者による実機テストで正常動作を確認しました。ダウンロードパスワードは不要です。V2.0 の全機能を保持し、導入バージョンを 1.61 に引き上げています。純正 1.70 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。"
       }
     },
     "downloadSuspended": "ダウンロード停止中",
