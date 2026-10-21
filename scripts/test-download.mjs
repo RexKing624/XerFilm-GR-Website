@@ -27,6 +27,12 @@ try {
   await assert.rejects(loadFirmware(releases[1], { signal: cancelled.signal }), { name: 'AbortError' });
   const corrupted = structuredClone(releases[1]); corrupted.parts[0].sha256 = '0'.repeat(64);
   await assert.rejects(loadFirmware(corrupted), /Part checksum mismatch/);
+  assert.equal(releases[1].version, 'V1.1');
+  assert.equal(releases[2].version, 'V1.1');
+  assert.equal(releases[1].hardwareTested, true);
+  assert.equal(releases[2].hardwareTested, false);
+  assert.equal(releases[1].internalVersion, 'R13');
+  assert.equal(releases[2].internalVersion, 'R13');
   assert.equal(releases[0].filename, 'fwdc248b.bin');
   assert.equal(releases[1].filename, 'fwdc239b.bin');
   assert.equal(releases[2].filename, 'fwdc243b.bin');
@@ -38,6 +44,11 @@ try {
     for (const model of ['gr4', 'gr3', 'gr3x']) {
       const info = text.modelReleases[model];
       assert.ok(info.compatible && info.note && info.changesTitle && info.changes.length);
+    }
+    for (const model of ['gr3', 'gr3x']) {
+      const info = text.modelReleases[model];
+      assert.ok(info.rollback && info.note.includes('V1.1'));
+      assert.ok(info.changes.some(item => item.includes('Cinema')));
     }
     assert.ok(text.downloadPassword && text.downloadPasswordError && text.unlockDownload);
     assert.ok(text.downloadHint.includes('{filename}'));

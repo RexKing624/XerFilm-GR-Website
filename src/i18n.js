@@ -126,25 +126,29 @@ export const copy = {
       },
       "gr3": {
         "compatible": "RICOH GR III / HDF · 原厂基础版本 2.10",
-        "note": "V1 首发：胶片列表、ADJ 家族及子菜单、实时胶片图标、Std 隔离、ISO 颗粒和时间戳。已完成 GR III 实机验证。",
-        "changesTitle": "V1 首发",
+        "note": "V1.1：在原生影像控制中新增电影黄／电影绿，保留原有滤镜和自定义 1／2。开启独立胶片模拟时仍锁定中性 Std。已完成 GR III 实机验证。",
+        "changesTitle": "V1.1 更新",
         "changes": [
-          "独立胶片模拟；启用时使用中性 Std，关闭后恢复原生影像控制。",
-          "胶片列表同步 ADJ，子菜单 OK 同时确认家族与子项。",
-          "拍摄顶部显示当前胶片图标，保留原生自定义图标。",
-          "ISO 自适应颗粒与日期时间仅用于 JPG。"
-        ]
+          "影像控制新增 Cinema (Yellow)／Cinema (Green)，保留自定义 1／2；不加入独立胶片列表。",
+          "开启胶片模拟时继续锁定中性 Std，避免与原生电影效果叠加。",
+          "保留胶片列表、ADJ 家族和子菜单；子菜单 OK 同时确认家族及子项。",
+          "保留 ISO 自适应颗粒、日期时间、拍摄胶片图标和当前照片 INFO 图标。",
+          "电影两项目前使用固定参数，暂不支持滑块调整；移植效果不代表与 GR IV 实拍色彩完全一致。"
+        ],
+        "rollback": "回退到旧版或原厂前：先关闭胶片模拟，把影像控制选回 Std，并重启确认已保存。旧固件不识别新增的电影编号。"
       },
       "gr3x": {
         "compatible": "RICOH GR IIIx / HDF · 原厂基础版本 1.60",
-        "note": "V1 首发：与 GR III 同样的完整胶片功能。已由使用者完成 GR IIIx 实机测试，下载无需密码。",
-        "changesTitle": "V1 首发",
+        "note": "V1.1：同步加入原生电影黄／电影绿，保留原有滤镜和自定义 1／2。IIIx 本地检查已通过，本次新增功能待 IIIx 实机验证。",
+        "changesTitle": "V1.1 更新",
         "changes": [
-          "包含胶片列表、ADJ 家族和子菜单的完整功能。",
-          "子菜单 OK 同时确认家族及子项，拍摄顶部展示具体胶片图标。",
-          "胶片启用时使用中性 Std，保留原生自定义图标。",
-          "ISO 颗粒与日期时间仅用于 JPG。"
-        ]
+          "影像控制新增 Cinema (Yellow)／Cinema (Green)，保留自定义 1／2；不加入独立胶片列表。",
+          "开启胶片模拟时继续锁定中性 Std，避免与原生电影效果叠加。",
+          "保留胶片列表、ADJ 家族和子菜单；子菜单 OK 同时确认家族及子项。",
+          "保留 ISO 自适应颗粒、日期时间、拍摄胶片图标和当前照片 INFO 图标。",
+          "电影两项目前使用固定参数，暂不支持滑块调整；移植效果不代表与 GR IV 实拍色彩完全一致。"
+        ],
+        "rollback": "回退到旧版或原厂前：先关闭胶片模拟，把影像控制选回 Std，并重启确认已保存。旧固件不识别新增的电影编号。"
       }
     },
     "restoreWarning": "如果你目前正在使用其他非官方固件，请先刷回原版。",
@@ -278,25 +282,29 @@ export const copy = {
       },
       "gr3": {
         "compatible": "RICOH GR III / HDF · based on official firmware 2.10",
-        "note": "V1 debut: Film List, ADJ families and submenus, live film icons, Std isolation, ISO-aware grain, and date stamps. Tested on a GR III.",
-        "changesTitle": "V1 DEBUT",
+        "note": "V1.1 adds Cinema (Yellow) and Cinema (Green) to native Image Control, preserving existing effects and Custom 1/2. Independent film simulation still locks native processing to neutral Std. Tested on a GR III.",
+        "changesTitle": "V1.1 UPDATE",
         "changes": [
-          "Independent film simulation: neutral Std while enabled, native Image Control restored when off.",
-          "Film List syncs with ADJ; submenu OK confirms both family and variant.",
-          "Current film icon on the shooting display; native custom icons preserved.",
-          "ISO-aware grain and date/time stamps apply to JPG only."
-        ]
+          "Cinema (Yellow) and Cinema (Green) are added to native Image Control. Custom 1/2 remain; the independent Film List is unchanged.",
+          "Film simulation still locks native processing to neutral Std, preventing Cinema from stacking with a film look.",
+          "Film List, ADJ families and submenus remain; submenu OK confirms both family and variant.",
+          "ISO-aware grain, date/time stamps, live film icons and current-photo INFO icons are retained.",
+          "Both Cinema effects currently use fixed parameters, without slider adjustment. This port is not a verified match to GR IV camera output."
+        ],
+        "rollback": "Before restoring an older or official firmware: switch film simulation off, select Std in Image Control, then restart and confirm it was saved. Older firmware does not recognize the new Cinema IDs."
       },
       "gr3x": {
         "compatible": "RICOH GR IIIx / HDF · based on official firmware 1.60",
-        "note": "V1 release with the same full film features as GR III. Successfully tested on a GR IIIx by a user; no download password is required.",
-        "changesTitle": "V1 RELEASE",
+        "note": "V1.1 adds the same native Cinema effects, preserving existing effects and Custom 1/2. Local checks passed; the new IIIx features still need camera testing.",
+        "changesTitle": "V1.1 UPDATE",
         "changes": [
-          "Full Film List, ADJ families, and submenu features.",
-          "Submenu OK confirms family and variant; the shooting display shows the current film icon.",
-          "Neutral Std during film use, with native custom icons preserved.",
-          "ISO grain and date/time stamps apply to JPG only."
-        ]
+          "Cinema (Yellow) and Cinema (Green) are added to native Image Control. Custom 1/2 remain; the independent Film List is unchanged.",
+          "Film simulation still locks native processing to neutral Std, preventing Cinema from stacking with a film look.",
+          "Film List, ADJ families and submenus remain; submenu OK confirms both family and variant.",
+          "ISO-aware grain, date/time stamps, live film icons and current-photo INFO icons are retained.",
+          "Both Cinema effects currently use fixed parameters, without slider adjustment. This port is not a verified match to GR IV camera output."
+        ],
+        "rollback": "Before restoring an older or official firmware: switch film simulation off, select Std in Image Control, then restart and confirm it was saved. Older firmware does not recognize the new Cinema IDs."
       }
     },
     "restoreWarning": "If you are currently using other unofficial firmware, restore the original firmware first.",
@@ -430,25 +438,29 @@ export const copy = {
       },
       "gr3": {
         "compatible": "RICOH GR III / HDF・純正 2.10 ベース",
-        "note": "V1 初公開：フィルム一覧、ADJ のファミリーと子メニュー、撮影中のアイコン、Std 分離、ISO 連動粒状感、日付印字。GR III 実機で動作確認済み。",
-        "changesTitle": "V1 初公開",
+        "note": "V1.1：純正のイメージコントロールに Cinema (Yellow)／Cinema (Green) を追加。既存の効果とカスタム 1／2 は維持します。独立フィルムシミュレーションの有効時は中立の Std に固定。GR III で実機確認済みです。",
+        "changesTitle": "V1.1 更新",
         "changes": [
-          "独立したフィルム機能。有効時は中立の Std、無効時は純正の画像仕上に戻ります。",
-          "フィルム一覧と ADJ が同期。子メニューの OK でファミリーと子モデルを確定。",
-          "撮影画面に選択中のフィルムアイコンを表示。純正カスタムアイコンは維持。",
-          "ISO 連動粒状感と日付・時刻は JPG のみに適用。"
-        ]
+          "純正イメージコントロールに Cinema (Yellow)／Cinema (Green) を追加。カスタム 1／2 と独立フィルム一覧は維持します。",
+          "フィルム有効時は中立の Std に固定し、Cinema との重ね掛けを防ぎます。",
+          "フィルム一覧、ADJ のファミリーと子メニューを維持。子メニューの OK でファミリーと子モデルを確定します。",
+          "ISO 連動の粒状感、日時、撮影中のアイコンと現在の写真の INFO アイコンを維持します。",
+          "Cinema 2 種は現在、固定パラメーターで動作し、スライダー調整には対応していません。GR IV の実写と色が完全に一致することを保証する移植ではありません。"
+        ],
+        "rollback": "旧版・純正へ戻す前に：フィルムを無効にし、イメージコントロールを Std に戻して再起動し、保存を確認してください。旧ファームウェアは追加した Cinema の番号を認識しません。"
       },
       "gr3x": {
         "compatible": "RICOH GR IIIx / HDF・純正 1.60 ベース",
-        "note": "V1 公開。GR III と同じフィルム機能を搭載。利用者による GR IIIx 実機テストで正常動作を確認し、ダウンロードのパスワードは不要になりました。",
-        "changesTitle": "V1 公開",
+        "note": "V1.1：同じ Cinema 2 種を純正イメージコントロールに追加し、既存の効果とカスタム 1／2 を維持。IIIx のローカル検証は完了しましたが、今回の追加機能は IIIx 実機での確認待ちです。",
+        "changesTitle": "V1.1 更新",
         "changes": [
-          "フィルム一覧、ADJ のファミリーと子メニューの全機能を搭載。",
-          "子メニューの OK でファミリーと子モデルを確定。撮影画面に選択中のアイコンを表示。",
-          "フィルム有効時は中立の Std を使い、純正カスタムアイコンは維持。",
-          "ISO 連動粒状感と日付・時刻は JPG のみに適用。"
-        ]
+          "純正イメージコントロールに Cinema (Yellow)／Cinema (Green) を追加。カスタム 1／2 と独立フィルム一覧は維持します。",
+          "フィルム有効時は中立の Std に固定し、Cinema との重ね掛けを防ぎます。",
+          "フィルム一覧、ADJ のファミリーと子メニューを維持。子メニューの OK でファミリーと子モデルを確定します。",
+          "ISO 連動の粒状感、日時、撮影中のアイコンと現在の写真の INFO アイコンを維持します。",
+          "Cinema 2 種は現在、固定パラメーターで動作し、スライダー調整には対応していません。GR IV の実写と色が完全に一致することを保証する移植ではありません。"
+        ],
+        "rollback": "旧版・純正へ戻す前に：フィルムを無効にし、イメージコントロールを Std に戻して再起動し、保存を確認してください。旧ファームウェアは追加した Cinema の番号を認識しません。"
       }
     },
     "restoreWarning": "ほかの非公式ファームウェアを使用している場合は、先に純正ファームウェアに戻してください。",

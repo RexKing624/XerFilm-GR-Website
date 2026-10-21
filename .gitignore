@@ -30,3 +30,11 @@ public/downloads/*
 !public/downloads/firmware-gr3x-r12.part1
 !public/downloads/firmware-gr3x-r12.part2
 !public/downloads/firmware-gr3x-r12.part3
+
+# V1.1 native Cinema updates explicitly approved for website distribution.
+!public/downloads/firmware-gr3-r13.part1
+!public/downloads/firmware-gr3-r13.part2
+!public/downloads/firmware-gr3-r13.part3
+!public/downloads/firmware-gr3x-r13.part1
+!public/downloads/firmware-gr3x-r13.part2
+!public/downloads/firmware-gr3x-r13.part3

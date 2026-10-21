@@ -68,8 +68,10 @@ GitHub Pages 同时部署网站与 `public/downloads/` 中的各机型发布文�
 
 GR IV keeps a separate collapsed download section for bodies that cannot install the standard build, including newer/anniversary bodies with installation restrictions. The installation-failure acknowledgement reveals v23-H (installation version 1.12.10.7), without a password. A user has confirmed successful camera testing of this enhanced build. It is not offered for GR III or IIIx. Firmware source ZIP downloads remain removed.
 
-## Model releases
+## Model releases (2026-10-21)
 
 - GR IV / HDF: V1.1, v23, base firmware 1.11.
-- GR III / HDF: V1, R12, base firmware 2.10; user camera-tested.
-- GR IIIx / HDF: V1, R12, base firmware 1.60; user camera-tested. Downloads are password-free, with the common reading reminders preserved.
+- GR III / HDF: V1.1, R13, base firmware 2.10; user camera-tested. Adds native Cinema Yellow/Green while preserving Custom 1/2.
+- GR IIIx / HDF: V1.1, R13, base firmware 1.60; local ARM and model-parity checks passed, new R13 features await IIIx hardware testing. Downloads remain password-free.
+
+R13 Cinema is separate from the independent Film List and ADJ. Enabling film simulation still forces neutral Standard. The two Cinema effects have fixed parameters and are not claimed as a calibrated GR IV color match. Before reverting, switch film off, select native Std and restart to confirm it is saved; older firmware does not recognize Cinema tone IDs. These details are localized in Chinese, English and Japanese.
