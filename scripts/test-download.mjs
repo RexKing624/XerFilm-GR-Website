@@ -8,7 +8,7 @@ const root = new URL('../', import.meta.url);
 const manifests = ['release.json', 'gr3-release.json', 'gr3x-release.json', 'enhanced-release.json'];
 const releases = await Promise.all(manifests.map(async name => JSON.parse(await readFile(new URL(`src/${name}`, root)))));
 const availability = JSON.parse(await readFile(new URL('src/download-availability.json', root)));
-assert.deepEqual(availability, { gr4: false, gr3: false, gr3x: false }, 'all three model downloads paused while the next version is tested');
+assert.deepEqual(availability, { gr4: true, gr3: true, gr3x: true }, 'all three model downloads restored to the existing camera-tested V2.0 releases');
 const originals = JSON.parse(await readFile(new URL('src/original-releases.json', root)));
 releases.push(...originals);
 const realFetch = globalThis.fetch;
