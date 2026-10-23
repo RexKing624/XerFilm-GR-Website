@@ -6,4 +6,4 @@ The browser reconstructs the model-specific original BIN from16 MiB storage part
 
 Enhanced installation versions: GR IV1.12.10.7, GR III2.11.21.27, GR IIIx1.61.21.27. These do not change the compatible official base versions (1.11 /2.10 /1.60).
 
-Pinned unmodified manufacturer backups and LICENSE.txt remain available. Firmware source archives are not deployed here.
+Pinned unmodified manufacturer backups and LICENSE.txt remain available. The separately labeled historical V1.1 modification source is available under public/historical-source/v1.1/. It is not the corresponding source for the current V2.0 downloads.

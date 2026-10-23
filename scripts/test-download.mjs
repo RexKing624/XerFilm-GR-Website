@@ -70,6 +70,8 @@ try {
   assert.equal(releases[3].encryption, undefined);
   for (const locale of ['zh', 'en', 'ja']) {
     const text = copy[locale];
+    assert.ok(text.historicalSource.includes('V1.1'));
+    assert.ok(text.historicalSourceNote.includes('V2.0'));
     for (const model of ['gr4', 'gr3', 'gr3x']) {
       const info = text.modelReleases[model];
       assert.ok(info.compatible && info.note && info.changesTitle && info.changes.length);

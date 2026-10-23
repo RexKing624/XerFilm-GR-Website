@@ -1,0 +1,14 @@
+{
+  "version": "V1.1",
+  "historical": true,
+  "correspondsToCurrentRelease": false,
+  "file": "historical-source/v1.1/XerFilm-GR-V1.1-source.zip",
+  "bytes": 2725578,
+  "sha256": "a3d9ea726bb71467a908ffed85bd968f2dc930e0f2fe39c4c6f2042f8d8d3cf1",
+  "files": 653,
+  "builds": {
+    "gr4": "v23 / v23-H",
+    "gr3": "R14 / R14-H",
+    "gr3x": "R14 / R14-H"
+  }
+}

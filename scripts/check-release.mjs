@@ -51,3 +51,11 @@ for (const release of originals) {
   if (b.length !== release.size || hash(b) !== pin[2]) throw new Error('Original backup differs from archived manufacturer BIN');
   console.log(`${release.camera} ${release.version}: pinned original backup verified.`);
 }
+
+// The historical archive must stay distinct from the current firmware release.
+const historical = JSON.parse(await readFile(new URL('../src/historical-source.json', import.meta.url)));
+if (historical.version !== 'V1.1' || !historical.historical || historical.correspondsToCurrentRelease !== false ||
+    historical.file !== 'historical-source/v1.1/XerFilm-GR-V1.1-source.zip') throw new Error('Historical source identity/version mismatch');
+const source = await readFile(new URL('../public/' + historical.file, import.meta.url));
+if (source.length !== historical.bytes || hash(source) !== historical.sha256) throw new Error('Historical source archive checksum mismatch');
+console.log('V1.1 historical source archive verified separately from V2.0 firmware.');

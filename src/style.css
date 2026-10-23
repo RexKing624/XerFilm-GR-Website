@@ -17,7 +17,7 @@ body{min-width:1100px}
 .footer-support{justify-self:end}.footer-support a{display:inline-flex;gap:12px;padding-bottom:4px;border-bottom:1px solid var(--line)}.footer-support span{color:var(--accent)}
 .changelog>.text-link{display:inline-block;margin-top:20px}
 
-.footer-bottom>.project-source{font-size:10px;line-height:1.6;white-space:nowrap;text-decoration:underline;text-underline-offset:4px;color:var(--ink)}
+.footer-bottom .project-source{font-size:10px;line-height:1.6;white-space:nowrap;text-decoration:underline;text-underline-offset:4px;color:var(--ink)}
 
 .brand-logo{width:46px;height:46px;flex-shrink:0}.brand>span{font-size:21px;font-weight:550;letter-spacing:-.04em}.brand .brand-sub{font-size:8px;letter-spacing:.13em;margin-top:5px;font-weight:400}
 
@@ -115,3 +115,5 @@ html:is([lang=en],[lang=ja]) .restore-warning .original-firmware-button{justify-
 .frame-format{position:absolute;top:6px;left:8px;font:8px/1.5 ui-monospace,monospace;color:#fff;letter-spacing:.06em;text-shadow:0 1px 3px #000}
 .frame-format>span{margin-left:7px;color:#ddd}
 .framing-features figcaption{font-size:9px;line-height:1.8;color:var(--muted);margin-top:8px}
+
+.source-links{display:grid;gap:8px;max-width:230px;flex-shrink:0}.source-links small{font-size:9px;line-height:1.7;color:var(--muted)}

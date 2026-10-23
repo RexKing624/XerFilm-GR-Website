@@ -4,6 +4,7 @@ import { copy } from './i18n';
 import films from './films.json';
 import release from './release.json';
 import originalReleases from './original-releases.json';
+import historicalSource from './historical-source.json';
 import { loadFirmware, unlockFirmware } from './download';
 import { cameras, fileSize, enhancedReleases, isModelAvailable } from './releases';
 import EnhancedDownload from './EnhancedDownload.vue';
@@ -39,6 +40,7 @@ const filteredFilms = computed(() => films.filter(f => (filter.value === 'all' |
 const assetBase = import.meta.env.BASE_URL;
 const filmIcon = id => `${import.meta.env.BASE_URL}films/${id}.png`;
 const licenseURL = `${assetBase}licenses/GPL-2.0.txt`;
+const historicalSourceURL = `${assetBase}${historicalSource.file}`;
 const busy = ref(false);
 const enhancedBusy = ref(false);
 const progress = ref(0);
@@ -182,7 +184,7 @@ onBeforeUnmount(() => { controller?.abort(); document.body.style.overflow = ''; 
     <section class="changelog"><div class="release-heading"><span class="eyebrow">03 / {{ releaseCopy.changesTitle }}</span><b>{{ selectedRelease.version }}</b></div><p class="release-compat">{{ releaseCopy.compatible }}</p><ul><li v-for="item in releaseCopy.changes" :key="item">{{ item }}</li></ul></section>
    </div>
   </main>
-  <footer class="site-footer"><div class="footer-main"><a href="https://xergnik.com/">© 2026 XER_GNIK <span>↗</span></a><div><p>{{ t.location }}</p></div><div><a class="footer-email" href="mailto:hello@xergnik.com">hello@xergnik.com</a></div><div class="footer-support"><a href="https://xergnik.com/support/" target="_blank" rel="noopener noreferrer">{{ t.support }} <span>↗</span></a></div></div><div class="footer-bottom"><p>{{ t.footerNote }}</p><a class="project-source" href="https://github.com/RexKing624/XerFilm-GR-Website" target="_blank" rel="noopener noreferrer">{{ t.projectSource }} ↗</a><details><summary>{{ t.licenses }}</summary><p>{{ t.origin }}</p><div class="credit-links"><a :href="licenseURL" target="_blank" rel="noopener">GPL-2.0</a><a href="https://github.com/Maxwooow/Ricoh-GRMod" target="_blank" rel="noopener">Ricoh-GRMod</a><a href="https://github.com/DoYitNow/gr-custom-tool" target="_blank" rel="noopener">gr-custom-tool</a></div></details><a href="#top" :aria-label="t.home">↑</a></div></footer>
+  <footer class="site-footer"><div class="footer-main"><a href="https://xergnik.com/">© 2026 XER_GNIK <span>↗</span></a><div><p>{{ t.location }}</p></div><div><a class="footer-email" href="mailto:hello@xergnik.com">hello@xergnik.com</a></div><div class="footer-support"><a href="https://xergnik.com/support/" target="_blank" rel="noopener noreferrer">{{ t.support }} <span>↗</span></a></div></div><div class="footer-bottom"><p>{{ t.footerNote }}</p><div class="source-links"><a class="project-source" href="https://github.com/RexKing624/XerFilm-GR-Website" target="_blank" rel="noopener noreferrer">{{ t.projectSource }} ↗</a><a class="project-source" :href="historicalSourceURL" download="XerFilm-GR-V1.1-source.zip">{{ t.historicalSource }} ↓</a><small>{{ t.historicalSourceNote }}</small></div><details><summary>{{ t.licenses }}</summary><p>{{ t.origin }}</p><div class="credit-links"><a :href="licenseURL" target="_blank" rel="noopener">GPL-2.0</a><a href="https://github.com/Maxwooow/Ricoh-GRMod" target="_blank" rel="noopener">Ricoh-GRMod</a><a href="https://github.com/DoYitNow/gr-custom-tool" target="_blank" rel="noopener">gr-custom-tool</a></div></details><a href="#top" :aria-label="t.home">↑</a></div></footer>
 
   <dialog ref="dialog" class="drawer" :class="{ 'download-drawer':drawer === 'download' }" :aria-labelledby="'drawer-title'" @close="onDialogClose" @cancel.prevent="closeDrawer" @click="($event.target === dialog) && closeDrawer()">
    <div class="drawer-surface">
