@@ -13,6 +13,8 @@ body{min-width:1100px}
 .footer-main{align-items:center}
 .footer-main>a{padding-top:0}
 .footer-email{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px}
+.footer-main{grid-template-columns:1.2fr 1fr 1fr .8fr}
+.footer-support{justify-self:end}.footer-support a{display:inline-flex;gap:12px;padding-bottom:4px;border-bottom:1px solid var(--line)}.footer-support span{color:var(--accent)}
 .changelog>.text-link{display:inline-block;margin-top:20px}
 
 .footer-bottom>.project-source{font-size:10px;line-height:1.6;white-space:nowrap;text-decoration:underline;text-underline-offset:4px;color:var(--ink)}
