@@ -82,7 +82,7 @@ html:is([lang=en],[lang=ja]) .restore-warning .original-firmware-button{justify-
 .camera-choice.unavailable{opacity:.4;cursor:not-allowed;filter:grayscale(1);background:transparent;border-color:var(--line)}
 .camera-choice.unavailable:hover{border-color:var(--line)}
 .camera-choice.unavailable input{cursor:not-allowed}
-.download-suspension{font-size:11px;line-height:1.8;color:var(--warm);margin:-8px 0 24px}
+.download-suspension{font-size:11px;line-height:1.8;color:var(--muted);margin:-8px 0 24px}
 .original-firmware-card .outlined:disabled{opacity:.4;cursor:not-allowed;background:transparent}
 
 /* Compact, aligned illustrations for the four finishing tools. */

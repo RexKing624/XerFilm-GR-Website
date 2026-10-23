@@ -181,7 +181,7 @@ export const copy = {
       }
     },
     "downloadSuspended": "暂停下载",
-    "downloadSuspensionNotice": "GR III / IIIx（含 HDF）所有下载已临时下架，正在排查设置菜单问题。"
+    "downloadSuspensionNotice": "新版本测试中"
   },
   "en": {
     "enhancedIntro": "Some newly manufactured GR IV bodies, or bodies updated with Ricoh’s official 30th Anniversary firmware, have firmware installation restrictions. If the standard build cannot be installed, try the enhanced build below.",
@@ -365,7 +365,7 @@ export const copy = {
       }
     },
     "downloadSuspended": "Downloads paused",
-    "downloadSuspensionNotice": "All GR III / IIIx downloads, including HDF, are temporarily unavailable while a settings-menu issue is investigated."
+    "downloadSuspensionNotice": "New version under testing"
   },
   "ja": {
     "enhancedIntro": "新しく製造された GR IV、またはリコー公式の 30 周年ファームウェアを適用した機体には、導入制限がある場合があります。通常版をインストールできない場合に、下の拡張版をお試しください。",
@@ -549,6 +549,6 @@ export const copy = {
       }
     },
     "downloadSuspended": "ダウンロード停止中",
-    "downloadSuspensionNotice": "設定メニューの問題を調査するため、GR III / IIIx（HDF を含む）のすべてのダウンロードを一時停止しています。"
+    "downloadSuspensionNotice": "新バージョンをテスト中"
   }
 };
