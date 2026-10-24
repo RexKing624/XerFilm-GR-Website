@@ -102,3 +102,7 @@ Download tests verify the pinned R29 / R29-H BINs, cancellation and corruption h
 ## GR IIIx V3.0 withdrawn pending retesting (2026-10-24)
 
 Following physical-camera feedback, IIIx V3.0 ordinary and enhanced downloads are withdrawn. The exact previously released V2.0 R20 / R20-H files and changelog are restored. No IIIx V3.0 test download is exposed. Community and Studio compatibility is again limited to GR IV / HDF V3.0. GR III and GR IV releases remain unchanged.
+
+## GR IIIx / HDF V3.0 R31 password-verified test (2026-10-25)
+
+V2.0 remains the stable IIIx download. A separate V3.0 R31/R31-H test panel below the enhanced panel offers ordinary and enhanced variants with the existing password2222 PBKDF2/AES-GCM flow. The reading confirmations and test acknowledgement remain required. The exact supplied R31 BINs are encrypted and split into same-site parts; final decrypted SHA-256 identities are pinned in checks. R31 fixes Film Fn physical MENU return and native Cinema right-column parameter values. Hardware retesting is pending. Other stable releases, compatibility text and historical firmware source remain unchanged.

@@ -61,6 +61,27 @@ const source = await readFile(new URL('../public/' + historical.file, import.met
 if (source.length !== historical.bytes || hash(source) !== historical.sha256) throw new Error('Historical source archive checksum mismatch');
 console.log('Existing V1.1 historical source archive unchanged; GR IV V3.0 and III/IIIx V2.0 checked separately.');
 
-const withdrawn = (await readdir(base)).filter(name => /^firmware-gr3x-v3(?:[.-])/.test(name));
+const withdrawn = (await readdir(base)).filter(name => /^firmware-gr3x-v3(?:[.-])/.test(name) && !/^firmware-gr3x-v3-test-r31-(ordinary|enhanced)\.part[123]$/.test(name));
 if (withdrawn.length) throw new Error('Withdrawn IIIx V3.0 assets still exposed: '+withdrawn.join(', '));
-console.log('GR IIIx V3.0 stable and test downloads withdrawn; V2.0 restored.');
+console.log('GR IIIx V3.0 stable and superseded tests withdrawn; V2.0 retained.');
+
+// Test distribution is separate from every camera-tested stable release.
+for (const [kind, revision, version, pin] of [
+  ['ordinary', 'R31', '1.60', 'fe50d2d36059a6c3a9928d06330e1f36403365204dc16a7b534b71a504fce946'],
+  ['enhanced', 'R31-H', '1.61', '98def0db42b23ab6699ab535ea520364ce8a52b7e72a9ad57962a666b959c33e'],
+]) {
+  const r = JSON.parse(await readFile(new URL(`../src/gr3x-test-${kind}-release.json`, import.meta.url)));
+  if (r.version !== 'V3.0 测试版' || r.internalVersion !== revision || r.installationVersion !== version ||
+      r.baseVersion !== '1.60' || r.filename !== 'fwdc243b.bin' || r.sha256 !== pin || !r.testRelease || r.hardwareTested !== false ||
+      r.encryption?.algorithm !== 'AES-GCM' || r.encryption?.kdf !== 'PBKDF2' || r.encryption.iterations !== 210000) throw new Error('GR IIIx test release identity/gate mismatch');
+  const chunks = [];
+  for (const part of r.parts) {
+    if (!part.file.startsWith(`firmware-gr3x-v3-test-r31-${kind}.part`)) throw new Error('Wrong test download path');
+    const bytes = await readFile(new URL(part.file, base));
+    if (bytes.length !== part.size || hash(bytes) !== part.sha256) throw new Error('Encrypted test part corrupted');
+    chunks.push(bytes);
+  }
+  const full = Buffer.concat(chunks);
+  if (full.length !== r.downloadSize || hash(full) !== r.transportSha256 || full.length !== r.size + 16) throw new Error('Encrypted test transport corrupted');
+  console.log(`${revision}: independent password-protected V3.0 test assets verified.`);
+}
