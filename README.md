@@ -98,3 +98,7 @@ The user confirmed the R29 test firmware passed physical-camera testing. Ordinar
 The IIIx changelog matches the GR IV V3.0 changelog in Chinese, English and Japanese. Community and Studio compatibility now includes GR IIIx / HDF V3.0. GR III / HDF retains V2.0 and GR IV / HDF retains V3.0. The historical firmware source archive remains unchanged.
 
 Download tests verify the pinned R29 / R29-H BINs, cancellation and corruption handling. Release and build guards reject retired IIIx distribution assets.
+
+## GR IIIx V3.0 withdrawn pending retesting (2026-10-24)
+
+Following physical-camera feedback, IIIx V3.0 ordinary and enhanced downloads are withdrawn. The exact previously released V2.0 R20 / R20-H files and changelog are restored. No IIIx V3.0 test download is exposed. Community and Studio compatibility is again limited to GR IV / HDF V3.0. GR III and GR IV releases remain unchanged.

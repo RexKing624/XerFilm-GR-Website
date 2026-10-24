@@ -11,7 +11,7 @@ for (const manifest of ['release.json','gr3-release.json','gr3x-release.json','e
 const originals = JSON.parse(readFileSync(resolve('src/original-releases.json'), 'utf8'));
 for (const release of originals) if (!release.parts.every(part => existsSync(resolve('public/downloads', part.file)))) throw new Error('Missing original firmware backup: '+release.camera);
 const availability = JSON.parse(readFileSync(resolve('src/download-availability.json'), 'utf8'));
-const withdrawnAssets = name => /^(?:firmware-gr3x-v2(?:-enhanced)?\.part|firmware-gr3x-v3-test-)/.test(name);
+const withdrawnAssets = name => /^firmware-gr3x-v3(?:[.-])/.test(name);
 const suspendedAssets = name => withdrawnAssets(name) || Object.entries(availability).some(([model, available]) => !available && (name.startsWith(`firmware-${model}-`) || name.startsWith(`stock-${model}-`)));
 export default defineConfig({
   plugins: [vue(), {
