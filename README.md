@@ -106,3 +106,7 @@ Following physical-camera feedback, IIIx V3.0 ordinary and enhanced downloads ar
 ## GR IIIx / HDF V3.0 R31 password-verified test (2026-10-25)
 
 V2.0 remains the stable IIIx download. A separate V3.0 R31/R31-H test panel below the enhanced panel offers ordinary and enhanced variants with the existing password2222 PBKDF2/AES-GCM flow. The reading confirmations and test acknowledgement remain required. The exact supplied R31 BINs are encrypted and split into same-site parts; final decrypted SHA-256 identities are pinned in checks. R31 fixes Film Fn physical MENU return and native Cinema right-column parameter values. Hardware retesting is pending. Other stable releases, compatibility text and historical firmware source remain unchanged.
+
+## GR IIIx / HDF V3.0 R31 stable (2026-10-25)
+
+The user confirmed R31 passed physical-camera testing. Stable ordinary R31 and enhanced R31-H downloads use the exact approved BINs without firmware changes or a download password. IIIx V2.0 and password-gated test assets are withdrawn. Chinese, English and Japanese V3.0 changelogs match GR IV; Community and Studio now include released GR IIIx / HDF V3.0 support. GR III, GR IV, manufacturer backups and the historical source archive remain unchanged.

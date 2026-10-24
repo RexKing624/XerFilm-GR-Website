@@ -48,10 +48,6 @@ public/downloads/*
 !public/community/packs/*.zip
 
 
-# Restored camera-tested GR IIIx / HDF V2.0 downloads.
-!public/downloads/firmware-gr3x-v2.part*
-!public/downloads/firmware-gr3x-v2-enhanced.part*
-
-# Password-verified GR IIIx / HDF V3.0 R31 test builds.
-!public/downloads/firmware-gr3x-v3-test-r31-ordinary.part*
-!public/downloads/firmware-gr3x-v3-test-r31-enhanced.part*
+# Camera-tested GR IIIx / HDF V3.0 R31 stable downloads.
+!public/downloads/firmware-gr3x-v3.part*
+!public/downloads/firmware-gr3x-v3-enhanced.part*

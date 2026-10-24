@@ -1,20 +1,19 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { loadFirmware, unlockFirmware } from '../src/download.js';
+import { loadFirmware } from '../src/download.js';
 import { copy } from '../src/i18n.js';
 
 const root = new URL('../', import.meta.url);
 const manifests = ['release.json', 'gr3-release.json', 'gr3x-release.json', 'enhanced-release.json'];
 const releases = await Promise.all(manifests.map(async name => JSON.parse(await readFile(new URL(`src/${name}`, root)))));
 const availability = JSON.parse(await readFile(new URL('src/download-availability.json', root)));
-assert.deepEqual(availability, { gr4: true, gr3: true, gr3x: true }, 'GR IV V3.0 and III/IIIx V2.0 downloads remain available');
+assert.deepEqual(availability, { gr4: true, gr3: true, gr3x: true }, 'GR IV / IIIx V3.0 and III V2.0 downloads remain available');
 const originals = JSON.parse(await readFile(new URL('src/original-releases.json', root)));
 releases.push(...originals);
 const realFetch = globalThis.fetch;
-let requests = 0;
 globalThis.fetch = async (url, { signal } = {}) => {
-  signal?.throwIfAborted(); requests++;
+  signal?.throwIfAborted();
   const file = new URL(String(url).replace(/^\.\//, 'public/'), root);
   return new Response(await readFile(file));
 };
@@ -36,7 +35,7 @@ try {
     assert.equal(bytes.length, release.size);
     assert.equal(createHash('sha256').update(bytes).digest('hex'), release.sha256);
     assert.equal(release.hardwareTested, true);
-    assert.equal(release.internalVersion, 'R20-H');
+    assert.equal(release.internalVersion, release.camera.includes('IIIx') ? 'R31-H' : 'R20-H');
     console.log(`${release.camera} enhanced: password-free download matches camera-tested BIN`);
     const corrupted = structuredClone(release); corrupted.parts[0].sha256 = '0'.repeat(64);
     await assert.rejects(loadFirmware(corrupted), /Part checksum mismatch/);
@@ -61,11 +60,11 @@ try {
   assert.equal(releases[0].internalVersion, 'v49');
   assert.equal(releases[3].internalVersion, 'v49-H');
   assert.equal(releases[1].version, 'V2.0');
-  assert.equal(releases[2].version, 'V2.0');
+  assert.equal(releases[2].version, 'V3.0');
   assert.equal(releases[1].hardwareTested, true);
   assert.equal(releases[2].hardwareTested, true);
   assert.equal(releases[1].internalVersion, 'R20');
-  assert.equal(releases[2].internalVersion, 'R20');
+  assert.equal(releases[2].internalVersion, 'R31');
   assert.equal(releases[0].filename, 'fwdc248b.bin');
   assert.equal(releases[1].filename, 'fwdc239b.bin');
   assert.equal(releases[2].filename, 'fwdc243b.bin');
@@ -80,7 +79,7 @@ try {
       const info = text.modelReleases[model];
       assert.ok(info.compatible && info.note && info.changesTitle && info.changes.length);
     }
-    for (const model of ['gr3', 'gr3x']) {
+    for (const model of ['gr3']) {
       const info = text.modelReleases[model];
       assert.ok(info.rollback && info.note.includes('V2.0'));
       assert.equal(info.changes.length, 3);
@@ -105,32 +104,14 @@ try {
   assert.deepEqual(originals.map(r => [r.id, r.version, r.filename]), [['gr3','2.10','fwdc239b.bin'], ['gr3x','1.60','fwdc243b.bin'], ['gr4','1.11','fwdc248b.bin']]);
   const app = await readFile(new URL('src/App.vue', root), 'utf8');
   assert.ok(app.includes("openDrawer('original')") && !app.includes('t.originalFirmwareURL'));
-  for (const [kind, pin] of [
-    ['ordinary', 'fe50d2d36059a6c3a9928d06330e1f36403365204dc16a7b534b71a504fce946'],
-    ['enhanced', '98def0db42b23ab6699ab535ea520364ce8a52b7e72a9ad57962a666b959c33e'],
-  ]) {
-    const test = JSON.parse(await readFile(new URL(`src/gr3x-test-${kind}-release.json`, root)));
-    const previous = requests;
-    await assert.rejects(loadFirmware(test), /Password required/);
-    assert.equal(requests, previous, 'Locked test release cannot fetch any firmware');
-    await assert.rejects(unlockFirmware(test, '0000'));
-    const key = await unlockFirmware(test, '2222');
-    const blob = await loadFirmware(test, { decryptionKey: key });
-    const output = new Uint8Array(await blob.arrayBuffer());
-    assert.equal(output.length, test.size);
-    assert.equal(createHash('sha256').update(output).digest('hex'), pin, 'Password unlock preserves exact R31 BIN');
-    const damaged = structuredClone(test); damaged.parts[0].sha256 = '0'.repeat(64);
-    await assert.rejects(loadFirmware(damaged, { decryptionKey: key }), /Part checksum mismatch/);
-    const stopped = new AbortController(); stopped.abort();
-    await assert.rejects(loadFirmware(test, { decryptionKey: key, signal: stopped.signal }), { name: 'AbortError' });
-    console.log(`${test.internalVersion}: wrong password blocked; correct password restores pinned test BIN.`);
-  }
-  const { testFirmwareCopy } = await import('../src/test-firmware-copy.js');
+  assert.ok(!app.includes('TestFirmwareDownload'), 'Retired test panel removed');
   for (const locale of ['zh', 'en', 'ja']) {
-    assert.ok(testFirmwareCopy[locale].enhancedTitle.includes('V3.0'));
-    assert.ok(testFirmwareCopy[locale].enhancedPassword && testFirmwareCopy[locale].enhancedAck);
+    const { gr4, gr3x } = copy[locale].modelReleases;
+    for (const key of ['changes', 'changesTitle', 'note', 'frameDesc']) assert.deepEqual(gr3x[key], gr4[key], 'IIIx V3.0 uses IV changelog');
+    assert.ok(copy[locale].enhancedModels.gr3x.enhancedTestNote.includes('V3.0'));
+    assert.ok(!/测试|test|テスト/.test(copy[locale].enhancedModels.gr3x.enhancedTitle));
   }
-  assert.ok(app.indexOf('<TestFirmwareDownload') > app.indexOf('<EnhancedDownload :key='), 'Test panel follows enhanced downloads');
-  assert.ok(app.includes("v-if=\"selectedModel === 'gr3x'\""), 'Only IIIx/HDF gets test panel');
+  const { communityCopy } = await import('../src/community-copy.js');
+  for (const locale of ['zh', 'en', 'ja']) assert.ok(communityCopy[locale].compatibility.includes('GR IIIx / HDF'), 'Community supports released IIIx V3.0');
   console.log('Password-free downloads, exact BIN identity, cancellation, corruption and all three languages passed.');
 } finally { globalThis.fetch = realFetch; }

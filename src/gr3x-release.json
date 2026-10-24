@@ -1,30 +1,30 @@
 {
-  "version": "V2.0",
-  "internalVersion": "R20",
+  "version": "V3.0",
+  "internalVersion": "R31",
   "baseVersion": "1.60",
+  "installationVersion": "1.60",
   "camera": "RICOH GR IIIx / HDF",
   "filename": "fwdc243b.bin",
-  "size": 35620072,
-  "sha256": "ffd6cf9cf2959963573153fe6b724e17cc84b7e51350e692d0f3ec8bd48370c1",
+  "size": 38168248,
+  "sha256": "fe50d2d36059a6c3a9928d06330e1f36403365204dc16a7b534b71a504fce946",
   "hardwareTested": true,
+  "releaseDate": "2026-10-25",
   "parts": [
     {
-      "file": "firmware-gr3x-v2.part1",
+      "file": "firmware-gr3x-v3.part1",
       "size": 16777216,
-      "sha256": "2006839616e756bb1e0dff58fee1de8ca7078f0395579f0dfdfff3c6a570e247"
+      "sha256": "4bdd15f934a201ae9b2ac71918a0dd558414ff9305540ddf5596f9e629ea3dae"
     },
     {
-      "file": "firmware-gr3x-v2.part2",
+      "file": "firmware-gr3x-v3.part2",
       "size": 16777216,
-      "sha256": "76ef505a7f4bc3faf1c871f2b31b78378a35edb821f6efc45d3b8cdda843a5d0"
+      "sha256": "0f72ef2cf47bf76d5be04f462c8c79f1dde43a7a2cad1cfdc5d99a792f788389"
     },
     {
-      "file": "firmware-gr3x-v2.part3",
-      "size": 2065640,
-      "sha256": "c4c4f347a2efd87fa76fec2264b3af1a5a9f2c7c5313aab7dc87364053280bc7"
+      "file": "firmware-gr3x-v3.part3",
+      "size": 4613816,
+      "sha256": "17eea89f0ccb926d0ed2ac57b898e9440821f63fdff744cba2c9015e43618173"
     }
   ],
-  "nativeCinema": true,
-  "releaseDate": "2026-10-22",
-  "installationVersion": "1.60"
+  "nativeCinema": true
 }
