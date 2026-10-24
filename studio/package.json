@@ -1,0 +1,19 @@
+{
+  "name": "xerfilm-gr-studio-local",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5186 --strictPort",
+    "build": "vite build",
+    "author": "node author-server.mjs"
+  },
+  "dependencies": {
+    "vue": "^3.5.0",
+    "fflate": "^0.8.2",
+    "tweetnacl": "^1.0.3",
+    "vite": "^6.4.1",
+    "typescript": "^5.8.0"
+  },
+  "devDependencies": {},
+  "version": "3.0.0"
+}

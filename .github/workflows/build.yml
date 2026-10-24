@@ -21,6 +21,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm ci --prefix studio
       - run: npm run check:release
       - run: npm run test:downloads
       - run: npm run build

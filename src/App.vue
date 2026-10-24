@@ -8,6 +8,10 @@ import historicalSource from './historical-source.json';
 import { loadFirmware, unlockFirmware } from './download';
 import { cameras, fileSize, enhancedReleases, isModelAvailable } from './releases';
 import EnhancedDownload from './EnhancedDownload.vue';
+import CommunityGallery from './CommunityGallery.vue';
+import StudioEditor from './StudioEditor.vue';
+import { communityCopy } from './community-copy';
+import { SITE_VERSION } from './site-version';
 
 const readPreference = (name) => { try { return localStorage.getItem(name); } catch { return null; } };
 const savePreference = (name, value) => { try { localStorage.setItem(name, value); } catch {} };
@@ -15,6 +19,36 @@ const browserLocale = navigator.language.startsWith('zh') ? 'zh' : navigator.lan
 const language = ref(['zh', 'en', 'ja'].includes(readPreference('site-language')) ? readPreference('site-language') : browserLocale);
 const theme = ref(['dark', 'light'].includes(readPreference('site-theme')) ? readPreference('site-theme') : 'dark');
 const t = computed(() => copy[language.value]);
+const ct = computed(() => communityCopy[language.value]);
+// Keep older local bookmarks working while using one site's clean paths.
+if (['#community', '#community-submit'].includes(location.hash)) history.replaceState(null, '', location.hash === '#community-submit' ? '/community/#submit' : '/community/');
+if (/^\/studio\/?$/.test(location.pathname)) history.replaceState(null, '', '/community/studio/');
+const currentHash = ref(location.hash);
+const communityPage = ref(/^\/community\/?$/.test(location.pathname));
+const studioPage = ref(/^\/community\/studio\/?$/.test(location.pathname));
+const communitySection = computed(() => communityPage.value || studioPage.value);
+function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+function syncPage() {
+ const nextCommunity = /^\/community\/?$/.test(location.pathname);
+ const nextStudio = /^\/community\/studio\/?$/.test(location.pathname);
+ const changed = communityPage.value !== nextCommunity || studioPage.value !== nextStudio;
+ currentHash.value = location.hash;
+ communityPage.value = nextCommunity;
+ studioPage.value = nextStudio;
+ if (changed) { closeDrawer(); nextTick(() => window.scrollTo({ top: 0, behavior: 'instant' })); }
+}
+function navigateWithinSite(event) {
+ if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+ const link = event.target.closest?.('a[href]');
+ if (!link || link.hasAttribute('download') || (link.target && link.target !== '_self')) return;
+ const url = new URL(link.href, location.href);
+ if (url.origin !== location.origin || !['/', '/community/', '/community/studio/'].includes(url.pathname)) return;
+ if (url.pathname === location.pathname && url.hash !== location.hash && url.hash !== '#submit') return;
+ event.preventDefault();
+ if (url.href !== location.href) { history.pushState(null, '', url.pathname + url.search + url.hash); syncPage(); }
+}
+window.addEventListener('hashchange', syncPage);
+window.addEventListener('popstate', syncPage);
 const selectedModel = ref('gr4');
 const selectedCamera = computed(() => cameras.find(camera => camera.id === selectedModel.value));
 const selectedRelease = computed(() => selectedCamera.value.release);
@@ -62,7 +96,7 @@ watch(selectedModel, () => {
   acks.value = emptyAcknowledgements(); typed.value = ''; inputHint.value = '';
 });
 watch(password, () => { passwordError.value = false; });
-watch(language, value => { document.documentElement.lang = value === 'zh' ? 'zh-CN' : value; document.title = `XerFilm GR · ${copy[value].download}`; }, { immediate: true });
+watch([language, communityPage, studioPage], ([value, community, studio]) => { document.documentElement.lang = value === 'zh' ? 'zh-CN' : value; document.title = `XerFilm GR ${SITE_VERSION} · ${studio ? communityCopy[value].studioNav : community ? communityCopy[value].nav : copy[value].download}`; }, { immediate: true });
 watch(theme, value => { document.documentElement.dataset.theme = value; document.documentElement.style.colorScheme = value; savePreference('site-theme', value); }, { immediate: true });
 watch(allAcknowledged, value => { if (!value) { typed.value = ''; if (drawer.value === 'download') closeDrawer(); } });
 watch(verified, value => { if (value) openDrawer('download'); });
@@ -130,19 +164,20 @@ async function unlockDownload() {
   } catch { if (attempt === unlockAttempt) passwordError.value = true; }
   finally { if (attempt === unlockAttempt) unlocking.value = false; }
 }
-onBeforeUnmount(() => { controller?.abort(); document.body.style.overflow = ''; });
+onBeforeUnmount(() => { window.removeEventListener('hashchange', syncPage); window.removeEventListener('popstate', syncPage); controller?.abort(); document.body.style.overflow = ''; });
 </script>
 
 <template>
- <div id="top" class="site-shell">
+ <div id="top" class="site-shell" @click="navigateWithinSite">
   <header class="site-header">
-   <a href="#top" class="brand" aria-label="XerFilm GR"><img class="brand-logo" :src="`${assetBase}brand/xerfilm-gr-${theme}.svg`" alt=""><span>XerFilm GR<span class="brand-sub">BY XER_GNIK / {{ release.version }}</span></span></a>
+   <a href="/" class="brand" aria-label="XerFilm GR"><img class="brand-logo" :src="`${assetBase}brand/xerfilm-gr-${theme}.svg`" alt=""><span>XerFilm GR<span class="brand-sub">BY XER_GNIK / {{ SITE_VERSION }}</span></span></a>
    <div class="header-tools">
-    <a class="nav-link" href="#features">{{ t.nav }}</a>
+    <nav class="primary-nav" :aria-label="ct.siteNavigation"><a class="nav-link" href="/" :aria-current="!communitySection ? 'page' : undefined">{{ ct.homeNav }}</a><span aria-hidden="true">/</span><a class="nav-link" href="/community/" :aria-current="communitySection ? 'page' : undefined">{{ ct.communityNav }}</a></nav>
     <div class="language-switch" role="group" :aria-label="t.lang"><button v-for="item in [{ id:'zh',label:'中' },{ id:'en',label:'EN' },{ id:'ja',label:'日' }]" :key="item.id" :aria-pressed="language === item.id" @click="language = item.id">{{ item.label }}</button></div>
     <button class="theme-switch" :aria-label="t.theme" :title="t.theme" @click="theme = theme === 'dark' ? 'light' : 'dark'"><svg v-if="theme === 'dark'" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4 19 5"/></svg><svg v-else viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.4A8.5 8.5 0 0 1 9.6 4a8.5 8.5 0 1 0 10.4 10.4Z"/></svg></button>
    </div>
   </header>
+  <template v-if="!communitySection">
   <section class="intro">
    <div><p class="eyebrow"><span class="status-dot"></span> XerFilm GR · GR IV / III / IIIx · HDF / {{ t.edition }}</p><h1>{{ t.hero1 }}<br><em>{{ t.hero2 }}</em></h1><p class="intro-copy">{{ t.intro }}</p></div>
    <div class="hero-stack" aria-hidden="true"><img v-for="(film,i) in heroFilms.slice(0,4)" :key="film.name" :src="filmIcon(film.icon)" :style="{ '--i': i }" alt=""><span class="stack-label">17 FAMILIES<br>27 WAYS TO SEE.</span></div>
@@ -169,7 +204,7 @@ onBeforeUnmount(() => { controller?.abort(); document.body.style.overflow = ''; 
      <p class="feature-copy">{{ t.filmDesc }}</p>
      <div class="film-strip"><div v-for="film in heroFilms" :key="film.name"><img :src="filmIcon(film.icon)" :alt="film.name"><span>{{ film.name }}</span></div></div>
      <div class="film-feature-bottom"><div class="stats"><span><b>17</b>{{ t.familyUnit }}</span><span><b>27</b>{{ t.lookUnit }}</span></div><button class="outlined" @click="openDrawer('films')">{{ t.viewFilms }} <span aria-hidden="true">↗</span></button></div>
-     <div class="curated"><span aria-hidden="true">↳</span><div><strong>{{ t.curatedTitle }}</strong><p>{{ t.curated }}</p></div></div>
+     <div class="curated"><span aria-hidden="true">↳</span><div class="curated-copy"><strong>{{ t.curatedTitle }}</strong><p>{{ t.curated }}</p><small>{{ ct.compatibility }}</small></div><div class="curated-actions"><a class="text-link community-entry" href="/community/">{{ ct.explore }} <span aria-hidden="true">↗</span></a></div></div>
     </section>
     <section class="interaction-feature"><div class="interaction-copy"><span class="tiny-number">02—</span><h3>{{ t.adjTitle }}</h3><p>{{ t.adjDesc }}</p><h4>{{ t.listTitle }}</h4><p>{{ t.listDesc }}</p></div><div class="camera-demo"><div class="demo-title"><img :src="filmIcon(732)" alt="FILM"><span>FILM LIST</span><span class="demo-dot"></span></div><p class="demo-caption">{{ t.demo }}</p><div class="demo-grid"><button v-for="(film,i) in heroFilms" :key="film.name" :class="{ selected:selectedMock === i, off:!mockEnabled[i] }" :aria-label="film.name" :aria-pressed="mockEnabled[i]" @click="selectedMock = i; mockEnabled[i] = !mockEnabled[i]"><img :src="filmIcon(film.icon)" :alt="film.name"><span v-if="mockEnabled[i]" class="demo-check">✓</span></button></div><div class="demo-bottom"><span>{{ heroFilms[selectedMock].name }}</span><span>OK <b>↵</b></span></div></div></section>
     <div id="finishing" class="two-features effect-features">
@@ -184,14 +219,17 @@ onBeforeUnmount(() => { controller?.abort(); document.body.style.overflow = ''; 
     <section class="changelog"><div class="release-heading"><span class="eyebrow">03 / {{ releaseCopy.changesTitle }}</span><b>{{ selectedRelease.version }}</b></div><p class="release-compat">{{ releaseCopy.compatible }}</p><ul><li v-for="item in releaseCopy.changes" :key="item">{{ item }}</li></ul></section>
    </div>
   </main>
-  <footer class="site-footer"><div class="footer-main"><a href="https://xergnik.com/">© 2026 XER_GNIK <span>↗</span></a><div><p>{{ t.location }}</p></div><div><a class="footer-email" href="mailto:hello@xergnik.com">hello@xergnik.com</a></div><div class="footer-support"><a href="https://xergnik.com/support/" target="_blank" rel="noopener noreferrer">{{ t.support }} <span>↗</span></a></div></div><div class="footer-bottom"><p>{{ t.footerNote }}</p><div class="source-links"><a class="project-source" href="https://github.com/RexKing624/XerFilm-GR-Website" target="_blank" rel="noopener noreferrer">{{ t.projectSource }} ↗</a><details class="firmware-source"><summary>{{ t.firmwareSource }}</summary><a class="project-source" :href="historicalSourceURL" :title="t.historicalSourceNote" download="XerFilm-GR-V1.1-source.zip">V1.1 ↓</a></details></div><details><summary>{{ t.licenses }}</summary><p>{{ t.origin }}</p><div class="credit-links"><a :href="licenseURL" target="_blank" rel="noopener">GPL-2.0</a><a href="https://github.com/Maxwooow/Ricoh-GRMod" target="_blank" rel="noopener">Ricoh-GRMod</a><a href="https://github.com/DoYitNow/gr-custom-tool" target="_blank" rel="noopener">gr-custom-tool</a></div></details><a href="#top" :aria-label="t.home">↑</a></div></footer>
+  </template>
+  <CommunityGallery v-else-if="communityPage" :language="language" :asset-base="assetBase" :submission-requested="currentHash === '#submit'" />
+  <StudioEditor v-else :language="language" :theme="theme" />
+  <footer class="site-footer"><div class="footer-main"><a href="https://xergnik.com/">© 2026 XER_GNIK <span>↗</span></a><div><p>{{ t.location }}</p></div><div><a class="footer-email" href="mailto:hello@xergnik.com">hello@xergnik.com</a></div><div class="footer-support"><a href="https://xergnik.com/support/" target="_blank" rel="noopener noreferrer">{{ t.support }} <span>↗</span></a></div></div><div v-if="!communitySection" class="footer-bottom"><p>{{ t.footerNote }}</p><div class="source-links"><a class="project-source" href="https://github.com/RexKing624/XerFilm-GR-Website" target="_blank" rel="noopener noreferrer">{{ t.projectSource }} ↗</a><details class="firmware-source"><summary>{{ t.firmwareSource }}</summary><a class="project-source" :href="historicalSourceURL" :title="t.historicalSourceNote" download="XerFilm-GR-V1.1-source.zip">V1.1 ↓</a></details></div><details><summary>{{ t.licenses }}</summary><p>{{ t.origin }}</p><div class="credit-links"><a :href="licenseURL" target="_blank" rel="noopener">GPL-2.0</a><a href="https://github.com/Maxwooow/Ricoh-GRMod" target="_blank" rel="noopener">Ricoh-GRMod</a><a href="https://github.com/DoYitNow/gr-custom-tool" target="_blank" rel="noopener">gr-custom-tool</a></div></details><a :href="communityPage ? '/community/#top' : '/#top'" :aria-label="t.home" @click.prevent="scrollToTop">↑</a></div></footer>
 
   <dialog ref="dialog" class="drawer" :class="{ 'download-drawer':drawer === 'download' }" :aria-labelledby="'drawer-title'" @close="onDialogClose" @cancel.prevent="closeDrawer" @click="($event.target === dialog) && closeDrawer()">
    <div class="drawer-surface">
     <div class="drawer-header"><div><span class="eyebrow">{{ `${drawer === 'original' ? 'ORIGINAL FIRMWARE' : drawer === 'films' ? 'FILM CATALOG' : 'DOWNLOAD'} / ${drawer === 'original' ? 'BACKUPS' : selectedRelease.version}` }}</span><h2 id="drawer-title">{{ drawer === 'original' ? t.originalTitle : drawer === 'films' ? t.library : selectedCamera.label }}</h2></div><button class="close-button" :aria-label="t.close" @click="closeDrawer">✕</button></div>
     <template v-if="drawer === 'films'">
      <p class="drawer-intro">{{ t.libraryIntro }}</p><div class="catalog-toolbar"><div class="filters" role="group" :aria-label="t.library"><button v-for="brand in ['all','FUJIFILM','KODAK']" :key="brand" :class="{ active:filter === brand }" :aria-pressed="filter === brand" @click="filter = brand">{{ brand === 'all' ? t.all : brand }}</button></div><input v-model="search" type="search" :placeholder="t.search" :aria-label="t.search"></div><p class="catalog-count">{{ t.count }}</p>
-     <div class="catalog-grid"><article v-for="film in filteredFilms" :key="film.name" class="catalog-film"><div class="catalog-family"><img :src="filmIcon(film.icon)" :alt="film.name"><div><span>{{ film.brand }}</span><h3>{{ film.name }}</h3></div></div><div v-if="film.variants.length" class="variants"><span>{{ t.variants }}</span><div class="variant" v-for="variant in film.variants" :key="variant.name"><img :src="filmIcon(variant.icon)" :alt="`${film.name} ${variant.name}`"><span>{{ variant.name }}</span></div></div></article></div><p v-if="!filteredFilms.length" class="empty">{{ t.noResult }}</p><div class="catalog-footer">{{ t.curated }}</div>
+     <div class="catalog-grid"><article v-for="film in filteredFilms" :key="film.name" class="catalog-film"><div class="catalog-family"><img :src="filmIcon(film.icon)" :alt="film.name"><div><span>{{ film.brand }}</span><h3>{{ film.name }}</h3></div></div><div v-if="film.variants.length" class="variants"><span>{{ t.variants }}</span><div class="variant" v-for="variant in film.variants" :key="variant.name"><img :src="filmIcon(variant.icon)" :alt="`${film.name} ${variant.name}`"><span>{{ variant.name }}</span></div></div></article></div><p v-if="!filteredFilms.length" class="empty">{{ t.noResult }}</p><div class="catalog-footer">{{ t.curated }} {{ ct.compatibility }}</div>
     </template>
     <template v-if="drawer === 'original'">
      <p class="drawer-intro">{{ t.originalIntro }}</p>

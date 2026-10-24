@@ -64,7 +64,17 @@ GitHub Pages 同时部署网站与 `public/downloads/` 中的各机型发布文�
 
 新标志为两张错位胶片框与几何 F，提供深浅色 SVG、favicon 和 PNG。`public/brand/` 包含三语胶片列表拼贴项目图，保留原有胶片图标。可用 `python3 tools/design-brand.py` 重新生成矢量稿。
 
-## V2.0 — 2026-10-22
+## Website V3.0 — 2026-10-24
+
+The website, static community and public browser Studio share the V3.0 header, theme and language controls. Routes remain on the same domain: `/`, `/community/`, `/community/studio/`. The old `/studio/` address redirects to the Studio route.
+
+This update does **not** replace camera firmware. The six modified firmware downloads, manufacturer backups, manifests and download availability remain the existing public V2.0 distribution. Community imports require compatible GR IV firmware; publishing the editor does not add import support to those older downloads.
+
+`studio/` contains the public browser editor source. Install its dependencies with `npm ci --prefix studio`; `npm run build` prepares the embedded editor before building the site. When the sibling local Studio workspace exists, the preparation script copies only its browser source/build inputs. Author servers, signing keys, release ledgers, local drafts and uploads are excluded. CI builds solely from this repository.
+
+The community is curated static content. The submission button opens an email draft; there is no backend upload endpoint or automatic publication. See `COMMUNITY.md`.
+
+### Firmware V2.0 — 2026-10-22
 
 The latest local page and all six camera-tested firmware files are published together as V2.0. GR IV uses v32/v32-H, GR III and IIIx use R20/R20-H. The installed firmware metadata stays model-specific (1.11/1.12.10.7, 2.10/2.11.21.27, 1.60/1.61.21.27); V2.0 is the public project release.
 

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "coast-study",
+    "name": "Coast Study",
+    "familyName": "COAST STUDY / Warm",
+    "revision": 1,
+    "demo": true,
+    "creator": {
+      "name": "XER_GNIK",
+      "avatar": "community/avatars/xer-gnik-pixel.png",
+      "note": {
+        "zh": "XerFilm GR 作者",
+        "en": "Creator of XerFilm GR",
+        "ja": "XerFilm GR 作者"
+      }
+    },
+    "description": {
+      "zh": "给海边的一点暖意。轻轻抬起暗部，让阳光更柔和，保留海水与草地的层次。先用这个演示作品，试试分享颜色的方式。",
+      "en": "A little warmth by the coast. Lifted shadows and softer sunlight, with the sea and grass still holding their detail. A demo look to try sharing colours.",
+      "ja": "海辺に、少しの暖かさを。暗部をやわらかく持ち上げ、海と草の階調を残したルック。色を共有するためのデモ作品です。"
+    },
+    "tags": [
+      "WARM",
+      "SOFT LIGHT",
+      "GR IV · TEST"
+    ],
+    "photos": [
+      {
+        "original": "community/photos/coast-original.jpg",
+        "effect": "community/photos/coast-effect.jpg",
+        "label": {
+          "zh": "海边",
+          "en": "By the coast",
+          "ja": "海辺"
+        }
+      }
+    ],
+    "download": "community/packs/coast-study.zip",
+    "size": "17.4 KiB · .zip",
+    "sha256": "1cdc9f16c4c0430b757d67305897380c55d087d0e2fa5372d7cfac4b6244a445"
+  }
+]

@@ -1,4 +1,7 @@
 node_modules
+**/node_modules/
+studio/dist/
+preview/
 dist/
 .DS_Store
 .env
@@ -38,3 +41,6 @@ public/downloads/*
 
 # Explicitly published V1.1 historical modification sources
 !public/historical-source/v1.1/XerFilm-GR-V1.1-source.zip
+
+# Public community effect bundles (never firmware or author signing material).
+!public/community/packs/*.zip

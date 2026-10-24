@@ -1,11 +1,11 @@
 {
   "name": "xerfilm-gr-website",
   "private": true,
-  "version": "2.0.0",
+  "version": "3.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 5178",
-    "build": "vite build",
+    "build": "node scripts/prepare-studio.mjs && vite build",
     "preview": "vite preview --host 127.0.0.1 --port 5178",
     "check:release": "node scripts/check-release.mjs",
     "test:downloads": "node scripts/test-download.mjs"
