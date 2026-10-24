@@ -6,6 +6,7 @@ import release from './release.json';
 import originalReleases from './original-releases.json';
 import historicalSource from './historical-source.json';
 import { loadFirmware, unlockFirmware } from './download';
+import { trackFirmwareDownload } from './download-statistics';
 import { cameras, fileSize, enhancedReleases, isModelAvailable } from './releases';
 import EnhancedDownload from './EnhancedDownload.vue';
 import CommunityGallery from './CommunityGallery.vue';
@@ -136,6 +137,7 @@ async function downloadFirmware() {
     document.body.append(anchor); anchor.click(); anchor.remove();
     setTimeout(() => URL.revokeObjectURL(url), 60000);
     downloadState.value = 'saved';
+    trackFirmwareDownload(target);
   } catch (error) { if (attempt === downloadAttempt && error.name !== 'AbortError') downloadState.value = 'failed'; }
   finally { if (attempt === downloadAttempt) busy.value = false; }
 }
@@ -148,7 +150,7 @@ async function downloadOriginal(target) {
     const blob = await loadFirmware(target, { signal: activeController.signal, onProgress: value => { if (attempt !== downloadAttempt) return; progress.value = value; if (value === 1) downloadState.value = 'checking'; } });
     if (attempt !== downloadAttempt || drawer.value !== 'original') return;
     const url = URL.createObjectURL(blob); const anchor = document.createElement('a'); anchor.href = url; anchor.download = target.filename;
-    document.body.append(anchor); anchor.click(); anchor.remove(); setTimeout(() => URL.revokeObjectURL(url), 60000); downloadState.value = 'saved';
+    document.body.append(anchor); anchor.click(); anchor.remove(); setTimeout(() => URL.revokeObjectURL(url), 60000); downloadState.value = 'saved'; trackFirmwareDownload(target);
   } catch (error) { if (attempt === downloadAttempt && error.name !== 'AbortError') downloadState.value = 'failed'; }
   finally { if (attempt === downloadAttempt) busy.value = false; }
 }

@@ -51,3 +51,8 @@ public/downloads/*
 # Camera-tested GR IIIx / HDF V3.0 R31 stable downloads.
 !public/downloads/firmware-gr3x-v3.part*
 !public/downloads/firmware-gr3x-v3-enhanced.part*
+
+# Local analytics runtime and credentials
+statistics/.wrangler/
+statistics/.dev.vars*
+statistics/.secrets/

@@ -24,6 +24,7 @@ jobs:
       - run: npm ci --prefix studio
       - run: npm run check:release
       - run: npm run test:downloads
+      - run: npm run test:statistics
       - run: npm run build
       - uses: actions/configure-pages@v5
         if: github.event_name != 'pull_request'

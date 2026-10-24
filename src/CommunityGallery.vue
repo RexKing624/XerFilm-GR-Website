@@ -3,11 +3,15 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import entries from './community-data.json';
 import { communityCopy } from './community-copy';
 import PhotoCompare from './PhotoCompare.vue';
+import { trackCommunityDownload } from './download-statistics';
+import { loadVerifiedCommunityPack, saveCommunityPack } from './community-download';
 const props=defineProps({language:{type:String,required:true},assetBase:{type:String,default:'/'},submissionRequested:Boolean});
 const t=computed(()=>communityCopy[props.language]);
 const local=value=>typeof value==='string'?value:value[props.language];
 const selected=ref(null),detailDialog=ref(null),submitDialog=ref(null),installDialog=ref(null);
 let lastFocus,installFocus;
+const downloading=ref('');
+async function downloadPack(item){if(downloading.value)return;downloading.value=item.id;try{const blob=await loadVerifiedCommunityPack(item,props.assetBase);saveCommunityPack(blob,item.download.split('/').pop());trackCommunityDownload(item);}catch{window.alert(props.language==='zh'?'下载或校验失败，请重试。':'Download verification failed. Please retry.');}finally{downloading.value='';}}
 async function openDetail(item){lastFocus=document.activeElement;selected.value=item;await nextTick();detailDialog.value.showModal();document.body.style.overflow='hidden';}
 function openSubmit(){lastFocus=document.activeElement;if(!submitDialog.value.open)submitDialog.value.showModal();document.body.style.overflow='hidden';}
 function openInstall(){installFocus=document.activeElement;if(!installDialog.value.open)installDialog.value.showModal();}
@@ -33,7 +37,7 @@ onBeforeUnmount(()=>{installDialog.value?.close();detailDialog.value?.close();su
     <div class="look-card-body"><div class="look-card-title"><h2><button @click="openDetail(item)">{{item.name}}</button></h2><span v-if="item.demo" class="community-badge">{{t.demo}}</span></div>
      <div class="card-creator"><img :src="`${assetBase}${item.creator.avatar}`" :alt="item.creator.name" width="28" height="28"><span>{{item.creator.name}}</span></div>
      <p class="card-description">{{local(item.description)}}</p>
-     <div class="card-bottom"><button class="card-detail" @click="openDetail(item)">{{t.view}} <span aria-hidden="true">↗</span></button><a :href="`${assetBase}${item.download}`" :download="item.download.split('/').pop()" :aria-label="`${item.name} · ${t.download}`">{{t.downloadShort}} <span aria-hidden="true">↓</span></a></div>
+     <div class="card-bottom"><button class="card-detail" @click="openDetail(item)">{{t.view}} <span aria-hidden="true">↗</span></button><a :href="`${assetBase}${item.download}`" :download="item.download.split('/').pop()" :aria-label="`${item.name} · ${t.download}`" @click.prevent="downloadPack(item)" :aria-busy="downloading===item.id">{{t.downloadShort}} <span aria-hidden="true">↓</span></a></div>
     </div>
    </article>
   </div>
@@ -48,7 +52,7 @@ onBeforeUnmount(()=>{installDialog.value?.close();detailDialog.value?.close();su
      <div class="community-creator"><img :src="`${assetBase}${selected.creator.avatar}`" :alt="selected.creator.name" width="48" height="48"><div><small>{{t.by}}</small><strong>{{selected.creator.name}}</strong><span>{{local(selected.creator.note)}}</span></div></div>
      <p class="look-description">{{local(selected.description)}}</p><div class="look-tags"><span v-for="tag in selected.tags" :key="tag">{{tag}}</span></div>
      <dl class="look-metadata"><div><dt>{{t.package}}</dt><dd>{{selected.familyName}}</dd></div><div><dt>{{t.version}}</dt><dd>{{selected.revision}}</dd></div><div><dt>{{t.file}}</dt><dd>{{selected.size}}</dd></div></dl>
-     <a class="primary community-download" :href="`${assetBase}${selected.download}`" :download="selected.download.split('/').pop()"><span>{{t.download}}</span><span aria-hidden="true">↓</span></a><p class="slot-destination">{{t.destination}}</p>
+     <a class="primary community-download" @click.prevent="downloadPack(selected)" :aria-busy="downloading===selected.id" :href="`${assetBase}${selected.download}`" :download="selected.download.split('/').pop()"><span>{{t.download}}</span><span aria-hidden="true">↓</span></a><p class="slot-destination">{{t.destination}}</p>
      <button class="community-install" type="button" aria-haspopup="dialog" aria-controls="community-install-dialog" @click="openInstall">{{t.install}} <span aria-hidden="true">+</span></button>
     </aside>
    </div>

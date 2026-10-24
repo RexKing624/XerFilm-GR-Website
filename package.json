@@ -8,7 +8,8 @@
     "build": "node scripts/prepare-studio.mjs && vite build",
     "preview": "vite preview --host 127.0.0.1 --port 5178",
     "check:release": "node scripts/check-release.mjs",
-    "test:downloads": "node scripts/test-download.mjs"
+    "test:downloads": "node scripts/test-download.mjs",
+    "test:statistics": "node --test statistics/test/*.test.mjs"
   },
   "dependencies": {
     "vue": "3.5.22"

@@ -1,0 +1,1 @@
+{"name":"xerfilm-download-statistics","private":true,"type":"module","scripts":{"dev":"wrangler dev --ip 127.0.0.1 --port 8795","deploy":"wrangler deploy","test":"node --test test/*.test.mjs"},"devDependencies":{"wrangler":"4.152.0"}}

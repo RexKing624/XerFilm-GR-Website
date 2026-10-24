@@ -110,3 +110,7 @@ V2.0 remains the stable IIIx download. A separate V3.0 R31/R31-H test panel belo
 ## GR IIIx / HDF V3.0 R31 stable (2026-10-25)
 
 The user confirmed R31 passed physical-camera testing. Stable ordinary R31 and enhanced R31-H downloads use the exact approved BINs without firmware changes or a download password. IIIx V2.0 and password-gated test assets are withdrawn. Chinese, English and Japanese V3.0 changelogs match GR IV; Community and Studio now include released GR IIIx / HDF V3.0 support. GR III, GR IV, manufacturer backups and the historical source archive remain unchanged.
+
+## Download statistics (2026-10-25)
+
+The website reports checksum-verified downloads after the browser save action. Ordinary, enhanced and original firmware are separated by model/version/revision; verified community ZIPs are tracked separately. A separate Cloudflare Worker stores idempotent events in D1 and serves a token-protected owner dashboard. No firmware or download bytes change. See statistics/README.md for deployment, privacy, exclusions and verification details.

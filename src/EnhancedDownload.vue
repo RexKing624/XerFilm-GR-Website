@@ -1,6 +1,7 @@
 <script setup>
 import { onBeforeUnmount, ref, shallowRef, watch } from 'vue';
 import { loadFirmware, unlockFirmware } from './download';
+import { trackFirmwareDownload } from './download-statistics';
 
 const props = defineProps({ t: { type: Object, required: true }, release: { type: Object, required: true }, verified: Boolean, baseBusy: Boolean, idPrefix: { type: String, default: 'enhanced' } });
 const emit = defineEmits(['busy']);
@@ -56,6 +57,7 @@ async function download() {
     document.querySelector('dialog[open]')?.append(anchor);
     anchor.click(); anchor.remove();
     setTimeout(() => URL.revokeObjectURL(url), 60000); status.value = 'saved';
+    trackFirmwareDownload(target, 'enhanced');
   } catch (error) { if (current === attempt && error.name !== 'AbortError') status.value = 'failed'; }
   finally { if (current === attempt) { busy.value = false; controller = undefined; emit('busy', false); } }
 }

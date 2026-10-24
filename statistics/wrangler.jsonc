@@ -1,0 +1,41 @@
+{
+  "name": "xerfilm-download-statistics",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "observability": {
+    "enabled": false
+  },
+  "vars": {
+    "START_DATE": "2026-10-25",
+    "ALLOWED_ORIGIN": "https://filmgr.xergnik.com"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "xerfilm-download-statistics",
+      "database_id": "f5d5e384-09ea-4b30-8b8a-a6cc42642b84",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "EVENT_LIMITER",
+      "namespace_id": "82610251",
+      "simple": {
+        "limit": 600,
+        "period": 60
+      }
+    }
+  ],
+  "rules": [
+    {
+      "type": "Text",
+      "globs": [
+        "**/*.html"
+      ],
+      "fallthrough": true
+    }
+  ],
+  "account_id": "7c54494a14bd97c1a4890df6fc63514e"
+}
