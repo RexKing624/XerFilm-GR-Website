@@ -17,10 +17,10 @@ for (const manifest of ['release.json', 'gr3-release.json', 'gr3x-release.json',
     'enhanced-release.json': ['v49-H', '1.12.10.7', 'fwdc248b.bin', 'e51eec7ec956ff6cf2f9bcc584845da73affa6470e4c6d032037e0341dc64555'],
     'gr3-release.json': ['R20', '2.10', 'fwdc239b.bin', '14b0707675bfe6b33a7c53dfb15fbb575a66edb3ac512ed4c3e18cbd54916eb0'],
     'gr3-enhanced-release.json': ['R20-H', '2.11.21.27', 'fwdc239b.bin', 'd49ec1ef6b06504471d71faf6b58acf23af93a29ceddef6b10b6e90d9b94d6fe'],
-    'gr3x-release.json': ['R20', '1.60', 'fwdc243b.bin', 'ffd6cf9cf2959963573153fe6b724e17cc84b7e51350e692d0f3ec8bd48370c1'],
-    'gr3x-enhanced-release.json': ['R20-H', '1.61.21.27', 'fwdc243b.bin', '49aa2ea7df5cb912483c3eff119299cec1f8388303a89fb8c110cbb47895db2b'],
+    'gr3x-release.json': ['R29', '1.60', 'fwdc243b.bin', '20e10ea634b13d1c54489c54bb2331c2572df705278260f6f2cb74bde92d7c7a'],
+    'gr3x-enhanced-release.json': ['R29-H', '1.61', 'fwdc243b.bin', 'f82c572d331651b080cab2cb856e733d43e66ea9486405fb4ab35cdf1fdee774'],
   };
-  const expectedVersion = ['release.json','enhanced-release.json'].includes(manifest) ? 'V3.0' : 'V2.0';
+  const expectedVersion = !manifest.startsWith('gr3-') ? 'V3.0' : 'V2.0';
   if (release.version !== expectedVersion || release.hardwareTested !== true || release.encryption ||
       JSON.stringify([release.internalVersion, release.installationVersion, release.filename, release.sha256]) !== JSON.stringify(expectedReleases[manifest])) {
     throw new Error('Must ship the exact camera-tested, password-free model-specific BIN: ' + manifest);
@@ -59,25 +59,9 @@ if (historical.version !== 'V1.1' || !historical.historical || historical.corres
     historical.file !== 'historical-source/v1.1/XerFilm-GR-V1.1-source.zip') throw new Error('Historical source identity/version mismatch');
 const source = await readFile(new URL('../public/' + historical.file, import.meta.url));
 if (source.length !== historical.bytes || hash(source) !== historical.sha256) throw new Error('Historical source archive checksum mismatch');
-console.log('Existing V1.1 historical source archive unchanged; GR IV V3.0 and III/IIIx V2.0 checked separately.');
+console.log('Existing V1.1 historical source archive unchanged; GR IV / IIIx V3.0 and III V2.0 checked separately.');
 
-// Test distribution is separate from every camera-tested stable release.
-for (const [kind, revision, version, pin] of [
-  ['ordinary', 'R29', '1.60', '20e10ea634b13d1c54489c54bb2331c2572df705278260f6f2cb74bde92d7c7a'],
-  ['enhanced', 'R29-H', '1.61', 'f82c572d331651b080cab2cb856e733d43e66ea9486405fb4ab35cdf1fdee774'],
-]) {
-  const r = JSON.parse(await readFile(new URL(`../src/gr3x-test-${kind}-release.json`, import.meta.url)));
-  if (r.version !== 'V3.0 测试版' || r.internalVersion !== revision || r.installationVersion !== version ||
-      r.baseVersion !== '1.60' || r.filename !== 'fwdc243b.bin' || r.sha256 !== pin || !r.testRelease || r.hardwareTested !== false ||
-      r.encryption?.algorithm !== 'AES-GCM' || r.encryption?.kdf !== 'PBKDF2' || r.encryption.iterations !== 210000) throw new Error('GR IIIx test release identity/gate mismatch');
-  const chunks = [];
-  for (const part of r.parts) {
-    if (!part.file.startsWith(`firmware-gr3x-v3-test-r29-${kind}.part`)) throw new Error('Wrong test download path');
-    const bytes = await readFile(new URL(part.file, base));
-    if (bytes.length !== part.size || hash(bytes) !== part.sha256) throw new Error('Encrypted test part corrupted');
-    chunks.push(bytes);
-  }
-  const full = Buffer.concat(chunks);
-  if (full.length !== r.downloadSize || hash(full) !== r.transportSha256 || full.length !== r.size + 16) throw new Error('Encrypted test transport corrupted');
-  console.log(`${revision}: independent password-protected V3.0 test assets verified.`);
-}
+// Withdraw old IIIx stable and password-gated test assets from the deployment.
+const withdrawn = (await readdir(base)).filter(name => /^(?:firmware-gr3x-v2(?:-enhanced)?\.part|firmware-gr3x-v3-test-)/.test(name));
+if (withdrawn.length) throw new Error('Withdrawn IIIx downloads still exposed: '+withdrawn.join(', '));
+console.log('GR IIIx V2.0 and test download assets withdrawn.');

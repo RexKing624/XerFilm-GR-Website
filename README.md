@@ -91,8 +91,10 @@ The latest local page and all six camera-tested firmware files are published tog
 
 Archived original firmware remains pinned to GR III/HDF2.10, GR IIIx/HDF1.60 and GR IV/HDF1.11. Providing backups does not establish downgrade compatibility. Existing compatibility messages are retained.
 
-## GR IIIx / HDF V3.0 R29 test distribution (2026-10-24)
+## GR IIIx / HDF V3.0 R29 stable release (2026-10-24)
 
-A separate V3.0 test panel is shown below the enhanced-firmware panel only for GR IIIx / HDF. Ordinary R29 and enhanced R29-H use the existing PBKDF2/AES-GCM password verification and download flow, with password2222. Four acknowledgements and the manual confirmation remain required. The test release is explicitly marked as pending camera validation. Existing stable GR III/IIIx V2.0 and GR IV V3.0 files, their changelogs, community compatibility text and historical source download are unchanged.
+The user confirmed the R29 test firmware passed physical-camera testing. Ordinary R29 and enhanced R29-H are now the password-free V3.0 stable downloads, using the exact same BIN files. The prior IIIx V2.0 assets and separate password-gated test panel/assets are withdrawn. The existing four acknowledgements, manual confirmation and enhanced-installation acknowledgement remain.
 
-The browser decrypts the exact supplied R29 BIN; encrypted transport parts have independent hashes. Download tests cover wrong passwords, locked fetches, both pinned BIN hashes, corruption and cancellation. This update adds no new firmware source archive.
+The IIIx changelog matches the GR IV V3.0 changelog in Chinese, English and Japanese. Community and Studio compatibility now includes GR IIIx / HDF V3.0. GR III / HDF retains V2.0 and GR IV / HDF retains V3.0. The historical firmware source archive remains unchanged.
+
+Download tests verify the pinned R29 / R29-H BINs, cancellation and corruption handling. Release and build guards reject retired IIIx distribution assets.

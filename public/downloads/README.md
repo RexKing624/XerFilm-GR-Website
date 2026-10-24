@@ -1,9 +1,11 @@
-# Same-site V2.0 downloads
+# Same-site firmware downloads
 
-GR IV / HDF (v32), GR III / HDF (R20) and GR IIIx / HDF (R20), ordinary and enhanced, have been camera-tested by the user. The public version is V2.0 for all six downloads.
+GR IV / HDF V3.0 (v49), GR IIIx / HDF V3.0 (R29), and GR III / HDF V2.0 (R20) are released in ordinary and enhanced variants. These releases have been camera-tested by the user.
 
-The browser reconstructs the model-specific original BIN from16 MiB storage parts, validates each part and the full SHA-256, and saves fwdc248b.bin, fwdc239b.bin or fwdc243b.bin. Do not flash parts individually. Downloads are password-free; the separate enhanced-installation acknowledgement remains.
+GR IIIx V3.0 uses the exact BINs from the approved R29 test release. Its V2.0 and password-protected test downloads have been withdrawn. Both V3.0 downloads are password-free; the existing reading and enhanced-installation acknowledgements remain.
 
-Enhanced installation versions: GR IV1.12.10.7, GR III2.11.21.27, GR IIIx1.61.21.27. These do not change the compatible official base versions (1.11 /2.10 /1.60).
+The browser reconstructs each model-specific BIN from 16 MiB parts, verifies every part and the complete SHA-256, then saves fwdc248b.bin, fwdc243b.bin or fwdc239b.bin. Do not flash parts individually.
 
-Pinned unmodified manufacturer backups and LICENSE.txt remain available. The separately labeled historical V1.1 modification source is available under public/historical-source/v1.1/. It is not the corresponding source for the current V2.0 downloads.
+Compatible official bases stay GR IV 1.11, GR IIIx 1.60 and GR III 2.10. Enhanced installation versions are GR IV 1.12.10.7, GR IIIx 1.61 and GR III 2.11.21.27.
+
+Pinned unmodified manufacturer backups and LICENSE.txt remain available. The separately labeled historical V1.1 modification source remains unchanged; it is not the corresponding source for current V2.0 / V3.0 downloads.
