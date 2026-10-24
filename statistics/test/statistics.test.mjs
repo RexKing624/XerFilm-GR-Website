@@ -49,3 +49,11 @@ test('owner exclusion and localhost suppress stats; blocked storage and network 
  createDownloadStatistics({...baseOptions,location:{origin,search:'?download-statistics=off'},storage:undefined}).record(asset);assert.equal(calls,0);
  const client=createDownloadStatistics({...baseOptions,storage:{getItem(){throw Error()},setItem(){throw Error()}},send:async()=>{throw Error('offline')}});assert.doesNotThrow(()=>client.record(asset));await new Promise(r=>setTimeout(r,10));
 });
+
+test('historical 850 is a labeled baseline, added once only to estimated cumulative total',async()=>{
+ const env=environment();env.HISTORICAL_ESTIMATE='850';
+ let d=await (await stats(env)).json();assert.equal(d.summary.total,0);assert.equal(d.summary.historicalEstimate,850);assert.equal(d.summary.estimatedTotal,850);assert.equal(d.downloads.length,0);assert.equal(d.daily.length,0);
+ await handleRequest(request({eventId:randomUUID(),asset}),env);
+ d=await (await stats(env)).json();assert.equal(d.summary.total,1);assert.equal(d.summary.estimatedTotal,851);assert.equal(d.summary.today,1);assert.equal(d.summary.month,1);assert.equal(d.daily[0].count,1);assert.equal(d.downloads[0].count,1);assert.equal(env.db.prepare('SELECT COUNT(*) n FROM downloads').get().n,1);
+ d=await (await stats(env)).json();assert.equal(d.summary.estimatedTotal,851,'Refreshing does not add 850 again');
+});

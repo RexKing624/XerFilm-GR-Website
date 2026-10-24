@@ -23,3 +23,7 @@ Use Wrangler with account read, user read, Workers scripts write and D1 write pe
 The client accepts metadata for future valid firmware releases, so later version upgrades need no schema migration or server catalog update. Counts are separated by category, model, variant, version, revision and SHA-256. Queries use server receipt dates in Japan time, with daily trends, summaries, version breakdowns and CSV export. Original manufacturer firmware is reported separately and excluded from custom firmware totals.
 
 Keep all applied migrations immutable. No historical download totals are fabricated. Operational testing uses the local database; do not seed fake production downloads.
+
+## Historical estimate baseline
+
+At the owner's request, `HISTORICAL_ESTIMATE=850` represents estimated firmware downloads before collection was enabled. The dashboard shows estimated cumulative total = historical estimate + measured firmware total, with both values labeled separately. This baseline never inserts download rows, never inflates daily/monthly/model/version/community totals, and does not enter CSV event breakdowns. The API retains `summary.total` as the measured count; `summary.historicalEstimate` and `summary.estimatedTotal` expose the explicit estimate.

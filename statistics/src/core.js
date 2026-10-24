@@ -57,7 +57,11 @@ export async function handleRequest(request,env,adminHTML=''){
     env.DB.prepare(`SELECT kind,model,variant,version,revision,sha256,COUNT(*) count FROM downloads WHERE ${where} GROUP BY kind,model,variant,version,revision,sha256 ORDER BY count DESC,model,version LIMIT 500`).bind(from,to),
    ];
    const results=await env.DB.batch(queries);
-   return json({startDate:start,timeZone:TIME_ZONE,from,to,today,summary:results[0].results[0],kinds:results[1].results,daily:results[2].results,downloads:results[3].results,generatedAt:new Date().toISOString(),definition:'Verified file ready; browser save triggered. Not confirmed disk writes or camera installs.'});
+   const measured=results[0].results[0], baseline=Number(env.HISTORICAL_ESTIMATE||0);
+   const historicalEstimate=Number.isSafeInteger(baseline)&&baseline>=0?baseline:0;
+   // This owner-supplied estimate is a separate baseline, never synthetic events.
+   const summary={...measured,historicalEstimate,estimatedTotal:Number(measured.total)+historicalEstimate};
+   return json({startDate:start,timeZone:TIME_ZONE,from,to,today,summary,kinds:results[1].results,daily:results[2].results,downloads:results[3].results,generatedAt:new Date().toISOString(),definition:'Verified file ready; browser save triggered. Not confirmed disk writes or camera installs.'});
   }
   if(request.method==='GET'&&(url.pathname==='/'||url.pathname==='/admin/'||url.pathname==='/admin')){
    const nonce=crypto.randomUUID();return new Response(adminHTML.replaceAll('__NONCE__',nonce),{headers:{...security,'Content-Type':'text/html; charset=utf-8','Content-Security-Policy':`default-src 'none'; script-src 'nonce-${nonce}'; style-src 'unsafe-inline'; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'`}});
