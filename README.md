@@ -64,11 +64,17 @@ GitHub Pages 同时部署网站与 `public/downloads/` 中的各机型发布文�
 
 新标志为两张错位胶片框与几何 F，提供深浅色 SVG、favicon 和 PNG。`public/brand/` 包含三语胶片列表拼贴项目图，保留原有胶片图标。可用 `python3 tools/design-brand.py` 重新生成矢量稿。
 
+## GR IV / HDF firmware V3.0 — 2026-10-24
+
+GR IV / HDF ordinary and enhanced downloads now use the camera-tested regular v49/v49-H files. Features include persistent custom/community film imports, separate author updates, Film Fn adjustments, ADJ frame selection with 1:1, playback INFO grain/highlight status, updated icons and device-code display. This is the regular release, without the one-time preset reset.
+
+GR III / HDF and GR IIIx / HDF remain V2.0 R20/R20-H. Their files and changelogs are unchanged. The historical firmware source archive is unchanged.
+
 ## Website V3.0 — 2026-10-24
 
 The website, static community and public browser Studio share the V3.0 header, theme and language controls. Routes remain on the same domain: `/`, `/community/`, `/community/studio/`. The old `/studio/` address redirects to the Studio route.
 
-This update does **not** replace camera firmware. The six modified firmware downloads, manufacturer backups, manifests and download availability remain the existing public V2.0 distribution. Community imports require compatible GR IV firmware; publishing the editor does not add import support to those older downloads.
+The initial website-only V3.0 update retained all V2.0 firmware downloads. The subsequent GR IV / HDF firmware release is described above. Community imports support GR IV / HDF V3.0; GR III / IIIx V2.0 does not support imports.
 
 `studio/` contains the public browser editor source. Install its dependencies with `npm ci --prefix studio`; `npm run build` prepares the embedded editor before building the site. When the sibling local Studio workspace exists, the preparation script copies only its browser source/build inputs. Author servers, signing keys, release ledgers, local drafts and uploads are excluded. CI builds solely from this repository.
 

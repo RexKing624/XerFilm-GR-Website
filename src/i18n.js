@@ -3,7 +3,7 @@ export const copy = {
     "enhancedIntro": "部分新出厂或已安装理光官方 30 周年固件的 GR IV 机身存在固件安装限制。基础版无法安装时，再尝试下方增强型固件。",
     "enhancedTitle": "增强型固件 · 测试下载",
     "enhancedWarning": "只有在基础版固件安装失败时使用",
-    "enhancedTestNote": "适用于上述情况的 GR IV。包含完整 V2.0 功能，增强版已由使用者完成实机测试。",
+    "enhancedTestNote": "适用于上述情况的 GR IV。包含完整 V3.0 功能，增强版已由使用者完成实机测试。",
     "enhancedAck": "基础版安装失败，申请下载增强型固件。",
     "enhancedDownloadFile": "下载增强型 .bin 固件",
     "projectSource": "网站源码",
@@ -24,7 +24,7 @@ export const copy = {
     "release": "当前版本",
     "compatible": "仅适用 RICOH GR IV · 原厂基础版本 1.11",
     "size": "41.8 MiB",
-    "releaseNote": "V2.0：新增高光模拟与画幅选择。",
+    "releaseNote": "V3.0：支持自定义胶片、社群导入与 Fn 微调，新增 ADJ 画幅及设备码。",
     "get": "先读说明，再开始。",
     "getSub": "免费使用。下载前，请确认以下内容。",
     "riskTitle": "刷机风险与责任",
@@ -89,10 +89,13 @@ export const copy = {
     "stampDesc": "两位年份，六种模式：关闭、年月日时分、日月时分年、日期＋时间（两行）、仅日期、仅时间。黑白胶片使用中性灰白日期，彩色胶片保留橙色。",
     "rawTitle": "JPG 的质感，RAW 的余地。",
     "rawDesc": "颗粒、高光模拟、日期与画幅裁切仅作用于 JPG 成片，RAW 保留原始像素与完整画面。关闭胶片模拟时，颗粒、高光模拟与时间戳随之关闭，画幅仍可独立使用。",
-    "changes": "V2.0 更新",
+    "changes": "V3.0 更新",
     "changesItems": [
-      "新增高光模拟：白色 HDF 柔光、红色 800T 光晕，支持关／弱／中／强。",
-      "新增画幅选择：645、67、4433、XPan；实时蒙版与白色边界线，JPG 裁切、RAW 保留完整画面。"
+      "新增自定义与社群胶片导入：四个用户槽位，安装后机内保存，支持单槽及全部清除；作者胶片独立更新。",
+      "新增胶片 Fn 微调：强度 0～100%，以及饱和度、色相、对比度、R／G／B 调节。",
+      "画幅新增独立 ADJ 入口与 1:1；保留原机、645、67、XPan，移除重复的 4433。",
+      "回放 INFO 显示照片使用的颗粒及高光状态，更新画幅与四个用户槽位图标。",
+      "新增机身设备码显示，改善 exFAT 胶片包识别与指定用户槽位替换。"
     ],
     "library": "已装胶片",
     "libraryIntro": "当前固件的完整目录。按家族展示，有子菜单的胶片列出全部子型号。此处展示机内图标与选项，不是照片效果样张。",
@@ -134,12 +137,16 @@ export const copy = {
     "modelReleases": {
       "gr4": {
         "compatible": "RICOH GR IV / HDF · 原厂基础版本 1.11",
-        "note": "V2.0：新增高光模拟与画幅选择。",
-        "changesTitle": "V2.0 更新",
+        "note": "V3.0：支持自定义胶片、社群导入与 Fn 微调，新增 ADJ 画幅及设备码。",
+        "changesTitle": "V3.0 更新",
         "changes": [
-          "新增高光模拟：白色 HDF 柔光、红色 800T 光晕，支持关／弱／中／强。",
-          "新增画幅选择：645、67、4433、XPan；实时蒙版与白色边界线，JPG 裁切、RAW 保留完整画面。"
-        ]
+          "新增自定义与社群胶片导入：四个用户槽位，安装后机内保存，支持单槽及全部清除；作者胶片独立更新。",
+          "新增胶片 Fn 微调：强度 0～100%，以及饱和度、色相、对比度、R／G／B 调节。",
+          "画幅新增独立 ADJ 入口与 1:1；保留原机、645、67、XPan，移除重复的 4433。",
+          "回放 INFO 显示照片使用的颗粒及高光状态，更新画幅与四个用户槽位图标。",
+          "新增机身设备码显示，改善 exFAT 胶片包识别与指定用户槽位替换。"
+        ],
+        "frameDesc": "原机、645、67、XPan、1:1，可在设置或独立 ADJ 入口中选择。取景保留完整 3:2 画面，半透明蒙版与加粗白线标出裁切范围。JPG 按所选比例裁切，RAW 保留完整画面。"
       },
       "gr3": {
         "compatible": "RICOH GR III / HDF · 原厂基础版本 2.10",
@@ -190,7 +197,7 @@ export const copy = {
     "enhancedIntro": "Some newly manufactured GR IV bodies, or bodies updated with Ricoh’s official 30th Anniversary firmware, have firmware installation restrictions. If the standard build cannot be installed, try the enhanced build below.",
     "enhancedTitle": "Enhanced firmware · test download",
     "enhancedWarning": "USE ONLY IF THE STANDARD FIRMWARE FAILS TO INSTALL",
-    "enhancedTestNote": "For GR IV cameras meeting the conditions above. Includes all V2.0 features; the enhanced build has been tested successfully on a physical camera by a user.",
+    "enhancedTestNote": "For GR IV cameras meeting the conditions above. Includes all V3.0 features; the enhanced build has been tested successfully on a physical camera by a user.",
     "enhancedAck": "The standard firmware failed to install. I request the enhanced build.",
     "enhancedDownloadFile": "Download enhanced .bin",
     "projectSource": "Website source",
@@ -211,7 +218,7 @@ export const copy = {
     "release": "CURRENT RELEASE",
     "compatible": "RICOH GR IV only · based on official firmware 1.11",
     "size": "41.8 MiB",
-    "releaseNote": "V2.0 adds highlight simulation and frame selection.",
+    "releaseNote": "V3.0 adds custom/community film imports, Fn adjustments, ADJ framing and device codes.",
     "get": "Read first. Then begin.",
     "getSub": "Free to use. Please acknowledge the following before downloading.",
     "riskTitle": "Installation risk & responsibility",
@@ -276,10 +283,13 @@ export const copy = {
     "stampDesc": "Two-digit years. Six modes: off, year/month/day/time, day/month/time/year, date + time on two lines, date only, and time only. Neutral gray-white for monochrome films; orange for color.",
     "rawTitle": "Character in JPG. Latitude in RAW.",
     "rawDesc": "Grain, highlight simulation, date stamps, and cropping apply to JPG only. RAW retains its original pixels and full image. Film OFF also turns off grain, highlight simulation, and stamps; framing remains independent.",
-    "changes": "V2.0 UPDATE",
+    "changes": "V3.0 UPDATE",
     "changesItems": [
-      "Highlight simulation: white HDF-style diffusion or red 800T halation, with Off, Weak, Medium and Strong settings.",
-      "Frame selection: 645, 67, 4433 and XPan, with live masks and white borders. JPG is cropped; RAW keeps the full image."
+      "Custom and community imports: four user slots, persistent in-camera storage, single-slot or all-user clearing, and independent author updates.",
+      "Film Fn adjustments: strength from 0–100%, plus saturation, hue, contrast and R/G/B controls.",
+      "Independent Frame entry in ADJ and new 1:1 framing. Original, 645, 67 and XPan remain; the duplicate 4433 option is removed.",
+      "Playback INFO shows the grain and highlight settings saved with each photo; updated frame and four user-slot icons.",
+      "Device-code display, improved exFAT package recognition and replacement of the user slot named by the imported file."
     ],
     "library": "Installed films",
     "libraryIntro": "The complete catalog in this firmware, grouped by family with all submenu variants. These are camera icons and options, not sample photographs.",
@@ -321,12 +331,16 @@ export const copy = {
     "modelReleases": {
       "gr4": {
         "compatible": "RICOH GR IV / HDF · based on official firmware 1.11",
-        "note": "V2.0 adds highlight simulation and frame selection.",
-        "changesTitle": "V2.0 UPDATE",
+        "note": "V3.0 adds custom/community film imports, Fn adjustments, ADJ framing and device codes.",
+        "changesTitle": "V3.0 UPDATE",
         "changes": [
-          "Highlight simulation: white HDF-style diffusion or red 800T halation, with Off, Weak, Medium and Strong settings.",
-          "Frame selection: 645, 67, 4433 and XPan, with live masks and white borders. JPG is cropped; RAW keeps the full image."
-        ]
+          "Custom and community imports: four user slots, persistent in-camera storage, single-slot or all-user clearing, and independent author updates.",
+          "Film Fn adjustments: strength from 0–100%, plus saturation, hue, contrast and R/G/B controls.",
+          "Independent Frame entry in ADJ and new 1:1 framing. Original, 645, 67 and XPan remain; the duplicate 4433 option is removed.",
+          "Playback INFO shows the grain and highlight settings saved with each photo; updated frame and four user-slot icons.",
+          "Device-code display, improved exFAT package recognition and replacement of the user slot named by the imported file."
+        ],
+        "frameDesc": "Original, 645, 67, XPan and 1:1, available in settings or a dedicated ADJ entry. Live view keeps the full 3:2 image, with a translucent mask and thick white crop borders. JPG is cropped; RAW retains the full image."
       },
       "gr3": {
         "compatible": "RICOH GR III / HDF · based on official firmware 2.10",
@@ -377,7 +391,7 @@ export const copy = {
     "enhancedIntro": "新しく製造された GR IV、またはリコー公式の 30 周年ファームウェアを適用した機体には、導入制限がある場合があります。通常版をインストールできない場合に、下の拡張版をお試しください。",
     "enhancedTitle": "拡張版ファームウェア・テスト配布",
     "enhancedWarning": "通常版のインストールに失敗した場合のみ使用",
-    "enhancedTestNote": "上記に該当する GR IV 向けです。V2.0 の全機能を含み、利用者による実機テストで正常動作を確認しました。",
+    "enhancedTestNote": "上記に該当する GR IV 向けです。V3.0 の全機能を含み、利用者による実機テストで正常動作を確認しました。",
     "enhancedAck": "通常版をインストールできなかったため、拡張版のダウンロードを希望します。",
     "enhancedDownloadFile": "拡張版 .bin をダウンロード",
     "projectSource": "サイトのソース",
@@ -398,7 +412,7 @@ export const copy = {
     "release": "現在のバージョン",
     "compatible": "RICOH GR IV 専用・純正 1.11 ベース",
     "size": "41.8 MiB",
-    "releaseNote": "V2.0：ハイライト効果と画角選択を追加。",
+    "releaseNote": "V3.0：カスタム・コミュニティ取り込み、Fn微調整、ADJ画角とデバイスコードに対応。",
     "get": "説明を読んで、はじめる。",
     "getSub": "無料で利用できます。ダウンロード前にご確認ください。",
     "riskTitle": "導入リスクと責任",
@@ -463,10 +477,13 @@ export const copy = {
     "stampDesc": "年は下 2 桁。切・年月日時分・日月時分年・日付＋時刻（2 行）・日付のみ・時刻のみの 6 モード。白黒では無彩色の白、カラーではオレンジ色で印字します。",
     "rawTitle": "JPG に質感を。RAW に余白を。",
     "rawDesc": "粒状感・ハイライト効果・日付・切り抜きは JPG のみに適用。RAW の元画素と全画面を保持します。フィルムを切ると粒状感・ハイライト効果・日付も停止しますが、画角は独立して使えます。",
-    "changes": "V2.0 更新内容",
+    "changes": "V3.0 更新内容",
     "changesItems": [
-      "ハイライト効果を追加：白の HDF 風拡散、赤の 800T 風ハレーション。オフ／弱／中／強を選択可能。",
-      "画角選択を追加：645、67、4433、XPan。ライブビューに半透明マスクと白い境界線を表示。JPG のみクロップし、RAW は全画面を保持。"
+      "カスタム・コミュニティのフィルムを取り込み。ユーザー4枠を本体に保存し、1枠／全ユーザー枠の消去と作者フィルムの独立更新に対応。",
+      "フィルムのFn微調整を追加。強度0～100％、彩度・色相・コントラスト・R／G／Bを調整可能。",
+      "ADJに独立した画角項目と1:1を追加。純正・645・67・XPanを保持し、重複する4433を削除。",
+      "再生INFOに写真ごとの粒状感・ハイライト設定を表示。画角とユーザー4枠のアイコンを更新。",
+      "デバイスコード表示を追加。exFATのパック認識と、ファイル名で指定したユーザー枠の置き換えを改善。"
     ],
     "library": "搭載フィルム",
     "libraryIntro": "現在のファームウェアに含まれる全ファミリーと子モデル。表示はカメラ用アイコンと選択肢であり、作例写真ではありません。",
@@ -508,12 +525,16 @@ export const copy = {
     "modelReleases": {
       "gr4": {
         "compatible": "RICOH GR IV / HDF・純正 1.11 ベース",
-        "note": "V2.0：ハイライト効果と画角選択を追加。",
-        "changesTitle": "V2.0 更新内容",
+        "note": "V3.0：カスタム・コミュニティ取り込み、Fn微調整、ADJ画角とデバイスコードに対応。",
+        "changesTitle": "V3.0 更新内容",
         "changes": [
-          "ハイライト効果を追加：白の HDF 風拡散、赤の 800T 風ハレーション。オフ／弱／中／強を選択可能。",
-          "画角選択を追加：645、67、4433、XPan。ライブビューに半透明マスクと白い境界線を表示。JPG のみクロップし、RAW は全画面を保持。"
-        ]
+          "カスタム・コミュニティのフィルムを取り込み。ユーザー4枠を本体に保存し、1枠／全ユーザー枠の消去と作者フィルムの独立更新に対応。",
+          "フィルムのFn微調整を追加。強度0～100％、彩度・色相・コントラスト・R／G／Bを調整可能。",
+          "ADJに独立した画角項目と1:1を追加。純正・645・67・XPanを保持し、重複する4433を削除。",
+          "再生INFOに写真ごとの粒状感・ハイライト設定を表示。画角とユーザー4枠のアイコンを更新。",
+          "デバイスコード表示を追加。exFATのパック認識と、ファイル名で指定したユーザー枠の置き換えを改善。"
+        ],
+        "frameDesc": "純正、645、67、XPan、1:1を設定または独立したADJ項目から選択。全体の3:2ライブビューに半透明マスクと太い白線で範囲を表示。JPGのみクロップし、RAWは全画面を保持。"
       },
       "gr3": {
         "compatible": "RICOH GR III / HDF・純正 2.10 ベース",

@@ -28,7 +28,7 @@
 
 ZIP 含一个用户文件 `XERFILM/1-USER-XerFilmGR.XFC`、说明与对应 XMP。该文件是 ABI3 的 USER 包，内部不能获得作者包权限；默认只替换用户槽位 1。未来作品请从制作页导出真实用户包，再放入 `public/community/packs/`。
 
-**只适用于支持 ABI3 导入的 GR IV 测试固件，不适用于当前公开 V2.0。** 本次没有修改或发布任何固件、下载清单或线上站点。公开社群前，应随已验证的兼容固件一起调整三语兼容说明（`src/community-copy.js`）。
+**自定义与社群导入支持已公开的 GR IV / HDF V3.0，GR III / IIIx V2.0 暂不支持。** 三语兼容说明在 `src/community-copy.js` 中维护。
 
 ## 本地检查
 

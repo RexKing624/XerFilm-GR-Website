@@ -13,16 +13,17 @@ for (const manifest of ['release.json', 'gr3-release.json', 'gr3x-release.json',
   const full = Buffer.concat(parts);
   if (full.length !== (release.downloadSize ?? release.size) || hash(full) !== (release.transportSha256 ?? release.sha256)) throw new Error('Complete firmware failed SHA-256 validation');
   const expectedReleases = {
-    'release.json': ['v32', '1.11', 'fwdc248b.bin', 'e71539039269013c53dfa0a79d3bb4ad2b0d4a7c71d727fe9a9c53abe37a1ac4'],
-    'enhanced-release.json': ['v32-H', '1.12.10.7', 'fwdc248b.bin', '4b23b90aa30e10f2b7a30bcf6e89345e3521dc3e98d84757adaa6d065e7fae3f'],
+    'release.json': ['v49', '1.11', 'fwdc248b.bin', 'db390be4fa21c7b96628829f14708ed211ad7df3be0748c148bc79e44445255c'],
+    'enhanced-release.json': ['v49-H', '1.12.10.7', 'fwdc248b.bin', 'e51eec7ec956ff6cf2f9bcc584845da73affa6470e4c6d032037e0341dc64555'],
     'gr3-release.json': ['R20', '2.10', 'fwdc239b.bin', '14b0707675bfe6b33a7c53dfb15fbb575a66edb3ac512ed4c3e18cbd54916eb0'],
     'gr3-enhanced-release.json': ['R20-H', '2.11.21.27', 'fwdc239b.bin', 'd49ec1ef6b06504471d71faf6b58acf23af93a29ceddef6b10b6e90d9b94d6fe'],
     'gr3x-release.json': ['R20', '1.60', 'fwdc243b.bin', 'ffd6cf9cf2959963573153fe6b724e17cc84b7e51350e692d0f3ec8bd48370c1'],
     'gr3x-enhanced-release.json': ['R20-H', '1.61.21.27', 'fwdc243b.bin', '49aa2ea7df5cb912483c3eff119299cec1f8388303a89fb8c110cbb47895db2b'],
   };
-  if (release.version !== 'V2.0' || release.hardwareTested !== true || release.encryption ||
+  const expectedVersion = ['release.json','enhanced-release.json'].includes(manifest) ? 'V3.0' : 'V2.0';
+  if (release.version !== expectedVersion || release.hardwareTested !== true || release.encryption ||
       JSON.stringify([release.internalVersion, release.installationVersion, release.filename, release.sha256]) !== JSON.stringify(expectedReleases[manifest])) {
-    throw new Error('V2.0 must ship the exact camera-tested, password-free model-specific BIN: ' + manifest);
+    throw new Error('Must ship the exact camera-tested, password-free model-specific BIN: ' + manifest);
   }
   console.log(`${release.version}: release assets verified; original firmware bytes preserved.`);
 }
@@ -58,4 +59,4 @@ if (historical.version !== 'V1.1' || !historical.historical || historical.corres
     historical.file !== 'historical-source/v1.1/XerFilm-GR-V1.1-source.zip') throw new Error('Historical source identity/version mismatch');
 const source = await readFile(new URL('../public/' + historical.file, import.meta.url));
 if (source.length !== historical.bytes || hash(source) !== historical.sha256) throw new Error('Historical source archive checksum mismatch');
-console.log('V1.1 historical source archive verified separately from V2.0 firmware.');
+console.log('Existing V1.1 historical source archive unchanged; GR IV V3.0 and III/IIIx V2.0 checked separately.');

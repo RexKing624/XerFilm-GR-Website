@@ -8,7 +8,7 @@ const root = new URL('../', import.meta.url);
 const manifests = ['release.json', 'gr3-release.json', 'gr3x-release.json', 'enhanced-release.json'];
 const releases = await Promise.all(manifests.map(async name => JSON.parse(await readFile(new URL(`src/${name}`, root)))));
 const availability = JSON.parse(await readFile(new URL('src/download-availability.json', root)));
-assert.deepEqual(availability, { gr4: true, gr3: true, gr3x: true }, 'all three model downloads restored to the existing camera-tested V2.0 releases');
+assert.deepEqual(availability, { gr4: true, gr3: true, gr3x: true }, 'GR IV V3.0 and III/IIIx V2.0 downloads remain available');
 const originals = JSON.parse(await readFile(new URL('src/original-releases.json', root)));
 releases.push(...originals);
 const realFetch = globalThis.fetch;
@@ -56,6 +56,10 @@ try {
   await assert.rejects(loadFirmware(releases[1], { signal: cancelled.signal }), { name: 'AbortError' });
   const corrupted = structuredClone(releases[1]); corrupted.parts[0].sha256 = '0'.repeat(64);
   await assert.rejects(loadFirmware(corrupted), /Part checksum mismatch/);
+  assert.equal(releases[0].version, 'V3.0');
+  assert.equal(releases[3].version, 'V3.0');
+  assert.equal(releases[0].internalVersion, 'v49');
+  assert.equal(releases[3].internalVersion, 'v49-H');
   assert.equal(releases[1].version, 'V2.0');
   assert.equal(releases[2].version, 'V2.0');
   assert.equal(releases[1].hardwareTested, true);
@@ -87,9 +91,14 @@ try {
     assert.ok(text.downloadPassword && text.downloadPasswordError && text.unlockDownload);
     assert.ok(text.downloadHint.includes('{filename}'));
     assert.equal(text.checks.length, 4);
-    assert.equal(text.modelReleases.gr4.changes.length, 2);
+    assert.equal(text.modelReleases.gr4.changesTitle.startsWith('V3.0'), true);
+    assert.equal(text.modelReleases.gr4.changes.length, 5);
+    assert.ok(text.modelReleases.gr4.changes.some(item => item.includes('Fn')));
+    assert.ok(text.modelReleases.gr4.changes.some(item => item.includes('INFO')));
+    assert.ok(text.modelReleases.gr4.frameDesc.includes('1:1'));
+    assert.ok(!text.modelReleases.gr4.frameDesc.includes('4433'));
     assert.ok(text.highlightDesc && text.frameDesc && text.resetWarning);
-    assert.ok(text.modelReleases.gr4.changes.some(item => item.includes('HDF')));
+    assert.ok(text.enhancedTestNote.includes('V3.0'));
     assert.ok(text.modelReleases.gr4.changes.some(item => item.includes('XPan')));
     assert.equal(text.gr3Deadline, undefined, 'expired placeholder removed');
   }

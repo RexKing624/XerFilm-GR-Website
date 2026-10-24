@@ -39,6 +39,14 @@ public/downloads/*
 # Pinned manufacturer firmware backups
 !public/downloads/stock-*.part*
 
+# GR IV / HDF V3.0 ordinary and enhanced; other models retain V2.0.
+!public/downloads/firmware-gr4-v3.part1
+!public/downloads/firmware-gr4-v3.part2
+!public/downloads/firmware-gr4-v3.part3
+!public/downloads/firmware-gr4-v3-enhanced.part1
+!public/downloads/firmware-gr4-v3-enhanced.part2
+!public/downloads/firmware-gr4-v3-enhanced.part3
+
 # Explicitly published V1.1 historical modification sources
 !public/historical-source/v1.1/XerFilm-GR-V1.1-source.zip
 
