@@ -52,3 +52,7 @@ public/downloads/*
 
 # Public community effect bundles (never firmware or author signing material).
 !public/community/packs/*.zip
+
+# Password-verified GR IIIx / HDF V3.0 R29 test builds.
+!public/downloads/firmware-gr3x-v3-test-r29-ordinary.part*
+!public/downloads/firmware-gr3x-v3-test-r29-enhanced.part*

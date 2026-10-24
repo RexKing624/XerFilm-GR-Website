@@ -1,0 +1,43 @@
+{
+  "version": "V3.0 测试版",
+  "internalVersion": "R29-H",
+  "baseVersion": "1.60",
+  "installationVersion": "1.61",
+  "camera": "RICOH GR IIIx / HDF",
+  "filename": "fwdc243b.bin",
+  "size": 38194952,
+  "sha256": "f82c572d331651b080cab2cb856e733d43e66ea9486405fb4ab35cdf1fdee774",
+  "hardwareTested": false,
+  "releaseDate": "2026-10-24",
+  "testRelease": true,
+  "downloadSize": 38194968,
+  "transportSha256": "21851d683dacaaad7f91a2f1175d61afe51e64925aa6882df0ae53cb010fd80e",
+  "parts": [
+    {
+      "file": "firmware-gr3x-v3-test-r29-enhanced.part1",
+      "size": 16777216,
+      "sha256": "e57dd31274761b9aec6d1c6cbbdefba7c9a5df761534a975c2d4fe1e4d53bbbb"
+    },
+    {
+      "file": "firmware-gr3x-v3-test-r29-enhanced.part2",
+      "size": 16777216,
+      "sha256": "05d6250b22b747f6cb40a16d7483026ae9aa87138efbba7f594fe8658e18b1b8"
+    },
+    {
+      "file": "firmware-gr3x-v3-test-r29-enhanced.part3",
+      "size": 4640536,
+      "sha256": "61ce62bb3e099dc73852fc9cb372c5b1d1ba03f8e3693ef05cc92ae18084c680"
+    }
+  ],
+  "encryption": {
+    "algorithm": "AES-GCM",
+    "kdf": "PBKDF2",
+    "iterations": 210000,
+    "salt": "2FONw32hHMWvulSS7Sxaqg==",
+    "iv": "aW6t8J7JFcNg1HX/",
+    "check": {
+      "iv": "4Fpa4qRoKOXDK5FE",
+      "ciphertext": "5gTEwnQe6svFk9si0ZDSC00HVHXhVGE0qoVYeeaj1WnLFbGGwCgJRBiB0PPoVfaiLk5NtjUhcpxZ5Ho38Iu99S8="
+    }
+  }
+}

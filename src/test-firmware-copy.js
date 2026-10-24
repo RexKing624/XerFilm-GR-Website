@@ -1,0 +1,32 @@
+export const testFirmwareCopy = {
+  zh: {
+    enhancedIntro: 'GR IIIx / HDF 新功能测试入口，现有 V2.0 下载保留。',
+    enhancedTitle: 'V3.0 测试版',
+    enhancedWarning: '仅适用 GR IIIx / HDF · 本版仍需实机验证',
+    enhancedTestNote: 'R29：包含自定义／社群胶片导入、胶片 Fn 微调、ADJ 画幅、INFO 图标与设备码。本次修复底部 Fn 提示，以及原生影像控制中电影黄／电影绿的 Fn 调节和保存。基于官方 1.60，增强版安装版本为 1.61；不适用于官方 1.70。',
+    enhancedAck: '我已知晓这是测试版，确认机型与版本，并自愿参与测试。',
+    enhancedPassword: '测试版下载密码',
+    chooseVariant: '选择测试固件类型', ordinary: '普通版', enhanced: '增强版',
+    ordinaryDownload: '下载 V3.0 测试版 · 普通版', enhancedDownload: '下载 V3.0 测试版 · 增强版',
+  },
+  en: {
+    enhancedIntro: 'New-feature test builds for GR IIIx / HDF. The existing V2.0 downloads remain available.',
+    enhancedTitle: 'V3.0 test build',
+    enhancedWarning: 'GR IIIx / HDF only · This build still requires camera testing',
+    enhancedTestNote: 'R29 includes custom/community film imports, Film Fn tuning, ADJ frame selection, INFO icons and device codes. Fixes the bottom Fn hint and native Cinema Yellow/Green Fn adjustment and saving. Based on official 1.60; enhanced installation version 1.61. Not compatible with official 1.70.',
+    enhancedAck: 'I understand this is a test build, have checked my model/version and choose to participate.',
+    enhancedPassword: 'Test-build download password',
+    chooseVariant: 'Choose test firmware type', ordinary: 'Standard', enhanced: 'Enhanced',
+    ordinaryDownload: 'Download V3.0 test · Standard', enhancedDownload: 'Download V3.0 test · Enhanced',
+  },
+  ja: {
+    enhancedIntro: 'GR IIIx / HDF 向け新機能テスト版です。既存の V2.0 は引き続きダウンロードできます。',
+    enhancedTitle: 'V3.0 テスト版',
+    enhancedWarning: 'GR IIIx / HDF 専用・この版は実機での確認が必要です',
+    enhancedTestNote: 'R29：カスタム／コミュニティのフィルム導入、フィルム Fn 微調整、ADJ 画面比率、INFO アイコン、デバイスコードに対応。下部の Fn 表示と、純正イメージコントロールのシネマ黄／緑の Fn 調整・保存を修正。純正 1.60 ベース、拡張版の導入バージョンは 1.61。純正 1.70 には非対応です。',
+    enhancedAck: 'テスト版であることを理解し、機種とバージョンを確認した上で参加します。',
+    enhancedPassword: 'テスト版ダウンロードパスワード',
+    chooseVariant: 'テスト版の種類を選択', ordinary: '通常版', enhanced: '拡張版',
+    ordinaryDownload: 'V3.0 テスト通常版をダウンロード', enhancedDownload: 'V3.0 テスト拡張版をダウンロード',
+  },
+};

@@ -142,3 +142,7 @@ html{scrollbar-gutter:stable}
 .curated-actions{justify-content:flex-end;gap:26px;margin-top:0}.curated-actions .text-link{display:inline-flex;align-items:center;gap:15px;padding:0;border:0;background:none;font-size:11px;color:var(--ink);text-decoration:underline;text-underline-offset:5px;white-space:nowrap}.curated-actions .text-link:hover{color:var(--accent)}
 @media(max-width:650px){.curated{grid-template-columns:18px minmax(0,1fr);gap:10px 12px}.curated-actions{grid-column:2;grid-row:auto;justify-content:flex-start}}
 .studio-page{position:relative;min-height:760px}.studio-editor-frame{display:block;border:0;width:100%;background:var(--bg);opacity:0}.studio-editor-frame.ready{opacity:1}.studio-loading{position:absolute;top:36px;left:0;color:var(--muted);font-size:13px}
+
+.test-firmware-variants{display:flex;gap:12px;margin:0 0 20px;flex-wrap:wrap}
+.test-firmware-variants .outlined{flex:1;min-width:120px;justify-content:center}
+.test-firmware-variants .selected{background:var(--accent);color:var(--bg);border-color:var(--accent)}

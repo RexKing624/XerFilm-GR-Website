@@ -2,7 +2,7 @@
 import { onBeforeUnmount, ref, shallowRef, watch } from 'vue';
 import { loadFirmware, unlockFirmware } from './download';
 
-const props = defineProps({ t: { type: Object, required: true }, release: { type: Object, required: true }, verified: Boolean, baseBusy: Boolean });
+const props = defineProps({ t: { type: Object, required: true }, release: { type: Object, required: true }, verified: Boolean, baseBusy: Boolean, idPrefix: { type: String, default: 'enhanced' } });
 const emit = defineEmits(['busy']);
 const accepted = ref(false);
 const busy = ref(false);
@@ -63,13 +63,14 @@ onBeforeUnmount(reset);
 </script>
 
 <template>
-  <section class="enhanced-download" aria-labelledby="enhanced-title">
-    <p class="enhanced-intro">{{ t.enhancedIntro }}</p>
+  <section class="enhanced-download" :aria-labelledby="`${idPrefix}-title`">
+    <p v-if="t.enhancedIntro" class="enhanced-intro">{{ t.enhancedIntro }}</p>
     <details class="enhanced-panel" @toggle="onToggle">
-      <summary id="enhanced-title"><span>{{ t.enhancedTitle }}</span><span class="enhanced-chevron" aria-hidden="true">+</span></summary>
+      <summary :id="`${idPrefix}-title`"><span>{{ t.enhancedTitle }}</span><span class="enhanced-chevron" aria-hidden="true">+</span></summary>
       <div class="enhanced-content">
         <strong class="enhanced-warning">{{ t.enhancedWarning }}</strong>
         <p class="enhanced-test-note">{{ t.enhancedTestNote }}</p>
+        <slot />
         <label class="enhanced-ack" :class="{ checked: accepted }">
           <input v-model="accepted" type="checkbox" :disabled="baseBusy" data-testid="enhanced-ack">
           <span class="custom-check" aria-hidden="true">{{ accepted ? '✓' : '' }}</span>
@@ -78,9 +79,9 @@ onBeforeUnmount(reset);
         <div v-if="accepted" class="enhanced-file">
           <p class="enhanced-file-meta">{{ release.version }} · {{ release.installationVersion }} · {{ (release.size / 1048576).toFixed(1) }} MiB</p>
           <form v-if="release.encryption && !decryptionKey" class="enhanced-password" @submit.prevent="unlock">
-            <label for="enhanced-password">{{ t.enhancedPassword }}</label>
-            <input id="enhanced-password" v-model="password" type="password" inputmode="numeric" autocomplete="off" :placeholder="t.downloadPasswordPlaceholder" :aria-invalid="passwordError" :aria-describedby="passwordError ? 'enhanced-password-error' : undefined" :disabled="baseBusy || unlocking" required>
-            <p v-if="passwordError" id="enhanced-password-error" class="enhanced-error" role="alert">{{ t.downloadPasswordError }}</p>
+            <label :for="`${idPrefix}-password`">{{ t.enhancedPassword }}</label>
+            <input :id="`${idPrefix}-password`" v-model="password" type="password" inputmode="numeric" autocomplete="off" :placeholder="t.downloadPasswordPlaceholder" :aria-invalid="passwordError" :aria-describedby="passwordError ? `${idPrefix}-password-error` : undefined" :disabled="baseBusy || unlocking" required>
+            <p v-if="passwordError" :id="`${idPrefix}-password-error`" class="enhanced-error" role="alert">{{ t.downloadPasswordError }}</p>
             <button class="outlined enhanced-unlock" type="submit" :disabled="baseBusy || unlocking || !verified">{{ unlocking ? t.checkingPassword : t.unlockDownload }} <span aria-hidden="true">↗</span></button>
           </form>
           <template v-else>

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { loadFirmware } from '../src/download.js';
+import { loadFirmware, unlockFirmware } from '../src/download.js';
 import { copy } from '../src/i18n.js';
 
 const root = new URL('../', import.meta.url);
@@ -105,5 +105,32 @@ try {
   assert.deepEqual(originals.map(r => [r.id, r.version, r.filename]), [['gr3','2.10','fwdc239b.bin'], ['gr3x','1.60','fwdc243b.bin'], ['gr4','1.11','fwdc248b.bin']]);
   const app = await readFile(new URL('src/App.vue', root), 'utf8');
   assert.ok(app.includes("openDrawer('original')") && !app.includes('t.originalFirmwareURL'));
+  for (const [kind, pin] of [
+    ['ordinary', '20e10ea634b13d1c54489c54bb2331c2572df705278260f6f2cb74bde92d7c7a'],
+    ['enhanced', 'f82c572d331651b080cab2cb856e733d43e66ea9486405fb4ab35cdf1fdee774'],
+  ]) {
+    const test = JSON.parse(await readFile(new URL(`src/gr3x-test-${kind}-release.json`, root)));
+    const previous = requests;
+    await assert.rejects(loadFirmware(test), /Password required/);
+    assert.equal(requests, previous, 'Locked test release cannot fetch any firmware');
+    await assert.rejects(unlockFirmware(test, '0000'));
+    const key = await unlockFirmware(test, '2222');
+    const blob = await loadFirmware(test, { decryptionKey: key });
+    const output = new Uint8Array(await blob.arrayBuffer());
+    assert.equal(output.length, test.size);
+    assert.equal(createHash('sha256').update(output).digest('hex'), pin, 'Password unlock preserves exact R29 BIN');
+    const damaged = structuredClone(test); damaged.parts[0].sha256 = '0'.repeat(64);
+    await assert.rejects(loadFirmware(damaged, { decryptionKey: key }), /Part checksum mismatch/);
+    const stopped = new AbortController(); stopped.abort();
+    await assert.rejects(loadFirmware(test, { decryptionKey: key, signal: stopped.signal }), { name: 'AbortError' });
+    console.log(`${test.internalVersion}: wrong password blocked; correct password restores pinned test BIN.`);
+  }
+  const { testFirmwareCopy } = await import('../src/test-firmware-copy.js');
+  for (const locale of ['zh', 'en', 'ja']) {
+    assert.ok(testFirmwareCopy[locale].enhancedTitle.includes('V3.0'));
+    assert.ok(testFirmwareCopy[locale].enhancedPassword && testFirmwareCopy[locale].enhancedAck);
+  }
+  assert.ok(app.indexOf('<TestFirmwareDownload') > app.indexOf('<EnhancedDownload :key='), 'Test panel follows enhanced downloads');
+  assert.ok(app.includes("v-if=\"selectedModel === 'gr3x'\""), 'Only IIIx/HDF gets test panel');
   console.log('Password-free downloads, exact BIN identity, cancellation, corruption and all three languages passed.');
 } finally { globalThis.fetch = realFetch; }
