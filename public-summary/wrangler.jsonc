@@ -1,0 +1,10 @@
+{
+ "name":"xerfilm-public-summary",
+ "main":"src/worker.js",
+ "compatibility_date":"2026-10-01",
+ "workers_dev":true,
+ "account_id":"7c54494a14bd97c1a4890df6fc63514e",
+ "observability":{"enabled":false},
+ "vars":{"ALLOWED_ORIGIN":"https://filmgr.xergnik.com"},
+ "d1_databases":[{"binding":"DB","database_name":"xerfilm-download-statistics","database_id":"f5d5e384-09ea-4b30-8b8a-a6cc42642b84"}]
+}

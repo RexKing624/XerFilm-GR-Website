@@ -50,6 +50,7 @@ public/downloads/*
 statistics/.wrangler/
 statistics/.dev.vars*
 statistics/.secrets/
+public-summary/.wrangler/
 
 # Approved GR III / HDF V3.0 R32 stable downloads.
 !public/downloads/firmware-gr3-v3.part*

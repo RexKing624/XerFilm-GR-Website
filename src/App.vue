@@ -12,6 +12,7 @@ import { trackFirmwareDownload } from './download-statistics';
 import { cameras, fileSize, enhancedReleases, isModelAvailable } from './releases';
 import EnhancedDownload from './EnhancedDownload.vue';
 import CommunityGallery from './CommunityGallery.vue';
+import FirmwareChoices from './FirmwareChoices.vue';
 import StudioEditor from './StudioEditor.vue';
 import { communityCopy } from './community-copy';
 import { SITE_VERSION } from './site-version';
@@ -187,7 +188,7 @@ onBeforeUnmount(() => { stopEngagement?.(); window.removeEventListener('hashchan
   </header>
   <template v-if="!communitySection">
   <section class="intro">
-   <div><p class="eyebrow"><span class="status-dot"></span> XerFilm GR · GR IV / III / IIIx · HDF / {{ t.edition }}</p><h1>{{ t.hero1 }}<br><em>{{ t.hero2 }}</em></h1><p class="intro-copy">{{ t.intro }}</p></div>
+   <div><p class="eyebrow"><span class="status-dot"></span> XerFilm GR · GR IV / III / IIIx · HDF / {{ t.edition }}</p><h1>{{ t.hero1 }}<br><em>{{ t.hero2 }}</em></h1><p class="intro-copy">{{ t.intro }}</p><FirmwareChoices :language="language" /></div>
    <div class="hero-stack" aria-hidden="true"><img v-for="(film,i) in heroFilms.slice(0,4)" :key="film.name" :src="filmIcon(film.icon)" :style="{ '--i': i }" alt=""><span class="stack-label">17 FAMILIES<br>27 WAYS TO SEE.</span></div>
   </section>
   <main class="main-layout">

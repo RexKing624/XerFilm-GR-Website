@@ -10,7 +10,8 @@
     "check:release": "node scripts/check-release.mjs",
     "test:downloads": "node scripts/test-download.mjs",
     "test:statistics": "node --test statistics/test/*.test.mjs",
-    "test:photography": "node scripts/test-photography.mjs"
+    "test:photography": "node scripts/test-photography.mjs",
+    "test:summary": "node --test public-summary/test/*.test.mjs"
   },
   "dependencies": {
     "fflate": "0.8.2",
