@@ -1,6 +1,7 @@
 // Community ABI3. Filename selects a user destination, never author authority.
 import {record} from './bundle';
 import {strToU8} from 'fflate';
+import {USER_README} from './user-readme';
 import {approvedUserSlots} from './user-slot-checks';
 export async function identityBytes(id:string){
  // Stable even for legacy human-readable builtin identifiers; 128-bit UUID.
@@ -28,5 +29,5 @@ export async function communityUserArchive(families:any[]){
  if(families.length!==4)throw Error('Four fixed user slots required.');const files:Record<string,Uint8Array>={};
  for(let i=0;i<4;i++)if(!families[i].empty)files[`XERFILM/${i+1}-USER-XerFilmGR.XFC`]=await communityBundle([await communityRecord(families[i],i)],0);
  if(!Object.keys(files).length)throw Error('No checked slots selected.');
- files['READ-ME.txt']=strToU8('GR IV community ABI3 / v43 or later.\nPlace XERFILM at SD root. One file per user family. Rename the leading1/2/3/4 to choose a user slot; internal role verification cannot grant author access. Only included slots are replaced; other installed slots are kept. Remove old files targeting the same slot before loading.\nFilm List > Install/update from SD applies immediately. Focus an installed user slot > Fn > OK clears only that slot after restarting. MENU cancels. Card files are never deleted. Author/builtin films cannot be cleared here.\n');return files;
+ files['READ-ME.txt']=strToU8(USER_README);return files;
 }
