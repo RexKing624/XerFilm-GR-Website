@@ -15,15 +15,18 @@ for (const manifest of ['release.json', 'gr3-release.json', 'gr3x-release.json',
   const expectedReleases = {
     'release.json': ['v49', '1.11', 'fwdc248b.bin', 'db390be4fa21c7b96628829f14708ed211ad7df3be0748c148bc79e44445255c'],
     'enhanced-release.json': ['v49-H', '1.12.10.7', 'fwdc248b.bin', 'e51eec7ec956ff6cf2f9bcc584845da73affa6470e4c6d032037e0341dc64555'],
-    'gr3-release.json': ['R20', '2.10', 'fwdc239b.bin', '14b0707675bfe6b33a7c53dfb15fbb575a66edb3ac512ed4c3e18cbd54916eb0'],
-    'gr3-enhanced-release.json': ['R20-H', '2.11.21.27', 'fwdc239b.bin', 'd49ec1ef6b06504471d71faf6b58acf23af93a29ceddef6b10b6e90d9b94d6fe'],
+    'gr3-release.json': ['R32', '2.10', 'fwdc239b.bin', '2f574c62caf932ef48f92eb8fc097fca50506d83481b83d15be21a4785e39949'],
+    'gr3-enhanced-release.json': ['R32-H', '2.11', 'fwdc239b.bin', '54a829455e1e5db8bdc8c40f2af95d42193aba9d807975fbda4dc151bcf5e409'],
     'gr3x-release.json': ['R31', '1.60', 'fwdc243b.bin', 'fe50d2d36059a6c3a9928d06330e1f36403365204dc16a7b534b71a504fce946'],
     'gr3x-enhanced-release.json': ['R31-H', '1.61', 'fwdc243b.bin', '98def0db42b23ab6699ab535ea520364ce8a52b7e72a9ad57962a666b959c33e'],
   };
-  const expectedVersion = !manifest.startsWith('gr3-') ? 'V3.0' : 'V2.0';
-  if (release.version !== expectedVersion || release.hardwareTested !== true || release.encryption ||
+  // R32 is promoted at the owner's request; retain its recorded test status.
+  const approved = manifest.startsWith('gr3-')
+    ? release.releaseApproved === true && release.hardwareTested === false && release.statisticsVersion === 'V3.0' && !release.testRelease
+    : release.hardwareTested === true;
+  if (release.version !== 'V3.0' || !approved || release.encryption ||
       JSON.stringify([release.internalVersion, release.installationVersion, release.filename, release.sha256]) !== JSON.stringify(expectedReleases[manifest])) {
-    throw new Error('Must ship the exact camera-tested, password-free model-specific BIN: ' + manifest);
+    throw new Error('Must ship the exact approved, password-free model-specific BIN: ' + manifest);
   }
   console.log(`${release.version}: release assets verified; original firmware bytes preserved.`);
 }
@@ -59,21 +62,9 @@ if (historical.version !== 'V1.1' || !historical.historical || historical.corres
     historical.file !== 'historical-source/v1.1/XerFilm-GR-V1.1-source.zip') throw new Error('Historical source identity/version mismatch');
 const source = await readFile(new URL('../public/' + historical.file, import.meta.url));
 if (source.length !== historical.bytes || hash(source) !== historical.sha256) throw new Error('Historical source archive checksum mismatch');
-console.log('Existing V1.1 historical source archive unchanged; GR IV / IIIx V3.0 and III V2.0 checked separately.');
+console.log('Existing V1.1 historical source archive unchanged; all three V3.0 releases checked separately.');
 
-// Withdraw old IIIx stable and password-gated test assets from the deployment.
-const withdrawn = (await readdir(base)).filter(name => /^(?:firmware-gr3x-v2(?:-enhanced)?\.part|firmware-gr3x-v3-test-)/.test(name));
-if (withdrawn.length) throw new Error('Withdrawn IIIx downloads still exposed: '+withdrawn.join(', '));
-console.log('GR IIIx V2.0 and test download assets withdrawn.');
-
-// Keep test assets separate from stable V2.0 and pin the supplied R32 BINs.
-for (const [type,revision,installation,pin,variant] of [
- ['ordinary','R32','2.10','2f574c62caf932ef48f92eb8fc097fca50506d83481b83d15be21a4785e39949','standard'],
- ['enhanced','R32-H','2.11','54a829455e1e5db8bdc8c40f2af95d42193aba9d807975fbda4dc151bcf5e409','enhanced']]) {
- const r=JSON.parse(await readFile(new URL(`../src/gr3-test-${type}-release.json`,import.meta.url)));
- if(r.internalVersion!==revision||r.sha256!==pin||r.installationVersion!==installation||r.filename!=='fwdc239b.bin'||r.camera!=='RICOH GR III / HDF'||r.hardwareTested!==false||r.testRelease!==true||!r.encryption||r.statisticsVersion!=='V3.0-test'||r.downloadVariant!==variant)throw Error('R32 test identity/gate mismatch');
- const parts=[];
- for(const part of r.parts){const b=await readFile(new URL(part.file,base));if(b.length!==part.size||hash(b)!==part.sha256)throw Error('R32 encrypted part corrupted');parts.push(b);}
- const b=Buffer.concat(parts);if(b.length!==r.downloadSize||hash(b)!==r.transportSha256)throw Error('R32 encrypted transport corrupted');
- console.log(`${revision}: encrypted test assets verified, stable V2.0 retained.`);
-}
+// Withdraw old stable and password-gated test assets from the deployment.
+const withdrawn = (await readdir(base)).filter(name => /^firmware-gr3x?-v(?:2(?:-enhanced)?\.part|3-test-)/.test(name));
+if (withdrawn.length) throw new Error('Withdrawn III / IIIx downloads still exposed: '+withdrawn.join(', '));
+console.log('GR III / IIIx V2.0 and test download assets withdrawn.');

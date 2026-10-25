@@ -23,12 +23,6 @@ public/downloads/*
 !public/downloads/firmware-gr4-v2-enhanced.part1
 !public/downloads/firmware-gr4-v2-enhanced.part2
 !public/downloads/firmware-gr4-v2-enhanced.part3
-!public/downloads/firmware-gr3-v2.part1
-!public/downloads/firmware-gr3-v2.part2
-!public/downloads/firmware-gr3-v2.part3
-!public/downloads/firmware-gr3-v2-enhanced.part1
-!public/downloads/firmware-gr3-v2-enhanced.part2
-!public/downloads/firmware-gr3-v2-enhanced.part3
 
 # Pinned manufacturer firmware backups
 !public/downloads/stock-*.part*
@@ -57,6 +51,6 @@ statistics/.wrangler/
 statistics/.dev.vars*
 statistics/.secrets/
 
-# Password-verified GR III / HDF V3.0 R32 test downloads.
-!public/downloads/firmware-gr3-v3-test-r32-ordinary.part*
-!public/downloads/firmware-gr3-v3-test-r32-enhanced.part*
+# Approved GR III / HDF V3.0 R32 stable downloads.
+!public/downloads/firmware-gr3-v3.part*
+!public/downloads/firmware-gr3-v3-enhanced.part*

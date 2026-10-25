@@ -101,20 +101,24 @@ test('a lost like response recovers the saved state; stale polls cannot overwrit
  let defer=false;const c=engagementClient(env,{send:async(url,options={})=>{if(defer&&url.endsWith('/api/public-stats')){defer=false;return new Promise(r=>{resolve=r})}return handleEngagement(new Request(url,{...options,headers:{...options.headers,Origin:origin}}),env);}});await c.client.refresh();defer=true;const pending=c.client.refresh();await c.client.toggle(lookId);resolve(new Response(JSON.stringify(old),{headers:{'Content-Type':'application/json'}}));await pending;assert.equal(c.client.snapshot().looks[lookId].likes,2);
 });
 
-test('GR III R32 standard and enhanced test downloads have separate private records',async()=>{
+test('GR III R32 stable downloads separate variants and preserve prior test records',async()=>{
  const env=environment();
- for(const type of ['ordinary','enhanced']){
-  const release=JSON.parse(readFileSync(new URL(`../../src/gr3-test-${type}-release.json`,import.meta.url),'utf8'));
+ for(const manifest of ['gr3-release.json','gr3-enhanced-release.json']){
+  const release=JSON.parse(readFileSync(new URL(`../../src/${manifest}`,import.meta.url),'utf8'));
+  assert.equal(release.statisticsVersion,'V3.0');
   const a={kind:'firmware',model:'gr3',variant:release.downloadVariant,version:release.statisticsVersion,revision:release.internalVersion,sha256:release.sha256};
   assert.ok(validAsset(a));
-  const event={eventId:randomUUID(),asset:a};
-  assert.equal((await handleRequest(request(event),env)).status,200);
-  assert.equal((await handleRequest(request(event),env)).status,200);
+  for(const version of ['V3.0-test',a.version]){
+   const event={eventId:randomUUID(),asset:{...a,version}};
+   assert.equal((await handleRequest(request(event),env)).status,200);
+   assert.equal((await handleRequest(request(event),env)).status,200);
+  }
  }
  const data=await(await stats(env)).json();
- assert.equal(data.summary.total,2);
+ assert.equal(data.summary.total,4);
  assert.deepEqual(data.downloads.map(x=>[x.model,x.variant,x.version,x.revision,x.count]).sort(),[
-  ['gr3','enhanced','V3.0-test','R32-H',1],['gr3','standard','V3.0-test','R32',1]
+  ['gr3','enhanced','V3.0','R32-H',1],['gr3','enhanced','V3.0-test','R32-H',1],
+  ['gr3','standard','V3.0','R32',1],['gr3','standard','V3.0-test','R32',1]
  ]);
  assert.equal((await handleRequest(new Request(base+'/api/stats'),env)).status,401);
 });

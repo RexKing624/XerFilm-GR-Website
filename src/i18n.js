@@ -9,7 +9,7 @@ export const copy = {
     "projectSource": "网站源码",
     "firmwareSource": "固件源码",
     "historicalSource": "V1.1 历史固件源码",
-    "historicalSourceNote": "含三机型；不对应当前 V2.0／V3.0",
+    "historicalSourceNote": "含三机型；不对应当前 V3.0",
     "demo": "交互示意 · 不会修改相机",
     "lang": "语言",
     "theme": "切换明暗",
@@ -150,14 +150,17 @@ export const copy = {
       },
       "gr3": {
         "compatible": "RICOH GR III / HDF · 原厂基础版本 2.10",
-        "note": "V2.0：新增高光模拟与画幅选择。",
-        "changesTitle": "V2.0 更新",
+        "note": "V3.0：支持自定义胶片、社群导入与 Fn 微调，新增 ADJ 画幅及设备码。",
+        "changesTitle": "V3.0 更新",
         "changes": [
-          "新增高光模拟：白色 HDF 柔光、红色 800T 光晕，支持关／弱／中／强。",
-          "新增画幅选择：645、67、4433、XPan；实时蒙版与白色边界线，JPG 裁切、RAW 保留完整画面。",
-          "修复胶片模拟仅在 ADJ 第一槽位显示的问题，现支持全部五个槽位。"
+          "新增自定义与社群胶片导入：四个用户槽位，安装后机内保存，支持单槽及全部清除；作者胶片独立更新。",
+          "新增胶片 Fn 微调：强度 0～100%，以及饱和度、色相、对比度、R／G／B 调节。",
+          "画幅新增独立 ADJ 入口与 1:1；保留原机、645、67、XPan，移除重复的 4433。",
+          "回放 INFO 显示照片使用的颗粒及高光状态，更新画幅与四个用户槽位图标。",
+          "新增机身设备码显示，改善 exFAT 胶片包识别与指定用户槽位替换。"
         ],
-        "rollback": "回退到旧版或原厂前：先关闭胶片模拟，把影像控制选回 Std，并重启确认已保存。旧固件不识别新增的电影编号。"
+        "rollback": "回退到旧版或原厂前：先关闭胶片模拟，把影像控制选回 Std，并重启确认已保存。旧固件不识别新增的电影编号。",
+        "frameDesc": "原机、645、67、XPan、1:1，可在设置或独立 ADJ 入口中选择。取景保留完整 3:2 画面，半透明蒙版与加粗白线标出裁切范围。JPG 按所选比例裁切，RAW 保留完整画面。"
       },
       "gr3x": {
         "compatible": "RICOH GR IIIx / HDF · 原厂基础版本 1.60",
@@ -185,8 +188,8 @@ export const copy = {
     "originalBackupOnly": "仅下载文件，不会连接或刷写相机。每个文件均按备份的完整 SHA-256 校验，保持原始文件名。",
     "enhancedModels": {
       "gr3": {
-        "enhancedIntro": "用于官方活动更换关机画面后，仍显示 2.10、但无法安装普通版的 GR III / HDF。请先尝试普通版，再考虑下方增强测试版。",
-        "enhancedTestNote": "增强版已由使用者完成实机测试，无需下载密码。保留 V2.0 全部功能，安装版本提高至 2.11。这不是官方 2.20 的兼容版本；已升级至该版本的机身请勿尝试。"
+        "enhancedIntro": "用于官方活动更换关机画面后，仍显示 2.10、但无法安装普通版的 GR III / HDF。请先尝试普通版，再考虑下方增强型固件。",
+        "enhancedTestNote": "增强版无需下载密码，保留 V3.0 全部功能，安装版本提高至 2.11。这不是官方 2.20 的兼容版本；已升级至该版本的机身请勿尝试。"
       },
       "gr3x": {
         "enhancedIntro": "用于官方活动更换关机画面后，仍显示 1.60、但无法安装普通版的 GR IIIx / HDF。请先尝试普通版，再考虑下方增强型固件。",
@@ -207,7 +210,7 @@ export const copy = {
     "projectSource": "Website source",
     "firmwareSource": "Firmware source",
     "historicalSource": "V1.1 firmware source archive",
-    "historicalSourceNote": "All three models; not the source for current V2.0 / V3.0",
+    "historicalSourceNote": "All three models; not the source for current V3.0",
     "demo": "INTERACTIVE DEMO · NO CAMERA CHANGES",
     "lang": "Language",
     "theme": "Switch appearance",
@@ -348,14 +351,17 @@ export const copy = {
       },
       "gr3": {
         "compatible": "RICOH GR III / HDF · based on official firmware 2.10",
-        "note": "V2.0 adds highlight simulation and frame selection.",
-        "changesTitle": "V2.0 UPDATE",
+        "note": "V3.0 adds custom/community film imports, Fn adjustments, ADJ framing and device codes.",
+        "changesTitle": "V3.0 UPDATE",
         "changes": [
-          "Highlight simulation: white HDF-style diffusion or red 800T halation, with Off, Weak, Medium and Strong settings.",
-          "Frame selection: 645, 67, 4433 and XPan, with live masks and white borders. JPG is cropped; RAW keeps the full image.",
-          "Fixed film simulation appearing only in the first ADJ slot. All five slots are now supported."
+          "Custom and community imports: four user slots, persistent in-camera storage, single-slot or all-user clearing, and independent author updates.",
+          "Film Fn adjustments: strength from 0–100%, plus saturation, hue, contrast and R/G/B controls.",
+          "Independent Frame entry in ADJ and new 1:1 framing. Original, 645, 67 and XPan remain; the duplicate 4433 option is removed.",
+          "Playback INFO shows the grain and highlight settings saved with each photo; updated frame and four user-slot icons.",
+          "Device-code display, improved exFAT package recognition and replacement of the user slot named by the imported file."
         ],
-        "rollback": "Before restoring an older or official firmware: switch film simulation off, select Std in Image Control, then restart and confirm it was saved. Older firmware does not recognize the new Cinema IDs."
+        "rollback": "Before restoring an older or official firmware: switch film simulation off, select Std in Image Control, then restart and confirm it was saved. Older firmware does not recognize the new Cinema IDs.",
+        "frameDesc": "Original, 645, 67, XPan and 1:1, available in settings or a dedicated ADJ entry. Live view keeps the full 3:2 image, with a translucent mask and thick white crop borders. JPG is cropped; RAW retains the full image."
       },
       "gr3x": {
         "compatible": "RICOH GR IIIx / HDF · based on official firmware 1.60",
@@ -384,7 +390,7 @@ export const copy = {
     "enhancedModels": {
       "gr3": {
         "enhancedIntro": "For GR III / HDF cameras that still show 2.10 after an official event shutdown-screen service but reject the standard build. Try the standard build first.",
-        "enhancedTestNote": "The enhanced build has been tested successfully on a physical camera by a user. No download password is required. Includes all V2.0 features with installation version 2.11. This is not a compatible build for official 2.20; do not use it on cameras already running that version."
+        "enhancedTestNote": "No download password is required. Includes all V3.0 features with installation version 2.11. This is not a compatible build for official 2.20; do not use it on cameras already running that version."
       },
       "gr3x": {
         "enhancedIntro": "For GR IIIx / HDF cameras that still show 1.60 after an official event shutdown-screen service but reject the standard build. Try the standard build first.",
@@ -405,7 +411,7 @@ export const copy = {
     "projectSource": "サイトのソース",
     "firmwareSource": "ファームウェアのソース",
     "historicalSource": "V1.1 ファームウェアの履歴ソース",
-    "historicalSourceNote": "3機種分・現在のV2.0／V3.0には非対応",
+    "historicalSourceNote": "3機種分・現在のV3.0には非対応",
     "demo": "操作デモ・カメラは変更しません",
     "lang": "言語",
     "theme": "明暗を切り替える",
@@ -546,14 +552,17 @@ export const copy = {
       },
       "gr3": {
         "compatible": "RICOH GR III / HDF・純正 2.10 ベース",
-        "note": "V2.0：ハイライト効果と画角選択を追加。",
-        "changesTitle": "V2.0 更新内容",
+        "note": "V3.0：カスタム・コミュニティ取り込み、Fn微調整、ADJ画角とデバイスコードに対応。",
+        "changesTitle": "V3.0 更新内容",
         "changes": [
-          "ハイライト効果を追加：白の HDF 風拡散、赤の 800T 風ハレーション。オフ／弱／中／強を選択可能。",
-          "画角選択を追加：645、67、4433、XPan。ライブビューに半透明マスクと白い境界線を表示。JPG のみクロップし、RAW は全画面を保持。",
-          "フィルムシミュレーションが ADJ の第1枠にしか表示されない問題を修正。全5枠に対応。"
+          "カスタム・コミュニティのフィルムを取り込み。ユーザー4枠を本体に保存し、1枠／全ユーザー枠の消去と作者フィルムの独立更新に対応。",
+          "フィルムのFn微調整を追加。強度0～100％、彩度・色相・コントラスト・R／G／Bを調整可能。",
+          "ADJに独立した画角項目と1:1を追加。純正・645・67・XPanを保持し、重複する4433を削除。",
+          "再生INFOに写真ごとの粒状感・ハイライト設定を表示。画角とユーザー4枠のアイコンを更新。",
+          "デバイスコード表示を追加。exFATのパック認識と、ファイル名で指定したユーザー枠の置き換えを改善。"
         ],
-        "rollback": "旧版・純正へ戻す前に：フィルムを無効にし、イメージコントロールを Std に戻して再起動し、保存を確認してください。旧ファームウェアは追加した Cinema の番号を認識しません。"
+        "rollback": "旧版・純正へ戻す前に：フィルムを無効にし、イメージコントロールを Std に戻して再起動し、保存を確認してください。旧ファームウェアは追加した Cinema の番号を認識しません。",
+        "frameDesc": "純正、645、67、XPan、1:1を設定または独立したADJ項目から選択。全体の3:2ライブビューに半透明マスクと太い白線で範囲を表示。JPGのみクロップし、RAWは全画面を保持。"
       },
       "gr3x": {
         "compatible": "RICOH GR IIIx / HDF・純正 1.60 ベース",
@@ -582,7 +591,7 @@ export const copy = {
     "enhancedModels": {
       "gr3": {
         "enhancedIntro": "公式イベントで終了画面を変更した後も 2.10 と表示され、通常版を導入できない GR III / HDF 向けです。まず通常版をお試しください。",
-        "enhancedTestNote": "利用者による実機テストで正常動作を確認しました。ダウンロードパスワードは不要です。V2.0 の全機能を保持し、導入バージョンを 2.11 に引き上げています。純正 2.20 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。"
+        "enhancedTestNote": "ダウンロードパスワードは不要です。V3.0 の全機能を保持し、導入バージョンを 2.11 に引き上げています。純正 2.20 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。"
       },
       "gr3x": {
         "enhancedIntro": "公式イベントで終了画面を変更した後も 1.60 と表示され、通常版を導入できない GR IIIx / HDF 向けです。まず通常版をお試しください。",

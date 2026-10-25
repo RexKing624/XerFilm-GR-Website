@@ -121,3 +121,10 @@ The website reports checksum-verified downloads after the browser save action. O
 GR III V2.0 R20/R20-H remains the stable download. The separate R32/R32-H test entry below it retains the prior IIIx test layout, all four reading confirmations, manual phrase, test acknowledgement and password2222 PBKDF2/AES-GCM validation. Decrypted BINs exactly match the supplied GRIII-V3.0-R32 test package; no firmware bytes changed. R32 remains pending physical-camera testing. Other models and the historical source archive are unchanged.
 
 Completed, checksum-verified test downloads use the existing private statistics service: model gr3, version V3.0-test, revisions R32/R32-H and standard/enhanced variants. The ASCII statistics version is separate from the translated display label. No synthetic production download records are inserted.
+
+
+## GR III / HDF V3.0 R32 正式发布（2026-10-25）
+
+按项目所有者要求，将指定的 R32 测试包原样转为 V3.0 正式下载。普通版 R32（安装版本 2.10）与增强版 R32-H（2.11）均免密码；撤下 GR III V2.0 与独立测试入口。未重新构建或修改固件 BIN，发布检查固定核对原包 SHA-256。保留 R32 原始测试记录，不将正式发布授权标记为新增实机测试。
+
+GR III 的三语言日志更新为 V3.0，社群兼容说明加入 GR III / HDF。下载统计归入 V3.0，原有测试版统计保留。GR IV v49、GR IIIx R31、原厂备份及 V1.1 历史源码包不变。

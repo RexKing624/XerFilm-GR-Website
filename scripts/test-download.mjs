@@ -1,14 +1,14 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { loadFirmware, unlockFirmware } from '../src/download.js';
+import { loadFirmware } from '../src/download.js';
 import { copy } from '../src/i18n.js';
 
 const root = new URL('../', import.meta.url);
 const manifests = ['release.json', 'gr3-release.json', 'gr3x-release.json', 'enhanced-release.json'];
 const releases = await Promise.all(manifests.map(async name => JSON.parse(await readFile(new URL(`src/${name}`, root)))));
 const availability = JSON.parse(await readFile(new URL('src/download-availability.json', root)));
-assert.deepEqual(availability, { gr4: true, gr3: true, gr3x: true }, 'GR IV / IIIx V3.0 and III V2.0 downloads remain available');
+assert.deepEqual(availability, { gr4: true, gr3: true, gr3x: true }, 'All three V3.0 downloads remain available');
 const originals = JSON.parse(await readFile(new URL('src/original-releases.json', root)));
 releases.push(...originals);
 const realFetch = globalThis.fetch;
@@ -28,15 +28,15 @@ try {
   }
   const enhanced = await Promise.all(['gr3', 'gr3x'].map(async id => JSON.parse(await readFile(new URL(`src/${id}-enhanced-release.json`, root)))));
   for (const release of enhanced) {
-    assert.equal(release.encryption, undefined, 'camera-tested enhanced releases must not require passwords');
+    assert.equal(release.encryption, undefined, 'Approved enhanced releases must not require passwords');
     assert.equal(release.downloadSize, undefined, 'download should use original BIN chunks');
     const blob = await loadFirmware(release);
     const bytes = new Uint8Array(await blob.arrayBuffer());
     assert.equal(bytes.length, release.size);
     assert.equal(createHash('sha256').update(bytes).digest('hex'), release.sha256);
-    assert.equal(release.hardwareTested, true);
-    assert.equal(release.internalVersion, release.camera.includes('IIIx') ? 'R31-H' : 'R20-H');
-    console.log(`${release.camera} enhanced: password-free download matches camera-tested BIN`);
+    assert.ok(release.camera.includes('IIIx') ? release.hardwareTested : release.releaseApproved);
+    assert.equal(release.internalVersion, release.camera.includes('IIIx') ? 'R31-H' : 'R32-H');
+    console.log(`${release.camera} enhanced: password-free download matches approved BIN`);
     const corrupted = structuredClone(release); corrupted.parts[0].sha256 = '0'.repeat(64);
     await assert.rejects(loadFirmware(corrupted), /Part checksum mismatch/);
     const cancelled = new AbortController(); cancelled.abort();
@@ -59,11 +59,12 @@ try {
   assert.equal(releases[3].version, 'V3.0');
   assert.equal(releases[0].internalVersion, 'v49');
   assert.equal(releases[3].internalVersion, 'v49-H');
-  assert.equal(releases[1].version, 'V2.0');
+  assert.equal(releases[1].version, 'V3.0');
   assert.equal(releases[2].version, 'V3.0');
-  assert.equal(releases[1].hardwareTested, true);
+  assert.equal(releases[1].releaseApproved, true);
+  assert.equal(releases[1].hardwareTested, false, 'Promotion must not invent a hardware test result');
   assert.equal(releases[2].hardwareTested, true);
-  assert.equal(releases[1].internalVersion, 'R20');
+  assert.equal(releases[1].internalVersion, 'R32');
   assert.equal(releases[2].internalVersion, 'R31');
   assert.equal(releases[0].filename, 'fwdc248b.bin');
   assert.equal(releases[1].filename, 'fwdc239b.bin');
@@ -74,15 +75,15 @@ try {
   for (const locale of ['zh', 'en', 'ja']) {
     const text = copy[locale];
     assert.ok(text.historicalSource.includes('V1.1'));
-    assert.ok(text.historicalSourceNote.includes('V2.0'));
+    assert.ok(text.historicalSourceNote.includes('V3.0'));
     for (const model of ['gr4', 'gr3', 'gr3x']) {
       const info = text.modelReleases[model];
       assert.ok(info.compatible && info.note && info.changesTitle && info.changes.length);
     }
     for (const model of ['gr3']) {
       const info = text.modelReleases[model];
-      assert.ok(info.rollback && info.note.includes('V2.0'));
-      assert.equal(info.changes.length, 3);
+      assert.ok(info.rollback && info.note.includes('V3.0'));
+      assert.equal(info.changes.length, 5);
       assert.ok(info.changes.some(item => item.includes('ADJ')));
     }
     assert.ok(text.originalTitle && text.originalIntro && text.officialUpdateTitle && text.officialUpdateNotice && text.originalDownload && text.originalBackupOnly);
@@ -104,38 +105,29 @@ try {
   assert.deepEqual(originals.map(r => [r.id, r.version, r.filename]), [['gr3','2.10','fwdc239b.bin'], ['gr3x','1.60','fwdc243b.bin'], ['gr4','1.11','fwdc248b.bin']]);
   const app = await readFile(new URL('src/App.vue', root), 'utf8');
   assert.ok(app.includes("openDrawer('original')") && !app.includes('t.originalFirmwareURL'));
-  assert.ok(app.includes("<TestFirmwareDownload v-if=\"selectedModel === 'gr3'\""), 'R32 test panel is limited to GR III');
-  assert.ok(app.indexOf('<TestFirmwareDownload') > app.indexOf('<EnhancedDownload'), 'Test entry remains below enhanced V2.0');
+  assert.ok(!app.includes('TestFirmwareDownload') && !app.includes('testBusy'), 'Separate R32 test entry is retired');
   for (const locale of ['zh', 'en', 'ja']) {
-    const { gr4, gr3x } = copy[locale].modelReleases;
-    for (const key of ['changes', 'changesTitle', 'note', 'frameDesc']) assert.deepEqual(gr3x[key], gr4[key], 'IIIx V3.0 uses IV changelog');
+    const { gr4, gr3, gr3x } = copy[locale].modelReleases;
+    for (const model of [gr3, gr3x]) {
+      for (const key of ['changes', 'changesTitle', 'note', 'frameDesc']) assert.deepEqual(model[key], gr4[key], 'III / IIIx V3.0 use IV changelog');
+    }
     assert.ok(copy[locale].enhancedModels.gr3x.enhancedTestNote.includes('V3.0'));
     assert.ok(!/测试|test|テスト/.test(copy[locale].enhancedModels.gr3x.enhancedTitle));
   }
   const { communityCopy } = await import('../src/community-copy.js');
-  for (const locale of ['zh', 'en', 'ja']) assert.ok(communityCopy[locale].compatibility.includes('GR IIIx / HDF'), 'Community supports released IIIx V3.0');
-  for (const type of ['ordinary', 'enhanced']) {
-    const r = JSON.parse(await readFile(new URL(`src/gr3-test-${type}-release.json`, root)));
-    assert.equal(r.testRelease, true); assert.equal(r.hardwareTested, false);
-    assert.equal(r.statisticsVersion, 'V3.0-test'); assert.equal(r.downloadVariant, type === 'ordinary' ? 'standard' : 'enhanced');
-    assert.equal(r.internalVersion, type === 'ordinary' ? 'R32' : 'R32-H');
-    await assert.rejects(loadFirmware(r), /Password required/);
-    await assert.rejects(unlockFirmware(r, 'wrong-password'));
-    const key = await unlockFirmware(r, '2222');
-    const blob = await loadFirmware(r, { decryptionKey:key });
-    const bytes = new Uint8Array(await blob.arrayBuffer());
-    assert.equal(bytes.length, r.size); assert.equal(createHash('sha256').update(bytes).digest('hex'), r.sha256);
-    const controller = new AbortController(); controller.abort();
-    await assert.rejects(loadFirmware(r, {decryptionKey:key, signal:controller.signal}), {name:'AbortError'});
-    const bad = structuredClone(r); bad.parts[0].sha256 = '0'.repeat(64);
-    await assert.rejects(loadFirmware(bad, {decryptionKey:key}), /Part checksum mismatch/);
-    console.log(`GR III ${r.internalVersion}: password2222, exact BIN, cancellation and corruption passed`);
+  for (const locale of ['zh', 'en', 'ja']) {
+    for (const model of ['GR III / HDF', 'GR IIIx / HDF', 'GR IV / HDF']) assert.ok(communityCopy[locale].compatibility.includes(model), 'Community supports all released V3.0 models');
+    assert.ok(copy[locale].enhancedModels.gr3.enhancedTestNote.includes('V3.0'));
   }
-  const { testFirmwareCopy } = await import('../src/test-firmware-copy.js');
-  for (const locale of ['zh','en','ja']) {
-    assert.ok(testFirmwareCopy[locale].enhancedWarning.includes('GR III / HDF'));
-    assert.ok(testFirmwareCopy[locale].enhancedTestNote.includes('R32'));
-    assert.ok(testFirmwareCopy[locale].enhancedTestNote.includes('2.20'));
+  for (const [manifest, revision, variant, pin] of [
+    ['gr3-release.json', 'R32', 'standard', '2f574c62caf932ef48f92eb8fc097fca50506d83481b83d15be21a4785e39949'],
+    ['gr3-enhanced-release.json', 'R32-H', 'enhanced', '54a829455e1e5db8bdc8c40f2af95d42193aba9d807975fbda4dc151bcf5e409'],
+  ]) {
+    const r = JSON.parse(await readFile(new URL(`src/${manifest}`, root)));
+    assert.equal(r.version, 'V3.0'); assert.equal(r.releaseApproved, true);
+    assert.equal(r.testRelease, undefined); assert.equal(r.encryption, undefined);
+    assert.equal(r.statisticsVersion, 'V3.0'); assert.equal(r.downloadVariant, variant);
+    assert.equal(r.internalVersion, revision); assert.equal(r.sha256, pin);
   }
   console.log('Password-free downloads, exact BIN identity, cancellation, corruption and all three languages passed.');
 } finally { globalThis.fetch = realFetch; }
