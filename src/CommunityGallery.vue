@@ -38,8 +38,7 @@ onBeforeUnmount(()=>{installDialog.value?.close();detailDialog.value?.close();su
     <div class="look-card-body"><div class="look-card-title"><h2><button @click="openDetail(item)">{{item.name}}</button></h2><span v-if="item.demo" class="community-badge">{{t.demo}}</span></div>
      <div class="card-creator"><img :src="`${assetBase}${item.creator.avatar}`" :alt="item.creator.name" width="28" height="28"><span>{{item.creator.name}}</span></div>
      <p class="card-description">{{local(item.description)}}</p>
-     <LookEngagement :item-id="item.id" :item-name="item.name" :language="language" />
-     <div class="card-bottom"><button class="card-detail" @click="openDetail(item)">{{t.view}} <span aria-hidden="true">↗</span></button><a :href="`${assetBase}${item.download}`" :download="item.download.split('/').pop()" :aria-label="`${item.name} · ${t.download}`" @click.prevent="downloadPack(item)" :aria-busy="downloading===item.id">{{t.downloadShort}} <span aria-hidden="true">↓</span></a></div>
+     <div class="card-bottom"><button class="card-detail" @click="openDetail(item)">{{t.view}} <span aria-hidden="true">↗</span></button><div class="card-actions"><LookEngagement :item-id="item.id" :item-name="item.name" :language="language" /><a :href="`${assetBase}${item.download}`" :download="item.download.split('/').pop()" :aria-label="`${item.name} · ${t.download}`" @click.prevent="downloadPack(item)" :aria-busy="downloading===item.id">{{t.downloadShort}} <span aria-hidden="true">↓</span></a></div></div>
     </div>
    </article>
   </div>
@@ -51,10 +50,9 @@ onBeforeUnmount(()=>{installDialog.value?.close();detailDialog.value?.close();su
    <div class="shared-look-grid">
     <PhotoCompare :item="selected" :language="language" :asset-base="assetBase" />
     <aside class="look-details" :aria-label="selected.name">
-     <div class="community-creator"><img :src="`${assetBase}${selected.creator.avatar}`" :alt="selected.creator.name" width="48" height="48"><div><small>{{t.by}}</small><strong>{{selected.creator.name}}</strong><span>{{local(selected.creator.note)}}</span></div></div>
+     <div class="community-creator"><img :src="`${assetBase}${selected.creator.avatar}`" :alt="selected.creator.name" width="48" height="48"><div class="creator-identity"><small>{{t.by}}</small><strong>{{selected.creator.name}}</strong><span>{{local(selected.creator.note)}}</span></div><LookEngagement class="creator-engagement" :item-id="selected.id" :item-name="selected.name" :language="language" /></div>
      <p class="look-description">{{local(selected.description)}}</p><div class="look-tags"><span v-for="tag in selected.tags" :key="tag">{{tag}}</span></div>
      <dl class="look-metadata"><div><dt>{{t.package}}</dt><dd>{{selected.familyName}}</dd></div><div><dt>{{t.version}}</dt><dd>{{selected.revision}}</dd></div><div><dt>{{t.file}}</dt><dd>{{selected.size}}</dd></div></dl>
-     <LookEngagement :item-id="selected.id" :item-name="selected.name" :language="language" />
      <a class="primary community-download" @click.prevent="downloadPack(selected)" :aria-busy="downloading===selected.id" :href="`${assetBase}${selected.download}`" :download="selected.download.split('/').pop()"><span>{{t.download}}</span><span aria-hidden="true">↓</span></a><p class="slot-destination">{{t.destination}}</p>
      <button class="community-install" type="button" aria-haspopup="dialog" aria-controls="community-install-dialog" @click="openInstall">{{t.install}} <span aria-hidden="true">+</span></button>
     </aside>

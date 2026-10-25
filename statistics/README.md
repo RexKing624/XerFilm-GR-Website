@@ -6,7 +6,7 @@ An event means every firmware part and the final BIN passed checksum verificatio
 
 Events carry a fresh random UUID per download attempt. D1's primary key makes retry idempotent. A bounded local browser queue retries network errors; it contains only pending download metadata and expires after seven days. Download reporting creates no persistent visitor identifier. Localhost is excluded. Admin links can disable/re-enable collection in the browser used for manual tests.
 
-`/admin/` contains no private data or credential. `/api/stats` requires the secret `ADMIN_TOKEN`; the UI keeps it in memory only. The public summary endpoint exposes only firmware and per-look aggregate totals; event details and date/version breakdowns remain private. Keep the management token in a password manager/local private file, never in the public website, URL, source repository or build artifact.
+`/admin/` contains no private data or credential. `/api/stats` requires the secret `ADMIN_TOKEN`; the UI keeps it in memory only. The public summary endpoint exposes only per-look like/download totals; firmware totals stay behind admin authentication; event details and date/version breakdowns remain private. Keep the management token in a password manager/local private file, never in the public website, URL, source repository or build artifact.
 
 ## Local checks
 
@@ -31,10 +31,10 @@ At the owner's request, `HISTORICAL_ESTIMATE=850` represents estimated firmware 
 
 ## Public engagement
 
-`GET /api/public-stats` returns only firmware totals (measured, historical estimate, sum), known community look like/download totals and collection start date. No visitor hashes, individual event rows, administration credential or private dashboard breakdowns are exposed. Community downloads are grouped by catalog look ID across package revisions. Public counters are maintained by database triggers; duplicate event IDs never increment twice.
+`GET /api/public-stats` returns only known community look like/download totals and collection start date. No visitor hashes, individual event rows, administration credential or private dashboard breakdowns are exposed. Community downloads are grouped by catalog look ID across package revisions. Public counters are maintained by database triggers; duplicate event IDs never increment twice.
 
 `POST /api/likes` sets the desired like state, rather than incrementing blindly. A random per-browser UUID is generated on first like and retained in localStorage. D1 stores only its SHA-256 hash and look ID, with a unique pair preventing repeat likes. `GET /api/likes/state` restores only that browser's own likes. Clicking again removes its like. This is anonymous browser-level deduplication, not identity verification: clearing storage or using another browser permits another like. Origin checks, request validation and rate limiting reduce casual abuse but cannot guarantee bot resistance.
 
-The UI updates the clicked like immediately, reconciles with the server, and refreshes public counts every five seconds on community pages (30 seconds elsewhere). Hidden pages and Studio do not poll. Same-browser tabs synchronize through storage notifications; completed download reports request an immediate refresh. Unavailable statistics never block downloads or show a made-up zero.
+The UI updates the clicked like immediately, reconciles with the server, and refreshes public counts every five seconds on visible community pages. Other pages and hidden pages do not poll. Same-browser tabs synchronize through storage notifications; completed download reports request an immediate refresh. Unavailable statistics never block downloads or show a made-up zero.
 
 After applying migration `0002_public_engagement.sql` remotely, run `wrangler d1 execute xerfilm-download-statistics --remote --file backfill-public-counters.sql` once before deploying the new Worker. This idempotently initializes counters for existing download events without creating events or changing the 850 estimate. For future new community look IDs, redeploy the Worker alongside the website so both use the updated `src/community-data.json` catalog. No custom domain or DNS change is required.

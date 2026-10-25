@@ -70,17 +70,17 @@ test('anonymous likes are idempotent, independently owned and cancellable; publi
  }
  const state=async token=>(await handleEngagement(new Request(base+'/api/likes/state',{headers:{Origin:origin,'X-Like-Token':token}}),env)).json();
  assert.deepEqual((await state(a)).liked,[]);assert.deepEqual((await state(b)).liked,[lookId]);
- const d=await publicStats(env);assert.equal(d.looks[lookId].likes,1);assert.equal(d.firmware.total,850);assert.deepEqual(Object.keys(d).sort(),['firmware','looks','startDate']);assert.ok(!JSON.stringify(d).includes(b));
+ const d=await publicStats(env);assert.equal(d.looks[lookId].likes,1);assert.deepEqual(Object.keys(d).sort(),['looks','startDate']);assert.equal(d.firmware,undefined);assert.ok(!JSON.stringify(d).includes(b));
  const rows=env.db.prepare('SELECT * FROM community_likes').all();assert.equal(rows.length,1);assert.notEqual(rows[0].browser_hash,b);assert.equal(rows[0].browser_hash.length,64);
  assert.equal((await handleEngagement(likeRequest(a,true,'unknown-look'),env)).status,400);assert.equal((await handleEngagement(likeRequest(a,true,lookId,'https://other.example'),env)).status,403);
 });
-test('public download counters use verified event identity, preserve the estimate and backfill without duplicating',async()=>{
+test('community counters remain public while firmware totals stay private, including after backfill',async()=>{
  const env=environment();env.HISTORICAL_ESTIMATE='850';const e={eventId:randomUUID(),asset};
  await handleRequest(request(e),env);await handleRequest(request(e),env);
  await handleRequest(request({eventId:randomUUID(),asset:{...asset,kind:'community',model:'community',variant:'community',revision:lookId,version:'1'}}),env);
- const before=await publicStats(env);assert.deepEqual(before.firmware,{measured:1,historicalEstimate:850,total:851});assert.equal(before.looks[lookId].downloads,1);
+ const before=await publicStats(env);assert.equal(before.firmware,undefined);assert.equal(before.looks[lookId].downloads,1);assert.equal((await (await stats(env)).json()).summary.estimatedTotal,851);
  env.db.exec('DELETE FROM public_counters');const sql=readFileSync(new URL('../backfill-public-counters.sql',import.meta.url),'utf8');env.db.exec(sql);env.db.exec(sql);assert.deepEqual(await publicStats(env),before);
- await handleRequest(request({eventId:randomUUID(),asset}),env);assert.equal((await publicStats(env)).firmware.measured,2);
+ await handleRequest(request({eventId:randomUUID(),asset}),env);assert.equal((await publicStats(env)).firmware,undefined);assert.equal((await (await stats(env)).json()).summary.total,2);
 });
 function engagementClient(env,{send:customSend,onChange=()=>{}}={}){
  const values=new Map(),send=customSend||((url,options={})=>handleEngagement(new Request(url,{...options,headers:{...options.headers,Origin:origin}}),env));

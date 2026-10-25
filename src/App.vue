@@ -13,7 +13,6 @@ import CommunityGallery from './CommunityGallery.vue';
 import StudioEditor from './StudioEditor.vue';
 import { communityCopy } from './community-copy';
 import { SITE_VERSION } from './site-version';
-import FirmwareDownloadCount from './FirmwareDownloadCount.vue';
 import {startPublicEngagement} from './public-engagement';
 let stopEngagement;
 onMounted(()=>{stopEngagement=startPublicEngagement();});
@@ -192,7 +191,6 @@ onBeforeUnmount(() => { stopEngagement?.(); window.removeEventListener('hashchan
    <aside id="download" class="download-panel" :aria-label="t.download">
     <div class="panel-top"><span class="eyebrow">01 / {{ t.download }}</span><span class="version-pill">{{ selectedRelease.version }}</span></div>
     <h2>{{ t.get }}</h2><p class="subtle">{{ t.getSub }}</p>
-    <FirmwareDownloadCount :language="language" />
     <div class="restore-warning"><strong>{{ t.restoreWarning }}</strong><button type="button" class="original-firmware-button" @click="openDrawer('original')">{{ t.originalFirmware }} <span aria-hidden="true">↗</span></button></div>
     <div class="official-update-alert" role="note"><strong>{{ t.officialUpdateTitle }}</strong><p>{{ t.officialUpdateNotice }}</p></div>
     <fieldset class="camera-choices"><legend class="sr-only">{{ t.chooseCamera }}</legend><label v-for="camera in cameras" :key="camera.id" class="camera-choice" :class="{ checked: selectedModel === camera.id, unavailable: !isModelAvailable(camera.id) }"><input v-model="selectedModel" type="radio" :disabled="!isModelAvailable(camera.id)" name="camera-model" :value="camera.id" :data-testid="`camera-${camera.id}`"><strong>{{ camera.label }}</strong><small>{{ isModelAvailable(camera.id) ? `${camera.release.version} ${fileSize(camera.release)} · .bin` : t.downloadSuspended }}</small></label></fieldset>

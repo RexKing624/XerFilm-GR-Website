@@ -2,14 +2,14 @@ const TOKEN='xerfilm-community-like-token-v1';
 const CHANGE='xerfilm-community-like-change';
 const UUID=/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
 export function createEngagementClient({base,send,storage,uuid,onChange=()=>{}}){
- let token,state={ready:false,firmware:null,looks:{},liked:[],busy:{},errors:{}},epoch=0;
+ let token,state={ready:false,looks:{},liked:[],busy:{},errors:{}},epoch=0;
  try{const saved=storage?.getItem(TOKEN);if(UUID.test(saved||''))token=saved;}catch{}
  const publish=()=>onChange({...state,looks:{...state.looks},liked:[...state.liked],busy:{...state.busy},errors:{...state.errors}});
  async function refresh(){
   const generation=epoch;
   try{const r=await send(base+'/api/public-stats',{cache:'no-store',credentials:'omit',signal:AbortSignal.timeout(5000)});if(!r.ok)return;const data=await r.json();
    if(generation!==epoch||Object.values(state.busy).some(Boolean))return;
-   state={...state,ready:true,firmware:data.firmware,looks:data.looks};publish();
+   state={...state,ready:true,looks:data.looks};publish();
   }catch{}
  }
  async function refreshLiked(){

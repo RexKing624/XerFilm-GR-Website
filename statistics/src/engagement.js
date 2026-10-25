@@ -10,10 +10,9 @@ export async function handleEngagement(request,env){
   if(request.method==='OPTIONS')return origin===allowed?new Response(null,{status:204,headers:{...cors,'Access-Control-Max-Age':'3600'}}):json({error:'origin'},403);
   if(path==='/api/public-stats'){
    if(request.method!=='GET')return json({error:'method'},405,cors);
-   const {results}=await env.DB.prepare('SELECT key,count FROM public_counters').all();const counts=Object.fromEntries(results.map(row=>[row.key,Number(row.count)]));
-   const measured=counts.firmware||0,baseline=Number(env.HISTORICAL_ESTIMATE||0),historicalEstimate=Number.isSafeInteger(baseline)&&baseline>=0?baseline:0;
+   const {results}=await env.DB.prepare("SELECT key,count FROM public_counters WHERE key LIKE 'like:%' OR key LIKE 'download:%'").all();const counts=Object.fromEntries(results.map(row=>[row.key,Number(row.count)]));
    const looks=Object.fromEntries(lookIds.map(id=>[id,{likes:counts['like:'+id]||0,downloads:counts['download:'+id]||0}]));
-   return json({firmware:{measured,historicalEstimate,total:measured+historicalEstimate},looks,startDate:env.START_DATE||'2026-10-25'},200,cors);
+   return json({looks,startDate:env.START_DATE||'2026-10-25'},200,cors);
   }
   if(path==='/api/likes/state'){
    if(request.method!=='GET')return json({error:'method'},405,cors);
