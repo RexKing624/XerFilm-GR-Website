@@ -1,5 +1,5 @@
 <script setup>
-import { computed, nextTick, onBeforeUnmount, ref, shallowRef, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue';
 import { copy } from './i18n';
 import films from './films.json';
 import release from './release.json';
@@ -13,6 +13,10 @@ import CommunityGallery from './CommunityGallery.vue';
 import StudioEditor from './StudioEditor.vue';
 import { communityCopy } from './community-copy';
 import { SITE_VERSION } from './site-version';
+import FirmwareDownloadCount from './FirmwareDownloadCount.vue';
+import {startPublicEngagement} from './public-engagement';
+let stopEngagement;
+onMounted(()=>{stopEngagement=startPublicEngagement();});
 
 const readPreference = (name) => { try { return localStorage.getItem(name); } catch { return null; } };
 const savePreference = (name, value) => { try { localStorage.setItem(name, value); } catch {} };
@@ -36,7 +40,7 @@ function syncPage() {
  currentHash.value = location.hash;
  communityPage.value = nextCommunity;
  studioPage.value = nextStudio;
- if (changed) { closeDrawer(); nextTick(() => window.scrollTo({ top: 0, behavior: 'instant' })); }
+ if (changed) { window.dispatchEvent(new Event('xerfilm-page-changed')); closeDrawer(); nextTick(() => window.scrollTo({ top: 0, behavior: 'instant' })); }
 }
 function navigateWithinSite(event) {
  if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -166,7 +170,7 @@ async function unlockDownload() {
   } catch { if (attempt === unlockAttempt) passwordError.value = true; }
   finally { if (attempt === unlockAttempt) unlocking.value = false; }
 }
-onBeforeUnmount(() => { window.removeEventListener('hashchange', syncPage); window.removeEventListener('popstate', syncPage); controller?.abort(); document.body.style.overflow = ''; });
+onBeforeUnmount(() => { stopEngagement?.(); window.removeEventListener('hashchange', syncPage); window.removeEventListener('popstate', syncPage); controller?.abort(); document.body.style.overflow = ''; });
 </script>
 
 <template>
@@ -188,6 +192,7 @@ onBeforeUnmount(() => { window.removeEventListener('hashchange', syncPage); wind
    <aside id="download" class="download-panel" :aria-label="t.download">
     <div class="panel-top"><span class="eyebrow">01 / {{ t.download }}</span><span class="version-pill">{{ selectedRelease.version }}</span></div>
     <h2>{{ t.get }}</h2><p class="subtle">{{ t.getSub }}</p>
+    <FirmwareDownloadCount :language="language" />
     <div class="restore-warning"><strong>{{ t.restoreWarning }}</strong><button type="button" class="original-firmware-button" @click="openDrawer('original')">{{ t.originalFirmware }} <span aria-hidden="true">↗</span></button></div>
     <div class="official-update-alert" role="note"><strong>{{ t.officialUpdateTitle }}</strong><p>{{ t.officialUpdateNotice }}</p></div>
     <fieldset class="camera-choices"><legend class="sr-only">{{ t.chooseCamera }}</legend><label v-for="camera in cameras" :key="camera.id" class="camera-choice" :class="{ checked: selectedModel === camera.id, unavailable: !isModelAvailable(camera.id) }"><input v-model="selectedModel" type="radio" :disabled="!isModelAvailable(camera.id)" name="camera-model" :value="camera.id" :data-testid="`camera-${camera.id}`"><strong>{{ camera.label }}</strong><small>{{ isModelAvailable(camera.id) ? `${camera.release.version} ${fileSize(camera.release)} · .bin` : t.downloadSuspended }}</small></label></fieldset>

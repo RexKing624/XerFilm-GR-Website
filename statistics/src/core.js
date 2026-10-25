@@ -2,7 +2,7 @@ export const TIME_ZONE = 'Asia/Tokyo';
 export const dateInTokyo = (date = new Date()) => new Intl.DateTimeFormat('en-CA',{timeZone:TIME_ZONE,year:'numeric',month:'2-digit',day:'2-digit'}).format(date);
 const shift = (day,n) => new Date(Date.parse(day+'T00:00:00Z')+n*86400000).toISOString().slice(0,10);
 const security = {'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','X-Frame-Options':'DENY'};
-function json(value,status=200,headers={}) {return new Response(JSON.stringify(value),{status,headers:{...security,'Content-Type':'application/json; charset=utf-8',...headers}});}
+export function json(value,status=200,headers={}) {return new Response(JSON.stringify(value),{status,headers:{...security,'Content-Type':'application/json; charset=utf-8',...headers}});}
 async function isAdmin(request,env){
  if(typeof env.ADMIN_TOKEN!=='string'||env.ADMIN_TOKEN.length<24)return false;
  const token=request.headers.get('Authorization')?.replace(/^Bearer /,'')||'';
@@ -17,7 +17,7 @@ export function validAsset(a){
  if(!['gr3','gr3x','gr4'].includes(a.model))return false;
  return (a.kind==='firmware'&&['standard','enhanced'].includes(a.variant))||(a.kind==='original'&&a.variant==='original');
 }
-async function bodyJSON(request){
+export async function bodyJSON(request){
  if(!request.headers.get('Content-Type')?.startsWith('application/json'))throw Error('content-type');
  const reader=request.body?.getReader();if(!reader)throw Error('empty');let size=0;const chunks=[];
  try{while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>2048)throw Error('large');chunks.push(value);}}finally{await reader.cancel().catch(()=>{});}

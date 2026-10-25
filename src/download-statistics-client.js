@@ -1,6 +1,6 @@
 const KEY = 'xerfilm-pending-downloads-v1';
 const EXCLUDE = 'xerfilm-exclude-download-statistics';
-export function createDownloadStatistics({ endpoint, location, storage, send, uuid, now = Date.now, schedule = setTimeout }) {
+export function createDownloadStatistics({ endpoint, location, storage, send, uuid, now = Date.now, schedule = setTimeout, onRecorded = () => {} }) {
   let pending = [], running = false, timer, excluded = false;
   const allowed = location?.origin === 'https://filmgr.xergnik.com';
   const setting = new URLSearchParams(location?.search || '').get('download-statistics');
@@ -25,6 +25,7 @@ export function createDownloadStatistics({ endpoint, location, storage, send, uu
         if (!response.ok && (response.status >= 500 || response.status === 429)) break;
         // Invalid events cannot block later valid downloads. Same ID is kept on retries.
         pending = pending.filter(item => item.eventId !== event.eventId); persist();
+        if (response.ok) { try { onRecorded(); } catch {} }
       }
     } catch {} finally {
       running = false;

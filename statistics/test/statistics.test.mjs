@@ -1,14 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readFileSync,readdirSync} from 'node:fs';
 import {DatabaseSync} from 'node:sqlite';
 import {randomUUID} from 'node:crypto';
 import {handleRequest,dateInTokyo,validAsset} from '../src/core.js';
 import {createDownloadStatistics} from '../../src/download-statistics-client.js';
+import {handleEngagement} from '../src/engagement.js';
+import {createEngagementClient} from '../../src/engagement-client.js';
 const origin='https://filmgr.xergnik.com',base='https://stats.example';
 const asset={kind:'firmware',model:'gr3x',variant:'standard',version:'V3.0',revision:'R31',sha256:'a'.repeat(64)};
-function environment(){
- const db=new DatabaseSync(':memory:');db.exec(readFileSync(new URL('../migrations/0001_downloads.sql',import.meta.url),'utf8'));
+export function environment(){
+ const db=new DatabaseSync(':memory:');for(const file of readdirSync(new URL('../migrations/',import.meta.url)).filter(n=>n.endsWith('.sql')).sort())db.exec(readFileSync(new URL('../migrations/'+file,import.meta.url),'utf8'));
  return {START_DATE:'2026-10-25',ALLOWED_ORIGIN:origin,ADMIN_TOKEN:'unit-test-admin-token-with-32-characters',DB:{prepare(sql){let values=[];return{bind(...v){values=v;return this},async run(){return db.prepare(sql).run(...values)},async all(){return {results:db.prepare(sql).all(...values)}}}},async batch(queries){return Promise.all(queries.map(q=>q.all()))}},db};
 }
 const request=(event,headers={Origin:origin})=>new Request(base+'/api/downloads',{method:'POST',headers:{'Content-Type':'application/json',...headers},body:JSON.stringify(event)});
@@ -56,4 +58,45 @@ test('historical 850 is a labeled baseline, added once only to estimated cumulat
  await handleRequest(request({eventId:randomUUID(),asset}),env);
  d=await (await stats(env)).json();assert.equal(d.summary.total,1);assert.equal(d.summary.estimatedTotal,851);assert.equal(d.summary.today,1);assert.equal(d.summary.month,1);assert.equal(d.daily[0].count,1);assert.equal(d.downloads[0].count,1);assert.equal(env.db.prepare('SELECT COUNT(*) n FROM downloads').get().n,1);
  d=await (await stats(env)).json();assert.equal(d.summary.estimatedTotal,851,'Refreshing does not add 850 again');
+});
+
+const lookId='coast-study';
+const likeRequest=(token,liked,look=lookId,source=origin)=>new Request(base+'/api/likes',{method:'POST',headers:{Origin:source,'Content-Type':'application/json'},body:JSON.stringify({token,lookId:look,liked})});
+const publicStats=async env=>(await handleEngagement(new Request(base+'/api/public-stats'),env)).json();
+test('anonymous likes are idempotent, independently owned and cancellable; public output contains only aggregates',async()=>{
+ const env=environment(),a=randomUUID(),b=randomUUID();env.HISTORICAL_ESTIMATE='850';
+ for(const [token,liked,expected]of [[a,true,1],[a,true,1],[b,true,2],[a,false,1],[a,false,1]]){
+  const r=await handleEngagement(likeRequest(token,liked),env);assert.equal(r.status,200);assert.equal((await r.json()).likes,expected);
+ }
+ const state=async token=>(await handleEngagement(new Request(base+'/api/likes/state',{headers:{Origin:origin,'X-Like-Token':token}}),env)).json();
+ assert.deepEqual((await state(a)).liked,[]);assert.deepEqual((await state(b)).liked,[lookId]);
+ const d=await publicStats(env);assert.equal(d.looks[lookId].likes,1);assert.equal(d.firmware.total,850);assert.deepEqual(Object.keys(d).sort(),['firmware','looks','startDate']);assert.ok(!JSON.stringify(d).includes(b));
+ const rows=env.db.prepare('SELECT * FROM community_likes').all();assert.equal(rows.length,1);assert.notEqual(rows[0].browser_hash,b);assert.equal(rows[0].browser_hash.length,64);
+ assert.equal((await handleEngagement(likeRequest(a,true,'unknown-look'),env)).status,400);assert.equal((await handleEngagement(likeRequest(a,true,lookId,'https://other.example'),env)).status,403);
+});
+test('public download counters use verified event identity, preserve the estimate and backfill without duplicating',async()=>{
+ const env=environment();env.HISTORICAL_ESTIMATE='850';const e={eventId:randomUUID(),asset};
+ await handleRequest(request(e),env);await handleRequest(request(e),env);
+ await handleRequest(request({eventId:randomUUID(),asset:{...asset,kind:'community',model:'community',variant:'community',revision:lookId,version:'1'}}),env);
+ const before=await publicStats(env);assert.deepEqual(before.firmware,{measured:1,historicalEstimate:850,total:851});assert.equal(before.looks[lookId].downloads,1);
+ env.db.exec('DELETE FROM public_counters');const sql=readFileSync(new URL('../backfill-public-counters.sql',import.meta.url),'utf8');env.db.exec(sql);env.db.exec(sql);assert.deepEqual(await publicStats(env),before);
+ await handleRequest(request({eventId:randomUUID(),asset}),env);assert.equal((await publicStats(env)).firmware.measured,2);
+});
+function engagementClient(env,{send:customSend,onChange=()=>{}}={}){
+ const values=new Map(),send=customSend||((url,options={})=>handleEngagement(new Request(url,{...options,headers:{...options.headers,Origin:origin}}),env));
+ const options={base,storage:{getItem:k=>values.get(k),setItem:(k,v)=>values.set(k,v)},uuid:randomUUID,onChange,send};return{client:createEngagementClient(options),options,values};
+}
+test('two clients synchronize, browser state survives reload, and a repeated click while busy cannot add twice',async()=>{
+ const env=environment(),snapshots=[],a=engagementClient(env,{onChange:s=>snapshots.push(s)}),b=engagementClient(env);
+ await Promise.all([a.client.refresh(),b.client.refresh()]);assert.equal(a.values.size,0,'Viewing creates no anonymous token');
+ const action=a.client.toggle(lookId);assert.equal(a.client.snapshot().liked.includes(lookId),true,'Own heart updates immediately');assert.equal(a.client.snapshot().looks[lookId].likes,1);await a.client.toggle(lookId);await action;
+ await b.client.refresh();assert.equal(b.client.snapshot().looks[lookId].likes,1);assert.deepEqual(b.client.snapshot().liked,[]);
+ const reloaded=createEngagementClient(a.options);await reloaded.refreshLiked();assert.deepEqual(reloaded.snapshot().liked,[lookId]);await a.client.toggle(lookId);await b.client.refresh();assert.equal(b.client.snapshot().looks[lookId].likes,0);
+});
+test('a lost like response recovers the saved state; stale polls cannot overwrite a newer like',async()=>{
+ const env=environment();let lose=true;
+ const a=engagementClient(env,{send:async(url,options={})=>{const r=await handleEngagement(new Request(url,{...options,headers:{...options.headers,Origin:origin}}),env);if(url.endsWith('/api/likes')&&lose){lose=false;throw Error('response lost')}return r;}});
+ await a.client.refresh();await a.client.toggle(lookId);assert.deepEqual(a.client.snapshot().liked,[lookId]);assert.equal(a.client.snapshot().looks[lookId].likes,1);assert.equal(a.client.snapshot().errors[lookId],undefined);
+ let resolve;const old=await publicStats(env);const b=engagementClient(env);await b.client.refresh();b.options.send=undefined;
+ let defer=false;const c=engagementClient(env,{send:async(url,options={})=>{if(defer&&url.endsWith('/api/public-stats')){defer=false;return new Promise(r=>{resolve=r})}return handleEngagement(new Request(url,{...options,headers:{...options.headers,Origin:origin}}),env);}});await c.client.refresh();defer=true;const pending=c.client.refresh();await c.client.toggle(lookId);resolve(new Response(JSON.stringify(old),{headers:{'Content-Type':'application/json'}}));await pending;assert.equal(c.client.snapshot().looks[lookId].likes,2);
 });

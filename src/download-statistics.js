@@ -5,7 +5,7 @@ let client;
 export function initializeDownloadStatistics() {
   try {
     let storage; try { storage = globalThis.localStorage; } catch {}
-    client ??= createDownloadStatistics({ endpoint:configuration.endpoint, location:globalThis.location, storage, send:(...args)=>fetch(...args), uuid:()=>crypto.randomUUID() });
+    client ??= createDownloadStatistics({ endpoint:configuration.endpoint, location:globalThis.location, storage, send:(...args)=>fetch(...args), uuid:()=>crypto.randomUUID(), onRecorded:()=>globalThis.dispatchEvent?.(new Event('xerfilm-download-recorded')) });
     void client.flush();
     globalThis.addEventListener?.('online', () => { void client.flush(); });
   } catch {}
