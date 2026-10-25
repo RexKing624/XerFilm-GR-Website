@@ -140,7 +140,7 @@ test('successful Studio exports count once per UUID, with files and child films 
  const publicData=await publicStats(env);assert.equal(publicData.studio,undefined);
  assert.equal(env.db.prepare('SELECT COUNT(*) n FROM public_counters').get().n,0);
  // The date filter changes period data without altering all-time totals.
- const later=new Date(Date.now()+86400000).toISOString().slice(0,10);
+ const later=dateInTokyo(new Date(Date.now()+86400000));
  const filtered=await(await stats(env,'?from='+later+'&to='+later)).json();
  assert.equal(filtered.studio.summary.total,2);assert.equal(filtered.studio.period.total,0);
 });

@@ -1,0 +1,27 @@
+[
+  {
+    "id": "coast-evening",
+    "title": {
+      "zh": "海边，慢一点",
+      "en": "A slower coast",
+      "ja": "海辺で、ゆっくり"
+    },
+    "image": "community/photos/coast-effect.jpg",
+    "description": {
+      "zh": "海风吹过草地，光落在岸边。先用这张现有样张，试试从一张照片找到它的颜色。",
+      "en": "Light along the shore. An existing sample to explore the journey from a photograph to its look.",
+      "ja": "海辺に降りる光。写真からルックへつながる流れを試すための既存サンプルです。"
+    },
+    "creator": {
+      "name": "XER_GNIK",
+      "avatar": "community/avatars/xer-gnik-pixel.png"
+    },
+    "camera": "GR IV / HDF",
+    "lookId": "coast-study",
+    "film": "COAST STUDY / Warm",
+    "frame": "3:2",
+    "grain": "",
+    "highlight": "",
+    "demo": true
+  }
+]

@@ -2,6 +2,8 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue';
 import { copy } from './i18n';
 import films from './films.json';
+import {filmPhotoFilterId,photoGalleryURL} from './photo-looks';
+import {photographyCopy} from './photography-copy';
 import release from './release.json';
 import originalReleases from './original-releases.json';
 import historicalSource from './historical-source.json';
@@ -24,6 +26,7 @@ const language = ref(['zh', 'en', 'ja'].includes(readPreference('site-language')
 const theme = ref(['dark', 'light'].includes(readPreference('site-theme')) ? readPreference('site-theme') : 'dark');
 const t = computed(() => copy[language.value]);
 const ct = computed(() => communityCopy[language.value]);
+const photoLabels=computed(()=>photographyCopy[language.value]);
 // Keep older local bookmarks working while using one site's clean paths.
 if (['#community', '#community-submit'].includes(location.hash)) history.replaceState(null, '', location.hash === '#community-submit' ? '/community/#submit' : '/community/');
 if (/^\/studio\/?$/.test(location.pathname)) history.replaceState(null, '', '/community/studio/');
@@ -207,9 +210,9 @@ onBeforeUnmount(() => { stopEngagement?.(); window.removeEventListener('hashchan
     <section class="film-feature">
      <div class="feature-top"><div><span class="tiny-number">01—</span><h3>{{ t.filmTitle }}</h3></div><img class="entry-icon" :src="filmIcon(732)" alt="FILM"></div>
      <p class="feature-copy">{{ t.filmDesc }}</p>
-     <div class="film-strip"><div v-for="film in heroFilms" :key="film.name"><img :src="filmIcon(film.icon)" :alt="film.name"><span>{{ film.name }}</span></div></div>
+     <div class="film-strip"><a v-for="film in heroFilms" :key="film.name" :href="photoGalleryURL(filmPhotoFilterId(film))" :aria-label="`${film.name} · ${photoLabels.viewPhotos}`"><img :src="filmIcon(film.icon)" :alt="film.name"><span>{{ film.name }}</span></a></div>
      <div class="film-feature-bottom"><div class="stats"><span><b>17</b>{{ t.familyUnit }}</span><span><b>27</b>{{ t.lookUnit }}</span></div><button class="outlined" @click="openDrawer('films')">{{ t.viewFilms }} <span aria-hidden="true">↗</span></button></div>
-     <div class="curated"><span aria-hidden="true">↳</span><div class="curated-copy"><strong>{{ t.curatedTitle }}</strong><p>{{ t.curated }}</p><small>{{ ct.compatibility }}</small></div><div class="curated-actions"><a class="text-link community-entry" href="/community/">{{ ct.explore }} <span aria-hidden="true">↗</span></a></div></div>
+     <div class="curated"><span aria-hidden="true">↳</span><div class="curated-copy"><strong>{{ t.curatedTitle }}</strong><p>{{ t.curated }}</p><small>{{ ct.compatibility }}</small></div><div class="curated-actions"><a class="outlined community-entry" href="/community/">{{ ct.explore }} <span aria-hidden="true">↗</span></a></div></div>
     </section>
     <section class="interaction-feature"><div class="interaction-copy"><span class="tiny-number">02—</span><h3>{{ t.adjTitle }}</h3><p>{{ t.adjDesc }}</p><h4>{{ t.listTitle }}</h4><p>{{ t.listDesc }}</p></div><div class="camera-demo"><div class="demo-title"><img :src="filmIcon(732)" alt="FILM"><span>FILM LIST</span><span class="demo-dot"></span></div><p class="demo-caption">{{ t.demo }}</p><div class="demo-grid"><button v-for="(film,i) in heroFilms" :key="film.name" :class="{ selected:selectedMock === i, off:!mockEnabled[i] }" :aria-label="film.name" :aria-pressed="mockEnabled[i]" @click="selectedMock = i; mockEnabled[i] = !mockEnabled[i]"><img :src="filmIcon(film.icon)" :alt="film.name"><span v-if="mockEnabled[i]" class="demo-check">✓</span></button></div><div class="demo-bottom"><span>{{ heroFilms[selectedMock].name }}</span><span>OK <b>↵</b></span></div></div></section>
     <div id="finishing" class="two-features effect-features">
@@ -234,7 +237,7 @@ onBeforeUnmount(() => { stopEngagement?.(); window.removeEventListener('hashchan
     <div class="drawer-header"><div><span class="eyebrow">{{ `${drawer === 'original' ? 'ORIGINAL FIRMWARE' : drawer === 'films' ? 'FILM CATALOG' : 'DOWNLOAD'} / ${drawer === 'original' ? 'BACKUPS' : selectedRelease.version}` }}</span><h2 id="drawer-title">{{ drawer === 'original' ? t.originalTitle : drawer === 'films' ? t.library : selectedCamera.label }}</h2></div><button class="close-button" :aria-label="t.close" @click="closeDrawer">✕</button></div>
     <template v-if="drawer === 'films'">
      <p class="drawer-intro">{{ t.libraryIntro }}</p><div class="catalog-toolbar"><div class="filters" role="group" :aria-label="t.library"><button v-for="brand in ['all','FUJIFILM','KODAK']" :key="brand" :class="{ active:filter === brand }" :aria-pressed="filter === brand" @click="filter = brand">{{ brand === 'all' ? t.all : brand }}</button></div><input v-model="search" type="search" :placeholder="t.search" :aria-label="t.search"></div><p class="catalog-count">{{ t.count }}</p>
-     <div class="catalog-grid"><article v-for="film in filteredFilms" :key="film.name" class="catalog-film"><div class="catalog-family"><img :src="filmIcon(film.icon)" :alt="film.name"><div><span>{{ film.brand }}</span><h3>{{ film.name }}</h3></div></div><div v-if="film.variants.length" class="variants"><span>{{ t.variants }}</span><div class="variant" v-for="variant in film.variants" :key="variant.name"><img :src="filmIcon(variant.icon)" :alt="`${film.name} ${variant.name}`"><span>{{ variant.name }}</span></div></div></article></div><p v-if="!filteredFilms.length" class="empty">{{ t.noResult }}</p><div class="catalog-footer">{{ t.curated }} {{ ct.compatibility }}</div>
+     <div class="catalog-grid"><article v-for="film in filteredFilms" :key="film.name" class="catalog-film"><a class="catalog-family catalog-film-link" :href="photoGalleryURL(filmPhotoFilterId(film))" :aria-label="`${film.name} · ${photoLabels.viewPhotos}`"><img :src="filmIcon(film.icon)" :alt="film.name"><div><span>{{ film.brand }}</span><h3>{{ film.name }}</h3></div><span class="catalog-photo-arrow" aria-hidden="true">↗</span></a><div v-if="film.variants.length" class="variants"><span>{{ t.variants }}</span><a class="variant catalog-film-link" v-for="variant in film.variants" :key="variant.name" :href="photoGalleryURL(`builtin-${variant.icon}`)" :aria-label="`${film.name} ${variant.name} · ${photoLabels.viewPhotos}`"><img :src="filmIcon(variant.icon)" :alt="`${film.name} ${variant.name}`"><span>{{ variant.name }}</span></a></div></article></div><p v-if="!filteredFilms.length" class="empty">{{ t.noResult }}</p><div class="catalog-footer">{{ t.curated }} {{ ct.compatibility }}</div>
     </template>
     <template v-if="drawer === 'original'">
      <p class="drawer-intro">{{ t.originalIntro }}</p>

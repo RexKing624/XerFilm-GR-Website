@@ -98,7 +98,7 @@ export const copy = {
       "新增机身设备码显示，改善 exFAT 胶片包识别与指定用户槽位替换。"
     ],
     "library": "已装胶片",
-    "libraryIntro": "当前固件的完整目录。按家族展示，有子菜单的胶片列出全部子型号。此处展示机内图标与选项，不是照片效果样张。",
+    "libraryIntro": "当前固件的完整目录，按家族展示。点击胶片或具体子型号，查看社群里使用它拍摄的作品。",
     "all": "全部",
     "count": "17 个家族 / 27 种效果",
     "variants": "子菜单",
@@ -299,7 +299,7 @@ export const copy = {
       "Device-code display, improved exFAT package recognition and replacement of the user slot named by the imported file."
     ],
     "library": "Installed films",
-    "libraryIntro": "The complete catalog in this firmware, grouped by family with all submenu variants. These are camera icons and options, not sample photographs.",
+    "libraryIntro": "The full firmware catalog, arranged by family. Select a film or a specific variant to see community photographs made with it.",
     "all": "All",
     "count": "17 families / 27 looks",
     "variants": "SUBMENU",
@@ -500,7 +500,7 @@ export const copy = {
       "デバイスコード表示を追加。exFATのパック認識と、ファイル名で指定したユーザー枠の置き換えを改善。"
     ],
     "library": "搭載フィルム",
-    "libraryIntro": "現在のファームウェアに含まれる全ファミリーと子モデル。表示はカメラ用アイコンと選択肢であり、作例写真ではありません。",
+    "libraryIntro": "ファームウェア内の全フィルムをファミリー別に表示。フィルムや子モデルをクリックすると、そのルックで撮った作品を見られます。",
     "all": "すべて",
     "count": "17 ファミリー / 27 ルック",
     "variants": "子メニュー",
