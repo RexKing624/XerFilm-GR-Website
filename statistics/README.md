@@ -38,3 +38,12 @@ At the owner's request, `HISTORICAL_ESTIMATE=850` represents estimated firmware 
 The UI updates the clicked like immediately, reconciles with the server, and refreshes public counts every five seconds on visible community pages. Other pages and hidden pages do not poll. Same-browser tabs synchronize through storage notifications; completed download reports request an immediate refresh. Unavailable statistics never block downloads or show a made-up zero.
 
 After applying migration `0002_public_engagement.sql` remotely, run `wrangler d1 execute xerfilm-download-statistics --remote --file backfill-public-counters.sql` once before deploying the new Worker. This idempotently initializes counters for existing download events without creating events or changing the 850 estimate. For future new community look IDs, redeploy the Worker alongside the website so both use the updated `src/community-data.json` catalog. No custom domain or DNS change is required.
+
+
+## Private Studio export counts
+
+Apply `0003_studio_exports.sql` before deploying the Worker, then publish the website. The embedded public Studio reports only after the checked user packages have been generated and browser save has been triggered. One ZIP is one export; one populated, exported user slot is one XFC package. The count of child films is reported separately. Failed validation, skipped slots, project saves, local author exports and localhost are excluded. Each successful repeat export counts again; these figures are not unique works, people, confirmed disk writes or camera installs.
+
+`POST /api/exports` accepts only tool version and numeric file/film counts, using a fresh event UUID with idempotent retries. A separate seven-day bounded queue uses the same owner opt-out as downloads. No user names, uploaded images, XMP, content hashes, slot destinations or visitor identifiers are collected. The existing iframe source/origin checks gate completion messages.
+
+`GET /api/stats` adds private `studio.summary`, `studio.period` and `studio.daily` aggregates. The dashboard shows all-time/today/month export counts and generated package/child-film totals, date filters and a separate Studio CSV. No exports are added to firmware totals, the 850 historical estimate, community downloads or public counters. Counts begin at rollout; no historical Studio totals are invented.

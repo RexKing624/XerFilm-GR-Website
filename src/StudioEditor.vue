@@ -1,4 +1,5 @@
 <script setup>
+import {trackStudioExport} from './export-statistics';
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
 const props=defineProps({language:String,theme:String});
 const frame=ref(null),height=ref(1000),ready=ref(false);
@@ -8,7 +9,9 @@ const label=computed(()=>({zh:'胶片工作室',en:'Film Studio',ja:'フィル�
 const loading=computed(()=>({zh:'正在打开制作工具…',en:'Opening Studio…',ja:'スタジオを開いています…'}[props.language]));
 function syncPreferences(){frame.value?.contentWindow?.postMessage({type:'xerfilm-studio-preferences',language:props.language,theme:props.theme},location.origin);}
 function receive(event){
- if(event.origin!==location.origin||event.source!==frame.value?.contentWindow||event.data?.type!=='xerfilm-studio-size')return;
+ if(event.origin!==location.origin||event.source!==frame.value?.contentWindow)return;
+ if(event.data?.type==='xerfilm-studio-export'){trackStudioExport(event.data);return;}
+ if(event.data?.type!=='xerfilm-studio-size')return;
  const measured=Number(event.data.height);
  if(Number.isFinite(measured)&&measured>=300&&measured<=24000){height.value=measured;ready.value=true;}
 }

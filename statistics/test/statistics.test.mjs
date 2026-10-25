@@ -122,3 +122,52 @@ test('GR III R32 stable downloads separate variants and preserve prior test reco
  ]);
  assert.equal((await handleRequest(new Request(base+'/api/stats'),env)).status,401);
 });
+
+const exportAsset={version:'V3.0',files:2,films:5};
+const exportRequest=(event,headers={Origin:origin})=>new Request(base+'/api/exports',{method:'POST',headers:{'Content-Type':'application/json',...headers},body:JSON.stringify(event)});
+test('successful Studio exports count once per UUID, with files and child films separate from all downloads',async()=>{
+ const env=environment();env.HISTORICAL_ESTIMATE='850';
+ const event={eventId:randomUUID(),asset:exportAsset};
+ const responses=await Promise.all(Array.from({length:5},()=>handleRequest(exportRequest(event),env)));
+ assert.ok(responses.every(r=>r.ok));
+ await handleRequest(exportRequest({eventId:randomUUID(),asset:{version:'V3.0',files:1,films:1}}),env);
+ const d=await(await stats(env)).json();
+ assert.deepEqual(d.studio.summary,{total:2,today:2,month:2,files:3,films:6});
+ assert.deepEqual(d.studio.period,{total:2,files:3,films:6});
+ assert.equal(d.studio.daily[0].count,2);
+ assert.equal(d.summary.total,0);assert.equal(d.summary.estimatedTotal,850);
+ assert.deepEqual(d.downloads,[]);assert.deepEqual(d.kinds,[]);assert.deepEqual(d.daily,[]);
+ const publicData=await publicStats(env);assert.equal(publicData.studio,undefined);
+ assert.equal(env.db.prepare('SELECT COUNT(*) n FROM public_counters').get().n,0);
+ // The date filter changes period data without altering all-time totals.
+ const later=new Date(Date.now()+86400000).toISOString().slice(0,10);
+ const filtered=await(await stats(env,'?from='+later+'&to='+later)).json();
+ assert.equal(filtered.studio.summary.total,2);assert.equal(filtered.studio.period.total,0);
+});
+test('Studio endpoint rejects bad origins, malformed counts, uploaded content and unsupported methods',async()=>{
+ const env=environment();
+ assert.equal((await handleRequest(exportRequest({eventId:randomUUID(),asset:exportAsset},{Origin:'https://elsewhere.example'}),env)).status,403);
+ for(const asset of [{...exportAsset,files:0},{...exportAsset,files:5},{...exportAsset,files:1.5},{...exportAsset,films:1},{...exportAsset,films:7},{...exportAsset,films:'5'},{...exportAsset,version:'<script>'},{...exportAsset,xmp:'private data'}]){
+  assert.equal((await handleRequest(exportRequest({eventId:randomUUID(),asset}),env)).status,400);
+ }
+ assert.equal((await handleRequest(exportRequest({eventId:'invalid',asset:exportAsset}),env)).status,400);
+ assert.equal((await handleRequest(new Request(base+'/api/exports',{method:'GET',headers:{Origin:origin}}),env)).status,405);
+ const preflight=await handleRequest(new Request(base+'/api/exports',{method:'OPTIONS',headers:{Origin:origin}}),env);
+ assert.equal(preflight.status,204);assert.equal(preflight.headers.get('Access-Control-Allow-Origin'),origin);
+ assert.equal(env.db.prepare('SELECT COUNT(*) n FROM studio_exports').get().n,0);
+ env.EVENT_LIMITER={limit:async()=>({success:false})};
+ assert.equal((await handleRequest(exportRequest({eventId:randomUUID(),asset:exportAsset}),env)).status,429);
+});
+test('Studio retry queue preserves event IDs, stays separate from downloads, and honors local/owner exclusion',async()=>{
+ const env=environment(),memory=new Map([['xerfilm-pending-downloads-v1','[]']]);let first=true,calls=0;
+ const options={endpoint:base+'/api/exports',queueKey:'xerfilm-pending-exports-v1',location:{origin,search:''},storage:{getItem:k=>memory.get(k),setItem:(k,v)=>memory.set(k,v),removeItem:k=>memory.delete(k)},uuid:randomUUID,schedule:()=>1,send:async(url,options)=>{
+  calls++;const response=await handleRequest(new Request(url,{...options,headers:{...options.headers,Origin:origin}}),env);
+  if(first){first=false;throw Error('response lost after commit')}return response;
+ }};
+ const client=createDownloadStatistics(options);client.record(exportAsset);await new Promise(r=>setTimeout(r,10));await client.flush();
+ assert.equal(calls,2);assert.equal(env.db.prepare('SELECT COUNT(*) n FROM studio_exports').get().n,1);
+ assert.equal(memory.get('xerfilm-pending-exports-v1'),'[]');assert.equal(memory.get('xerfilm-pending-downloads-v1'),'[]');
+ createDownloadStatistics({...options,location:{origin:'http://127.0.0.1:5178',search:''}}).record(exportAsset);
+ createDownloadStatistics({...options,location:{origin,search:'?download-statistics=off'}}).record(exportAsset);
+ assert.equal(calls,2);assert.equal(memory.get('xerfilm-exclude-download-statistics'),'1');
+});

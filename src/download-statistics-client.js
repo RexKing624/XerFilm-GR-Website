@@ -1,6 +1,6 @@
 const KEY = 'xerfilm-pending-downloads-v1';
 const EXCLUDE = 'xerfilm-exclude-download-statistics';
-export function createDownloadStatistics({ endpoint, location, storage, send, uuid, now = Date.now, schedule = setTimeout, onRecorded = () => {} }) {
+export function createDownloadStatistics({ endpoint, location, storage, send, uuid, now = Date.now, schedule = setTimeout, queueKey = KEY, onRecorded = () => {} }) {
   let pending = [], running = false, timer, excluded = false;
   const allowed = location?.origin === 'https://filmgr.xergnik.com';
   const setting = new URLSearchParams(location?.search || '').get('download-statistics');
@@ -9,11 +9,11 @@ export function createDownloadStatistics({ endpoint, location, storage, send, uu
     if (setting === 'off') storage?.setItem(EXCLUDE, '1');
     if (setting === 'on') storage?.removeItem(EXCLUDE);
     excluded = setting === 'off' || (setting !== 'on' && storage?.getItem(EXCLUDE) === '1');
-    const saved = JSON.parse(storage?.getItem(KEY) || '[]');
+    const saved = JSON.parse(storage?.getItem(queueKey) || '[]');
     if (Array.isArray(saved)) pending = saved.filter(e => e && typeof e.eventId === 'string' && e.asset && Number.isFinite(e.queuedAt) && e.queuedAt >= now()-7*86400000).slice(-20);
   } catch {}
-  if (excluded) { pending = []; try { storage?.removeItem(KEY); } catch {} }
-  const persist = () => { try { storage?.setItem(KEY, JSON.stringify(pending)); } catch {} };
+  if (excluded) { pending = []; try { storage?.removeItem(queueKey); } catch {} }
+  const persist = () => { try { storage?.setItem(queueKey, JSON.stringify(pending)); } catch {} };
   async function flush() {
     if (!allowed || !endpoint || excluded || running || !pending.length) return;
     pending = pending.filter(event => event.queuedAt >= now()-7*86400000); persist();

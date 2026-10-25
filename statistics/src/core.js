@@ -17,6 +17,12 @@ export function validAsset(a){
  if(!['gr3','gr3x','gr4'].includes(a.model))return false;
  return (a.kind==='firmware'&&['standard','enhanced'].includes(a.variant))||(a.kind==='original'&&a.variant==='original');
 }
+export function validExport(a){
+ return !!a && typeof a==='object' && Object.keys(a).every(key=>['version','files','films'].includes(key)) &&
+  typeof a.version==='string' && /^[A-Za-z0-9][A-Za-z0-9._ -]{0,39}$/.test(a.version) &&
+  Number.isInteger(a.files) && a.files>=1 && a.files<=4 &&
+  Number.isInteger(a.films) && a.films>=a.files && a.films<=a.files*3;
+}
 export async function bodyJSON(request){
  if(!request.headers.get('Content-Type')?.startsWith('application/json'))throw Error('content-type');
  const reader=request.body?.getReader();if(!reader)throw Error('empty');let size=0;const chunks=[];
@@ -29,16 +35,18 @@ export async function handleRequest(request,env,adminHTML=''){
  const cors=origin===allowed?{'Access-Control-Allow-Origin':allowed,'Access-Control-Allow-Methods':'POST, OPTIONS','Access-Control-Allow-Headers':'Content-Type','Vary':'Origin'}:{};
  try{
   if(url.pathname==='/health')return json({ok:true,startDate:env.START_DATE,timeZone:TIME_ZONE});
-  if(url.pathname==='/api/downloads'){
+  if(url.pathname==='/api/downloads'||url.pathname==='/api/exports'){
+   const exporting=url.pathname==='/api/exports';
    if(origin!==allowed)return json({error:'origin'},403);
    if(request.method==='OPTIONS')return new Response(null,{status:204,headers:{...security,...cors,'Access-Control-Max-Age':'3600'}});
    if(request.method!=='POST')return json({error:'method'},405,cors);
-   if(env.EVENT_LIMITER&&!(await env.EVENT_LIMITER.limit({key:'downloads'})).success)return json({error:'rate-limit'},429,cors);
+   if(env.EVENT_LIMITER&&!(await env.EVENT_LIMITER.limit({key:exporting?'exports':'downloads'})).success)return json({error:'rate-limit'},429,cors);
    let event;try{event=await bodyJSON(request);}catch{return json({error:'invalid-body'},400,cors);}
-   if(!/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(event?.eventId)||!validAsset(event?.asset))return json({error:'invalid-event'},400,cors);
+   if(!/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(event?.eventId)||!(exporting?validExport(event?.asset):validAsset(event?.asset)))return json({error:'invalid-event'},400,cors);
    const now=new Date(),day=dateInTokyo(now),a=event.asset;
    if(day<env.START_DATE)return json({error:'not-started'},409,cors);
-   await env.DB.prepare('INSERT OR IGNORE INTO downloads(event_id,day,received_at,kind,model,variant,version,revision,sha256) VALUES(?,?,?,?,?,?,?,?,?)').bind(event.eventId,day,now.toISOString(),a.kind,a.model,a.variant,a.version,a.revision,a.sha256).run();
+   if(exporting)await env.DB.prepare('INSERT OR IGNORE INTO studio_exports(event_id,day,received_at,version,files,films) VALUES(?,?,?,?,?,?)').bind(event.eventId,day,now.toISOString(),a.version,a.files,a.films).run();
+   else await env.DB.prepare('INSERT OR IGNORE INTO downloads(event_id,day,received_at,kind,model,variant,version,revision,sha256) VALUES(?,?,?,?,?,?,?,?,?)').bind(event.eventId,day,now.toISOString(),a.kind,a.model,a.variant,a.version,a.revision,a.sha256).run();
    return json({ok:true},200,cors);
   }
   if(url.pathname==='/api/stats'){
@@ -55,13 +63,16 @@ export async function handleRequest(request,env,adminHTML=''){
     env.DB.prepare(`SELECT kind,COUNT(*) count FROM downloads WHERE ${where} GROUP BY kind`).bind(from,to),
     env.DB.prepare(`SELECT day,kind,COUNT(*) count FROM downloads WHERE ${where} GROUP BY day,kind ORDER BY day`).bind(from,to),
     env.DB.prepare(`SELECT kind,model,variant,version,revision,sha256,COUNT(*) count FROM downloads WHERE ${where} GROUP BY kind,model,variant,version,revision,sha256 ORDER BY count DESC,model,version LIMIT 500`).bind(from,to),
+    env.DB.prepare(`SELECT COUNT(*) total,COALESCE(SUM(day=?),0) today,COALESCE(SUM(day>=?),0) month,COALESCE(SUM(files),0) files,COALESCE(SUM(films),0) films FROM studio_exports WHERE day>=? AND day<=?`).bind(today,today.slice(0,7)+'-01',start,today),
+    env.DB.prepare(`SELECT COUNT(*) total,COALESCE(SUM(files),0) files,COALESCE(SUM(films),0) films FROM studio_exports WHERE ${where}`).bind(from,to),
+    env.DB.prepare(`SELECT day,COUNT(*) count,SUM(files) files,SUM(films) films FROM studio_exports WHERE ${where} GROUP BY day ORDER BY day DESC`).bind(from,to),
    ];
    const results=await env.DB.batch(queries);
    const measured=results[0].results[0], baseline=Number(env.HISTORICAL_ESTIMATE||0);
    const historicalEstimate=Number.isSafeInteger(baseline)&&baseline>=0?baseline:0;
    // This owner-supplied estimate is a separate baseline, never synthetic events.
    const summary={...measured,historicalEstimate,estimatedTotal:Number(measured.total)+historicalEstimate};
-   return json({startDate:start,timeZone:TIME_ZONE,from,to,today,summary,kinds:results[1].results,daily:results[2].results,downloads:results[3].results,generatedAt:new Date().toISOString(),definition:'Verified file ready; browser save triggered. Not confirmed disk writes or camera installs.'});
+   return json({startDate:start,timeZone:TIME_ZONE,from,to,today,summary,kinds:results[1].results,daily:results[2].results,downloads:results[3].results,studio:{summary:results[4].results[0],period:results[5].results[0],daily:results[6].results},generatedAt:new Date().toISOString(),definition:'Verified file ready; browser save triggered. Not confirmed disk writes or camera installs.'});
   }
   if(request.method==='GET'&&(url.pathname==='/'||url.pathname==='/admin/'||url.pathname==='/admin')){
    const nonce=crypto.randomUUID();return new Response(adminHTML.replaceAll('__NONCE__',nonce),{headers:{...security,'Content-Type':'text/html; charset=utf-8','Content-Security-Policy':`default-src 'none'; script-src 'nonce-${nonce}'; style-src 'unsafe-inline'; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'`}});
