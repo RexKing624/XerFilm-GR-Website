@@ -56,3 +56,7 @@ public/downloads/*
 statistics/.wrangler/
 statistics/.dev.vars*
 statistics/.secrets/
+
+# Password-verified GR III / HDF V3.0 R32 test downloads.
+!public/downloads/firmware-gr3-v3-test-r32-ordinary.part*
+!public/downloads/firmware-gr3-v3-test-r32-enhanced.part*

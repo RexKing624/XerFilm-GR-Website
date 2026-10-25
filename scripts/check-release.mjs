@@ -65,3 +65,15 @@ console.log('Existing V1.1 historical source archive unchanged; GR IV / IIIx V3.
 const withdrawn = (await readdir(base)).filter(name => /^(?:firmware-gr3x-v2(?:-enhanced)?\.part|firmware-gr3x-v3-test-)/.test(name));
 if (withdrawn.length) throw new Error('Withdrawn IIIx downloads still exposed: '+withdrawn.join(', '));
 console.log('GR IIIx V2.0 and test download assets withdrawn.');
+
+// Keep test assets separate from stable V2.0 and pin the supplied R32 BINs.
+for (const [type,revision,installation,pin,variant] of [
+ ['ordinary','R32','2.10','2f574c62caf932ef48f92eb8fc097fca50506d83481b83d15be21a4785e39949','standard'],
+ ['enhanced','R32-H','2.11','54a829455e1e5db8bdc8c40f2af95d42193aba9d807975fbda4dc151bcf5e409','enhanced']]) {
+ const r=JSON.parse(await readFile(new URL(`../src/gr3-test-${type}-release.json`,import.meta.url)));
+ if(r.internalVersion!==revision||r.sha256!==pin||r.installationVersion!==installation||r.filename!=='fwdc239b.bin'||r.camera!=='RICOH GR III / HDF'||r.hardwareTested!==false||r.testRelease!==true||!r.encryption||r.statisticsVersion!=='V3.0-test'||r.downloadVariant!==variant)throw Error('R32 test identity/gate mismatch');
+ const parts=[];
+ for(const part of r.parts){const b=await readFile(new URL(part.file,base));if(b.length!==part.size||hash(b)!==part.sha256)throw Error('R32 encrypted part corrupted');parts.push(b);}
+ const b=Buffer.concat(parts);if(b.length!==r.downloadSize||hash(b)!==r.transportSha256)throw Error('R32 encrypted transport corrupted');
+ console.log(`${revision}: encrypted test assets verified, stable V2.0 retained.`);
+}

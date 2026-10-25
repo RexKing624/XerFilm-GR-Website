@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { loadFirmware } from '../src/download.js';
+import { loadFirmware, unlockFirmware } from '../src/download.js';
 import { copy } from '../src/i18n.js';
 
 const root = new URL('../', import.meta.url);
@@ -104,7 +104,8 @@ try {
   assert.deepEqual(originals.map(r => [r.id, r.version, r.filename]), [['gr3','2.10','fwdc239b.bin'], ['gr3x','1.60','fwdc243b.bin'], ['gr4','1.11','fwdc248b.bin']]);
   const app = await readFile(new URL('src/App.vue', root), 'utf8');
   assert.ok(app.includes("openDrawer('original')") && !app.includes('t.originalFirmwareURL'));
-  assert.ok(!app.includes('TestFirmwareDownload'), 'Retired test panel removed');
+  assert.ok(app.includes("<TestFirmwareDownload v-if=\"selectedModel === 'gr3'\""), 'R32 test panel is limited to GR III');
+  assert.ok(app.indexOf('<TestFirmwareDownload') > app.indexOf('<EnhancedDownload'), 'Test entry remains below enhanced V2.0');
   for (const locale of ['zh', 'en', 'ja']) {
     const { gr4, gr3x } = copy[locale].modelReleases;
     for (const key of ['changes', 'changesTitle', 'note', 'frameDesc']) assert.deepEqual(gr3x[key], gr4[key], 'IIIx V3.0 uses IV changelog');
@@ -113,5 +114,28 @@ try {
   }
   const { communityCopy } = await import('../src/community-copy.js');
   for (const locale of ['zh', 'en', 'ja']) assert.ok(communityCopy[locale].compatibility.includes('GR IIIx / HDF'), 'Community supports released IIIx V3.0');
+  for (const type of ['ordinary', 'enhanced']) {
+    const r = JSON.parse(await readFile(new URL(`src/gr3-test-${type}-release.json`, root)));
+    assert.equal(r.testRelease, true); assert.equal(r.hardwareTested, false);
+    assert.equal(r.statisticsVersion, 'V3.0-test'); assert.equal(r.downloadVariant, type === 'ordinary' ? 'standard' : 'enhanced');
+    assert.equal(r.internalVersion, type === 'ordinary' ? 'R32' : 'R32-H');
+    await assert.rejects(loadFirmware(r), /Password required/);
+    await assert.rejects(unlockFirmware(r, 'wrong-password'));
+    const key = await unlockFirmware(r, '2222');
+    const blob = await loadFirmware(r, { decryptionKey:key });
+    const bytes = new Uint8Array(await blob.arrayBuffer());
+    assert.equal(bytes.length, r.size); assert.equal(createHash('sha256').update(bytes).digest('hex'), r.sha256);
+    const controller = new AbortController(); controller.abort();
+    await assert.rejects(loadFirmware(r, {decryptionKey:key, signal:controller.signal}), {name:'AbortError'});
+    const bad = structuredClone(r); bad.parts[0].sha256 = '0'.repeat(64);
+    await assert.rejects(loadFirmware(bad, {decryptionKey:key}), /Part checksum mismatch/);
+    console.log(`GR III ${r.internalVersion}: password2222, exact BIN, cancellation and corruption passed`);
+  }
+  const { testFirmwareCopy } = await import('../src/test-firmware-copy.js');
+  for (const locale of ['zh','en','ja']) {
+    assert.ok(testFirmwareCopy[locale].enhancedWarning.includes('GR III / HDF'));
+    assert.ok(testFirmwareCopy[locale].enhancedTestNote.includes('R32'));
+    assert.ok(testFirmwareCopy[locale].enhancedTestNote.includes('2.20'));
+  }
   console.log('Password-free downloads, exact BIN identity, cancellation, corruption and all three languages passed.');
 } finally { globalThis.fetch = realFetch; }

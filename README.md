@@ -114,3 +114,10 @@ The user confirmed R31 passed physical-camera testing. Stable ordinary R31 and e
 ## Download statistics (2026-10-25)
 
 The website reports checksum-verified downloads after the browser save action. Ordinary, enhanced and original firmware are separated by model/version/revision; verified community ZIPs are tracked separately. A separate Cloudflare Worker stores idempotent events in D1 and serves a token-protected owner dashboard. No firmware or download bytes change. See statistics/README.md for deployment, privacy, exclusions and verification details.
+
+
+## GR III / HDF V3.0 R32 test downloads (2026-10-25)
+
+GR III V2.0 R20/R20-H remains the stable download. The separate R32/R32-H test entry below it retains the prior IIIx test layout, all four reading confirmations, manual phrase, test acknowledgement and password2222 PBKDF2/AES-GCM validation. Decrypted BINs exactly match the supplied GRIII-V3.0-R32 test package; no firmware bytes changed. R32 remains pending physical-camera testing. Other models and the historical source archive are unchanged.
+
+Completed, checksum-verified test downloads use the existing private statistics service: model gr3, version V3.0-test, revisions R32/R32-H and standard/enhanced variants. The ASCII statistics version is separate from the translated display label. No synthetic production download records are inserted.

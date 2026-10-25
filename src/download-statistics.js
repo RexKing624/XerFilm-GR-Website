@@ -13,7 +13,7 @@ export function initializeDownloadStatistics() {
 export function trackFirmwareDownload(release, variant = 'standard') {
   try {
     const model = release.filename === 'fwdc239b.bin' ? 'gr3' : release.filename === 'fwdc243b.bin' ? 'gr3x' : 'gr4';
-    client?.record({kind:release.originalFirmware?'original':'firmware', model, variant:release.originalFirmware?'original':variant, version:release.version, revision:release.internalVersion || release.version, sha256:release.sha256});
+    client?.record({kind:release.originalFirmware?'original':'firmware', model, variant:release.originalFirmware?'original':variant, version:release.statisticsVersion || release.version, revision:release.internalVersion || release.version, sha256:release.sha256});
   } catch {}
 }
 export function trackCommunityDownload(item) {

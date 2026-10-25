@@ -1,0 +1,32 @@
+export const testFirmwareCopy = {
+  zh: {
+    enhancedIntro: 'GR III / HDF 新功能测试入口，现有 V2.0 下载保留。',
+    enhancedTitle: 'V3.0 测试版',
+    enhancedWarning: '仅适用 GR III / HDF · 本版仍需实机验证',
+    enhancedTestNote: 'R32：修复胶片 Fn 中实体 MENU 无法返回的问题，并让电影黄／电影绿右侧数值与滑杆、保存值及拍摄参数同步。保留自定义／社群导入、ADJ 画幅、INFO 图标及设备码等 V3.0 功能。基于官方 2.10，增强版安装版本为 2.11；不适用于官方 2.20。',
+    enhancedAck: '我已知晓这是测试版，确认机型与版本，并自愿参与测试。',
+    enhancedPassword: '测试版下载密码',
+    chooseVariant: '选择测试固件类型', ordinary: '普通版', enhanced: '增强版',
+    ordinaryDownload: '下载 V3.0 测试版 · 普通版', enhancedDownload: '下载 V3.0 测试版 · 增强版',
+  },
+  en: {
+    enhancedIntro: 'New-feature test builds for GR III / HDF. The existing V2.0 downloads remain available.',
+    enhancedTitle: 'V3.0 test build',
+    enhancedWarning: 'GR III / HDF only · This build still requires camera testing',
+    enhancedTestNote: 'R32 fixes physical MENU return in Film Fn and synchronizes native Cinema Yellow/Green row values with sliders, saved settings and capture parameters. Retains V3.0 custom/community imports, ADJ framing, INFO icons and device codes. Based on official 2.10; enhanced installation version 2.11. Not compatible with official 2.20.',
+    enhancedAck: 'I understand this is a test build, have checked my model/version and choose to participate.',
+    enhancedPassword: 'Test-build download password',
+    chooseVariant: 'Choose test firmware type', ordinary: 'Standard', enhanced: 'Enhanced',
+    ordinaryDownload: 'Download V3.0 test · Standard', enhancedDownload: 'Download V3.0 test · Enhanced',
+  },
+  ja: {
+    enhancedIntro: 'GR III / HDF 向け新機能テスト版です。既存の V2.0 は引き続きダウンロードできます。',
+    enhancedTitle: 'V3.0 テスト版',
+    enhancedWarning: 'GR III / HDF 専用・この版は実機での確認が必要です',
+    enhancedTestNote: 'R32：フィルム Fn の実体 MENU ボタンで戻れない問題を修正。シネマ黄／緑の右側数値をスライダー・保存値・撮影パラメーターに同期。カスタム／コミュニティ導入、ADJ 画角、INFO アイコン、デバイスコードなど V3.0 の機能を保持。純正 2.10 ベース、拡張版の導入バージョンは 2.11。純正 2.20 には非対応です。',
+    enhancedAck: 'テスト版であることを理解し、機種とバージョンを確認した上で参加します。',
+    enhancedPassword: 'テスト版ダウンロードパスワード',
+    chooseVariant: 'テスト版の種類を選択', ordinary: '通常版', enhanced: '拡張版',
+    ordinaryDownload: 'V3.0 テスト通常版をダウンロード', enhancedDownload: 'V3.0 テスト拡張版をダウンロード',
+  },
+};

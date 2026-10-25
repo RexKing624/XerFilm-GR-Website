@@ -57,7 +57,7 @@ async function download() {
     document.querySelector('dialog[open]')?.append(anchor);
     anchor.click(); anchor.remove();
     setTimeout(() => URL.revokeObjectURL(url), 60000); status.value = 'saved';
-    trackFirmwareDownload(target, 'enhanced');
+    trackFirmwareDownload(target, target.downloadVariant ?? 'enhanced');
   } catch (error) { if (current === attempt && error.name !== 'AbortError') status.value = 'failed'; }
   finally { if (current === attempt) { busy.value = false; controller = undefined; emit('busy', false); } }
 }
