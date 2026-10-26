@@ -65,7 +65,7 @@ export const copy = {
     "adjTitle": "选择，留在 ADJ。",
     "adjHowTitle": "如何使用",
     "adjHowDesc": "ADJ 设置 → 选择一个你喜欢的槽位 → 选择 XerFilm GR。",
-    "adjHowNote": "（可与原机影像控制共存，分别设置在不同的 ADJ 槽位即可。）",
+    "adjHowNote": "（可与原机影像控制共存，分配至不同 ADJ 槽位即可。）",
     "adjDesc": "固定 FILM 入口图标。PORTRA、T-MAX 与 VISION3 保留子菜单；在胶片间预览，子菜单按 OK 即确认并返回母菜单。OFF 与设置中的胶片总开关同步，关闭后回到原生影像控制。",
     "listTitle": "只留下你想用的。",
     "listDesc": "在设置的「胶片列表」多选启用。启用项保持彩色并带勾，停用项变灰；ADJ 只显示已启用的家族。",
