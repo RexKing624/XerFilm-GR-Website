@@ -3,13 +3,13 @@ export const copy = {
     "enhancedIntro": "部分新出厂或已安装理光官方 30 周年固件的 GR IV 机身存在固件安装限制。基础版无法安装时，再尝试下方增强型固件。",
     "enhancedTitle": "增强型固件",
     "enhancedWarning": "只有在基础版固件安装失败时使用",
-    "enhancedTestNote": "包含 GR IV V3.1 的全部功能；增强版调整安装版本号，功能与普通版相同。",
+    "enhancedTestNote": "包含 GR IV V3.11 的全部功能；增强版调整安装版本号，功能与普通版相同。",
     "enhancedAck": "基础版安装失败，申请下载增强型固件。",
     "enhancedDownloadFile": "下载增强型 .bin 固件",
     "projectSource": "网站源码",
     "firmwareSource": "固件源码",
     "historicalSource": "V1.1 历史固件源码",
-    "historicalSourceNote": "含三机型；不对应当前 V3.0 / V3.1",
+    "historicalSourceNote": "含三机型；不对应当前 V3.0 / V3.11",
     "demo": "交互示意 · 不会修改相机",
     "lang": "语言",
     "theme": "切换明暗",
@@ -149,14 +149,12 @@ export const copy = {
     "modelReleases": {
       "gr4": {
         "compatible": "RICOH GR IV / HDF · 原厂基础版本 1.11",
-        "note": "V3.1：统一 XerFilm GR 名称，更新日期打印、GF-2 闪光模式与胶片包管理。",
-        "changesTitle": "V3.1 更新",
+        "note": "V3.11：画幅实时预览，修复影像控制微调冲突，并完善胶片包支持。",
+        "changesTitle": "V3.11 更新",
         "changes": [
-          "「胶片模拟」统一更名为「XerFilm GR」。",
-          "调整时间戳样式：年份前增加撇号，日期中的点改为空格，统一单行显示。",
-          "集成 GR4-GF2Unlock，移植 GR III 的 GF-2 闪光模式，根据对焦距离计算闪光曝光。",
-          "补齐自定义与社群胶片的黑白识别：黑白胶卷使用白色时间戳，彩色胶卷保留橙色。",
-          "新增作者胶片删除补丁，可按胶片 ID 移除扩展效果，内置胶片与用户槽位不受影响。"
+          "新增 ADJ 画幅实时预览。",
+          "修复原生影像控制与 XerFilm GR 的 Fn 微调冲突。",
+          "完善对后续胶片包的支持。"
         ],
         "frameDesc": "原机、645、67、XPan、1:1，可在设置或独立 ADJ 入口中选择。取景保留完整 3:2 画面，半透明蒙版与加粗白线标出裁切范围。JPG 按所选比例裁切，RAW 保留完整画面。",
         "sourceLabel": "闪光功能项目来源：GR4-GF2Unlock ↗",
@@ -164,14 +162,12 @@ export const copy = {
       },
       "gr3": {
         "compatible": "RICOH GR III / HDF · 原厂基础版本 2.10",
-        "note": "V3.0：支持自定义胶片、社群导入与 Fn 微调，新增 ADJ 画幅及设备码。",
-        "changesTitle": "V3.0 更新",
+        "note": "V3.11：画幅实时预览，修复影像控制微调冲突，并完善胶片包支持。",
+        "changesTitle": "V3.11 更新",
         "changes": [
-          "新增自定义与社群胶片导入：四个用户槽位，安装后机内保存，支持单槽及全部清除；作者胶片独立更新。",
-          "新增胶片 Fn 微调：强度 0～100%，以及饱和度、色相、对比度、R／G／B 调节。",
-          "画幅新增独立 ADJ 入口与 1:1；保留原机、645、67、XPan，移除重复的 4433。",
-          "回放 INFO 显示照片使用的颗粒及高光状态，更新画幅与四个用户槽位图标。",
-          "新增机身设备码显示，改善 exFAT 胶片包识别与指定用户槽位替换。"
+          "新增 ADJ 画幅实时预览。",
+          "修复原生影像控制与 XerFilm GR 的 Fn 微调冲突。",
+          "完善对后续胶片包的支持。"
         ],
         "rollback": "回退到旧版或原厂前：先关闭胶片模拟，把影像控制选回 Std，并重启确认已保存。旧固件不识别新增的电影编号。",
         "frameDesc": "原机、645、67、XPan、1:1，可在设置或独立 ADJ 入口中选择。取景保留完整 3:2 画面，半透明蒙版与加粗白线标出裁切范围。JPG 按所选比例裁切，RAW 保留完整画面。"
@@ -203,7 +199,7 @@ export const copy = {
     "enhancedModels": {
       "gr3": {
         "enhancedIntro": "用于官方活动更换关机画面后，仍显示 2.10、但无法安装普通版的 GR III / HDF。请先尝试普通版，再考虑下方增强型固件。",
-        "enhancedTestNote": "增强版无需下载密码，保留 V3.0 全部功能，安装版本提高至 2.11。这不是官方 2.20 的兼容版本；已升级至该版本的机身请勿尝试。"
+        "enhancedTestNote": "增强版无需下载密码，保留 V3.11 全部功能，安装版本提高至 2.11。这不是官方 2.20 的兼容版本；已升级至该版本的机身请勿尝试。"
       },
       "gr3x": {
         "enhancedIntro": "用于官方活动更换关机画面后，仍显示 1.60、但无法安装普通版的 GR IIIx / HDF。请先尝试普通版，再考虑下方增强型固件。",
@@ -218,13 +214,13 @@ export const copy = {
     "enhancedIntro": "Some newly manufactured GR IV bodies, or bodies updated with Ricoh’s official 30th Anniversary firmware, have firmware installation restrictions. If the standard build cannot be installed, try the enhanced build below.",
     "enhancedTitle": "Enhanced firmware",
     "enhancedWarning": "USE ONLY IF THE STANDARD FIRMWARE FAILS TO INSTALL",
-    "enhancedTestNote": "Includes all GR IV V3.1 features. The enhanced build changes the installation version; its features match the standard build.",
+    "enhancedTestNote": "Includes all GR IV V3.11 features. The enhanced build changes the installation version; its features match the standard build.",
     "enhancedAck": "The standard firmware failed to install. I request the enhanced build.",
     "enhancedDownloadFile": "Download enhanced .bin",
     "projectSource": "Website source",
     "firmwareSource": "Firmware source",
     "historicalSource": "V1.1 firmware source archive",
-    "historicalSourceNote": "All three models; not the source for current V3.0 / V3.1",
+    "historicalSourceNote": "All three models; not the source for current V3.0 / V3.11",
     "demo": "INTERACTIVE DEMO · NO CAMERA CHANGES",
     "lang": "Language",
     "theme": "Switch appearance",
@@ -364,14 +360,12 @@ export const copy = {
     "modelReleases": {
       "gr4": {
         "compatible": "RICOH GR IV / HDF · based on official firmware 1.11",
-        "note": "V3.1: the XerFilm GR name, refreshed date stamps, GF-2 flash mode and improved film-pack management.",
-        "changesTitle": "V3.1 UPDATE",
+        "note": "V3.11: live framing previews, an Image Control adjustment fix and improved film-pack support.",
+        "changesTitle": "V3.11 UPDATE",
         "changes": [
-          "Renamed Film Simulation to XerFilm GR throughout the feature.",
-          "Updated date stamps: an apostrophe before the year, spaces instead of date dots, and single-line layouts.",
-          "Integrated GR4-GF2Unlock, bringing the GR III GF-2 flash mode to GR IV with exposure calculated from focus distance.",
-          "Added missing monochrome identification for custom and community films: white date stamps for monochrome, orange for colour.",
-          "Added author-film deletion patches to remove added looks by film ID while protecting built-in films and user slots."
+          "Live framing previews while browsing ADJ ratios.",
+          "Fix the Fn adjustment conflict between native Image Control and XerFilm GR.",
+          "Improve support for upcoming film packs."
         ],
         "frameDesc": "Original, 645, 67, XPan and 1:1, available in settings or a dedicated ADJ entry. Live view keeps the full 3:2 image, with a translucent mask and thick white crop borders. JPG is cropped; RAW retains the full image.",
         "sourceLabel": "Flash feature project: GR4-GF2Unlock ↗",
@@ -379,14 +373,12 @@ export const copy = {
       },
       "gr3": {
         "compatible": "RICOH GR III / HDF · based on official firmware 2.10",
-        "note": "V3.0 adds custom/community film imports, Fn adjustments, ADJ framing and device codes.",
-        "changesTitle": "V3.0 UPDATE",
+        "note": "V3.11: live framing previews, an Image Control adjustment fix and improved film-pack support.",
+        "changesTitle": "V3.11 UPDATE",
         "changes": [
-          "Custom and community imports: four user slots, persistent in-camera storage, single-slot or all-user clearing, and independent author updates.",
-          "Film Fn adjustments: strength from 0–100%, plus saturation, hue, contrast and R/G/B controls.",
-          "Independent Frame entry in ADJ and new 1:1 framing. Original, 645, 67 and XPan remain; the duplicate 4433 option is removed.",
-          "Playback INFO shows the grain and highlight settings saved with each photo; updated frame and four user-slot icons.",
-          "Device-code display, improved exFAT package recognition and replacement of the user slot named by the imported file."
+          "Live framing previews while browsing ADJ ratios.",
+          "Fix the Fn adjustment conflict between native Image Control and XerFilm GR.",
+          "Improve support for upcoming film packs."
         ],
         "rollback": "Before restoring an older or official firmware: switch film simulation off, select Std in Image Control, then restart and confirm it was saved. Older firmware does not recognize the new Cinema IDs.",
         "frameDesc": "Original, 645, 67, XPan and 1:1, available in settings or a dedicated ADJ entry. Live view keeps the full 3:2 image, with a translucent mask and thick white crop borders. JPG is cropped; RAW retains the full image."
@@ -418,7 +410,7 @@ export const copy = {
     "enhancedModels": {
       "gr3": {
         "enhancedIntro": "For GR III / HDF cameras that still show 2.10 after an official event shutdown-screen service but reject the standard build. Try the standard build first.",
-        "enhancedTestNote": "No download password is required. Includes all V3.0 features with installation version 2.11. This is not a compatible build for official 2.20; do not use it on cameras already running that version."
+        "enhancedTestNote": "No download password is required. Includes all V3.11 features with installation version 2.11. This is not a compatible build for official 2.20; do not use it on cameras already running that version."
       },
       "gr3x": {
         "enhancedIntro": "For GR IIIx / HDF cameras that still show 1.60 after an official event shutdown-screen service but reject the standard build. Try the standard build first.",
@@ -433,13 +425,13 @@ export const copy = {
     "enhancedIntro": "新しく製造された GR IV、またはリコー公式の 30 周年ファームウェアを適用した機体には、導入制限がある場合があります。通常版をインストールできない場合に、下の拡張版をお試しください。",
     "enhancedTitle": "拡張ファームウェア",
     "enhancedWarning": "通常版のインストールに失敗した場合のみ使用",
-    "enhancedTestNote": "GR IV V3.1 の全機能を含みます。拡張版はインストール用バージョンを変更し、機能は通常版と同じです。",
+    "enhancedTestNote": "GR IV V3.11 の全機能を含みます。拡張版はインストール用バージョンを変更し、機能は通常版と同じです。",
     "enhancedAck": "通常版をインストールできなかったため、拡張版のダウンロードを希望します。",
     "enhancedDownloadFile": "拡張版 .bin をダウンロード",
     "projectSource": "サイトのソース",
     "firmwareSource": "ファームウェアのソース",
     "historicalSource": "V1.1 ファームウェアの履歴ソース",
-    "historicalSourceNote": "3機種分・現在のV3.0 / V3.1には非対応",
+    "historicalSourceNote": "3機種分・現在のV3.0 / V3.11には非対応",
     "demo": "操作デモ・カメラは変更しません",
     "lang": "言語",
     "theme": "明暗を切り替える",
@@ -579,14 +571,12 @@ export const copy = {
     "modelReleases": {
       "gr4": {
         "compatible": "RICOH GR IV / HDF・純正 1.11 ベース",
-        "note": "V3.1：名称を XerFilm GR に統一。日付印字、GF-2フラッシュモード、フィルムパック管理を更新。",
-        "changesTitle": "V3.1 更新内容",
+        "note": "V3.11：ADJ画角のリアルタイムプレビュー、イメージコントロールの微調整の競合修正、フィルムパック対応の改善。",
+        "changesTitle": "V3.11 更新内容",
         "changes": [
-          "「フィルムシミュレーション」の名称を「XerFilm GR」に統一。",
-          "日付印字を更新。年の前にアポストロフィーを追加し、日付のドットを空白に変更。すべて1行で表示。",
-          "GR4-GF2Unlock を統合。GR III の GF-2フラッシュモードを移植し、ピント距離からフラッシュ露出を計算。",
-          "カスタム・コミュニティフィルムの白黒判定を補完。白黒では白、カラーではオレンジ色で日付を印字。",
-          "作者フィルムの削除パッチを追加。フィルムIDごとに追加ルックを削除でき、内蔵フィルムとユーザー枠は保持。"
+          "ADJで画角を選ぶ際のリアルタイムプレビューを追加。",
+          "純正イメージコントロールと XerFilm GR のFn微調整の競合を修正。",
+          "今後のフィルムパックへの対応を改善。"
         ],
         "frameDesc": "純正、645、67、XPan、1:1を設定または独立したADJ項目から選択。全体の3:2ライブビューに半透明マスクと太い白線で範囲を表示。JPGのみクロップし、RAWは全画面を保持。",
         "sourceLabel": "フラッシュ機能の出典：GR4-GF2Unlock ↗",
@@ -594,14 +584,12 @@ export const copy = {
       },
       "gr3": {
         "compatible": "RICOH GR III / HDF・純正 2.10 ベース",
-        "note": "V3.0：カスタム・コミュニティ取り込み、Fn微調整、ADJ画角とデバイスコードに対応。",
-        "changesTitle": "V3.0 更新内容",
+        "note": "V3.11：ADJ画角のリアルタイムプレビュー、イメージコントロールの微調整の競合修正、フィルムパック対応の改善。",
+        "changesTitle": "V3.11 更新内容",
         "changes": [
-          "カスタム・コミュニティのフィルムを取り込み。ユーザー4枠を本体に保存し、1枠／全ユーザー枠の消去と作者フィルムの独立更新に対応。",
-          "フィルムのFn微調整を追加。強度0～100％、彩度・色相・コントラスト・R／G／Bを調整可能。",
-          "ADJに独立した画角項目と1:1を追加。純正・645・67・XPanを保持し、重複する4433を削除。",
-          "再生INFOに写真ごとの粒状感・ハイライト設定を表示。画角とユーザー4枠のアイコンを更新。",
-          "デバイスコード表示を追加。exFATのパック認識と、ファイル名で指定したユーザー枠の置き換えを改善。"
+          "ADJで画角を選ぶ際のリアルタイムプレビューを追加。",
+          "純正イメージコントロールと XerFilm GR のFn微調整の競合を修正。",
+          "今後のフィルムパックへの対応を改善。"
         ],
         "rollback": "旧版・純正へ戻す前に：フィルムを無効にし、イメージコントロールを Std に戻して再起動し、保存を確認してください。旧ファームウェアは追加した Cinema の番号を認識しません。",
         "frameDesc": "純正、645、67、XPan、1:1を設定または独立したADJ項目から選択。全体の3:2ライブビューに半透明マスクと太い白線で範囲を表示。JPGのみクロップし、RAWは全画面を保持。"
@@ -633,7 +621,7 @@ export const copy = {
     "enhancedModels": {
       "gr3": {
         "enhancedIntro": "公式イベントで終了画面を変更した後も 2.10 と表示され、通常版を導入できない GR III / HDF 向けです。まず通常版をお試しください。",
-        "enhancedTestNote": "ダウンロードパスワードは不要です。V3.0 の全機能を保持し、導入バージョンを 2.11 に引き上げています。純正 2.20 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。"
+        "enhancedTestNote": "ダウンロードパスワードは不要です。V3.11 の全機能を保持し、導入バージョンを 2.11 に引き上げています。純正 2.20 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。"
       },
       "gr3x": {
         "enhancedIntro": "公式イベントで終了画面を変更した後も 1.60 と表示され、通常版を導入できない GR IIIx / HDF 向けです。まず通常版をお試しください。",

@@ -8,7 +8,7 @@ const root = new URL('../', import.meta.url);
 const manifests = ['release.json', 'gr3-release.json', 'gr3x-release.json', 'enhanced-release.json'];
 const releases = await Promise.all(manifests.map(async name => JSON.parse(await readFile(new URL(`src/${name}`, root)))));
 const availability = JSON.parse(await readFile(new URL('src/download-availability.json', root)));
-assert.deepEqual(availability, { gr4: true, gr3: true, gr3x: true }, 'All three V3.0 downloads remain available');
+assert.deepEqual(availability, { gr4: true, gr3: true, gr3x: true }, 'All three stable model downloads remain available');
 const originals = JSON.parse(await readFile(new URL('src/original-releases.json', root)));
 releases.push(...originals);
 const realFetch = globalThis.fetch;
@@ -35,7 +35,7 @@ try {
     assert.equal(bytes.length, release.size);
     assert.equal(createHash('sha256').update(bytes).digest('hex'), release.sha256);
     assert.ok(release.camera.includes('IIIx') ? release.hardwareTested : release.releaseApproved);
-    assert.equal(release.internalVersion, release.camera.includes('IIIx') ? 'R31-H' : 'R32-H');
+    assert.equal(release.internalVersion, release.camera.includes('IIIx') ? 'R31-H' : 'R39-H');
     console.log(`${release.camera} enhanced: password-free download matches approved BIN`);
     const corrupted = structuredClone(release); corrupted.parts[0].sha256 = '0'.repeat(64);
     await assert.rejects(loadFirmware(corrupted), /Part checksum mismatch/);
@@ -55,16 +55,16 @@ try {
   await assert.rejects(loadFirmware(releases[1], { signal: cancelled.signal }), { name: 'AbortError' });
   const corrupted = structuredClone(releases[1]); corrupted.parts[0].sha256 = '0'.repeat(64);
   await assert.rejects(loadFirmware(corrupted), /Part checksum mismatch/);
-  assert.equal(releases[0].version, 'V3.1');
-  assert.equal(releases[3].version, 'V3.1');
-  assert.equal(releases[0].internalVersion, 'v55');
-  assert.equal(releases[3].internalVersion, 'v55-H');
-  assert.equal(releases[1].version, 'V3.0');
+  assert.equal(releases[0].version, 'V3.11');
+  assert.equal(releases[3].version, 'V3.11');
+  assert.equal(releases[0].internalVersion, 'v58');
+  assert.equal(releases[3].internalVersion, 'v58-H');
+  assert.equal(releases[1].version, 'V3.11');
   assert.equal(releases[2].version, 'V3.0');
   assert.equal(releases[1].releaseApproved, true);
   assert.equal(releases[1].hardwareTested, false, 'Promotion must not invent a hardware test result');
   assert.equal(releases[2].hardwareTested, true);
-  assert.equal(releases[1].internalVersion, 'R32');
+  assert.equal(releases[1].internalVersion, 'R39');
   assert.equal(releases[2].internalVersion, 'R31');
   assert.equal(releases[0].filename, 'fwdc248b.bin');
   assert.equal(releases[1].filename, 'fwdc239b.bin');
@@ -82,8 +82,8 @@ try {
     }
     for (const model of ['gr3']) {
       const info = text.modelReleases[model];
-      assert.ok(info.rollback && info.note.includes('V3.0'));
-      assert.equal(info.changes.length, 5);
+      assert.ok(info.rollback && info.note.includes('V3.11'));
+      assert.equal(info.changes.length, 3);
       assert.ok(info.changes.some(item => item.includes('ADJ')));
     }
     assert.ok(text.originalTitle && text.originalIntro && text.officialUpdateTitle && text.officialUpdateNotice && text.originalDownload && text.originalBackupOnly);
@@ -91,15 +91,13 @@ try {
     assert.ok(text.downloadPassword && text.downloadPasswordError && text.unlockDownload);
     assert.ok(text.downloadHint.includes('{filename}'));
     assert.equal(text.checks.length, 4);
-    assert.equal(text.modelReleases.gr4.changesTitle.startsWith('V3.1'), true);
-    assert.equal(text.modelReleases.gr4.changes.length, 5);
+    assert.equal(text.modelReleases.gr4.changesTitle.startsWith('V3.11'), true);
+    assert.equal(text.modelReleases.gr4.changes.length, 3);
     assert.ok(text.modelReleases.gr4.changes.some(item => item.includes('XerFilm GR')));
-    assert.ok(text.modelReleases.gr4.changes.some(item => item.includes('GR4-GF2Unlock')));
     assert.ok(text.modelReleases.gr4.frameDesc.includes('1:1'));
     assert.ok(!text.modelReleases.gr4.frameDesc.includes('4433'));
     assert.ok(text.highlightDesc && text.frameDesc && text.resetWarning);
-    assert.ok(text.enhancedTestNote.includes('V3.1'));
-    assert.ok(text.modelReleases.gr4.changes.some(item => /ID/.test(item)));
+    assert.ok(text.enhancedTestNote.includes('V3.11'));
     assert.equal(text.modelReleases.gr4.sourceURL, 'https://github.com/lemonadesaltbagel/GR4-GF2Unlock');
     assert.equal(text.gr3Deadline, undefined, 'expired placeholder removed');
   }
@@ -109,25 +107,26 @@ try {
   assert.ok(app.includes('TestFirmwareDownload') && app.includes('testReleases[selectedModel]'), 'Separate model-specific V3.1 test entries follow enhanced downloads');
   for (const locale of ['zh', 'en', 'ja']) {
     const { gr4, gr3, gr3x } = copy[locale].modelReleases;
-    for (const key of ['changes', 'changesTitle', 'note', 'frameDesc']) assert.deepEqual(gr3[key], gr3x[key], 'III / IIIx retain their V3.0 changelog');
-    assert.ok(gr3.changesTitle.startsWith('V3.0'));
-    assert.notDeepEqual(gr3.changes, gr4.changes);
+    for (const key of ['changes', 'changesTitle', 'note']) assert.deepEqual(gr3[key], gr4[key], 'GR III and IV share the concise V3.11 changelog');
+    assert.ok(gr3.changesTitle.startsWith('V3.11'));
+    assert.ok(gr3x.changesTitle.startsWith('V3.0'));
+    assert.notDeepEqual(gr3x.changes, gr4.changes);
     assert.ok(copy[locale].enhancedModels.gr3x.enhancedTestNote.includes('V3.0'));
     assert.ok(!/测试|test|テスト/.test(copy[locale].enhancedModels.gr3x.enhancedTitle));
   }
   const { communityCopy } = await import('../src/community-copy.js');
   for (const locale of ['zh', 'en', 'ja']) {
     for (const model of ['GR III / HDF', 'GR IIIx / HDF', 'GR IV / HDF']) assert.ok(communityCopy[locale].compatibility.includes(model), 'Community supports all released V3.0 models');
-    assert.ok(copy[locale].enhancedModels.gr3.enhancedTestNote.includes('V3.0'));
+    assert.ok(copy[locale].enhancedModels.gr3.enhancedTestNote.includes('V3.11'));
   }
   for (const [manifest, revision, variant, pin] of [
-    ['gr3-release.json', 'R32', 'standard', '2f574c62caf932ef48f92eb8fc097fca50506d83481b83d15be21a4785e39949'],
-    ['gr3-enhanced-release.json', 'R32-H', 'enhanced', '54a829455e1e5db8bdc8c40f2af95d42193aba9d807975fbda4dc151bcf5e409'],
+    ['gr3-release.json', 'R39', 'standard', '010398c0d00d4985318227b34502a44f92f53a95205b9fdd0921f3eb5387680a'],
+    ['gr3-enhanced-release.json', 'R39-H', 'enhanced', '8c5b1da8c96ed28e0203ee4c4460471a3953f0bb7a1b55974d2bba571d9f2e3a'],
   ]) {
     const r = JSON.parse(await readFile(new URL(`src/${manifest}`, root)));
-    assert.equal(r.version, 'V3.0'); assert.equal(r.releaseApproved, true);
+    assert.equal(r.version, 'V3.11'); assert.equal(r.releaseApproved, true);
     assert.equal(r.testRelease, undefined); assert.equal(r.encryption, undefined);
-    assert.equal(r.statisticsVersion, 'V3.0'); assert.equal(r.downloadVariant, variant);
+    assert.equal(r.statisticsVersion, 'V3.11'); assert.equal(r.downloadVariant, variant);
     assert.equal(r.internalVersion, revision); assert.equal(r.sha256, pin);
   }
   console.log('Password-free downloads, exact BIN identity, cancellation, corruption and all three languages passed.');

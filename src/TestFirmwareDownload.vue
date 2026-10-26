@@ -75,10 +75,6 @@ onBeforeUnmount(reset);
             <button class="primary test-bin-download" :disabled="baseBusy || !!busyFile || !verified" @click="download(asset)"><span>{{ asset.downloadVariant === 'standard' ? labels.standardDownload : labels.enhancedDownload }}</span><span aria-hidden="true">↓</span></button>
           </div>
           <p class="download-hint">{{ t.downloadHint.replace('{filename}', releaseSet.firmware[0].filename) }}</p>
-          <div class="test-supplement">
-            <button class="outlined enhanced-unlock" :disabled="baseBusy || !!busyFile || !verified" @click="download(releaseSet.supplement)">{{ labels.supplement }} <span aria-hidden="true">↓</span></button>
-            <p class="download-hint">{{ labels.supplementHint }}</p>
-          </div>
           <progress v-if="busyFile" :value="progress" max="1" :aria-label="t.downloading"></progress>
           <div class="download-feedback" aria-live="polite"><span v-if="status">{{ t[status] }} {{ busyFile ? `${Math.round(progress * 100)}%` : '' }}</span><button v-if="busyFile" class="text-link" @click="cancel">{{ t.cancel }}</button></div>
         </div>
@@ -88,5 +84,5 @@ onBeforeUnmount(reset);
 </template>
 
 <style scoped>
-.test-unlocked{margin-top:22px}.test-verified{font-size:12px;color:var(--accent);margin:0 0 18px}.test-download-file+.test-download-file{margin-top:20px}.test-download-file .enhanced-file-meta{margin-bottom:8px}.test-supplement{border-top:1px solid var(--line);padding-top:22px;margin-top:24px}.test-supplement .outlined{font-size:13px}
+.test-unlocked{margin-top:22px}.test-verified{font-size:12px;color:var(--accent);margin:0 0 18px}.test-download-file+.test-download-file{margin-top:20px}.test-download-file .enhanced-file-meta{margin-bottom:8px}
 </style>

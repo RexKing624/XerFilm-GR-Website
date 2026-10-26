@@ -68,3 +68,8 @@ public-summary/.wrangler/
 !public/downloads/test-gr3-v31-r36-*.part*
 !public/downloads/test-gr3x-v31-r35-*.part*
 !public/downloads/test-v31-supplement-20261026.part*
+
+# V3.11 stable releases and password-gated IIIx R38, without a sample kit.
+!public/downloads/firmware-gr4-v3.11-v58*.part*
+!public/downloads/firmware-gr3-v3.11-r39*.part*
+!public/downloads/test-gr3x-v311-r38-*.part*
