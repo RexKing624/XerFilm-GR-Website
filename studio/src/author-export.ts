@@ -1,3 +1,4 @@
+import {filmMonochrome} from './film-kind';
 import { changedBuiltin, effectiveModel } from './control';
 import { communityRecord as record } from './community';
 
@@ -18,7 +19,7 @@ export async function prepareAuthorExport(mode: 'append'|'update', builtins: any
         if (!f.forceUpdate && !previouslyExported && !changedBuiltin(f, baseline.builtins[i])) continue;
         const child = f.children[0];
         if (child.model?.unsupported?.length && !child.acceptApprox) throw new AuthorExportIssue('approx', 2, i, 0);
-        const data = await record({...f, children: [{...child, name: 'COLOR', model: effectiveModel(child)}]}, i, 2);
+        const data = await record({...f, children: [{...child, monochrome:filmMonochrome(child,f), name: 'COLOR', model: effectiveModel(child)}]}, i, 2);
         jobs.push({kind: 2, slot: i, source: f, data});
       } catch (error) {
         if (error instanceof AuthorExportIssue) throw error;

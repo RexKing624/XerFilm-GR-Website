@@ -22,7 +22,7 @@
     "tags": [
       "WARM",
       "SOFT LIGHT",
-      "GR IV / HDF · V3.0"
+      "GR IV / HDF · V3.1"
     ],
     "photos": [
       {
@@ -35,8 +35,8 @@
         }
       }
     ],
-    "download": "community/packs/coast-study.zip",
+    "download": "community/packs/coast-study-v3-1.zip",
     "size": "17.4 KiB · .zip",
-    "sha256": "1cdc9f16c4c0430b757d67305897380c55d087d0e2fa5372d7cfac4b6244a445"
+    "sha256": "594cb5924e6f80d253307eaa60c9f682a03d4f9928fc2b9ea577c19e36089a85"
   }
 ]

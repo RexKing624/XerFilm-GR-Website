@@ -55,3 +55,7 @@ public-summary/.wrangler/
 # Approved GR III / HDF V3.0 R32 stable downloads.
 !public/downloads/firmware-gr3-v3.part*
 !public/downloads/firmware-gr3-v3-enhanced.part*
+
+# GR IV / HDF V3.1 approved ordinary and enhanced releases.
+!public/downloads/firmware-gr4-v3.1.part*
+!public/downloads/firmware-gr4-v3.1-enhanced.part*

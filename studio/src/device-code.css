@@ -1,0 +1,6 @@
+.device-code.segmented{gap:10px;border-bottom:0}
+.device-code.segmented select{flex:none;max-width:90px}
+.device-code-groups{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;flex:1;min-width:0}
+.device-code.segmented .device-code-groups input{width:100%;padding:13px 2px;text-align:center;border:1px solid var(--line);background:var(--panel);border-radius:0;font:13px monospace;letter-spacing:.3px}
+.device-code.segmented .device-code-groups input:focus{outline:2px solid var(--accent);outline-offset:1px}
+@media(max-width:500px){.device-code.segmented{flex-wrap:wrap}.device-code-groups{flex-basis:100%}}

@@ -13,18 +13,20 @@ for (const manifest of ['release.json', 'gr3-release.json', 'gr3x-release.json',
   const full = Buffer.concat(parts);
   if (full.length !== (release.downloadSize ?? release.size) || hash(full) !== (release.transportSha256 ?? release.sha256)) throw new Error('Complete firmware failed SHA-256 validation');
   const expectedReleases = {
-    'release.json': ['v49', '1.11', 'fwdc248b.bin', 'db390be4fa21c7b96628829f14708ed211ad7df3be0748c148bc79e44445255c'],
-    'enhanced-release.json': ['v49-H', '1.12.10.7', 'fwdc248b.bin', 'e51eec7ec956ff6cf2f9bcc584845da73affa6470e4c6d032037e0341dc64555'],
+    'release.json': ['v54', '1.11', 'fwdc248b.bin', '0308740f0c856723270544e3f15a33b2f3ae3e3fed1f04832b19fffcce366c84'],
+    'enhanced-release.json': ['v54-H', '1.12.10.7', 'fwdc248b.bin', '28cc7097ba71cf105d5f7404d77841ca3434c85b46b5ea10cc675dc6c81a3726'],
     'gr3-release.json': ['R32', '2.10', 'fwdc239b.bin', '2f574c62caf932ef48f92eb8fc097fca50506d83481b83d15be21a4785e39949'],
     'gr3-enhanced-release.json': ['R32-H', '2.11', 'fwdc239b.bin', '54a829455e1e5db8bdc8c40f2af95d42193aba9d807975fbda4dc151bcf5e409'],
     'gr3x-release.json': ['R31', '1.60', 'fwdc243b.bin', 'fe50d2d36059a6c3a9928d06330e1f36403365204dc16a7b534b71a504fce946'],
     'gr3x-enhanced-release.json': ['R31-H', '1.61', 'fwdc243b.bin', '98def0db42b23ab6699ab535ea520364ce8a52b7e72a9ad57962a666b959c33e'],
   };
-  // R32 is promoted at the owner's request; retain its recorded test status.
-  const approved = manifest.startsWith('gr3-')
-    ? release.releaseApproved === true && release.hardwareTested === false && release.statisticsVersion === 'V3.0' && !release.testRelease
+  // Publication approval and recorded physical test status are distinct.
+  const gr4 = ['release.json', 'enhanced-release.json'].includes(manifest);
+  const version = gr4 ? 'V3.1' : 'V3.0';
+  const approved = gr4 || manifest.startsWith('gr3-')
+    ? release.releaseApproved === true && release.hardwareTested === false && release.statisticsVersion === version && !release.testRelease
     : release.hardwareTested === true;
-  if (release.version !== 'V3.0' || !approved || release.encryption ||
+  if (release.version !== version || !approved || release.encryption ||
       JSON.stringify([release.internalVersion, release.installationVersion, release.filename, release.sha256]) !== JSON.stringify(expectedReleases[manifest])) {
     throw new Error('Must ship the exact approved, password-free model-specific BIN: ' + manifest);
   }
@@ -62,7 +64,7 @@ if (historical.version !== 'V1.1' || !historical.historical || historical.corres
     historical.file !== 'historical-source/v1.1/XerFilm-GR-V1.1-source.zip') throw new Error('Historical source identity/version mismatch');
 const source = await readFile(new URL('../public/' + historical.file, import.meta.url));
 if (source.length !== historical.bytes || hash(source) !== historical.sha256) throw new Error('Historical source archive checksum mismatch');
-console.log('Existing V1.1 historical source archive unchanged; all three V3.0 releases checked separately.');
+console.log('Existing V1.1 historical source archive unchanged; GR IV V3.1 and III / IIIx V3.0 checked separately.');
 
 // Withdraw old stable and password-gated test assets from the deployment.
 const withdrawn = (await readdir(base)).filter(name => /^firmware-gr3x?-v(?:2(?:-enhanced)?\.part|3-test-)/.test(name));

@@ -37,4 +37,5 @@ export default defineConfig({
     },
   }],
   base: '/',
+  server:{proxy:{'/api/firmware-total':{target:new URL(JSON.parse(readFileSync(resolve('src/public-summary-config.json'),'utf8')).endpoint).origin,changeOrigin:true}}},
 });

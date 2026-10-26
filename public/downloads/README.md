@@ -1,11 +1,11 @@
 # Same-site firmware downloads
 
-GR IV / HDF V3.0 (v49), GR IIIx / HDF V3.0 (R31), and GR III / HDF V2.0 (R20) are released in ordinary and enhanced variants. These releases have been camera-tested by the user.
-
-GR IIIx V3.0 uses the exact BINs from the approved R31 test release. Its V2.0 and password-protected test downloads have been withdrawn. Both V3.0 downloads are password-free; the existing reading and enhanced-installation acknowledgements remain.
+GR IV / HDF V3.1 (v54) is published in ordinary and enhanced variants at the owner’s request. GR III / HDF V3.0 (R32) and GR IIIx / HDF V3.0 (R31) remain unchanged.
 
 The browser reconstructs each model-specific BIN from 16 MiB parts, verifies every part and the complete SHA-256, then saves fwdc248b.bin, fwdc243b.bin or fwdc239b.bin. Do not flash parts individually.
 
-Compatible official bases stay GR IV 1.11, GR IIIx 1.60 and GR III 2.10. Enhanced installation versions are GR IV 1.12.10.7, GR IIIx 1.61 and GR III 2.11.21.27.
+Compatible official bases remain GR IV 1.11, GR IIIx 1.60 and GR III 2.10. Enhanced installation versions are GR IV 1.12.10.7, GR IIIx 1.61 and GR III 2.11.
 
-Pinned unmodified manufacturer backups and LICENSE.txt remain available. The separately labeled historical V1.1 modification source remains unchanged; it is not the corresponding source for current V2.0 / V3.0 downloads.
+The V3.1 release manifest records publication approval separately from physical-camera testing. The existing V1.1 historical source and pinned original firmware backups are unchanged.
+
+GR IV V3.1 integrates GR4-GF2Unlock 1.4.0 (ad2731d57b6981e44bfea6ed61f000e6c422d916): https://github.com/lemonadesaltbagel/GR4-GF2Unlock

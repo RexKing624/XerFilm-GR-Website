@@ -13,6 +13,7 @@ import { cameras, fileSize, enhancedReleases, isModelAvailable } from './release
 import EnhancedDownload from './EnhancedDownload.vue';
 import CommunityGallery from './CommunityGallery.vue';
 import FirmwareChoices from './FirmwareChoices.vue';
+import DateStamp from './DateStamp.vue';
 import StudioEditor from './StudioEditor.vue';
 import { communityCopy } from './community-copy';
 import { SITE_VERSION } from './site-version';
@@ -94,6 +95,15 @@ let lastFocus;
 const heroFilms = [films[11], films[0], films[10], films[6], films[16], films[14]];
 const mockEnabled = ref([true, true, true, true, true, false]);
 const selectedMock = ref(2);
+const stampExamples=[
+ {id:'ymd',date:'26 10 17',year:true,time:false},
+ {id:'ymdt',date:'26 10 17',year:true,time:true},
+ {id:'mdt',date:'10 17',year:false,time:true},
+ {id:'md',date:'10 17',year:false,time:false},
+ {id:'time',date:'',year:false,time:true},
+];
+const selectedStampMode=ref('ymdt');
+const stampExample=computed(()=>stampExamples.find(example=>example.id===selectedStampMode.value));
 
 watch(language, () => {
   acks.value = emptyAcknowledgements(); typed.value = ''; inputHint.value = '';
@@ -189,7 +199,7 @@ onBeforeUnmount(() => { stopEngagement?.(); window.removeEventListener('hashchan
   <template v-if="!communitySection">
   <section class="intro">
    <div><p class="eyebrow"><span class="status-dot"></span> XerFilm GR · GR IV / III / IIIx · HDF / {{ t.edition }}</p><h1>{{ t.hero1 }}<br><em>{{ t.hero2 }}</em></h1><p class="intro-copy">{{ t.intro }}</p><FirmwareChoices :language="language" /></div>
-   <div class="hero-stack" aria-hidden="true"><img v-for="(film,i) in heroFilms.slice(0,4)" :key="film.name" :src="filmIcon(film.icon)" :style="{ '--i': i }" alt=""><span class="stack-label">17 FAMILIES<br>27 WAYS TO SEE.</span></div>
+   <div class="hero-stack" aria-hidden="true"><div class="hero-stack-art"><img v-for="(film,i) in heroFilms.slice(0,4)" :key="film.name" :src="filmIcon(film.icon)" :style="{ '--i': i }" alt=""></div><span class="stack-label">17 FAMILIES<br>27 WAYS TO SEE.</span></div>
   </section>
   <main class="main-layout">
    <aside id="download" class="download-panel" :aria-label="t.download">
@@ -211,21 +221,21 @@ onBeforeUnmount(() => { stopEngagement?.(); window.removeEventListener('hashchan
     <section class="film-feature">
      <div class="feature-top"><div><span class="tiny-number">01—</span><h3>{{ t.filmTitle }}</h3></div><img class="entry-icon" :src="filmIcon(732)" alt="FILM"></div>
      <p class="feature-copy">{{ t.filmDesc }}</p>
-     <div class="film-strip"><a v-for="film in heroFilms" :key="film.name" :href="photoGalleryURL(filmPhotoFilterId(film))" :aria-label="`${film.name} · ${photoLabels.viewPhotos}`"><img :src="filmIcon(film.icon)" :alt="film.name"><span>{{ film.name }}</span></a></div>
+     <div class="film-strip"><div v-for="film in heroFilms" :key="film.name"><img :src="filmIcon(film.icon)" :alt="film.name"><span>{{ film.name }}</span></div></div>
      <div class="film-feature-bottom"><div class="stats"><span><b>17</b>{{ t.familyUnit }}</span><span><b>27</b>{{ t.lookUnit }}</span></div><button class="outlined" @click="openDrawer('films')">{{ t.viewFilms }} <span aria-hidden="true">↗</span></button></div>
      <div class="curated"><span aria-hidden="true">↳</span><div class="curated-copy"><strong>{{ t.curatedTitle }}</strong><p>{{ t.curated }}</p><small>{{ ct.compatibility }}</small></div><div class="curated-actions"><a class="outlined community-entry" href="/community/">{{ ct.explore }} <span aria-hidden="true">↗</span></a></div></div>
     </section>
-    <section class="interaction-feature"><div class="interaction-copy"><span class="tiny-number">02—</span><h3>{{ t.adjTitle }}</h3><p>{{ t.adjDesc }}</p><h4>{{ t.listTitle }}</h4><p>{{ t.listDesc }}</p></div><div class="camera-demo"><div class="demo-title"><img :src="filmIcon(732)" alt="FILM"><span>FILM LIST</span><span class="demo-dot"></span></div><p class="demo-caption">{{ t.demo }}</p><div class="demo-grid"><button v-for="(film,i) in heroFilms" :key="film.name" :class="{ selected:selectedMock === i, off:!mockEnabled[i] }" :aria-label="film.name" :aria-pressed="mockEnabled[i]" @click="selectedMock = i; mockEnabled[i] = !mockEnabled[i]"><img :src="filmIcon(film.icon)" :alt="film.name"><span v-if="mockEnabled[i]" class="demo-check">✓</span></button></div><div class="demo-bottom"><span>{{ heroFilms[selectedMock].name }}</span><span>OK <b>↵</b></span></div></div></section>
+    <section class="interaction-feature"><div class="interaction-copy"><span class="tiny-number">02—</span><h3>{{ t.adjTitle }}</h3><p>{{ t.adjDesc }}</p><h4>{{ t.listTitle }}</h4><p>{{ t.listDesc }}</p></div><div class="camera-demo"><div class="demo-title"><img :src="filmIcon(732)" alt="FILM"><span>FILM LIST</span><span class="demo-dot"></span></div><p class="demo-caption">{{ t.demo }}</p><div class="demo-grid"><button v-for="(film,i) in heroFilms" :key="film.name" :class="{ selected:selectedMock === i, off:!mockEnabled[i] }" :aria-label="film.name" :aria-pressed="mockEnabled[i]" @click="selectedMock = i; mockEnabled[i] = !mockEnabled[i]"><img :src="filmIcon(film.icon)" :alt="film.name"><span v-if="mockEnabled[i]" class="demo-check">✓</span></button></div><div class="demo-bottom"><span>{{ heroFilms[selectedMock].name }}</span><span>OK <b>↵</b></span></div></div><div class="adj-how-to"><h4>{{ t.adjHowTitle }}</h4><p>{{ t.adjHowDesc }}</p><p class="adj-how-note">{{ t.adjHowNote }}</p></div></section>
     <div id="finishing" class="two-features effect-features">
      <section><span class="tiny-number">03—</span><h3>{{ t.grainTitle }}</h3><div class="grain-samples" aria-hidden="true"><div v-for="(level,i) in t.grainLevels" :key="i" :class="`grain-${i}`"><span>{{ level }}</span></div></div><p>{{ t.grainDesc }}</p></section>
      <section><span class="tiny-number">04—</span><h3>{{ t.highlightTitle }}</h3><div class="highlight-samples"><figure v-for="sample in [{ file: 'highlight-white.jpg', label: t.highlightWhite }, { file: 'highlight-red-800t.jpg', label: t.highlightRed }]" :key="sample.file"><img :src="`${assetBase}examples/${sample.file}`" :alt="sample.label" loading="lazy"><figcaption>{{ sample.label }}</figcaption></figure></div><p>{{ t.highlightDesc }}</p><small class="example-note highlight-notes"><span>{{ t.highlightNote }}</span><span class="playback-note">{{ t.highlightPlaybackNote }}</span></small></section>
     </div>
     <div class="two-features framing-features">
-     <section><span class="tiny-number">05—</span><h3>{{ t.stampTitle }}</h3><figure class="stamp-sample"><div class="date-sample" aria-hidden="true"><span>26.10.17</span><span>14:36</span></div><figcaption>{{ t.stampCaption }}</figcaption></figure><p>{{ t.stampDesc }}</p></section>
-     <section><span class="tiny-number">06—</span><h3>{{ t.frameTitle }}</h3><figure class="frame-sample" :aria-label="t.frameAlt"><div class="frame-stage"><div class="frame-view"><img :src="`${assetBase}examples/frame-seaside.jpg`" alt="" loading="lazy"><div class="frame-native-grid" aria-hidden="true"></div><div class="frame-mask frame-mask-top" aria-hidden="true"></div><div class="frame-mask frame-mask-bottom" aria-hidden="true"></div><div class="frame-boundary" aria-hidden="true"></div><span class="frame-format" aria-hidden="true">XPAN <span>65:24</span></span></div></div><figcaption>{{ t.frameCaption }}</figcaption></figure><p>{{ releaseCopy.frameDesc || t.frameDesc }}</p><small class="example-note">{{ t.frameIndependent }}</small></section>
+     <section><span class="tiny-number">05—</span><h3>{{ t.stampTitle }}</h3><figure class="stamp-sample"><div class="date-sample" aria-hidden="true"><DateStamp :date="stampExample.date" :year="stampExample.year" :time="stampExample.time" /></div><figcaption>{{ t.stampModes[selectedStampMode] }} · {{ t.stampCaption }}<div class="stamp-mode-options" role="group" :aria-label="t.stampStyleLabel"><button v-for="example in stampExamples" :key="example.id" :class="{active:selectedStampMode===example.id}" :aria-pressed="selectedStampMode===example.id" @click="selectedStampMode=example.id">{{ t.stampModes[example.id] }}</button></div></figcaption></figure><p>{{ t.stampDesc }}</p></section>
+     <section><span class="tiny-number">06—</span><h3>{{ t.frameTitle }}</h3><figure class="frame-sample" :aria-label="t.frameAlt"><div class="frame-stage"><div class="frame-view"><img :src="`${assetBase}examples/frame-seaside.jpg`" alt="" loading="lazy"><div class="frame-native-grid" aria-hidden="true"></div><div class="frame-mask frame-mask-top" aria-hidden="true"></div><div class="frame-mask frame-mask-bottom" aria-hidden="true"></div><div class="frame-boundary" aria-hidden="true"></div><span class="frame-format" aria-hidden="true">XPAN <span>65:24</span></span></div></div><figcaption>{{ t.frameCaption }}</figcaption></figure><p>{{ releaseCopy.frameDesc || t.frameDesc }}</p><div class="frame-notes"><small class="example-note">{{ t.frameIndependent }}</small><small class="example-note frame-adj-hint">{{ t.frameAdjHint }}</small></div></section>
     </div>
     <section class="raw-feature"><span class="raw-symbol">RAW<span>+</span>JPG</span><div><h3>{{ t.rawTitle }}</h3><p>{{ t.rawDesc }}</p></div></section>
-    <section class="changelog"><div class="release-heading"><span class="eyebrow">03 / {{ releaseCopy.changesTitle }}</span><b>{{ selectedRelease.version }}</b></div><p class="release-compat">{{ releaseCopy.compatible }}</p><ul><li v-for="item in releaseCopy.changes" :key="item">{{ item }}</li></ul></section>
+    <section class="changelog"><div class="release-heading"><span class="eyebrow">03 / {{ releaseCopy.changesTitle }}</span><b>{{ selectedRelease.version }}</b></div><p class="release-compat">{{ releaseCopy.compatible }}</p><ul><li v-for="item in releaseCopy.changes" :key="item">{{ item }}</li></ul><p v-if="releaseCopy.sourceURL" class="release-source"><a :href="releaseCopy.sourceURL" target="_blank" rel="noopener noreferrer">{{ releaseCopy.sourceLabel }}</a></p></section>
    </div>
   </main>
   </template>

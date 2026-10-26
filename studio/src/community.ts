@@ -27,7 +27,16 @@ export function exportSelection(families:any[],approved:Record<string,string>,se
 }
 export async function communityUserArchive(families:any[]){
  if(families.length!==4)throw Error('Four fixed user slots required.');const files:Record<string,Uint8Array>={};
- for(let i=0;i<4;i++)if(!families[i].empty)files[`XERFILM/${i+1}-USER-XerFilmGR.XFC`]=await communityBundle([await communityRecord(families[i],i)],0);
+ for(let i=0;i<4;i++)if(!families[i].empty)files[`XERFILM/${i+1}-USER-XerFilmGR.XFL`]=await communityBundle([await communityRecord(families[i],i)],0);
  if(!Object.keys(files).length)throw Error('No checked slots selected.');
  files['READ-ME.txt']=strToU8(USER_README);return files;
+}
+
+/** ABI4 author family upsert or builtin update, including signed authorization. */
+export async function licensedAuthorBundle(records:Uint8Array[],operation:1|2){
+ if(!records.length)throw Error('No author records selected.');
+ const total=128+records.reduce((n,b)=>n+b.length,0);if(total>16*1024*1024)throw Error('Camera package capacity exceeded.');
+ const b=new Uint8Array(total),v=new DataView(b.buffer);b.set(strToU8('XFBDL004'));v.setUint16(8,4,true);v.setUint16(10,4,true);v.setUint32(12,operation,true);v.setUint32(16,records.length,true);v.setUint32(20,total,true);let at=128;
+ for(const r of records){const d=new DataView(r.buffer,r.byteOffset,r.byteLength);if(String.fromCharCode(...r.slice(0,8))!=='XFRCD004'||d.getUint32(56,true)!==(operation===1?3:2))throw Error('Invalid signed author operation.');b.set(r,at);at+=r.length;}
+ b.set(new Uint8Array(await crypto.subtle.digest('SHA-512',b.subarray(128))).subarray(0,32),32);return b;
 }

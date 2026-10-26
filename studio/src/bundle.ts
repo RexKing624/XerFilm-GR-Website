@@ -1,3 +1,4 @@
+import {filmTag} from './film-kind';
 import {validateUserNames} from './user-names';
 // SPDX-License-Identifier: GPL-2.0-only
 // Identity is authenticated inside each record; filenames have no authority.
@@ -23,7 +24,7 @@ export async function record(f:any,slot:number,kind:0|1|2=0){
   const c=f.children[j];if(!c.name?.trim()||!c.model)throw Error('Every film needs a name and converted colour data.');
   if(c.model.unsupported?.length&&!c.acceptApprox)throw Error('Review unsupported XMP settings first.');
   writeName(b,128+FAMILY_BYTES+j*CHILD_BYTES,c.name.trim());const at=128+FAMILY_BYTES+j*CHILD_BYTES+64;
-  b.set(icon(c.icon||f.icon),at);validModel(c.model);c.model.matrix.forEach((x:number,k:number)=>v.setInt16(at+6400+2*k,x,true));c.model.gamma.forEach((x:number,k:number)=>v.setUint16(at+6420+2*k,x,true));c.model.multi.forEach((x:number,k:number)=>v.setInt32(at+7956+4*k,x,true));
+  b.set(icon(c.icon||f.icon),at);validModel(c.model);c.model.matrix.forEach((x:number,k:number)=>v.setInt16(at+6400+2*k,x,true));v.setUint16(at+6418,filmTag(c,f),true);c.model.gamma.forEach((x:number,k:number)=>v.setUint16(at+6420+2*k,x,true));c.model.multi.forEach((x:number,k:number)=>v.setInt32(at+7956+4*k,x,true));
  }
  b.set(new Uint8Array(await crypto.subtle.digest('SHA-512',b.subarray(128,128+size))).subarray(0,32),64);
  if(kind===0){const nonce=crypto.getRandomValues(new Uint8Array(24));b.set(nonce,32);const out=new Uint8Array(size);(nacl as any).lowlevel.crypto_stream_xor(out,0,b.subarray(128,128+size),0,size,nonce,USER_KEY);b.set(out,128);}

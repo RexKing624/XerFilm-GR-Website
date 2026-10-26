@@ -1,29 +1,32 @@
 {
-  "version": "V3.0",
+  "version": "V3.1",
   "baseVersion": "1.11",
   "camera": "RICOH GR IV",
   "filename": "fwdc248b.bin",
-  "size": 46033460,
-  "sha256": "db390be4fa21c7b96628829f14708ed211ad7df3be0748c148bc79e44445255c",
-  "hardwareTested": true,
+  "size": 46232964,
+  "sha256": "0308740f0c856723270544e3f15a33b2f3ae3e3fed1f04832b19fffcce366c84",
+  "hardwareTested": false,
   "parts": [
     {
-      "file": "firmware-gr4-v3.part1",
+      "file": "firmware-gr4-v3.1.part1",
       "size": 16777216,
-      "sha256": "d26e108f2fe1633c88193d854dd6cb6ae25886ec3df480c5242c4c45fa052ec9"
+      "sha256": "f45f97cebfa3d7418f5596b0691a760eab88cd531e67a38ac712b7a6999976c2"
     },
     {
-      "file": "firmware-gr4-v3.part2",
+      "file": "firmware-gr4-v3.1.part2",
       "size": 16777216,
-      "sha256": "e0a867101536d8a133832d629e96d367ec869802190edb357ea824ef0be99b9d"
+      "sha256": "ca49cd2363088c189dbbd211cd1666cc325a33aeca6b4d091dd98eb7e1e216f4"
     },
     {
-      "file": "firmware-gr4-v3.part3",
-      "size": 12479028,
-      "sha256": "58a88875450a20ab0107d2c74bde3342367a5620d27fef5e9dbb6d35dd3a7e0e"
+      "file": "firmware-gr4-v3.1.part3",
+      "size": 12678532,
+      "sha256": "430bdc4d45265e35d6e1a2ddebf8324d41e47ff2f304a47e3048d843236d6891"
     }
   ],
-  "internalVersion": "v49",
+  "internalVersion": "v54",
   "installationVersion": "1.11",
-  "releaseDate": "2026-10-24"
+  "releaseDate": "2026-10-26",
+  "releaseApproved": true,
+  "statisticsVersion": "V3.1",
+  "downloadVariant": "standard"
 }

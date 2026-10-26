@@ -55,10 +55,10 @@ try {
   await assert.rejects(loadFirmware(releases[1], { signal: cancelled.signal }), { name: 'AbortError' });
   const corrupted = structuredClone(releases[1]); corrupted.parts[0].sha256 = '0'.repeat(64);
   await assert.rejects(loadFirmware(corrupted), /Part checksum mismatch/);
-  assert.equal(releases[0].version, 'V3.0');
-  assert.equal(releases[3].version, 'V3.0');
-  assert.equal(releases[0].internalVersion, 'v49');
-  assert.equal(releases[3].internalVersion, 'v49-H');
+  assert.equal(releases[0].version, 'V3.1');
+  assert.equal(releases[3].version, 'V3.1');
+  assert.equal(releases[0].internalVersion, 'v54');
+  assert.equal(releases[3].internalVersion, 'v54-H');
   assert.equal(releases[1].version, 'V3.0');
   assert.equal(releases[2].version, 'V3.0');
   assert.equal(releases[1].releaseApproved, true);
@@ -91,15 +91,16 @@ try {
     assert.ok(text.downloadPassword && text.downloadPasswordError && text.unlockDownload);
     assert.ok(text.downloadHint.includes('{filename}'));
     assert.equal(text.checks.length, 4);
-    assert.equal(text.modelReleases.gr4.changesTitle.startsWith('V3.0'), true);
+    assert.equal(text.modelReleases.gr4.changesTitle.startsWith('V3.1'), true);
     assert.equal(text.modelReleases.gr4.changes.length, 5);
-    assert.ok(text.modelReleases.gr4.changes.some(item => item.includes('Fn')));
-    assert.ok(text.modelReleases.gr4.changes.some(item => item.includes('INFO')));
+    assert.ok(text.modelReleases.gr4.changes.some(item => item.includes('XerFilm GR')));
+    assert.ok(text.modelReleases.gr4.changes.some(item => item.includes('GR4-GF2Unlock')));
     assert.ok(text.modelReleases.gr4.frameDesc.includes('1:1'));
     assert.ok(!text.modelReleases.gr4.frameDesc.includes('4433'));
     assert.ok(text.highlightDesc && text.frameDesc && text.resetWarning);
-    assert.ok(text.enhancedTestNote.includes('V3.0'));
-    assert.ok(text.modelReleases.gr4.changes.some(item => item.includes('XPan')));
+    assert.ok(text.enhancedTestNote.includes('V3.1'));
+    assert.ok(text.modelReleases.gr4.changes.some(item => /ID/.test(item)));
+    assert.equal(text.modelReleases.gr4.sourceURL, 'https://github.com/lemonadesaltbagel/GR4-GF2Unlock');
     assert.equal(text.gr3Deadline, undefined, 'expired placeholder removed');
   }
   assert.deepEqual(originals.map(r => [r.id, r.version, r.filename]), [['gr3','2.10','fwdc239b.bin'], ['gr3x','1.60','fwdc243b.bin'], ['gr4','1.11','fwdc248b.bin']]);
@@ -108,9 +109,9 @@ try {
   assert.ok(!app.includes('TestFirmwareDownload') && !app.includes('testBusy'), 'Separate R32 test entry is retired');
   for (const locale of ['zh', 'en', 'ja']) {
     const { gr4, gr3, gr3x } = copy[locale].modelReleases;
-    for (const model of [gr3, gr3x]) {
-      for (const key of ['changes', 'changesTitle', 'note', 'frameDesc']) assert.deepEqual(model[key], gr4[key], 'III / IIIx V3.0 use IV changelog');
-    }
+    for (const key of ['changes', 'changesTitle', 'note', 'frameDesc']) assert.deepEqual(gr3[key], gr3x[key], 'III / IIIx retain their V3.0 changelog');
+    assert.ok(gr3.changesTitle.startsWith('V3.0'));
+    assert.notDeepEqual(gr3.changes, gr4.changes);
     assert.ok(copy[locale].enhancedModels.gr3x.enhancedTestNote.includes('V3.0'));
     assert.ok(!/测试|test|テスト/.test(copy[locale].enhancedModels.gr3x.enhancedTitle));
   }
