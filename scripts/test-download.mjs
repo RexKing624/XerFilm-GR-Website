@@ -106,7 +106,7 @@ try {
   assert.deepEqual(originals.map(r => [r.id, r.version, r.filename]), [['gr3','2.10','fwdc239b.bin'], ['gr3x','1.60','fwdc243b.bin'], ['gr4','1.11','fwdc248b.bin']]);
   const app = await readFile(new URL('src/App.vue', root), 'utf8');
   assert.ok(app.includes("openDrawer('original')") && !app.includes('t.originalFirmwareURL'));
-  assert.ok(!app.includes('TestFirmwareDownload') && !app.includes('testBusy'), 'Separate R32 test entry is retired');
+  assert.ok(app.includes('TestFirmwareDownload') && app.includes('testReleases[selectedModel]'), 'Separate model-specific V3.1 test entries follow enhanced downloads');
   for (const locale of ['zh', 'en', 'ja']) {
     const { gr4, gr3, gr3x } = copy[locale].modelReleases;
     for (const key of ['changes', 'changesTitle', 'note', 'frameDesc']) assert.deepEqual(gr3[key], gr3x[key], 'III / IIIx retain their V3.0 changelog');
@@ -132,3 +132,5 @@ try {
   }
   console.log('Password-free downloads, exact BIN identity, cancellation, corruption and all three languages passed.');
 } finally { globalThis.fetch = realFetch; }
+
+await import('./test-test-downloads.mjs');

@@ -1,0 +1,254 @@
+{
+  "gr3": {
+    "id": "gr3",
+    "camera": "RICOH GR III / HDF",
+    "revision": "R36",
+    "version": "V3.1 测试版",
+    "firmware": [
+      {
+        "version": "V3.1 测试版",
+        "statisticsVersion": "V3.1-test",
+        "internalVersion": "R36",
+        "downloadVariant": "standard",
+        "baseVersion": "2.10",
+        "installationVersion": "2.10",
+        "camera": "RICOH GR III / HDF",
+        "filename": "fwdc239b.bin",
+        "sha256": "e2d68186521c12330b3d4cfde068000d2abae2bd9879190d004c9a2bcfaa438e",
+        "testRelease": true,
+        "hardwareTested": false,
+        "releaseDate": "2026-10-26",
+        "size": 38315708,
+        "downloadSize": 38315724,
+        "transportSha256": "b0a4ceebe9740777d2d72c897ab5de3fb00aef0c6d9308d51337b5028ea5cc78",
+        "parts": [
+          {
+            "file": "test-gr3-v31-r36-standard.part1",
+            "size": 16777216,
+            "sha256": "f630a7fbca2e2f8c2185ae567737381913e1534f5c8dbe0f1dcc735d1259efb6"
+          },
+          {
+            "file": "test-gr3-v31-r36-standard.part2",
+            "size": 16777216,
+            "sha256": "50319846d709babe90a9d23df9fb42a12b3656baf531e777d81376109106603e"
+          },
+          {
+            "file": "test-gr3-v31-r36-standard.part3",
+            "size": 4761292,
+            "sha256": "48da2607746e460b836e94effaecc3c5d2e8970cb5d95bf9945bb2dd89048c07"
+          }
+        ],
+        "encryption": {
+          "algorithm": "AES-GCM",
+          "kdf": "PBKDF2",
+          "iterations": 210000,
+          "salt": "eRTVO0Wgt3h8sO91cgJiyA==",
+          "iv": "8V8n7mLo1Bu5oyMw",
+          "check": {
+            "iv": "VaXRiZRwegJwMtZ0",
+            "ciphertext": "LoY6A6rZNbkTfRhu5ZZrqogm9CelPn++gfELMxgO5ndT0l9U5PzGjO1g8jDGSlrf0ekO1MdLzpgOpPIYpzjh5Q=="
+          }
+        }
+      },
+      {
+        "version": "V3.1 测试版",
+        "statisticsVersion": "V3.1-test",
+        "internalVersion": "R36-H",
+        "downloadVariant": "enhanced",
+        "baseVersion": "2.10",
+        "installationVersion": "2.11",
+        "camera": "RICOH GR III / HDF",
+        "filename": "fwdc239b.bin",
+        "sha256": "d81ad2b009f9e75afff10b15cf6890c01872eb5c950138eb502f87823a2c2971",
+        "testRelease": true,
+        "hardwareTested": false,
+        "releaseDate": "2026-10-26",
+        "size": 38356480,
+        "downloadSize": 38356496,
+        "transportSha256": "2150667beba7c704f637501520f8d5f8f23aa45cba3d27b51b369e625650ae96",
+        "parts": [
+          {
+            "file": "test-gr3-v31-r36-enhanced.part1",
+            "size": 16777216,
+            "sha256": "6a4e76c7e6c4d750f8a840eff3514214e1f0d6961b31a525a9cca6161732b905"
+          },
+          {
+            "file": "test-gr3-v31-r36-enhanced.part2",
+            "size": 16777216,
+            "sha256": "821e81b974a0f085adc7cf553c8b565f4aedefb07d6722ce7fd324b26cfb6b69"
+          },
+          {
+            "file": "test-gr3-v31-r36-enhanced.part3",
+            "size": 4802064,
+            "sha256": "b3a297e11db765b4e9483888c477ccdae9137b3c8c914f2b6ad30da7fca14b32"
+          }
+        ],
+        "encryption": {
+          "algorithm": "AES-GCM",
+          "kdf": "PBKDF2",
+          "iterations": 210000,
+          "salt": "eRTVO0Wgt3h8sO91cgJiyA==",
+          "iv": "4opuVV8ERcI36678",
+          "check": {
+            "iv": "Zy0D4JjbvxKwGgGn",
+            "ciphertext": "VoV2rJPGKmneJUF56YUWwW9juRUVyGNbqKoDsodFoBwA44eMy0dCawEy96YSUU3xJxwLdWbrXSo5CSX1dVHMCw=="
+          }
+        }
+      }
+    ],
+    "supplement": {
+      "version": "V3.1-test",
+      "camera": "XerFilm GR test kit",
+      "filename": "XerFilm-GR-V3.1-附带测试包.zip",
+      "supplement": true,
+      "size": 63635,
+      "sha256": "6da2ccd98de4b04bd269924d58b1dda2cd80c0d3cf08a7fc5990b718646dc1df",
+      "downloadSize": 63651,
+      "transportSha256": "1d528f9300e6001def89d3dc26304db061e558aa6b1092b1926eefe1375890d5",
+      "parts": [
+        {
+          "file": "test-v31-supplement-20261026.part1",
+          "size": 63651,
+          "sha256": "1d528f9300e6001def89d3dc26304db061e558aa6b1092b1926eefe1375890d5"
+        }
+      ],
+      "encryption": {
+        "algorithm": "AES-GCM",
+        "kdf": "PBKDF2",
+        "iterations": 210000,
+        "salt": "eRTVO0Wgt3h8sO91cgJiyA==",
+        "iv": "xUP+ZXfDPvYVtIXS",
+        "check": {
+          "iv": "KwBBAF4gGs57Myfp",
+          "ciphertext": "pbyo9wIMhIpUbgSMqMQC9HQ6W9nRFpT7etxm5aEmlCYWSg7njTv8q/TY2HaJNErY9bxmlBrLYh+KbpPh"
+        }
+      }
+    }
+  },
+  "gr3x": {
+    "id": "gr3x",
+    "camera": "RICOH GR IIIx / HDF",
+    "revision": "R35",
+    "version": "V3.1 测试版",
+    "firmware": [
+      {
+        "version": "V3.1 测试版",
+        "statisticsVersion": "V3.1-test",
+        "internalVersion": "R35",
+        "downloadVariant": "standard",
+        "baseVersion": "1.60",
+        "installationVersion": "1.60",
+        "camera": "RICOH GR IIIx / HDF",
+        "filename": "fwdc243b.bin",
+        "sha256": "87557bb6c52305e5c48804dc4dfa917f976cdc185d311bcce5f3b64e9fbcdf75",
+        "testRelease": true,
+        "hardwareTested": false,
+        "releaseDate": "2026-10-26",
+        "size": 38315716,
+        "downloadSize": 38315732,
+        "transportSha256": "fc120592ad7db921cb3ca49d93e614936d5484a943a7b5848a6edacd333a63c7",
+        "parts": [
+          {
+            "file": "test-gr3x-v31-r35-standard.part1",
+            "size": 16777216,
+            "sha256": "5485d77ec5d210c29c3ca7cc6bf5dd0617ce29f530c832b3b4bc324855175db5"
+          },
+          {
+            "file": "test-gr3x-v31-r35-standard.part2",
+            "size": 16777216,
+            "sha256": "5c6112ecce4a11acbe38167fd6622e3beb3224ce40391b88c431f86536f0d2a8"
+          },
+          {
+            "file": "test-gr3x-v31-r35-standard.part3",
+            "size": 4761300,
+            "sha256": "c88044bd1b79812dfd9e2fe9b64257c10dc5e2cd49e6e355c0fa18a8b64321d0"
+          }
+        ],
+        "encryption": {
+          "algorithm": "AES-GCM",
+          "kdf": "PBKDF2",
+          "iterations": 210000,
+          "salt": "eRTVO0Wgt3h8sO91cgJiyA==",
+          "iv": "2Izu7pbZAD/XqiWg",
+          "check": {
+            "iv": "dNDFdSXc2hF/3gBZ",
+            "ciphertext": "KEywL9Vg7NQW1jStCKsyIUMxmb8yMruGasWHCPIAJPzdeUOzVLkrLwiB+TAezRR5gUZS0BoYVpKqDSwBfiLwjQU="
+          }
+        }
+      },
+      {
+        "version": "V3.1 测试版",
+        "statisticsVersion": "V3.1-test",
+        "internalVersion": "R35-H",
+        "downloadVariant": "enhanced",
+        "baseVersion": "1.60",
+        "installationVersion": "1.61",
+        "camera": "RICOH GR IIIx / HDF",
+        "filename": "fwdc243b.bin",
+        "sha256": "3069eeccde6f0cdc2456ab50f2eedab985036eec7e73bef1ed03b807fde02d07",
+        "testRelease": true,
+        "hardwareTested": false,
+        "releaseDate": "2026-10-26",
+        "size": 38356476,
+        "downloadSize": 38356492,
+        "transportSha256": "dbc1769920ec78fcdafaf820990cbd52c14ad2d77cc3113e544b465819cafc2c",
+        "parts": [
+          {
+            "file": "test-gr3x-v31-r35-enhanced.part1",
+            "size": 16777216,
+            "sha256": "10178470ebf24c3a2b3315b07a0fe3d363dd5c28712fc5f3a73a8cf8afcb714a"
+          },
+          {
+            "file": "test-gr3x-v31-r35-enhanced.part2",
+            "size": 16777216,
+            "sha256": "8b7cda19f3918302c43f9ecfca2f48de814d9f6383dca8e07a3271d1ca1aecf4"
+          },
+          {
+            "file": "test-gr3x-v31-r35-enhanced.part3",
+            "size": 4802060,
+            "sha256": "2c22bc95085f893bb7e39ff44172e7471db7ea6f11c97cb2e60bdf099a0bd770"
+          }
+        ],
+        "encryption": {
+          "algorithm": "AES-GCM",
+          "kdf": "PBKDF2",
+          "iterations": 210000,
+          "salt": "eRTVO0Wgt3h8sO91cgJiyA==",
+          "iv": "8eBzjRBql5MqN7i3",
+          "check": {
+            "iv": "9C+7+V0iOfpC2Sa/",
+            "ciphertext": "LVZyTOsMfdZSpEFRW2PihGVQ4zdCn5/1UHk34qKug1JBj5WnH9I5GsTxJDnPxkSPOxQienbjNVt6BZjsqFmJAwg="
+          }
+        }
+      }
+    ],
+    "supplement": {
+      "version": "V3.1-test",
+      "camera": "XerFilm GR test kit",
+      "filename": "XerFilm-GR-V3.1-附带测试包.zip",
+      "supplement": true,
+      "size": 63635,
+      "sha256": "6da2ccd98de4b04bd269924d58b1dda2cd80c0d3cf08a7fc5990b718646dc1df",
+      "downloadSize": 63651,
+      "transportSha256": "1d528f9300e6001def89d3dc26304db061e558aa6b1092b1926eefe1375890d5",
+      "parts": [
+        {
+          "file": "test-v31-supplement-20261026.part1",
+          "size": 63651,
+          "sha256": "1d528f9300e6001def89d3dc26304db061e558aa6b1092b1926eefe1375890d5"
+        }
+      ],
+      "encryption": {
+        "algorithm": "AES-GCM",
+        "kdf": "PBKDF2",
+        "iterations": 210000,
+        "salt": "eRTVO0Wgt3h8sO91cgJiyA==",
+        "iv": "xUP+ZXfDPvYVtIXS",
+        "check": {
+          "iv": "KwBBAF4gGs57Myfp",
+          "ciphertext": "pbyo9wIMhIpUbgSMqMQC9HQ6W9nRFpT7etxm5aEmlCYWSg7njTv8q/TY2HaJNErY9bxmlBrLYh+KbpPh"
+        }
+      }
+    }
+  }
+}
