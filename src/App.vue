@@ -8,6 +8,7 @@ import release from './release.json';
 import originalReleases from './original-releases.json';
 import historicalSource from './historical-source.json';
 import { loadFirmware, unlockFirmware } from './download';
+import { createOriginalRestoreGate } from './original-restore-gate';
 import { trackFirmwareDownload } from './download-statistics';
 import { cameras, fileSize, enhancedReleases, isModelAvailable } from './releases';
 import EnhancedDownload from './EnhancedDownload.vue';
@@ -94,6 +95,12 @@ const testBusy = ref(false);
 const progress = ref(0);
 const downloadState = ref('');
 const stockDownloadId = ref('');
+const originalRestoreTarget = shallowRef(null);
+const originalRestoreRemaining = ref(10);
+const originalRestoreAcknowledged = ref(false);
+const originalRestoreGate = createOriginalRestoreGate();
+let originalRestoreTimer;
+const originalRestoreAllowed = computed(() => originalRestoreRemaining.value === 0 && originalRestoreAcknowledged.value && !!originalRestoreTarget.value);
 let controller;
 let downloadAttempt = 0;
 let lastFocus;
@@ -136,13 +143,31 @@ async function openDrawer(kind) {
 }
 function resetPassword() { unlockAttempt++; password.value = ''; passwordError.value = false; unlocking.value = false; decryptionKey.value = null; }
 function cancelDownload() { controller?.abort(); downloadAttempt++; busy.value = false; downloadState.value = ''; stockDownloadId.value = ''; }
+function resetOriginalRestore() {
+  clearInterval(originalRestoreTimer); originalRestoreTimer = undefined; originalRestoreGate.reset();
+  originalRestoreTarget.value = null; originalRestoreRemaining.value = 10; originalRestoreAcknowledged.value = false;
+}
+function requestOriginal(target) {
+  if (!isModelAvailable(target.id) || drawer.value !== 'original' || busy.value || enhancedBusy.value || testBusy.value) return;
+  cancelDownload(); resetOriginalRestore(); originalRestoreTarget.value = target;
+  originalRestoreGate.start(target.id); drawer.value = 'original-confirm';
+  originalRestoreTimer = setInterval(() => {
+    originalRestoreRemaining.value = originalRestoreGate.remaining();
+    if (!originalRestoreRemaining.value) { clearInterval(originalRestoreTimer); originalRestoreTimer = undefined; }
+  }, 100);
+  nextTick(() => { dialog.value.scrollTop = 0; dialog.value.querySelector('button')?.focus(); });
+}
+function backToOriginal() {
+  cancelDownload(); resetOriginalRestore(); drawer.value = 'original';
+  nextTick(() => { dialog.value.scrollTop = 0; dialog.value.querySelector('button')?.focus(); });
+}
 function closeDrawer() {
-  cancelDownload(); resetPassword();
+  cancelDownload(); resetPassword(); resetOriginalRestore();
   dialog.value?.close(); drawer.value = '';
   document.body.style.overflow = '';
   lastFocus?.focus?.();
 }
-function onDialogClose() { cancelDownload(); resetPassword(); drawer.value = ''; document.body.style.overflow = ''; }
+function onDialogClose() { cancelDownload(); resetPassword(); resetOriginalRestore(); drawer.value = ''; document.body.style.overflow = ''; }
 function blockTransfer(event) { event.preventDefault(); inputHint.value = t.value.blocked; }
 function beforeInput(event) { if (['insertFromPaste', 'insertFromDrop', 'insertReplacementText'].includes(event.inputType)) blockTransfer(event); }
 async function downloadFirmware() {
@@ -164,13 +189,13 @@ async function downloadFirmware() {
   finally { if (attempt === downloadAttempt) busy.value = false; }
 }
 async function downloadOriginal(target) {
-  if (!isModelAvailable(target.id) || drawer.value !== 'original' || busy.value || enhancedBusy.value || testBusy.value) return;
+  if (!target || !isModelAvailable(target.id) || drawer.value !== 'original-confirm' || originalRestoreTarget.value !== target || !originalRestoreGate.allows(target.id, originalRestoreAcknowledged.value) || busy.value || enhancedBusy.value || testBusy.value || downloadState.value === 'saved') return;
   const attempt = ++downloadAttempt;
   const activeController = new AbortController(); controller = activeController;
   busy.value = true; stockDownloadId.value = target.id; progress.value = 0; downloadState.value = 'downloading';
   try {
     const blob = await loadFirmware(target, { signal: activeController.signal, onProgress: value => { if (attempt !== downloadAttempt) return; progress.value = value; if (value === 1) downloadState.value = 'checking'; } });
-    if (attempt !== downloadAttempt || drawer.value !== 'original') return;
+    if (attempt !== downloadAttempt || drawer.value !== 'original-confirm' || !originalRestoreGate.allows(target.id, originalRestoreAcknowledged.value)) return;
     const url = URL.createObjectURL(blob); const anchor = document.createElement('a'); anchor.href = url; anchor.download = target.filename;
     document.body.append(anchor); anchor.click(); anchor.remove(); setTimeout(() => URL.revokeObjectURL(url), 60000); downloadState.value = 'saved'; trackFirmwareDownload(target);
   } catch (error) { if (attempt === downloadAttempt && error.name !== 'AbortError') downloadState.value = 'failed'; }
@@ -188,7 +213,7 @@ async function unlockDownload() {
   } catch { if (attempt === unlockAttempt) passwordError.value = true; }
   finally { if (attempt === unlockAttempt) unlocking.value = false; }
 }
-onBeforeUnmount(() => { stopEngagement?.(); window.removeEventListener('hashchange', syncPage); window.removeEventListener('popstate', syncPage); controller?.abort(); document.body.style.overflow = ''; });
+onBeforeUnmount(() => { stopEngagement?.(); window.removeEventListener('hashchange', syncPage); window.removeEventListener('popstate', syncPage); resetOriginalRestore(); controller?.abort(); document.body.style.overflow = ''; });
 </script>
 
 <template>
@@ -248,9 +273,9 @@ onBeforeUnmount(() => { stopEngagement?.(); window.removeEventListener('hashchan
   <StudioEditor v-else :language="language" :theme="theme" />
   <footer class="site-footer"><div class="footer-main"><a href="https://xergnik.com/">© 2026 XER_GNIK <span>↗</span></a><div><p>{{ t.location }}</p></div><div><a class="footer-email" href="mailto:hello@xergnik.com">hello@xergnik.com</a></div><div class="footer-support"><a href="https://xergnik.com/support/" target="_blank" rel="noopener noreferrer">{{ t.support }} <span>↗</span></a></div></div><div v-if="!communitySection" class="footer-bottom"><p>{{ t.footerNote }}</p><div class="source-links"><a class="project-source" href="https://github.com/RexKing624/XerFilm-GR-Website" target="_blank" rel="noopener noreferrer">{{ t.projectSource }} ↗</a><details class="firmware-source"><summary>{{ t.firmwareSource }}</summary><a class="project-source" :href="historicalSourceURL" :title="t.historicalSourceNote" download="XerFilm-GR-V1.1-source.zip">V1.1 ↓</a></details></div><details><summary>{{ t.licenses }}</summary><p>{{ t.origin }}</p><div class="credit-links"><a :href="licenseURL" target="_blank" rel="noopener">GPL-2.0</a><a href="https://github.com/Maxwooow/Ricoh-GRMod" target="_blank" rel="noopener">Ricoh-GRMod</a><a href="https://github.com/DoYitNow/gr-custom-tool" target="_blank" rel="noopener">gr-custom-tool</a></div></details><a :href="communityPage ? '/community/#top' : '/#top'" :aria-label="t.home" @click.prevent="scrollToTop">↑</a></div></footer>
 
-  <dialog ref="dialog" class="drawer" :class="{ 'download-drawer':drawer === 'download' }" :aria-labelledby="'drawer-title'" @close="onDialogClose" @cancel.prevent="closeDrawer" @click="($event.target === dialog) && closeDrawer()">
+  <dialog ref="dialog" class="drawer" :class="{ 'download-drawer':drawer === 'download', 'original-restore-drawer':drawer === 'original-confirm' }" :role="drawer === 'original-confirm' ? 'alertdialog' : 'dialog'" :aria-describedby="drawer === 'original-confirm' ? 'original-restore-risk' : undefined" :aria-labelledby="'drawer-title'" @close="onDialogClose" @cancel.prevent="closeDrawer" @click="($event.target === dialog) && closeDrawer()">
    <div class="drawer-surface">
-    <div class="drawer-header"><div><span class="eyebrow">{{ `${drawer === 'original' ? 'ORIGINAL FIRMWARE' : drawer === 'films' ? 'FILM CATALOG' : 'DOWNLOAD'} / ${drawer === 'original' ? 'BACKUPS' : selectedRelease.version}` }}</span><h2 id="drawer-title">{{ drawer === 'original' ? t.originalTitle : drawer === 'films' ? t.library : selectedCamera.label }}</h2></div><button class="close-button" :aria-label="t.close" @click="closeDrawer">✕</button></div>
+    <div class="drawer-header"><div><span class="eyebrow">{{ `${drawer.startsWith('original') ? 'ORIGINAL FIRMWARE' : drawer === 'films' ? 'FILM CATALOG' : 'DOWNLOAD'} / ${drawer.startsWith('original') ? 'BACKUPS' : selectedRelease.version}` }}</span><h2 id="drawer-title">{{ drawer === 'original-confirm' ? t.originalRestoreTitle : drawer === 'original' ? t.originalTitle : drawer === 'films' ? t.library : selectedCamera.label }}</h2></div><button class="close-button" :aria-label="t.close" @click="closeDrawer">✕</button></div>
     <template v-if="drawer === 'films'">
      <p class="drawer-intro">{{ t.libraryIntro }}</p><div class="catalog-toolbar"><div class="filters" role="group" :aria-label="t.library"><button v-for="brand in ['all','FUJIFILM','KODAK']" :key="brand" :class="{ active:filter === brand }" :aria-pressed="filter === brand" @click="filter = brand">{{ brand === 'all' ? t.all : brand }}</button></div><input v-model="search" type="search" :placeholder="t.search" :aria-label="t.search"></div><p class="catalog-count">{{ t.count }}</p>
      <div class="catalog-grid"><article v-for="film in filteredFilms" :key="film.name" class="catalog-film"><a class="catalog-family catalog-film-link" :href="photoGalleryURL(filmPhotoFilterId(film))" :aria-label="`${film.name} · ${photoLabels.viewPhotos}`"><img :src="filmIcon(film.icon)" :alt="film.name"><div><span>{{ film.brand }}</span><h3>{{ film.name }}</h3></div><span class="catalog-photo-arrow" aria-hidden="true">↗</span></a><div v-if="film.variants.length" class="variants"><span>{{ t.variants }}</span><a class="variant catalog-film-link" v-for="variant in film.variants" :key="variant.name" :href="photoGalleryURL(`builtin-${variant.icon}`)" :aria-label="`${film.name} ${variant.name} · ${photoLabels.viewPhotos}`"><img :src="filmIcon(variant.icon)" :alt="`${film.name} ${variant.name}`"><span>{{ variant.name }}</span></a></div></article></div><p v-if="!filteredFilms.length" class="empty">{{ t.noResult }}</p><div class="catalog-footer">{{ t.curated }} {{ ct.compatibility }}</div>
@@ -260,10 +285,20 @@ onBeforeUnmount(() => { stopEngagement?.(); window.removeEventListener('hashchan
      <div class="official-update-alert" role="note"><strong>{{ t.officialUpdateTitle }}</strong><p>{{ t.officialUpdateNotice }}</p></div>
      <div class="original-firmware-grid"><article v-for="stock in originalReleases" :key="stock.id" class="original-firmware-card">
       <h3>{{ stock.label }}</h3><p>{{ t.originalVersion }} {{ stock.version }} · {{ fileSize(stock) }}</p><code>{{ stock.filename }}</code>
-      <button class="outlined" type="button" :disabled="!isModelAvailable(stock.id) || busy || enhancedBusy || testBusy" @click="downloadOriginal(stock)">{{ !isModelAvailable(stock.id) ? t.downloadSuspended : busy && stockDownloadId === stock.id ? t[downloadState] : t.originalDownload }} <span aria-hidden="true">↓</span></button>
+      <button class="outlined" type="button" :disabled="!isModelAvailable(stock.id) || busy || enhancedBusy || testBusy" @click="requestOriginal(stock)">{{ !isModelAvailable(stock.id) ? t.downloadSuspended : t.originalDownload }} <span aria-hidden="true">↓</span></button>
       <template v-if="stockDownloadId === stock.id"><progress v-if="busy" :value="progress" max="1" :aria-label="t.downloading"></progress><div class="download-feedback" aria-live="polite"><span>{{ t[downloadState] }} {{ busy ? `${Math.round(progress*100)}%` : '' }}</span><button v-if="busy" class="text-link" @click="cancelDownload">{{ t.cancel }}</button></div></template>
       <details class="original-checksum"><summary>{{ t.checksum }}</summary><code>{{ stock.sha256 }}</code></details>
      </article></div><p class="download-hint">{{ t.originalBackupOnly }}</p>
+    </template>
+    <template v-if="drawer === 'original-confirm' && originalRestoreTarget">
+     <p class="original-restore-model">{{ originalRestoreTarget.label }} · {{ t.originalVersion }} {{ originalRestoreTarget.version }} <code>{{ originalRestoreTarget.filename }}</code></p>
+     <div id="original-restore-risk" class="original-restore-risk" role="note"><span aria-hidden="true">!</span><strong>{{ t.originalRestoreRisk }}</strong></div>
+     <ol class="original-restore-steps"><li v-for="step in t.originalRestoreSteps" :key="step">{{ step }}</li></ol>
+     <p class="original-restore-incomplete">{{ t.originalRestoreIncomplete }}</p>
+     <p v-if="originalRestoreRemaining > 0" class="original-restore-countdown" role="timer" aria-live="off">{{ t.originalRestoreWait.replace('{seconds}', originalRestoreRemaining) }}</p>
+     <label v-else class="original-restore-ack" :class="{checked:originalRestoreAcknowledged}"><input v-model="originalRestoreAcknowledged" type="checkbox" :disabled="busy || downloadState === 'saved'" required><span>{{ t.originalRestoreAcknowledge }}</span></label>
+     <div class="original-restore-actions"><button class="outlined" type="button" @click="backToOriginal">{{ t.cancel }}</button><button class="primary original-restore-download" type="button" :disabled="!originalRestoreAllowed || busy || enhancedBusy || testBusy || downloadState === 'saved'" @click="downloadOriginal(originalRestoreTarget)"><span>{{ busy || downloadState === 'saved' ? t[downloadState] : t.originalRestoreConfirm }}</span><span aria-hidden="true">↓</span></button></div>
+     <progress v-if="busy" :value="progress" max="1" :aria-label="t.downloading"></progress><div class="download-feedback" aria-live="polite"><span v-if="downloadState">{{ t[downloadState] }} {{ busy ? `${Math.round(progress*100)}%` : '' }}</span><button v-if="busy" class="text-link" @click="cancelDownload">{{ t.cancel }}</button></div>
     </template>
     <template v-if="drawer === 'download' && isModelAvailable(selectedModel)">
      <p class="drawer-intro">{{ t.downloadIntro }}</p>

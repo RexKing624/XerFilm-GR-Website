@@ -9,6 +9,7 @@
     "preview": "vite preview --host 127.0.0.1 --port 5178",
     "check:release": "node scripts/check-release.mjs",
     "test:downloads": "node scripts/test-download.mjs",
+    "test:original-restore": "node --test scripts/test-original-restore-gate.mjs",
     "test:statistics": "node --test statistics/test/*.test.mjs",
     "test:photography": "node scripts/test-photography.mjs",
     "test:summary": "node --test public-summary/test/*.test.mjs"
