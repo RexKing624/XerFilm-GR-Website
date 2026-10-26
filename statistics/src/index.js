@@ -1,7 +1,8 @@
 import adminHTML from './admin.html';
 import {handleRequest} from './core.js';
 import {handleEngagement} from './engagement.js';
+import {handleAdminAccess} from './admin-access.js';
 export default {fetch(request,env){
  const path=new URL(request.url).pathname;
- return ['/api/public-stats','/api/likes','/api/likes/state'].includes(path)?handleEngagement(request,env):handleRequest(request,env,adminHTML);
+ return handleAdminAccess(request,()=>['/api/public-stats','/api/likes','/api/likes/state'].includes(path)?handleEngagement(request,env):handleRequest(request,env,adminHTML));
 }};
