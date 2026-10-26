@@ -9,7 +9,7 @@
   "vars": {
     "START_DATE": "2026-10-25",
     "ALLOWED_ORIGIN": "https://filmgr.xergnik.com",
-    "HISTORICAL_ESTIMATE": "850"
+    "HISTORICAL_ESTIMATE": "0"
   },
   "d1_databases": [
     {

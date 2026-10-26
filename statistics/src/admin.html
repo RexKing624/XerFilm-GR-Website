@@ -1,19 +1,334 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>XerFilm · 使用统计</title><style>
-:root{color-scheme:dark;--bg:#151714;--card:#1e221b;--fg:#eeeedc;--muted:#a5ac9c;--line:#3b4234;--accent:#d3e68c}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,sans-serif}main{max-width:1200px;margin:auto;padding:36px 28px 70px}header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:22px;gap:20px}a{color:var(--muted);text-underline-offset:5px}small,.muted{color:var(--muted)}.eyebrow{font:12px ui-monospace,monospace;letter-spacing:.15em}h1{font-size:36px;letter-spacing:-.04em;margin:8px 0 0}h2{font-size:20px;font-weight:500;margin:0 0 18px}p{margin:12px 0}button,input{font:inherit;border:1px solid var(--line);padding:11px 16px;background:transparent;color:var(--fg);border-radius:0}button{cursor:pointer}button:disabled{opacity:.5;cursor:wait}button:hover{border-color:var(--accent)}.primary{background:var(--accent);color:#151714;border-color:var(--accent)}.login{max-width:480px;margin:90px auto;padding:32px;border:1px solid var(--line)}.login input{width:100%;margin:10px 0 16px}.login button{width:100%}.error{color:#f39c8b;min-height:1.6em}.toolbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;margin:32px 0 22px}.filters{display:flex;gap:8px;flex-wrap:wrap}.filters button[aria-pressed=true]{color:var(--accent);border-color:var(--accent)}.metrics{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);margin-bottom:30px}.metric{padding:24px;border-right:1px solid var(--line)}.metric:nth-child(3n){border-right:0}.metric:nth-child(-n+3){border-bottom:1px solid var(--line)}.metric strong{display:block;font:42px/1.4 ui-monospace,monospace}.metric small{display:block;margin-top:8px;font-size:12px}.metric span{color:var(--muted);font-size:14px}.panel{border:1px solid var(--line);background:var(--card);padding:24px;margin:22px 0}.chart{height:155px;display:flex;gap:5px;align-items:end;border-bottom:1px solid var(--line)}.bar{flex:1;min-width:2px;background:var(--accent);opacity:.8;position:relative}.bar:hover{opacity:1}.chart-caption{display:flex;justify-content:space-between;margin-top:9px;color:var(--muted);font-size:12px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;white-space:nowrap;text-align:left}th{font-weight:400;color:var(--muted);font-size:13px}th,td{padding:14px 12px;border-bottom:1px solid var(--line)}th:first-child,td:first-child{padding-left:0}th:last-child,td:last-child{text-align:right;padding-right:0}.footer{border-top:1px solid var(--line);padding-top:22px;color:var(--muted);font-size:13px}.footer a{margin-right:22px}[hidden]{display:none!important}@media(max-width:700px){main{padding:24px 18px}.metrics{grid-template-columns:repeat(2,1fr)}.metric:nth-child(3n){border-right:1px solid var(--line)}.metric:nth-child(2n){border-right:0}.metric:nth-child(-n+4){border-bottom:1px solid var(--line)}h1{font-size:29px}.metric{padding:18px}.metric strong{font-size:32px}.panel{padding:18px}}
-</style></head><body><main><header><div><div class="eyebrow">XERFILM / PRIVATE STATISTICS</div><h1>每一次使用，留个数。</h1></div><a href="https://filmgr.xergnik.com/" target="_blank" rel="noopener">返回官网 ↗</a></header>
-<section class="login" id="login"><h2>使用统计</h2><p class="muted">输入管理口令查看。口令仅在当前页面内存中保留。</p><form id="login-form"><label for="token">管理口令</label><input id="token" type="password" autocomplete="off" required><button class="primary" id="login-button">查看统计 ↗</button><p class="error" id="login-error" role="alert"></p></form></section>
-<section id="dashboard" hidden><div class="toolbar"><div><p class="eyebrow" id="period"></p><small id="updated"></small></div><div><button id="refresh">刷新 ↻</button> <button id="logout">退出</button></div></div><div class="metrics"><div class="metric"><strong id="total">0</strong><span>累计固件下载（含历史估算）</span><small id="total-breakdown"></small></div><div class="metric"><strong id="today">0</strong><span>今日固件下载</span></div><div class="metric"><strong id="month">0</strong><span>本月固件下载</span></div><div class="metric"><strong id="community">0</strong><span>所选期间 · 社群效果下载</span></div><div class="metric"><strong id="studio-total">0</strong><span>累计工具成功导出</span><small id="studio-recent"></small></div><div class="metric"><strong id="studio-files">0</strong><span>累计生成胶片包</span><small id="studio-films"></small></div></div><div class="toolbar"><div class="filters" id="filters"><button data-days="7">近 7 天</button><button data-days="30" aria-pressed="true">近 30 天</button><button data-days="90">近 90 天</button><button data-days="all">全部</button></div><button id="csv">导出 CSV ↓</button></div><p class="error" id="data-error" role="alert"></p><section class="panel"><h2>固件下载趋势</h2><div class="chart" id="chart" aria-label="每天固件下载量"></div><div class="chart-caption"><span id="from"></span><span id="chart-hint"></span><span id="to"></span></div></section><section class="panel"><h2>机型与版本</h2><div class="table-wrap"><table><thead><tr><th>类型 / 机型</th><th>版本</th><th>普通 / 增强</th><th>包编号</th><th>下载次数</th></tr></thead><tbody id="rows"></tbody></table></div><p class="muted" id="empty">这段时间还没有记录。</p></section><section class="panel"><div class="toolbar" style="margin-top:0"><div><h2>工具导出</h2><p class="muted" id="studio-period"></p></div><button id="studio-csv">导出工具统计 CSV ↓</button></div><div class="table-wrap"><table><thead><tr><th>日期（日本时间）</th><th>成功导出次数</th><th>胶片包数量</th><th>子胶片数量</th></tr></thead><tbody id="studio-rows"></tbody></table></div><p class="muted" id="studio-empty">这段时间还没有导出记录。</p><p class="muted">一次成功生成并触发保存记为一次导出；一个用户槽位对应一个胶片包。重复导出会再次计数，不代表不同作品或人数。</p></section><footer class="footer"><p>从 2026-10-25 开始实测记录 · 以日本时间划分日期。历史估算仅计入累计；每日趋势、机型明细和 CSV 均只含实测记录。统计完整校验通过并触发保存的次数，无法确认用户最终写入磁盘或刷入相机。工具导出从本功能上线起计数，只记录成功次数、胶片包与子胶片数量，不记录名称、XMP、图片、设备码、IP 或访客身份。</p><p><a href="https://filmgr.xergnik.com/?download-statistics=off" target="_blank" rel="noopener">排除这个浏览器的测试统计 ↗</a><a href="https://filmgr.xergnik.com/?download-statistics=on" target="_blank" rel="noopener">恢复这个浏览器的统计 ↗</a></p></footer></section></main>
+:root{color-scheme:dark;--bg:#151714;--card:#1d201c;--fg:#eeeede;--muted:#a5ab9e;--line:#363a32;--accent:#d7ed83;--accent-ink:#222a13;--soft:#272b23;--danger:#f39c8b;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC","Hiragino Sans GB",sans-serif;font-synthesis:none}
+:root[data-theme=light]{color-scheme:light;--bg:#f5f3ec;--card:#ebe9df;--fg:#262b23;--muted:#646d5d;--line:#d3d5c7;--accent:#435a28;--accent-ink:#fff;--soft:#e0e4d3;--danger:#a84134}
+*{box-sizing:border-box}html{scrollbar-gutter:stable}body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.7 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif}main{max-width:1512px;margin:auto;padding:0 5% 50px}a{color:inherit;text-decoration:none}a:hover{text-decoration:underline;text-underline-offset:5px}button,input{font:inherit;color:inherit;border-radius:0}button{cursor:pointer;border:1px solid var(--line);background:transparent;padding:10px 15px;font-size:11px;transition:background .15s,border-color .15s}button:hover{border-color:var(--muted);background:var(--soft)}button:disabled{opacity:.45;cursor:wait}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:4px}p,h1,h2{margin:0}small,.muted{color:var(--muted)}.eyebrow{font:10px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.12em;text-transform:uppercase}.site-header{min-height:108px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);gap:20px}.brand{display:flex;align-items:center;gap:15px}.brand:hover{text-decoration:none}.brand svg{width:46px;height:46px;flex-shrink:0;color:var(--accent)}.brand strong{display:block;font-size:21px;font-weight:550;letter-spacing:-.04em;line-height:1.3}.brand small{display:block;font-size:8px;letter-spacing:.13em;font-weight:400;margin-top:5px}.header-tools{display:flex;align-items:center;gap:25px;font-size:11px}.private-label{color:var(--muted);font:9px ui-monospace,monospace;letter-spacing:.1em}.private-label:before{content:"";display:inline-block;width:5px;height:5px;margin-right:7px;background:var(--accent);border-radius:50%;vertical-align:middle}.theme-switch{height:34px;width:34px;border:1px solid var(--line);display:grid;place-items:center;border-radius:50%;padding:0}.theme-switch svg{width:16px;fill:none;stroke:currentColor;stroke-width:1.5}.theme-switch .moon{display:none}:root[data-theme=light] .theme-switch .sun{display:none}:root[data-theme=light] .theme-switch .moon{display:block}.intro{padding:40px 0 30px}.intro .eyebrow{color:var(--muted)}h1{font-size:clamp(29px,3vw,42px);line-height:1.25;font-weight:450;letter-spacing:-.045em;margin:14px 0 11px}h1 em{color:var(--accent);font-style:normal}.intro>p:last-child{font-size:12px;color:var(--muted)}h2{font-size:18px;font-weight:450;letter-spacing:-.025em}.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:550}.primary:hover{background:var(--accent);filter:brightness(1.05);border-color:var(--accent)}.login{max-width:460px;margin:25px auto 90px;padding:30px;border:1px solid var(--line);background:var(--card)}.login h2{font-size:24px;margin-bottom:12px}.login>p{font-size:12px;line-height:1.9}.login form{margin-top:22px}.login label{font-size:11px;color:var(--muted)}.login input{width:100%;background:var(--bg);border:1px solid var(--line);padding:12px;margin:9px 0 19px}.login button{width:100%;padding:13px 17px;text-align:left;font-size:12px}.error{color:var(--danger);font-size:11px;line-height:1.8}.error:empty{display:none}.error:not(:empty){margin:12px 0}.toolbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;margin:22px 0}.toolbar small{font:10px/1.8 ui-monospace,monospace}.toolbar .eyebrow{color:var(--muted);margin-bottom:3px}.toolbar>div:last-child{display:flex;gap:8px}.metrics{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));border:1px solid var(--line);margin-bottom:30px}.metric{grid-column:span 4;position:relative;padding:24px 28px 22px;border-right:1px solid var(--line);min-height:137px}.metric:nth-child(3),.metric:last-child{border-right:0}.metric:nth-child(n+4){grid-column:span 3}.metric:nth-child(-n+3){border-bottom:1px solid var(--line)}.metric:before{content:attr(data-index);display:block;font:9px ui-monospace,monospace;color:var(--muted);letter-spacing:.1em;margin-bottom:12px}.metric strong{font-size:clamp(30px,3.4vw,46px);font-weight:450;letter-spacing:-.055em;line-height:1.2;font-variant-numeric:tabular-nums}.metric span{display:block;color:var(--muted);font-size:11px;margin-top:10px}.metric small{display:block;margin-top:5px;font-size:10px;line-height:1.7}.metric:first-child strong{color:var(--accent)}.filters{display:flex;gap:4px;padding:3px;border:1px solid var(--line)}.filters button{border:0;padding:7px 13px;color:var(--muted)}.filters button[aria-pressed=true]{color:var(--accent-ink);background:var(--accent)}.panel{border:1px solid var(--line);background:var(--card);padding:27px 28px;margin:22px 0}.panel>h2{margin-bottom:18px}.section-number{display:block;font:9px ui-monospace,monospace;color:var(--muted);margin-bottom:9px;letter-spacing:.1em}.chart-heading{display:flex;justify-content:space-between;align-items:start;gap:20px;margin-bottom:35px}.chart-heading h2{font-size:22px}.chart-summary{display:flex;gap:28px;text-align:right}.chart-summary span{display:block;font-size:10px;color:var(--muted)}.chart-summary strong{display:block;font:24px/1.4 ui-monospace,monospace;font-weight:400;letter-spacing:-.04em;font-variant-numeric:tabular-nums}.chart-summary .chart-unit{display:inline;font:10px inherit;margin-left:5px}.chart-shell{display:grid;grid-template-columns:37px minmax(0,1fr);gap:0 12px}.chart-axis{position:relative;height:220px;font:9px ui-monospace,monospace;color:var(--muted)}.chart-axis span{position:absolute;right:0;transform:translateY(-50%)}.chart-area{position:relative;min-width:0}.chart-lines{position:absolute;inset:0;pointer-events:none}.chart-lines i{position:absolute;left:0;right:0;border-top:1px solid var(--line);opacity:.65}.chart-lines i:last-child{opacity:1}.chart{position:relative;height:220px;display:flex;gap:clamp(2px,.6vw,9px);align-items:stretch;isolation:isolate}.chart-column{position:relative;flex:1;min-width:0;padding:0;border:0;background:transparent;outline-offset:2px;touch-action:manipulation}.chart-column:hover,.chart-column:focus{background:color-mix(in srgb,var(--accent) 5%,transparent);z-index:2}.bar-fill{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:min(64%,32px);height:calc(var(--ratio)*100%);background:var(--accent);opacity:.75;transition:opacity .15s;pointer-events:none}.chart-column:hover .bar-fill,.chart-column:focus .bar-fill{opacity:1}.chart-column.is-latest .bar-fill{opacity:1}.bar-tip{position:absolute;bottom:calc(var(--ratio)*100% + 12px);left:50%;transform:translateX(-50%);width:148px;padding:11px 13px;text-align:left;background:var(--bg);border:1px solid var(--line);box-shadow:0 6px 20px #0002;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .12s}.bar-tip small{display:block;font:10px/1.8 ui-monospace,monospace;white-space:nowrap}.bar-tip strong{display:block;font-size:23px;font-weight:450;letter-spacing:-.04em;line-height:1.4;color:var(--fg)}.bar-tip em{font-size:10px;color:var(--muted);font-weight:400;font-style:normal;letter-spacing:0;margin-left:6px}.chart-column:hover .bar-tip,.chart-column:focus .bar-tip{opacity:1;visibility:visible}.chart-column:first-child .bar-tip{left:0;transform:none}.chart-column:last-child .bar-tip{left:auto;right:0;transform:none}.chart-dates{position:relative;height:27px;margin-top:12px;font:9px ui-monospace,monospace;color:var(--muted);grid-column:2}.chart-dates span{position:absolute;transform:translateX(-50%);white-space:nowrap}.chart-dates span:first-child{transform:none;left:0!important}.chart-dates span:last-child{transform:translateX(-100%);left:100%!important}.chart-dates span:only-child{left:50%!important;transform:translateX(-50%)}.chart-caption{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font:10px/1.8 ui-monospace,monospace;border-top:1px solid var(--line);padding-top:13px;margin-top:12px}.chart-caption #chart-hint{text-align:center}.table-wrap{overflow:auto;scrollbar-width:thin}table{border-collapse:collapse;width:100%;white-space:nowrap;text-align:left;font-variant-numeric:tabular-nums}th{font-weight:400;color:var(--muted);font-size:10px}th,td{padding:13px 12px;border-bottom:1px solid var(--line)}td{font-size:12px}tbody tr:hover{background:color-mix(in srgb,var(--accent) 3%,transparent)}th:first-child,td:first-child{padding-left:0}th:last-child,td:last-child{text-align:right;padding-right:0}tbody tr:last-child td{border-bottom:0}.panel>.muted{font-size:11px;line-height:1.9;margin-top:18px}.panel .toolbar{margin-bottom:10px}.panel .toolbar h2{margin-bottom:7px}.panel .toolbar .muted{font-size:11px}.footer{border-top:1px solid var(--line);padding-top:24px;margin-top:34px;font-size:10px;line-height:1.9;color:var(--muted)}.footer>p:first-child{max-width:850px}.footer>p+p{margin-top:15px}.footer a{display:inline-block;margin-right:24px;text-decoration:underline;text-underline-offset:5px}[hidden]{display:none!important}
+@media(max-width:760px){main{padding:0 5% 35px}.site-header{min-height:92px}.header-tools{gap:15px}.private-label{display:none}.brand strong{font-size:19px}.brand svg{width:40px;height:40px}.intro{padding:30px 0 18px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.metric{padding:19px;min-height:134px}.metric:nth-child(3n){border-right:1px solid var(--line)}.metric:nth-child(2n){border-right:0}.metric:nth-child(-n+4){border-bottom:1px solid var(--line)}.metric strong{font-size:34px}.panel{padding:22px 18px}.chart-heading{margin-bottom:30px}.chart-heading h2{font-size:19px}.chart-summary{gap:15px}.chart-summary strong{font-size:20px}.chart-shell{grid-template-columns:27px minmax(0,1fr);gap:0 7px}.chart-axis,.chart{height:190px}.chart-caption{font-size:9px}.bar-tip{width:132px}.filters button{padding:7px 10px}.login{margin-top:20px;padding:25px}}
+@media(max-width:440px){.header-tools>a{font-size:10px}.header-tools{gap:10px}.brand{gap:8px}.brand strong{font-size:17px}.brand small{font-size:7px}.chart-heading{flex-wrap:wrap;gap:15px}.chart-summary{width:100%;justify-content:flex-end}.chart-summary strong{font-size:21px}.chart-caption #chart-hint{display:none}.toolbar{gap:12px}.toolbar>div:last-child{flex-wrap:wrap}.panel{padding:20px 15px}.metric{padding:17px 15px}.metric strong{font-size:30px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+.language-switch{display:flex;align-items:center;gap:3px}.language-switch button{padding:0;width:33px;height:33px;border:0;border-radius:50%;color:var(--muted);font-size:12px}.language-switch button[aria-pressed=true]{background:var(--fg);color:var(--bg)}.language-switch button:hover{background:var(--soft);color:var(--fg)}.language-switch button[aria-pressed=true]:hover{background:var(--fg);color:var(--bg)}
+@media(max-width:650px){.site-header{flex-wrap:wrap;padding:18px 0;gap:18px}.header-tools{width:100%;justify-content:space-between;gap:10px}.header-tools .private-label{display:none}.site-header .brand small{font-size:8px}.chart-summary{flex-wrap:wrap}.chart-heading h2{line-height:1.4}.chart-summary strong{font-size:22px}}
+@media(max-width:760px){.metrics>.metric{grid-column:auto;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.metrics>.metric:nth-child(2n){border-right:0}.metrics>.metric:last-child{grid-column:1/-1;border:0}}
+</style></head><body><main><header class="site-header"><a class="brand" href="https://filmgr.xergnik.com/" target="_blank" rel="noopener" data-i18n-aria="home" aria-label="XerFilm GR 官网"><svg viewBox="0 0 80 80" aria-hidden="true"><g transform="translate(8 8)" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="miter" stroke-linecap="square"><path d="M10 42V10H42V19M22 23H54V55H22Z"/><path d="M31 48V31H47M31 39H43"/></g></svg><span><strong>XerFilm GR</strong><small>BY XER_GNIK / STATISTICS</small></span></a><div class="header-tools"><span class="private-label" data-i18n="private">PRIVATE ACCESS</span><a href="https://filmgr.xergnik.com/" target="_blank" rel="noopener" data-i18n="back">返回官网 ↗</a><div class="language-switch" role="group" data-i18n-aria="language" aria-label="语言"><button type="button" data-language="zh">中</button><button type="button" data-language="en">EN</button><button type="button" data-language="ja">日</button></div><button id="theme" class="theme-switch" type="button" data-i18n-aria="theme" data-i18n-title="theme" aria-label="切换明暗" title="切换明暗"><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4 19 5"/></svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.4A8.5 8.5 0 0 1 9.6 4a8.5 8.5 0 1 0 10.4 10.4Z"/></svg></button></div></header><section class="intro"><p class="eyebrow">XERFILM / PRIVATE STATISTICS</p><h1><span data-i18n="heading">每一次使用，</span><em data-i18n="headingAccent">留个数。</em></h1><p data-i18n="intro">下载、创作与分享，在这里慢慢积累。</p></section>
+<section class="login" id="login"><h2 data-i18n="loginTitle">使用统计</h2><p class="muted" data-i18n="loginNote">输入管理口令查看。口令仅在当前页面内存中保留。</p><form id="login-form"><label for="token" data-i18n="password">管理口令</label><input id="token" type="password" autocomplete="off" required><button class="primary" id="login-button" data-i18n="loginButton">查看统计 ↗</button><p class="error" id="login-error" role="alert"></p></form></section>
+<section id="dashboard" hidden><div class="toolbar"><div><p class="eyebrow" id="period"></p><small id="updated"></small></div><div><button id="refresh" data-i18n="refresh">刷新 ↻</button> <button id="logout" data-i18n="logout">退出</button></div></div><div class="metrics"><div class="metric" data-index="01"><strong id="total">0</strong><span data-i18n="total">累计固件下载</span></div><div class="metric" data-index="02"><strong id="today">0</strong><span data-i18n="today">今日固件下载</span></div><div class="metric" data-index="03"><strong id="month">0</strong><span data-i18n="month">本月固件下载</span></div><div class="metric" data-index="04"><strong id="community">0</strong><span data-i18n="community">所选期间 · 社群效果下载</span></div><div class="metric" data-index="05"><strong id="author-downloads">0</strong><span data-i18n="authorDownloads">所选期间 · 作者色彩补充包下载</span></div><div class="metric" data-index="06"><strong id="studio-total">0</strong><span data-i18n="studioTotal">累计工具成功导出</span><small id="studio-recent"></small></div><div class="metric" data-index="07"><strong id="studio-files">0</strong><span data-i18n="studioFiles">累计生成胶片包</span><small id="studio-films"></small></div></div><div class="toolbar"><div class="filters" id="filters"><button data-days="7" data-i18n="days7">近 7 天</button><button data-days="30" aria-pressed="true" data-i18n="days30">近 30 天</button><button data-days="90" data-i18n="days90">近 90 天</button><button data-days="all" data-i18n="all">全部</button></div><button id="csv" data-i18n="csv">导出 CSV ↓</button></div><p class="error" id="data-error" role="alert"></p><section class="panel"><div class="chart-heading"><div><span class="section-number">01 / DOWNLOADS</span><h2 data-i18n="chartTitle">固件下载趋势</h2></div><div class="chart-summary"><div><span data-i18n="period">所选期间</span><strong id="chart-total">0</strong></div><div><span data-i18n="peak">单日最高</span><strong id="chart-peak">0</strong></div></div></div><div class="chart-shell"><div class="chart-axis" id="chart-axis" aria-hidden="true"></div><div class="chart-area"><div class="chart-lines" id="chart-lines" aria-hidden="true"></div><div class="chart" id="chart" role="group" data-i18n-aria="chartAria" aria-label="每天固件下载量，点选或聚焦柱形查看当天数字"></div></div><div class="chart-dates" id="chart-dates" aria-hidden="true"></div></div><div class="chart-caption"><span id="from"></span><span id="chart-hint"></span><span id="to"></span></div></section><section class="panel"><span class="section-number">02 / VERSIONS</span><h2 data-i18n="versionsTitle">机型与版本</h2><div class="table-wrap"><table><thead><tr><th data-i18n="typeModel">类型 / 机型</th><th data-i18n="version">版本</th><th data-i18n="variant">普通 / 增强</th><th data-i18n="revision">包编号</th><th data-i18n="downloads">下载次数</th></tr></thead><tbody id="rows"></tbody></table></div><p class="muted" id="empty" data-i18n="empty">这段时间还没有记录。</p></section><section class="panel"><div class="toolbar" style="margin-top:0"><div><span class="section-number">03 / STUDIO</span><h2 data-i18n="studioTitle">工具导出</h2><p class="muted" id="studio-period"></p></div><button id="studio-csv" data-i18n="studioCSV">导出工具统计 CSV ↓</button></div><div class="table-wrap"><table><thead><tr><th data-i18n="dateTokyo">日期（日本时间）</th><th data-i18n="exportCount">成功导出次数</th><th data-i18n="packageCount">胶片包数量</th><th data-i18n="filmCount">子胶片数量</th></tr></thead><tbody id="studio-rows"></tbody></table></div><p class="muted" id="studio-empty" data-i18n="studioEmpty">这段时间还没有导出记录。</p><p class="muted" data-i18n="studioNote">一次成功生成并触发保存记为一次导出；一个用户槽位对应一个胶片包。重复导出会再次计数，不代表不同作品或人数。</p></section><footer class="footer"><p data-i18n="footer">统计按日本时间划分日期，下载量按机型和版本汇总。工具统计分别累计导出次数、胶片包数量与子胶片数量。数据不代表不同人数或相机安装数；不记录名称、XMP、图片、设备码、IP 或访客身份。</p><p><a href="https://filmgr.xergnik.com/?download-statistics=off" target="_blank" rel="noopener" data-i18n="exclude">排除这个浏览器的测试统计 ↗</a><a href="https://filmgr.xergnik.com/?download-statistics=on" target="_blank" rel="noopener" data-i18n="include">恢复这个浏览器的统计 ↗</a></p></footer></section></main>
 <script nonce="__NONCE__">
-const $=id=>document.getElementById(id);let token='',current,days='30';const models={gr3:'GR III / HDF',gr3x:'GR IIIx / HDF',gr4:'GR IV / HDF',community:'社群效果'},variants={standard:'普通版',enhanced:'增强版',original:'原厂备份',community:'效果包'};
+const $=id=>document.getElementById(id);
+const translations={
+ "zh": {
+  "pageTitle": "XerFilm · 使用统计",
+  "home": "XerFilm GR 官网",
+  "private": "仅供管理",
+  "back": "返回官网 ↗",
+  "language": "语言",
+  "theme": "切换明暗",
+  "heading": "每一次使用，",
+  "headingAccent": "留个数。",
+  "intro": "下载、创作与分享，在这里慢慢积累。",
+  "loginTitle": "使用统计",
+  "loginNote": "输入管理口令查看。口令仅在当前页面内存中保留。",
+  "password": "管理口令",
+  "loginButton": "查看统计 ↗",
+  "refresh": "刷新 ↻",
+  "logout": "退出",
+  "total": "累计固件下载",
+  "today": "今日固件下载",
+  "month": "本月固件下载",
+  "community": "所选期间 · 社群效果下载",
+  "studioTotal": "累计工具成功导出",
+  "studioFiles": "累计生成胶片包",
+  "days7": "近 7 天",
+  "days30": "近 30 天",
+  "days90": "近 90 天",
+  "all": "全部",
+  "csv": "导出 CSV ↓",
+  "chartTitle": "固件下载趋势",
+  "period": "所选期间",
+  "peak": "单日最高",
+  "chartAria": "每天固件下载量，点选或聚焦柱形查看当天数字",
+  "versionsTitle": "机型与版本",
+  "typeModel": "类型 / 机型",
+  "version": "版本",
+  "variant": "普通 / 增强",
+  "revision": "包编号",
+  "downloads": "下载次数",
+  "empty": "这段时间还没有记录。",
+  "studioTitle": "工具导出",
+  "studioCSV": "导出工具统计 CSV ↓",
+  "dateTokyo": "日期（日本时间）",
+  "exportCount": "成功导出次数",
+  "packageCount": "胶片包数量",
+  "filmCount": "子胶片数量",
+  "studioEmpty": "这段时间还没有导出记录。",
+  "studioNote": "一次成功生成并触发保存记为一次导出；一个用户槽位对应一个胶片包。重复导出会再次计数，不代表不同作品或人数。",
+  "footer": "统计按日本时间划分日期，下载量按机型和版本汇总。工具统计分别累计导出次数、胶片包数量与子胶片数量。数据不代表不同人数或相机安装数；不记录名称、XMP、图片、设备码、IP 或访客身份。",
+  "exclude": "排除这个浏览器的测试统计 ↗",
+  "include": "恢复这个浏览器的统计 ↗",
+  "started": "记录始于 {date} · {zone}",
+  "updated": "更新于 {time}",
+  "todayMonth": "今日 {today} 次 · 本月 {month} 次",
+  "filmsIncluded": "包含 {count} 款子胶片",
+  "studioPeriod": "所选期间：{exports} 次导出 · {files} 个胶片包 · {films} 款子胶片",
+  "chartHint": "按日汇总 · 日本时间",
+  "chartEmpty": "这段时间暂无下载记录",
+  "downloadUnit": "次下载",
+  "downloadAria": "{date} · {count} 次下载",
+  "authError": "管理口令不正确。",
+  "readError": "暂时无法读取，请稍后重试。",
+  "communityModel": "社群效果",
+  "standard": "普通版",
+  "enhanced": "增强版",
+  "original": "原厂备份",
+  "communityVariant": "效果包",
+  "originalPrefix": "原厂 · ",
+  "kind": "类型",
+  "model": "机型",
+  "csvVariant": "变体",
+  "source": "记录来源",
+  "manual": "历史补录",
+  "automatic": "自动记录",
+  "firmwareKind": "固件",
+  "originalKind": "原厂备份",
+  "communityKind": "社群效果",
+  "authorDownloads": "所选期间 · 作者色彩补充包下载"
+ },
+ "en": {
+  "pageTitle": "XerFilm · Usage statistics",
+  "home": "XerFilm GR website",
+  "private": "PRIVATE ACCESS",
+  "back": "Back to website ↗",
+  "language": "Language",
+  "theme": "Switch appearance",
+  "heading": "Every use,",
+  "headingAccent": "a little trace.",
+  "intro": "Downloads, creations and shared colours, growing over time.",
+  "loginTitle": "Usage statistics",
+  "loginNote": "Enter your admin passphrase. It stays in this page’s memory only.",
+  "password": "Admin passphrase",
+  "loginButton": "View statistics ↗",
+  "refresh": "Refresh ↻",
+  "logout": "Sign out",
+  "total": "All-time firmware downloads",
+  "today": "Firmware downloads today",
+  "month": "Firmware downloads this month",
+  "community": "Selected period · Community downloads",
+  "studioTotal": "All-time successful Studio exports",
+  "studioFiles": "All-time film packs created",
+  "days7": "7 days",
+  "days30": "30 days",
+  "days90": "90 days",
+  "all": "All time",
+  "csv": "Export CSV ↓",
+  "chartTitle": "Firmware downloads over time",
+  "period": "Selected period",
+  "peak": "Daily peak",
+  "chartAria": "Daily firmware downloads. Select or focus a bar to view its date and count.",
+  "versionsTitle": "Cameras and versions",
+  "typeModel": "Type / Camera",
+  "version": "Version",
+  "variant": "Standard / Enhanced",
+  "revision": "Build",
+  "downloads": "Downloads",
+  "empty": "No records in this period.",
+  "studioTitle": "Studio exports",
+  "studioCSV": "Export Studio CSV ↓",
+  "dateTokyo": "Date (Japan time)",
+  "exportCount": "Successful exports",
+  "packageCount": "Film packs",
+  "filmCount": "Individual films",
+  "studioEmpty": "No exports in this period.",
+  "studioNote": "One generated ZIP with browser save triggered counts as one export. Each user slot is one film pack. Repeated exports count again; these are not unique works or people.",
+  "footer": "Dates use Japan time. Downloads are grouped by camera and version. Studio statistics count exports, film packs and individual films separately. These are not unique people or camera installations. Names, XMP, images, device codes, IP addresses and visitor identities are not recorded.",
+  "exclude": "Exclude test activity in this browser ↗",
+  "include": "Enable statistics for this browser ↗",
+  "started": "Records since {date} · {zone}",
+  "updated": "Updated {time}",
+  "todayMonth": "Today {today} · This month {month}",
+  "filmsIncluded": "Containing {count} individual films",
+  "studioPeriod": "Selected period: {exports} exports · {files} film packs · {films} individual films",
+  "chartHint": "Daily totals · Japan time",
+  "chartEmpty": "No downloads in this period",
+  "downloadUnit": "downloads",
+  "downloadAria": "{date} · {count} downloads",
+  "authError": "The admin passphrase is incorrect.",
+  "readError": "Unable to load statistics. Please try again.",
+  "communityModel": "Community look",
+  "standard": "Standard",
+  "enhanced": "Enhanced",
+  "original": "Original backup",
+  "communityVariant": "Look pack",
+  "originalPrefix": "Original · ",
+  "kind": "Type",
+  "model": "Camera",
+  "csvVariant": "Variant",
+  "source": "Record source",
+  "manual": "Historical entry",
+  "automatic": "Automatic record",
+  "firmwareKind": "Firmware",
+  "originalKind": "Original backup",
+  "communityKind": "Community look",
+  "authorDownloads": "Selected period · Author add-on downloads"
+ },
+ "ja": {
+  "pageTitle": "XerFilm · 利用統計",
+  "home": "XerFilm GR 公式サイト",
+  "private": "管理者専用",
+  "back": "サイトへ戻る ↗",
+  "language": "言語",
+  "theme": "明暗を切り替え",
+  "heading": "ひとつひとつの利用を、",
+  "headingAccent": "記録に。",
+  "intro": "ダウンロード、創作、色の共有を少しずつ積み重ねる。",
+  "loginTitle": "利用統計",
+  "loginNote": "管理用パスフレーズを入力してください。このページのメモリ内のみに保持されます。",
+  "password": "管理用パスフレーズ",
+  "loginButton": "統計を見る ↗",
+  "refresh": "更新 ↻",
+  "logout": "ログアウト",
+  "total": "累計ファームウェアダウンロード",
+  "today": "本日のファームウェアダウンロード",
+  "month": "今月のファームウェアダウンロード",
+  "community": "選択期間 · コミュニティダウンロード",
+  "studioTotal": "Studio 書き出し成功累計",
+  "studioFiles": "作成したフィルムパック累計",
+  "days7": "過去7日",
+  "days30": "過去30日",
+  "days90": "過去90日",
+  "all": "全期間",
+  "csv": "CSVを書き出す ↓",
+  "chartTitle": "ファームウェアダウンロードの推移",
+  "period": "選択期間",
+  "peak": "1日の最多",
+  "chartAria": "日別ファームウェアダウンロード数。棒を選択・フォーカスすると日付と件数を確認できます。",
+  "versionsTitle": "機種とバージョン",
+  "typeModel": "種類 / 機種",
+  "version": "バージョン",
+  "variant": "通常 / 拡張",
+  "revision": "ビルド",
+  "downloads": "ダウンロード数",
+  "empty": "この期間の記録はありません。",
+  "studioTitle": "Studio 書き出し",
+  "studioCSV": "StudioのCSVを書き出す ↓",
+  "dateTokyo": "日付（日本時間）",
+  "exportCount": "書き出し成功数",
+  "packageCount": "フィルムパック数",
+  "filmCount": "個別フィルム数",
+  "studioEmpty": "この期間の書き出し記録はありません。",
+  "studioNote": "ZIPを生成してブラウザの保存を開始すると1回の書き出しと数えます。ユーザー1枠につき1パックです。再書き出しも加算され、作品や人数の重複排除は行いません。",
+  "footer": "日付は日本時間で集計し、ダウンロード数は機種・バージョン別に表示します。Studioでは書き出し回数・パック数・個別フィルム数を別々に集計します。人数やカメラへの導入数ではありません。名前・XMP・画像・機器コード・IP・訪問者の識別情報は記録しません。",
+  "exclude": "このブラウザのテスト集計を除外 ↗",
+  "include": "このブラウザの集計を再開 ↗",
+  "started": "記録開始 {date} · {zone}",
+  "updated": "更新日時 {time}",
+  "todayMonth": "本日 {today} 回 · 今月 {month} 回",
+  "filmsIncluded": "個別フィルム {count} 種類を含む",
+  "studioPeriod": "選択期間：{exports} 回の書き出し · {files} パック · {films} フィルム",
+  "chartHint": "日別集計 · 日本時間",
+  "chartEmpty": "この期間のダウンロードはありません",
+  "downloadUnit": "ダウンロード",
+  "downloadAria": "{date} · {count} ダウンロード",
+  "authError": "管理用パスフレーズが正しくありません。",
+  "readError": "統計を読み込めません。もう一度お試しください。",
+  "communityModel": "コミュニティルック",
+  "standard": "通常版",
+  "enhanced": "拡張版",
+  "original": "純正バックアップ",
+  "communityVariant": "ルックパック",
+  "originalPrefix": "純正 · ",
+  "kind": "種類",
+  "model": "機種",
+  "csvVariant": "区分",
+  "source": "記録元",
+  "manual": "履歴の補記",
+  "automatic": "自動記録",
+  "firmwareKind": "ファームウェア",
+  "originalKind": "純正バックアップ",
+  "communityKind": "コミュニティルック",
+  "authorDownloads": "選択期間 · 作者追加パックのダウンロード"
+ }
+};
+const locales={zh:'zh-CN',en:'en-US',ja:'ja-JP'};
+let language='zh';try{const requested=new URLSearchParams(location.search).get('lang'),saved=localStorage.getItem('site-language');language=translations[requested]?requested:translations[saved]?saved:navigator.language.startsWith('ja')?'ja':navigator.language.startsWith('zh')?'zh':'en';}catch{}
+let token='',current,days='30',loginError='',dataError='';
+const models={gr3:'GR III / HDF',gr3x:'GR IIIx / HDF',gr4:'GR IV / HDF'};
+const tr=(key,values={})=>(translations[language][key]||translations[language].readError).replace(/\{(\w+)\}/g,(_,name)=>values[name]??'');
+const number=value=>new Intl.NumberFormat(locales[language]).format(value);
+const modelName=id=>id==='community'?tr('communityModel'):models[id]||id;
+const variantName=id=>tr(id==='community'?'communityVariant':id);
+// Normalize public version labels without changing stored records.
+function downloadVersion(row){
+ if(row.kind!=='firmware')return row.version;
+ const match=/^v(1|2|3)(?:\.(0|1))?$/i.exec(row.version);
+ return match?'V'+match[1]+'.'+(match[2]||'0'):row.version;
+}
+// Fill missing archive references only; V1.1 III/IIIx history spans two released builds.
+function downloadRevision(row){
+ const releases={'V1.0':{gr4:'v22',gr3:'R12',gr3x:'R12'},'V1.1':{gr4:'v23',gr3:'R13 / R14',gr3x:'R13 / R14'},'V2.0':{gr4:'v32',gr3:'R20',gr3x:'R20'},'V3.0':{gr4:'v49',gr3:'R32',gr3x:'R31'}};
+ if(row.revision)return row.revision;
+ if(row.kind==='firmware'&&downloadVersion(row)==='V1.1'&&['gr3','gr3x'].includes(row.model)&&row.variant==='enhanced')return 'R14-H';
+ const build=row.kind==='firmware'&&releases[downloadVersion(row)]?.[row.model];
+ return build&&['standard','enhanced'].includes(row.variant)?(row.variant==='enhanced'?build.split(' / ').map(x=>x+'-H').join(' / '):build):'';
+}
+function groupedDownloads(rows){
+ const groups=new Map();
+ for(const row of rows){
+  const version=downloadVersion(row),revision=downloadRevision(row),key=JSON.stringify([row.kind,row.model,row.variant,version,revision]);
+  if(groups.has(key))groups.get(key).count+=Number(row.count);
+  else groups.set(key,{...row,version,revision,count:Number(row.count)});
+ }
+ return [...groups.values()].sort((a,b)=>b.count-a.count||a.model.localeCompare(b.model)||a.version.localeCompare(b.version)||a.revision.localeCompare(b.revision));
+}
+
+function applyLanguage(){
+ document.documentElement.lang=locales[language];document.title=tr('pageTitle');
+ for(const node of document.querySelectorAll('[data-i18n]'))node.textContent=tr(node.dataset.i18n);
+ for(const node of document.querySelectorAll('[data-i18n-aria]'))node.setAttribute('aria-label',tr(node.dataset.i18nAria));
+ for(const node of document.querySelectorAll('[data-i18n-title]'))node.title=tr(node.dataset.i18nTitle);
+ for(const button of document.querySelectorAll('[data-language]'))button.setAttribute('aria-pressed',String(button.dataset.language===language));
+ $('login-error').textContent=loginError?tr(loginError):'';$('data-error').textContent=dataError?tr(dataError):'';
+ if(current)render();
+}
+for(const button of document.querySelectorAll('[data-language]'))button.onclick=()=>{language=button.dataset.language;try{localStorage.setItem('site-language',language);}catch{}applyLanguage();};
 function day(d){return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).format(d)}
-function range(){const to=day(new Date()),from=days==='all'?'2026-10-25':day(new Date(Date.now()-(Number(days)-1)*86400000));return new URLSearchParams({from,to})}
-async function load(){const r=await fetch('/api/stats?'+range(),{headers:{Authorization:'Bearer '+token},cache:'no-store'});if(!r.ok)throw Error(r.status===401?'管理口令不正确。':'暂时无法读取，请稍后重试。');current=await r.json();render();}
-function render(){const d=current;$('total').textContent=d.summary.estimatedTotal;$('total-breakdown').textContent='历史估算 '+d.summary.historicalEstimate+' ＋ 实测 '+d.summary.total;$('today').textContent=d.summary.today;$('month').textContent=d.summary.month;$('community').textContent=d.kinds.find(x=>x.kind==='community')?.count||0;$('period').textContent='记录始于 '+d.startDate+' · '+d.timeZone;$('updated').textContent='更新于 '+new Date(d.generatedAt).toLocaleString('zh-CN',{timeZone:d.timeZone});$('from').textContent=d.from;$('to').textContent=d.to;
- const studio=d.studio;$('studio-total').textContent=studio.summary.total;$('studio-recent').textContent='今日 '+studio.summary.today+' 次 · 本月 '+studio.summary.month+' 次';$('studio-files').textContent=studio.summary.files;$('studio-films').textContent='包含 '+studio.summary.films+' 款子胶片';$('studio-period').textContent='所选期间：'+studio.period.total+' 次导出 · '+studio.period.files+' 个胶片包 · '+studio.period.films+' 款子胶片';$('studio-rows').replaceChildren(...studio.daily.map(x=>{const row=document.createElement('tr');for(const value of [x.day,x.count,x.files,x.films]){const cell=document.createElement('td');cell.textContent=value;row.append(cell)}return row}));$('studio-empty').hidden=studio.daily.length>0;
- const points=new Map(d.daily.filter(x=>x.kind==='firmware').map(x=>[x.day,x.count]));const bars=[];for(let time=Date.parse(d.from);time<=Date.parse(d.to)&&bars.length<3660;time+=86400000){const date=new Date(time).toISOString().slice(0,10);bars.push([date,points.get(date)||0])}const max=Math.max(1,...bars.map(x=>x[1]));$('chart').replaceChildren(...bars.map(([date,count])=>{const b=document.createElement('div');b.className='bar';b.style.height=Math.max(1,count/max*145)+'px';b.title=date+' · '+count+' 次';b.setAttribute('aria-label',b.title);return b}));$('chart-hint').textContent='最高 '+Math.max(0,...bars.map(x=>x[1]))+' 次 / 天';$('rows').replaceChildren(...d.downloads.map(x=>{const row=document.createElement('tr');for(const value of [(x.kind==='original'?'原厂 · ':'')+models[x.model],x.version,variants[x.variant],x.revision,x.count]){const cell=document.createElement('td');cell.textContent=value;row.append(cell)}return row}));$('empty').hidden=d.downloads.length>0;$('login').hidden=true;$('dashboard').hidden=false;for(const button of document.querySelectorAll('[data-days]'))button.setAttribute('aria-pressed',String(button.dataset.days===days));}
-$('login-form').addEventListener('submit',async e=>{e.preventDefault();token=$('token').value.trim();$('login-button').disabled=true;$('login-error').textContent='';try{await load();$('token').value=''}catch(e){token='';$('login-error').textContent=e.message}finally{$('login-button').disabled=false}});
-$('logout').onclick=()=>{token='';current=null;$('dashboard').hidden=true;$('login').hidden=false;$('token').value='';$('rows').replaceChildren();$('chart').replaceChildren();$('studio-rows').replaceChildren();$('token').focus()};
-async function refresh(){const b=$('refresh');b.disabled=true;$('data-error').textContent='';try{await load()}catch(e){$('data-error').textContent=e.message}finally{b.disabled=false}}$('refresh').onclick=refresh;$('filters').onclick=e=>{const button=e.target.closest('[data-days]');if(button){days=button.dataset.days;void refresh()}};
-$('csv').onclick=()=>{if(!current)return;const csv=[['类型','机型','版本','变体','编号','下载次数'],...current.downloads.map(x=>[x.kind,x.model,x.version,x.variant,x.revision,x.count])].map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n');const url=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='XerFilm-downloads-'+current.from+'-'+current.to+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
-$('studio-csv').onclick=()=>{if(!current)return;const csv=[['日期（日本时间）','成功导出次数','胶片包数量','子胶片数量'],...current.studio.daily.map(x=>[x.day,x.count,x.files,x.films])].map(row=>row.join(',')).join('\r\n');const url=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='XerFilm-studio-'+current.from+'-'+current.to+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+function range(){const to=day(new Date()),from=days==='all'?'2026-10-18':day(new Date(Date.now()-(Number(days)-1)*86400000));return new URLSearchParams({from,to})}
+async function load(){const r=await fetch('/api/stats?'+range(),{headers:{Authorization:'Bearer '+token},cache:'no-store'});if(!r.ok)throw Error(r.status===401?'authError':'readError');current=await r.json();render();}
+function render(){
+ const d=current;$('total').textContent=number(d.summary.combinedTotal);$('today').textContent=number(d.summary.combinedToday);$('month').textContent=number(d.summary.combinedMonth);$('community').textContent=number(d.kinds.find(x=>x.kind==='community')?.count||0);
+ $('author-downloads').textContent=number(d.author?.period?.total??0);
+ $('period').textContent=tr('started',{date:d.startDate,zone:d.timeZone});$('updated').textContent=tr('updated',{time:new Date(d.generatedAt).toLocaleString(locales[language],{timeZone:d.timeZone})});$('from').textContent=d.from;$('to').textContent=d.to;
+ const studio=d.studio;$('studio-total').textContent=number(studio.summary.total);$('studio-recent').textContent=tr('todayMonth',{today:number(studio.summary.today),month:number(studio.summary.month)});$('studio-files').textContent=number(studio.summary.files);$('studio-films').textContent=tr('filmsIncluded',{count:number(studio.summary.films)});$('studio-period').textContent=tr('studioPeriod',{exports:number(studio.period.total),files:number(studio.period.files),films:number(studio.period.films)});
+ $('studio-rows').replaceChildren(...studio.daily.map(x=>{const row=document.createElement('tr');for(const value of [x.day,number(x.count),number(x.files),number(x.films)]){const cell=document.createElement('td');cell.textContent=value;row.append(cell)}return row}));$('studio-empty').hidden=studio.daily.length>0;
+ renderChart(d);$('rows').replaceChildren(...groupedDownloads(d.downloads).map(x=>{const row=document.createElement('tr');for(const value of [(x.kind==='original'?tr('originalPrefix'):'')+modelName(x.model),x.version,variantName(x.variant),x.revision||'—',number(x.count)]){const cell=document.createElement('td');cell.textContent=value;row.append(cell)}return row}));$('empty').hidden=d.downloads.length>0;$('login').hidden=true;$('dashboard').hidden=false;for(const button of document.querySelectorAll('[data-days]'))button.setAttribute('aria-pressed',String(button.dataset.days===days));
+}
+function chartModel(data){
+ const totals=new Map();for(const row of data.daily)if(row.kind==='firmware')totals.set(row.day,(totals.get(row.day)||0)+Number(row.count));
+ const bars=[];for(let time=Date.parse(data.from);time<=Date.parse(data.to)&&bars.length<3660;time+=86400000){const date=new Date(time).toISOString().slice(0,10);bars.push([date,totals.get(date)||0]);}
+ const peak=Math.max(0,...bars.map(x=>x[1])),raw=Math.max(1,peak/4),magnitude=10**Math.floor(Math.log10(raw));
+ const step=Math.ceil([1,1.5,2,2.5,3,4,5,6,8,10].map(x=>x*magnitude).find(x=>x>=raw)),ceiling=step*4;
+ return {bars,peak,ceiling,total:bars.reduce((n,x)=>n+x[1],0)};
+}
+
+function renderChart(data){
+ const {bars,peak,ceiling,total}=chartModel(data),format=n=>number(n);
+ $('chart-total').textContent=format(total);$('chart-peak').textContent=format(peak);
+ $('chart-axis').replaceChildren();$('chart-lines').replaceChildren();
+ for(let i=0;i<=4;i++){const label=document.createElement('span');label.style.top=(i*25)+'%';label.textContent=format(ceiling*(1-i/4));$('chart-axis').append(label);const line=document.createElement('i');line.style.top=(i*25)+'%';$('chart-lines').append(line);}
+ $('chart').replaceChildren(...bars.map(([date,count],i)=>{
+  const column=document.createElement('button');column.type='button';column.className='chart-column'+(i===bars.length-1?' is-latest':'');column.style.setProperty('--ratio',count/ceiling);column.setAttribute('aria-label',tr('downloadAria',{date,count:format(count)}));
+  const fill=document.createElement('span');fill.className='bar-fill';fill.setAttribute('aria-hidden','true');
+  const tip=document.createElement('span');tip.className='bar-tip';tip.setAttribute('aria-hidden','true');const day=document.createElement('small');day.textContent=date;const number=document.createElement('strong');number.textContent=format(count);const unit=document.createElement('em');unit.textContent=tr('downloadUnit');number.append(unit);tip.append(day,number);column.append(fill,tip);return column;
+ }));
+ const ticks=new Set([0,bars.length-1]);const segments=Math.min(4,bars.length-1);for(let i=1;i<segments;i++)ticks.add(Math.round(i*(bars.length-1)/segments));
+ $('chart-dates').replaceChildren(...[...ticks].filter(i=>i>=0&&bars[i]).sort((a,b)=>a-b).map(i=>{const label=document.createElement('span');label.textContent=bars[i][0].slice(5).replace('-','.');label.style.left=((i+.5)/bars.length*100)+'%';return label;}));
+ $('chart-hint').textContent=tr(total?'chartHint':'chartEmpty');
+}
+
+let theme='dark';try{if(localStorage.getItem('site-theme')==='light')theme='light';}catch{}document.documentElement.dataset.theme=theme;
+$('theme').onclick=()=>{theme=theme==='dark'?'light':'dark';document.documentElement.dataset.theme=theme;try{localStorage.setItem('site-theme',theme);}catch{}};
+$('login-form').addEventListener('submit',async e=>{e.preventDefault();token=$('token').value.trim();$('login-button').disabled=true;loginError='';$('login-error').textContent='';try{await load();$('token').value=''}catch(e){token='';loginError=e.message==='authError'?'authError':'readError';$('login-error').textContent=tr(loginError)}finally{$('login-button').disabled=false}});
+$('logout').onclick=()=>{token='';current=null;dataError='';$('data-error').textContent='';$('dashboard').hidden=true;$('login').hidden=false;$('token').value='';$('rows').replaceChildren();$('chart').replaceChildren();$('studio-rows').replaceChildren();$('token').focus()};
+async function refresh(){const b=$('refresh');b.disabled=true;dataError='';$('data-error').textContent='';try{await load()}catch(e){dataError=e.message==='authError'?'authError':'readError';$('data-error').textContent=tr(dataError)}finally{b.disabled=false}}$('refresh').onclick=refresh;$('filters').onclick=e=>{const button=e.target.closest('[data-days]');if(button){days=button.dataset.days;void refresh()}};
+function saveCSV(rows,filename){const csv=rows.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n');const url=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+$('csv').onclick=()=>{if(!current)return;saveCSV([[tr('kind'),tr('model'),tr('version'),tr('csvVariant'),tr('revision'),tr('downloads'),tr('source')],...current.downloads.map(x=>[tr(x.kind+'Kind'),modelName(x.model),downloadVersion(x),variantName(x.variant),downloadRevision(x),x.count,tr(x.source==='manual'?'manual':'automatic')])],'XerFilm-downloads-'+current.from+'-'+current.to+'.csv')};
+$('studio-csv').onclick=()=>{if(!current)return;saveCSV([[tr('dateTokyo'),tr('exportCount'),tr('packageCount'),tr('filmCount')],...current.studio.daily.map(x=>[x.day,x.count,x.files,x.films])],'XerFilm-studio-'+current.from+'-'+current.to+'.csv')};
+applyLanguage();
 </script></body></html>

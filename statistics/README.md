@@ -24,9 +24,13 @@ The client accepts metadata for future valid firmware releases, so later version
 
 Keep all applied migrations immutable. No historical download totals are fabricated. Operational testing uses the local database; do not seed fake production downloads.
 
-## Historical estimate baseline
+## Historical download entries
 
-At the owner's request, `HISTORICAL_ESTIMATE=850` represents estimated firmware downloads before collection was enabled. The dashboard shows estimated cumulative total = historical estimate + measured firmware total, with both values labeled separately. This baseline never inserts download rows, never inflates daily/monthly/model/version/community totals, and does not enter CSV event breakdowns. The API retains `summary.total` as the measured count; `summary.historicalEstimate` and `summary.estimatedTotal` expose the explicit estimate.
+Dated historical totals supplied by the owner are stored separately in `manual_downloads`. They retain their source internally and are labeled 历史补录 in the private dashboard and CSV. No synthetic checksum-verified download events or missing BIN hashes are created. Each day/model/variant/version has a unique key; repeat imports update its count rather than adding it again. Only explicitly supplied enhanced counts are imported as enhanced.
+
+The private dashboard combines historical entries with automatic records for cumulative/monthly/daily totals, trends and version breakdowns. The former undated placeholder is retired (`HISTORICAL_ESTIMATE=0`); detailed history also suppresses a stale legacy placeholder to prevent double counting. Automatic ingestion still starts on `START_DATE`; display ranges extend back to the earliest historical entry. Historical counts never change community downloads, Studio exports or public engagement counters.
+
+Actual imports and owner provenance are kept in ignored `statistics/.secrets/`, outside the public source and frontend build. Apply migration `0004_manual_downloads.sql` before importing history and deploying the updated Worker. Legacy estimate API fields remain for compatibility, while the dashboard uses `combinedTotal`, `manualTotal`, `combinedToday` and `combinedMonth`.
 
 
 ## Public engagement
@@ -47,3 +51,14 @@ Apply `0003_studio_exports.sql` before deploying the Worker, then publish the we
 `POST /api/exports` accepts only tool version and numeric file/film counts, using a fresh event UUID with idempotent retries. A separate seven-day bounded queue uses the same owner opt-out as downloads. No user names, uploaded images, XMP, content hashes, slot destinations or visitor identifiers are collected. The existing iframe source/origin checks gate completion messages.
 
 `GET /api/stats` adds private `studio.summary`, `studio.period` and `studio.daily` aggregates. The dashboard shows all-time/today/month export counts and generated package/child-film totals, date filters and a separate Studio CSV. No exports are added to firmware totals, the 850 historical estimate, community downloads or public counters. Counts begin at rollout; no historical Studio totals are invented.
+
+
+## Dated Studio history
+
+`0005_manual_studio_exports.sql` keeps owner-supplied daily Studio aggregates separate from anonymous completion events. Export attempts, generated packages and child-film counts are independent historical totals; importing the same day again replaces its supplied figures without adding duplicates. The admin API and dashboard combine them with existing automatic Studio events. Preserve all originals in `studio_exports`. Private source notes and import files stay in ignored `.secrets/`. No counter source breakdown is shown beneath the cumulative firmware card; provenance remains available internally and in administrative data.
+
+## Author add-on downloads
+
+Apply `0006_author_downloads.sql` before deploying this Worker and publishing the add-on control. A successful checksum-verified ZIP save reports `kind:author` through the existing `/api/downloads` endpoint. Only published IDs, content versions and SHA-256 values in `src/author-packs.json` are accepted. Retries retain the event ID and count once.
+
+Author events are stored in `author_downloads`, separate from firmware, originals, community effects and Studio exports. `/api/stats` returns private `author.summary`, `author.period` and per-package `author.downloads`. The card immediately after community downloads shows the selected-period total. No public counter, historical firmware baseline or existing record is changed. Verification does not add fake production downloads. Redeploy the catalog and Worker together when adding a pack or changing its ZIP.

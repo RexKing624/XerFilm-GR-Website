@@ -19,3 +19,6 @@ export function trackFirmwareDownload(release, variant = 'standard') {
 export function trackCommunityDownload(item) {
   try { client?.record({kind:'community', model:'community', variant:'community', version:String(item.revision), revision:item.id, sha256:item.sha256}); } catch {}
 }
+export function trackAuthorDownload(item) {
+  try { client?.record({kind:'author', model:'author', variant:'author', version:String(item.version), revision:item.id, sha256:item.sha256}); } catch {}
+}

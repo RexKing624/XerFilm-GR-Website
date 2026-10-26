@@ -1,0 +1,13 @@
+[
+  {
+    "id": "colorplus200",
+    "name": "ColorPlus200",
+    "version": "1",
+    "requiredFirmware": "V3.11",
+    "download": "author-packs/ColorPlus200.zip",
+    "filename": "XerFilm-GR-ColorPlus200.zip",
+    "icon": "author-packs/ColorPlus200.png",
+    "sha256": "cfdbba28a4aa50fbdc47541439a214c839fd8a04a0bcda1fa56f671b0f33e313",
+    "bytes": 20719
+  }
+]

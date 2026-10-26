@@ -15,6 +15,8 @@ import TestFirmwareDownload from './TestFirmwareDownload.vue';
 import testReleases from './test-releases.json';
 import CommunityGallery from './CommunityGallery.vue';
 import FirmwareChoices from './FirmwareChoices.vue';
+import AuthorPackDownload from './AuthorPackDownload.vue';
+import authorPacks from './author-packs.json';
 import DateStamp from './DateStamp.vue';
 import StudioEditor from './StudioEditor.vue';
 import { communityCopy } from './community-copy';
@@ -202,7 +204,7 @@ onBeforeUnmount(() => { stopEngagement?.(); window.removeEventListener('hashchan
   <template v-if="!communitySection">
   <section class="intro">
    <div><p class="eyebrow"><span class="status-dot"></span> XerFilm GR · GR IV / III / IIIx · HDF / {{ t.edition }}</p><h1>{{ t.hero1 }}<br><em>{{ t.hero2 }}</em></h1><p class="intro-copy">{{ t.intro }}</p><FirmwareChoices :language="language" /></div>
-   <div class="hero-stack" aria-hidden="true"><div class="hero-stack-art"><img v-for="(film,i) in heroFilms.slice(0,4)" :key="film.name" :src="filmIcon(film.icon)" :style="{ '--i': i }" alt=""></div><span class="stack-label">17 FAMILIES<br>27 WAYS TO SEE.</span></div>
+   <div class="hero-stack" aria-hidden="true"><div class="hero-stack-art"><img v-for="(film,i) in heroFilms.slice(0,4)" :key="film.name" :src="filmIcon(film.icon)" :style="{ '--i': i }" alt=""></div><span class="stack-label">18 FAMILIES<br>28 WAYS TO SEE.</span></div>
   </section>
   <main class="main-layout">
    <aside id="download" class="download-panel" :aria-label="t.download">
@@ -225,7 +227,7 @@ onBeforeUnmount(() => { stopEngagement?.(); window.removeEventListener('hashchan
      <div class="feature-top"><div><span class="tiny-number">01—</span><h3>{{ t.filmTitle }}</h3></div><img class="entry-icon" :src="filmIcon(732)" alt="FILM"></div>
      <p class="feature-copy">{{ t.filmDesc }}</p>
      <div class="film-strip"><div v-for="film in heroFilms" :key="film.name"><img :src="filmIcon(film.icon)" :alt="film.name"><span>{{ film.name }}</span></div></div>
-     <div class="film-feature-bottom"><div class="stats"><span><b>17</b>{{ t.familyUnit }}</span><span><b>27</b>{{ t.lookUnit }}</span></div><button class="outlined" @click="openDrawer('films')">{{ t.viewFilms }} <span aria-hidden="true">↗</span></button></div>
+     <div class="film-feature-bottom"><div class="stats"><span><b>18</b>{{ t.familyUnit }}</span><span><b>28</b>{{ t.lookUnit }}</span></div><AuthorPackDownload :pack="authorPacks[0]" :language="language" :asset-base="assetBase" /><button class="outlined" @click="openDrawer('films')">{{ t.viewFilms }} <span aria-hidden="true">↗</span></button></div>
      <div class="curated"><span aria-hidden="true">↳</span><div class="curated-copy"><strong>{{ t.curatedTitle }}</strong><p>{{ t.curated }}</p><small>{{ ct.compatibility }}</small></div><div class="curated-actions"><a class="outlined community-entry" href="/community/">{{ ct.explore }} <span aria-hidden="true">↗</span></a></div></div>
     </section>
     <section class="interaction-feature"><div class="interaction-copy"><span class="tiny-number">02—</span><h3>{{ t.adjTitle }}</h3><p>{{ t.adjDesc }}</p><h4>{{ t.listTitle }}</h4><p>{{ t.listDesc }}</p></div><div class="camera-demo"><div class="demo-title"><img :src="filmIcon(732)" alt="FILM"><span>FILM LIST</span><span class="demo-dot"></span></div><p class="demo-caption">{{ t.demo }}</p><div class="demo-grid"><button v-for="(film,i) in heroFilms" :key="film.name" :class="{ selected:selectedMock === i, off:!mockEnabled[i] }" :aria-label="film.name" :aria-pressed="mockEnabled[i]" @click="selectedMock = i; mockEnabled[i] = !mockEnabled[i]"><img :src="filmIcon(film.icon)" :alt="film.name"><span v-if="mockEnabled[i]" class="demo-check">✓</span></button></div><div class="demo-bottom"><span>{{ heroFilms[selectedMock].name }}</span><span>OK <b>↵</b></span></div></div><div class="adj-how-to"><h4>{{ t.adjHowTitle }}</h4><p>{{ t.adjHowDesc }}</p><p class="adj-how-note">{{ t.adjHowNote }}</p></div></section>

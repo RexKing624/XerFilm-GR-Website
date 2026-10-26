@@ -1,3 +1,4 @@
+import authorPacks from '../../src/author-packs.json' with {type:'json'};
 export const TIME_ZONE = 'Asia/Tokyo';
 export const dateInTokyo = (date = new Date()) => new Intl.DateTimeFormat('en-CA',{timeZone:TIME_ZONE,year:'numeric',month:'2-digit',day:'2-digit'}).format(date);
 const shift = (day,n) => new Date(Date.parse(day+'T00:00:00Z')+n*86400000).toISOString().slice(0,10);
@@ -13,6 +14,7 @@ async function isAdmin(request,env){
 export function validAsset(a){
  if(!a||typeof a!=='object'||typeof a.version!=='string'||typeof a.revision!=='string'||typeof a.sha256!=='string'||!/^[a-f0-9]{64}$/.test(a.sha256))return false;
  if(!/^[A-Za-z0-9][A-Za-z0-9._ -]{0,39}$/.test(a.version)||!/^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$/.test(a.revision))return false;
+ if(a.kind==='author')return a.model==='author'&&a.variant==='author'&&authorPacks.some(p=>p.id===a.revision&&String(p.version)===a.version&&p.sha256===a.sha256);
  if(a.kind==='community')return a.model==='community'&&a.variant==='community';
  if(!['gr3','gr3x','gr4'].includes(a.model))return false;
  return (a.kind==='firmware'&&['standard','enhanced'].includes(a.variant))||(a.kind==='original'&&a.variant==='original');
@@ -46,6 +48,7 @@ export async function handleRequest(request,env,adminHTML=''){
    const now=new Date(),day=dateInTokyo(now),a=event.asset;
    if(day<env.START_DATE)return json({error:'not-started'},409,cors);
    if(exporting)await env.DB.prepare('INSERT OR IGNORE INTO studio_exports(event_id,day,received_at,version,files,films) VALUES(?,?,?,?,?,?)').bind(event.eventId,day,now.toISOString(),a.version,a.files,a.films).run();
+   else if(a.kind==='author')await env.DB.prepare('INSERT OR IGNORE INTO author_downloads(event_id,day,received_at,package_id,version,sha256) VALUES(?,?,?,?,?,?)').bind(event.eventId,day,now.toISOString(),a.revision,a.version,a.sha256).run();
    else await env.DB.prepare('INSERT OR IGNORE INTO downloads(event_id,day,received_at,kind,model,variant,version,revision,sha256) VALUES(?,?,?,?,?,?,?,?,?)').bind(event.eventId,day,now.toISOString(),a.kind,a.model,a.variant,a.version,a.revision,a.sha256).run();
    return json({ok:true},200,cors);
   }
@@ -53,26 +56,34 @@ export async function handleRequest(request,env,adminHTML=''){
    if(request.method!=='GET')return json({error:'method'},405);
    if(env.EVENT_LIMITER&&!(await env.EVENT_LIMITER.limit({key:'admin:'+ (request.headers.get('CF-Connecting-IP')||'unknown')})).success)return json({error:'rate-limit'},429);
    if(!await isAdmin(request,env))return json({error:'unauthorized'},401);
-   const today=dateInTokyo(),start=env.START_DATE||'2026-10-25';
+   const today=dateInTokyo(),collectionStart=env.START_DATE||'2026-10-25';
+   const earliest=(await env.DB.prepare('SELECT MIN(day) day FROM (SELECT day FROM manual_downloads WHERE count>0 UNION ALL SELECT day FROM manual_studio_exports WHERE exports>0 OR files>0 OR films>0)').all()).results[0]?.day;
+   const start=earliest&&earliest<collectionStart?earliest:collectionStart;
    let from=url.searchParams.get('from')||shift(today,-29),to=url.searchParams.get('to')||today;
    if(!dayValid(from)||!dayValid(to)||from>to)return json({error:'date-range'},400);
    if(from<start)from=start;if(to>today)to=today;
    const where='day>=? AND day<=?';
    const queries=[
     env.DB.prepare("SELECT COUNT(*) total, COALESCE(SUM(day=?),0) today, COALESCE(SUM(day>=?),0) month FROM downloads WHERE kind='firmware' AND day>=? AND day<=?").bind(today,today.slice(0,7)+'-01',start,today),
-    env.DB.prepare(`SELECT kind,COUNT(*) count FROM downloads WHERE ${where} GROUP BY kind`).bind(from,to),
-    env.DB.prepare(`SELECT day,kind,COUNT(*) count FROM downloads WHERE ${where} GROUP BY day,kind ORDER BY day`).bind(from,to),
-    env.DB.prepare(`SELECT kind,model,variant,version,revision,sha256,COUNT(*) count FROM downloads WHERE ${where} GROUP BY kind,model,variant,version,revision,sha256 ORDER BY count DESC,model,version LIMIT 500`).bind(from,to),
-    env.DB.prepare(`SELECT COUNT(*) total,COALESCE(SUM(day=?),0) today,COALESCE(SUM(day>=?),0) month,COALESCE(SUM(files),0) files,COALESCE(SUM(films),0) films FROM studio_exports WHERE day>=? AND day<=?`).bind(today,today.slice(0,7)+'-01',start,today),
-    env.DB.prepare(`SELECT COUNT(*) total,COALESCE(SUM(files),0) files,COALESCE(SUM(films),0) films FROM studio_exports WHERE ${where}`).bind(from,to),
-    env.DB.prepare(`SELECT day,COUNT(*) count,SUM(files) files,SUM(films) films FROM studio_exports WHERE ${where} GROUP BY day ORDER BY day DESC`).bind(from,to),
+    env.DB.prepare(`SELECT kind,SUM(count) count FROM download_totals WHERE ${where} GROUP BY kind`).bind(from,to),
+    env.DB.prepare(`SELECT day,kind,SUM(count) count FROM download_totals WHERE ${where} GROUP BY day,kind ORDER BY day`).bind(from,to),
+    env.DB.prepare(`SELECT kind,model,variant,version,revision,sha256,source,SUM(count) count FROM download_totals WHERE ${where} GROUP BY kind,model,variant,version,revision,sha256,source ORDER BY count DESC,model,version LIMIT 500`).bind(from,to),
+    env.DB.prepare(`SELECT COALESCE(SUM(exports),0) total,COALESCE(SUM(CASE WHEN day=? THEN exports ELSE 0 END),0) today,COALESCE(SUM(CASE WHEN day>=? THEN exports ELSE 0 END),0) month,COALESCE(SUM(files),0) files,COALESCE(SUM(films),0) films FROM studio_export_totals WHERE day>=? AND day<=?`).bind(today,today.slice(0,7)+'-01',start,today),
+    env.DB.prepare(`SELECT COALESCE(SUM(exports),0) total,COALESCE(SUM(files),0) files,COALESCE(SUM(films),0) films FROM studio_export_totals WHERE ${where}`).bind(from,to),
+    env.DB.prepare(`SELECT day,SUM(exports) count,SUM(files) files,SUM(films) films FROM studio_export_totals WHERE ${where} GROUP BY day ORDER BY day DESC`).bind(from,to),
+    env.DB.prepare('SELECT COALESCE(SUM(count),0) total,COALESCE(SUM(CASE WHEN day=? THEN count ELSE 0 END),0) today,COALESCE(SUM(CASE WHEN day>=? THEN count ELSE 0 END),0) month FROM manual_downloads WHERE day>=? AND day<=?').bind(today,today.slice(0,7)+'-01',start,today),
+    env.DB.prepare('SELECT COUNT(*) total,COALESCE(SUM(day=?),0) today,COALESCE(SUM(day>=?),0) month FROM author_downloads WHERE day>=? AND day<=?').bind(today,today.slice(0,7)+'-01',collectionStart,today),
+    env.DB.prepare(`SELECT COUNT(*) total FROM author_downloads WHERE ${where}`).bind(from,to),
+    env.DB.prepare(`SELECT package_id,version,sha256,COUNT(*) count FROM author_downloads WHERE ${where} GROUP BY package_id,version,sha256 ORDER BY count DESC`).bind(from,to),
    ];
    const results=await env.DB.batch(queries);
    const measured=results[0].results[0], baseline=Number(env.HISTORICAL_ESTIMATE||0);
-   const historicalEstimate=Number.isSafeInteger(baseline)&&baseline>=0?baseline:0;
-   // This owner-supplied estimate is a separate baseline, never synthetic events.
-   const summary={...measured,historicalEstimate,estimatedTotal:Number(measured.total)+historicalEstimate};
-   return json({startDate:start,timeZone:TIME_ZONE,from,to,today,summary,kinds:results[1].results,daily:results[2].results,downloads:results[3].results,studio:{summary:results[4].results[0],period:results[5].results[0],daily:results[6].results},generatedAt:new Date().toISOString(),definition:'Verified file ready; browser save triggered. Not confirmed disk writes or camera installs.'});
+   const manual=results[7].results[0];
+   // Detailed owner-entered history supersedes the old undated placeholder.
+   const historicalEstimate=!manual.total&&Number.isSafeInteger(baseline)&&baseline>=0?baseline:0;
+   const combinedTotal=Number(measured.total)+Number(manual.total);
+   const summary={...measured,manualTotal:Number(manual.total),combinedTotal,combinedToday:Number(measured.today)+Number(manual.today),combinedMonth:Number(measured.month)+Number(manual.month),historicalEstimate,estimatedTotal:combinedTotal+historicalEstimate};
+   return json({startDate:start,collectionStartDate:collectionStart,timeZone:TIME_ZONE,from,to,today,summary,kinds:results[1].results,daily:results[2].results,downloads:results[3].results,studio:{summary:results[4].results[0],period:results[5].results[0],daily:results[6].results},author:{summary:results[8].results[0],period:results[9].results[0],downloads:results[10].results},generatedAt:new Date().toISOString(),definition:'Verified file ready; browser save triggered. Not confirmed disk writes or camera installs.'});
   }
   if(request.method==='GET'&&(url.pathname==='/'||url.pathname==='/admin/'||url.pathname==='/admin')){
    const nonce=crypto.randomUUID();return new Response(adminHTML.replaceAll('__NONCE__',nonce),{headers:{...security,'Content-Type':'text/html; charset=utf-8','Content-Security-Policy':`default-src 'none'; script-src 'nonce-${nonce}'; style-src 'unsafe-inline'; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'`}});

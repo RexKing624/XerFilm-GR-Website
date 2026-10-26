@@ -73,3 +73,6 @@ public-summary/.wrangler/
 !public/downloads/firmware-gr4-v3.11-v58*.part*
 !public/downloads/firmware-gr3-v3.11-r39*.part*
 !public/downloads/test-gr3x-v311-r38-*.part*
+
+# Public author add-on products; never author signing keys or private masters.
+!public/author-packs/*.zip
