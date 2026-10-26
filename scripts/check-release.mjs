@@ -13,8 +13,8 @@ for (const manifest of ['release.json', 'gr3-release.json', 'gr3x-release.json',
   const full = Buffer.concat(parts);
   if (full.length !== (release.downloadSize ?? release.size) || hash(full) !== (release.transportSha256 ?? release.sha256)) throw new Error('Complete firmware failed SHA-256 validation');
   const expectedReleases = {
-    'release.json': ['v54', '1.11', 'fwdc248b.bin', '0308740f0c856723270544e3f15a33b2f3ae3e3fed1f04832b19fffcce366c84'],
-    'enhanced-release.json': ['v54-H', '1.12.10.7', 'fwdc248b.bin', '28cc7097ba71cf105d5f7404d77841ca3434c85b46b5ea10cc675dc6c81a3726'],
+    'release.json': ['v55', '1.11', 'fwdc248b.bin', 'a70c87f2e781fd41b3c3be5a3d6814e34d46d4587494a70b8d571cc15e3055ad'],
+    'enhanced-release.json': ['v55-H', '1.12.10.7', 'fwdc248b.bin', '7103530985ff5ac282eacdfca20f722a661bcda3a0ac8f72852426728b6df42c'],
     'gr3-release.json': ['R32', '2.10', 'fwdc239b.bin', '2f574c62caf932ef48f92eb8fc097fca50506d83481b83d15be21a4785e39949'],
     'gr3-enhanced-release.json': ['R32-H', '2.11', 'fwdc239b.bin', '54a829455e1e5db8bdc8c40f2af95d42193aba9d807975fbda4dc151bcf5e409'],
     'gr3x-release.json': ['R31', '1.60', 'fwdc243b.bin', 'fe50d2d36059a6c3a9928d06330e1f36403365204dc16a7b534b71a504fce946'],

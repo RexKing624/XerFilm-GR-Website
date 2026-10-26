@@ -57,8 +57,8 @@ try {
   await assert.rejects(loadFirmware(corrupted), /Part checksum mismatch/);
   assert.equal(releases[0].version, 'V3.1');
   assert.equal(releases[3].version, 'V3.1');
-  assert.equal(releases[0].internalVersion, 'v54');
-  assert.equal(releases[3].internalVersion, 'v54-H');
+  assert.equal(releases[0].internalVersion, 'v55');
+  assert.equal(releases[3].internalVersion, 'v55-H');
   assert.equal(releases[1].version, 'V3.0');
   assert.equal(releases[2].version, 'V3.0');
   assert.equal(releases[1].releaseApproved, true);

@@ -59,3 +59,7 @@ public-summary/.wrangler/
 # GR IV / HDF V3.1 approved ordinary and enhanced releases.
 !public/downloads/firmware-gr4-v3.1.part*
 !public/downloads/firmware-gr4-v3.1-enhanced.part*
+
+# Approved V3.1 v55 replacement; filename includes revision for cache isolation.
+!public/downloads/firmware-gr4-v3.1-v55.part*
+!public/downloads/firmware-gr4-v3.1-v55-enhanced.part*
