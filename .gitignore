@@ -88,3 +88,6 @@ public-summary/.wrangler/
 !public/downloads/test-gr3-info-r41-*-20261028.part*
 !public/downloads/test-gr3x-info-r40-*-20261028.part*
 !public/downloads/test-gr4-info-v62-*-20261028.part*
+
+# Stable BIN chunks materialized by the authenticated release workflow.
+!public/downloads/firmware-gr*-v*-*.part*

@@ -1,0 +1,545 @@
+{
+  "test-releases.json": {
+    "gr3": {
+      "id": "gr3",
+      "camera": "RICOH GR III / HDF",
+      "revision": "R41",
+      "version": "\u9ad8\u5149\u63d0\u901f\u4e0e INFO \u4fee\u590d\u6d4b\u8bd5\u7248",
+      "firmware": [
+        {
+          "version": "\u9ad8\u5149\u63d0\u901f\u4e0e INFO \u4fee\u590d\u6d4b\u8bd5\u7248",
+          "internalVersion": "R41",
+          "statisticsVersion": "V3.11-test",
+          "downloadVariant": "standard",
+          "baseVersion": "2.10",
+          "installationVersion": "2.10",
+          "camera": "RICOH GR III / HDF",
+          "filename": "fwdc239b.bin",
+          "size": 38319284,
+          "sha256": "4a6005e8aad5253badd8c5ecbca3aa0bfbb63aa73c0da10e80fddc499ba4c371",
+          "hardwareTested": false,
+          "testRelease": true,
+          "releaseDate": "2026-10-28",
+          "parts": [
+            {
+              "file": "test-gr3-info-r41-standard-20261028.part1",
+              "size": 16777216,
+              "sha256": "953f2e126633e7fcdcdaf8809586fb3baa11f707119b7b5c2d79b1382c791d3b"
+            },
+            {
+              "file": "test-gr3-info-r41-standard-20261028.part2",
+              "size": 16777216,
+              "sha256": "67e38b44d58ca94cb0795ef132c2d0c821c5bd82f9a4de410495bc608e71b0d8"
+            },
+            {
+              "file": "test-gr3-info-r41-standard-20261028.part3",
+              "size": 4764868,
+              "sha256": "4cafd627fdfcbc71ceb170b477c0a0a03678eda543a2bdbeb37ae3273fdbe58a"
+            }
+          ],
+          "downloadSize": 38319300,
+          "transportSha256": "cf43678f1dbe2a05c61c090f4f0c9503592e7b82dda813af59a0e049c96db020",
+          "encryption": {
+            "algorithm": "AES-GCM",
+            "kdf": "PBKDF2",
+            "iterations": 210000,
+            "salt": "ZyDaHGSt5A4FukwWKQVKYg==",
+            "iv": "TteyC87k0jjrSdv/",
+            "check": {
+              "iv": "REV7msIb5h4byBKw",
+              "ciphertext": "ROaRWDJ3r3PeQaf+SiOsSqXZKT/ip1Unz+W56rcivsRwHvOgKmpr731uCrhNKBpyJucAYgJy3+sjQK07EShOs4WiAWhS26N1uDvtxxbjnfrnOvlxkQI="
+            }
+          }
+        },
+        {
+          "version": "\u9ad8\u5149\u63d0\u901f\u4e0e INFO \u4fee\u590d\u6d4b\u8bd5\u7248",
+          "internalVersion": "R41-H",
+          "statisticsVersion": "V3.11-test",
+          "downloadVariant": "enhanced",
+          "baseVersion": "2.10",
+          "installationVersion": "2.11",
+          "camera": "RICOH GR III / HDF",
+          "filename": "fwdc239b.bin",
+          "size": 38356480,
+          "sha256": "7f1a5e6b744a4e5d4039a1c6687795cbf4d8f2366541c581ba0e2ce38b0d5b7e",
+          "hardwareTested": false,
+          "testRelease": true,
+          "releaseDate": "2026-10-28",
+          "parts": [
+            {
+              "file": "test-gr3-info-r41-enhanced-20261028.part1",
+              "size": 16777216,
+              "sha256": "d50ac96c36a55f7c3bf3dee5ab94a7f8535c9df1c372c105d6b341d2f38adf1d"
+            },
+            {
+              "file": "test-gr3-info-r41-enhanced-20261028.part2",
+              "size": 16777216,
+              "sha256": "26a98955ae1150dd92d9c532b5bb12b8c82429b8941050b9485bda4a953a2d1f"
+            },
+            {
+              "file": "test-gr3-info-r41-enhanced-20261028.part3",
+              "size": 4802064,
+              "sha256": "f3383fa60c6934238b320cac96abbed6aa3627a5c9b31b76ce58c53b382991c5"
+            }
+          ],
+          "downloadSize": 38356496,
+          "transportSha256": "74d5f8165d5d8b77208b11e8ec8cf0f24214ec47f7df9a6ffacd3b8cca283007",
+          "encryption": {
+            "algorithm": "AES-GCM",
+            "kdf": "PBKDF2",
+            "iterations": 210000,
+            "salt": "ZyDaHGSt5A4FukwWKQVKYg==",
+            "iv": "d2lvqzPpZf4E72q7",
+            "check": {
+              "iv": "9NPyqQ2rippV42X0",
+              "ciphertext": "5e0Ym1lZnNz9CY9hTvrAZWWzH+IJ33QFqJsmE3J4Zzz1BQiy1ly7sY/MEExcKzw06BT306x2+tcSe/4fcSu39df43eZYX9gwK7e8RXEsMh4r08tiaMs="
+            }
+          }
+        }
+      ],
+      "copy": {
+        "zh": {
+          "title": "\u9ad8\u5149\u63d0\u901f\u4e0e INFO \u4fee\u590d\u6d4b\u8bd5\u7248",
+          "note": "\u4fdd\u7559\u4fee\u590d\u540e\u7684 27 \u6b3e\u914d\u8272\uff0c\u52a0\u5165\u9ad8\u5149\u5904\u7406\u63d0\u901f\uff1b\u4f5c\u8005\u53ca\u7528\u6237\u80f6\u7247\u5728 INFO \u663e\u793a\u5404\u81ea\u56fe\u6807\uff0c\u5e76\u652f\u6301\u76f4\u63a5\u8fdb\u5165\u56de\u653e\u65f6\u8bfb\u53d6\u5df2\u5b89\u88c5\u56fe\u6807\u3002\u5b9e\u9645\u8868\u73b0\u4ecd\u9700\u5b9e\u673a\u786e\u8ba4\u3002\u6b63\u5f0f\u7248\u4e0b\u8f7d\u4fdd\u7559\u3002",
+          "standardDownload": "\u4e0b\u8f7d\u9ad8\u5149\u63d0\u901f\u4e0e INFO \u4fee\u590d\u6d4b\u8bd5\u7248 \u00b7 {revision} \u00b7 \u666e\u901a\u7248 .bin",
+          "enhancedDownload": "\u4e0b\u8f7d\u9ad8\u5149\u63d0\u901f\u4e0e INFO \u4fee\u590d\u6d4b\u8bd5\u7248 \u00b7 {revision} \u00b7 \u589e\u5f3a\u7248 .bin"
+        },
+        "en": {
+          "title": "Highlight performance & INFO icon test",
+          "note": "Keeps the corrected 27 built-in looks, speeds up highlight compositing and shows installed author/user film icons in INFO, including direct playback startup. Camera testing is still required. Stable downloads remain available.",
+          "standardDownload": "Download highlight & INFO test \u00b7 {revision} \u00b7 Standard .bin",
+          "enhancedDownload": "Download highlight & INFO test \u00b7 {revision} \u00b7 Enhanced .bin"
+        },
+        "ja": {
+          "title": "\u30cf\u30a4\u30e9\u30a4\u30c8\u9ad8\u901f\u5316\u30fbINFO\u4fee\u6b63\u30c6\u30b9\u30c8\u7248",
+          "note": "\u4fee\u6b63\u6e08\u307f27\u7a2e\u985e\u306e\u8272\u3092\u7dad\u6301\u3057\u3001\u30cf\u30a4\u30e9\u30a4\u30c8\u51e6\u7406\u3092\u9ad8\u901f\u5316\u3002\u4f5c\u8005\u30fb\u30e6\u30fc\u30b6\u30fc\u30d5\u30a3\u30eb\u30e0\u306e\u30a2\u30a4\u30b3\u30f3\u3092INFO\u306b\u8868\u793a\u3057\u3001\u518d\u751f\u3067\u306e\u76f4\u63a5\u8d77\u52d5\u306b\u3082\u5bfe\u5fdc\u3057\u307e\u3059\u3002\u5b9f\u6a5f\u3067\u3054\u78ba\u8a8d\u304f\u3060\u3055\u3044\u3002\u6b63\u5f0f\u7248\u3082\u5f15\u304d\u7d9a\u304d\u5229\u7528\u3067\u304d\u307e\u3059\u3002",
+          "standardDownload": "\u30cf\u30a4\u30e9\u30a4\u30c8\u30fbINFO\u30c6\u30b9\u30c8\u7248 \u00b7 {revision} \u00b7 \u901a\u5e38\u7248 .bin",
+          "enhancedDownload": "\u30cf\u30a4\u30e9\u30a4\u30c8\u30fbINFO\u30c6\u30b9\u30c8\u7248 \u00b7 {revision} \u00b7 \u62e1\u5f35\u7248 .bin"
+        }
+      }
+    },
+    "gr3x": {
+      "id": "gr3x",
+      "camera": "RICOH GR IIIx / HDF",
+      "revision": "R40",
+      "version": "\u9ad8\u5149\u63d0\u901f\u4e0e INFO \u4fee\u590d\u6d4b\u8bd5\u7248",
+      "firmware": [
+        {
+          "version": "\u9ad8\u5149\u63d0\u901f\u4e0e INFO \u4fee\u590d\u6d4b\u8bd5\u7248",
+          "internalVersion": "R40",
+          "statisticsVersion": "V3.11-test",
+          "downloadVariant": "standard",
+          "baseVersion": "1.60",
+          "installationVersion": "1.60",
+          "camera": "RICOH GR IIIx / HDF",
+          "filename": "fwdc243b.bin",
+          "size": 38319288,
+          "sha256": "66bd85b1fe3935da9f3d5f368a5706f255a019d23e8146090f58d7b17f4c6c5f",
+          "hardwareTested": false,
+          "testRelease": true,
+          "releaseDate": "2026-10-28",
+          "parts": [
+            {
+              "file": "test-gr3x-info-r40-standard-20261028.part1",
+              "size": 16777216,
+              "sha256": "da05ccfb9793d1ce598e9b2a733b4a42482e5b38eee981195859065eb66ba7ae"
+            },
+            {
+              "file": "test-gr3x-info-r40-standard-20261028.part2",
+              "size": 16777216,
+              "sha256": "368c31a507514d753435688a412fbc6a1a070910bfde1ae5085e00f3bdee74f8"
+            },
+            {
+              "file": "test-gr3x-info-r40-standard-20261028.part3",
+              "size": 4764872,
+              "sha256": "4fbae28128d2d97e744408aa61e4c39e1c279e582a79a2e4e539dc4f7118fbb9"
+            }
+          ],
+          "downloadSize": 38319304,
+          "transportSha256": "5be825601e05e8846391de21dde75558c53356e20dbe2875c31244245638aeb6",
+          "encryption": {
+            "algorithm": "AES-GCM",
+            "kdf": "PBKDF2",
+            "iterations": 210000,
+            "salt": "ZyDaHGSt5A4FukwWKQVKYg==",
+            "iv": "otk6ARIBfMu6wVIX",
+            "check": {
+              "iv": "1guDUSf72FkSENt5",
+              "ciphertext": "+VWfmXTEvqh4OBOR7j1T10YBY8ilGInQjdiEFDqwrBrnoWsC44te+cziJ6s/SCCPNHhuP3acWMHEUVeHh/PVOhDcP05y9rM7s9F0b0jajkYElWk0fTTS"
+            }
+          }
+        },
+        {
+          "version": "\u9ad8\u5149\u63d0\u901f\u4e0e INFO \u4fee\u590d\u6d4b\u8bd5\u7248",
+          "internalVersion": "R40-H",
+          "statisticsVersion": "V3.11-test",
+          "downloadVariant": "enhanced",
+          "baseVersion": "1.60",
+          "installationVersion": "1.61",
+          "camera": "RICOH GR IIIx / HDF",
+          "filename": "fwdc243b.bin",
+          "size": 38356476,
+          "sha256": "a0019889a7e03b5338ba8dc394950545b5422d0f1f97af90e821eaa6ebc9b752",
+          "hardwareTested": false,
+          "testRelease": true,
+          "releaseDate": "2026-10-28",
+          "parts": [
+            {
+              "file": "test-gr3x-info-r40-enhanced-20261028.part1",
+              "size": 16777216,
+              "sha256": "3de7f659fb60ae2a13191f98e739628d5f67a655b1ea6c6855ad5d2edad81496"
+            },
+            {
+              "file": "test-gr3x-info-r40-enhanced-20261028.part2",
+              "size": 16777216,
+              "sha256": "2a0eee34a0ffc20fbd38495cab1c5a95dbdcdc7d548059ae9ecf6a31a14d5b25"
+            },
+            {
+              "file": "test-gr3x-info-r40-enhanced-20261028.part3",
+              "size": 4802060,
+              "sha256": "e1ef5f736ab5cb4e48c45272fff52d38a1da56c870f141fc62afacc6e8e17da4"
+            }
+          ],
+          "downloadSize": 38356492,
+          "transportSha256": "8f4d5e849fe9bb40a1a83efaefc29d49e31eedeac587a1da2e187106f0422e99",
+          "encryption": {
+            "algorithm": "AES-GCM",
+            "kdf": "PBKDF2",
+            "iterations": 210000,
+            "salt": "ZyDaHGSt5A4FukwWKQVKYg==",
+            "iv": "2s7At6dmB3fl9qDU",
+            "check": {
+              "iv": "NBjXIJMJakV0FYZu",
+              "ciphertext": "zhaFaeeTDoufp648JSk7aDWhd0biJmHPvm076D+X/egdDleyzmJ1uNJA4DSK2oupm/vol/LVMJLqSi3/ZTAw5jNnq/6CeDAxcJ4LfMco9XXewgSDc6na"
+            }
+          }
+        }
+      ],
+      "copy": {
+        "zh": {
+          "title": "\u9ad8\u5149\u63d0\u901f\u4e0e INFO \u4fee\u590d\u6d4b\u8bd5\u7248",
+          "note": "\u4fdd\u7559\u4fee\u590d\u540e\u7684 27 \u6b3e\u914d\u8272\uff0c\u52a0\u5165\u9ad8\u5149\u5904\u7406\u63d0\u901f\uff1b\u4f5c\u8005\u53ca\u7528\u6237\u80f6\u7247\u5728 INFO \u663e\u793a\u5404\u81ea\u56fe\u6807\uff0c\u5e76\u652f\u6301\u76f4\u63a5\u8fdb\u5165\u56de\u653e\u65f6\u8bfb\u53d6\u5df2\u5b89\u88c5\u56fe\u6807\u3002\u5b9e\u9645\u8868\u73b0\u4ecd\u9700\u5b9e\u673a\u786e\u8ba4\u3002\u6b63\u5f0f\u7248\u4e0b\u8f7d\u4fdd\u7559\u3002",
+          "standardDownload": "\u4e0b\u8f7d\u9ad8\u5149\u63d0\u901f\u4e0e INFO \u4fee\u590d\u6d4b\u8bd5\u7248 \u00b7 {revision} \u00b7 \u666e\u901a\u7248 .bin",
+          "enhancedDownload": "\u4e0b\u8f7d\u9ad8\u5149\u63d0\u901f\u4e0e INFO \u4fee\u590d\u6d4b\u8bd5\u7248 \u00b7 {revision} \u00b7 \u589e\u5f3a\u7248 .bin"
+        },
+        "en": {
+          "title": "Highlight performance & INFO icon test",
+          "note": "Keeps the corrected 27 built-in looks, speeds up highlight compositing and shows installed author/user film icons in INFO, including direct playback startup. Camera testing is still required. Stable downloads remain available.",
+          "standardDownload": "Download highlight & INFO test \u00b7 {revision} \u00b7 Standard .bin",
+          "enhancedDownload": "Download highlight & INFO test \u00b7 {revision} \u00b7 Enhanced .bin"
+        },
+        "ja": {
+          "title": "\u30cf\u30a4\u30e9\u30a4\u30c8\u9ad8\u901f\u5316\u30fbINFO\u4fee\u6b63\u30c6\u30b9\u30c8\u7248",
+          "note": "\u4fee\u6b63\u6e08\u307f27\u7a2e\u985e\u306e\u8272\u3092\u7dad\u6301\u3057\u3001\u30cf\u30a4\u30e9\u30a4\u30c8\u51e6\u7406\u3092\u9ad8\u901f\u5316\u3002\u4f5c\u8005\u30fb\u30e6\u30fc\u30b6\u30fc\u30d5\u30a3\u30eb\u30e0\u306e\u30a2\u30a4\u30b3\u30f3\u3092INFO\u306b\u8868\u793a\u3057\u3001\u518d\u751f\u3067\u306e\u76f4\u63a5\u8d77\u52d5\u306b\u3082\u5bfe\u5fdc\u3057\u307e\u3059\u3002\u5b9f\u6a5f\u3067\u3054\u78ba\u8a8d\u304f\u3060\u3055\u3044\u3002\u6b63\u5f0f\u7248\u3082\u5f15\u304d\u7d9a\u304d\u5229\u7528\u3067\u304d\u307e\u3059\u3002",
+          "standardDownload": "\u30cf\u30a4\u30e9\u30a4\u30c8\u30fbINFO\u30c6\u30b9\u30c8\u7248 \u00b7 {revision} \u00b7 \u901a\u5e38\u7248 .bin",
+          "enhancedDownload": "\u30cf\u30a4\u30e9\u30a4\u30c8\u30fbINFO\u30c6\u30b9\u30c8\u7248 \u00b7 {revision} \u00b7 \u62e1\u5f35\u7248 .bin"
+        }
+      }
+    },
+    "gr4": {
+      "id": "gr4",
+      "camera": "RICOH GR IV / HDF",
+      "revision": "v62",
+      "version": "\u9ad8\u5149\u63d0\u901f\u4e0e INFO \u4fee\u590d\u6d4b\u8bd5\u7248",
+      "firmware": [
+        {
+          "version": "\u9ad8\u5149\u63d0\u901f\u4e0e INFO \u4fee\u590d\u6d4b\u8bd5\u7248",
+          "internalVersion": "v62",
+          "statisticsVersion": "V3.11-test",
+          "downloadVariant": "standard",
+          "baseVersion": "1.11",
+          "installationVersion": "1.11",
+          "camera": "RICOH GR IV / HDF",
+          "filename": "fwdc248b.bin",
+          "size": 46244928,
+          "sha256": "501d8f199b926ac2970fb30f62168a5ac537a128366fba615eda6e6c0130a7cf",
+          "hardwareTested": false,
+          "testRelease": true,
+          "releaseDate": "2026-10-28",
+          "parts": [
+            {
+              "file": "test-gr4-info-v62-standard-20261028.part1",
+              "size": 16777216,
+              "sha256": "44fa75951b4f4bb755f24e4aa825c2f4fef89514308814aa017a19906667cfda"
+            },
+            {
+              "file": "test-gr4-info-v62-standard-20261028.part2",
+              "size": 16777216,
+              "sha256": "0a4444844a1be7e0a47068de0642071e112e1f3ff258c1d91c963861f94a413b"
+            },
+            {
+              "file": "test-gr4-info-v62-standard-20261028.part3",
+              "size": 12690512,
+              "sha256": "e7161a0acd4659368bc35470f231f4e6d9be018f76dcdae4493bfb03b4354919"
+            }
+          ],
+          "downloadSize": 46244944,
+          "transportSha256": "5ec0f5fd9dfacdcb6dfc44f8052987ff60553e261c551a280e246632d674340f",
+          "encryption": {
+            "algorithm": "AES-GCM",
+            "kdf": "PBKDF2",
+            "iterations": 210000,
+            "salt": "ZyDaHGSt5A4FukwWKQVKYg==",
+            "iv": "1sSRKQXCASCrudoE",
+            "check": {
+              "iv": "DwjIfLGnGkHIB2r6",
+              "ciphertext": "kYEWKULt2vyxoBm0scgMQ+VtTEWKfzGn6Kxvdg7u268iiQ+zF64N6WRuhIIQ2HOysYcqg8PwzjXMjoSE83iDYM06FrbR/NO2/6H9h+HaUFOfWVESOw=="
+            }
+          }
+        },
+        {
+          "version": "\u9ad8\u5149\u63d0\u901f\u4e0e INFO \u4fee\u590d\u6d4b\u8bd5\u7248",
+          "internalVersion": "v62-H",
+          "statisticsVersion": "V3.11-test",
+          "downloadVariant": "enhanced",
+          "baseVersion": "1.11",
+          "installationVersion": "1.12.10.7",
+          "camera": "RICOH GR IV / HDF",
+          "filename": "fwdc248b.bin",
+          "size": 46323400,
+          "sha256": "4012ef44ffd0b6eb278a3bac45c3c25871f51c0c67ac847cfffec55b22eee9a5",
+          "hardwareTested": false,
+          "testRelease": true,
+          "releaseDate": "2026-10-28",
+          "parts": [
+            {
+              "file": "test-gr4-info-v62-enhanced-20261028.part1",
+              "size": 16777216,
+              "sha256": "a6ee83598cf6c2d218b91e5f4a5c2a1ac9aab40e1599b0092dc5e5cf0da3add9"
+            },
+            {
+              "file": "test-gr4-info-v62-enhanced-20261028.part2",
+              "size": 16777216,
+              "sha256": "6ca220e2bb8990c06ec9ac96779b8d17e14c3925ce9513657f6161a31abc84ed"
+            },
+            {
+              "file": "test-gr4-info-v62-enhanced-20261028.part3",
+              "size": 12768984,
+              "sha256": "95d79c8bc8f6bf4e4257c73908a4da6d521ed41d117f9a6b50f66a42aa46ec06"
+            }
+          ],
+          "downloadSize": 46323416,
+          "transportSha256": "197d1eb8c76238d2bba6ab3e38aa73939206b5e575fb39153dab59dcefa9c260",
+          "encryption": {
+            "algorithm": "AES-GCM",
+            "kdf": "PBKDF2",
+            "iterations": 210000,
+            "salt": "ZyDaHGSt5A4FukwWKQVKYg==",
+            "iv": "slvsWVMJggMOdQ2S",
+            "check": {
+              "iv": "xs+zPRPwJBD8JOae",
+              "ciphertext": "T14wLE/Ad1m8dXz/IbSQ0b4DEBHDcqEX1lwPNDsSHPEp5j6/bJohxIy6IpHwmao7DA0b6/QQT9+1jlJG2EhxU3KdmcXoa0TCma/kIjs/OwnpMXUfSQ=="
+            }
+          }
+        }
+      ],
+      "copy": {
+        "zh": {
+          "title": "\u9ad8\u5149\u63d0\u901f\u4e0e INFO \u4fee\u590d\u6d4b\u8bd5\u7248",
+          "note": "\u4fdd\u7559\u4fee\u590d\u540e\u7684 27 \u6b3e\u914d\u8272\uff0c\u52a0\u5165\u9ad8\u5149\u5904\u7406\u63d0\u901f\uff1b\u4f5c\u8005\u53ca\u7528\u6237\u80f6\u7247\u5728 INFO \u663e\u793a\u5404\u81ea\u56fe\u6807\uff0c\u5e76\u652f\u6301\u76f4\u63a5\u8fdb\u5165\u56de\u653e\u65f6\u8bfb\u53d6\u5df2\u5b89\u88c5\u56fe\u6807\u3002\u5b9e\u9645\u8868\u73b0\u4ecd\u9700\u5b9e\u673a\u786e\u8ba4\u3002\u6b63\u5f0f\u7248\u4e0b\u8f7d\u4fdd\u7559\u3002",
+          "standardDownload": "\u4e0b\u8f7d\u9ad8\u5149\u63d0\u901f\u4e0e INFO \u4fee\u590d\u6d4b\u8bd5\u7248 \u00b7 {revision} \u00b7 \u666e\u901a\u7248 .bin",
+          "enhancedDownload": "\u4e0b\u8f7d\u9ad8\u5149\u63d0\u901f\u4e0e INFO \u4fee\u590d\u6d4b\u8bd5\u7248 \u00b7 {revision} \u00b7 \u589e\u5f3a\u7248 .bin"
+        },
+        "en": {
+          "title": "Highlight performance & INFO icon test",
+          "note": "Keeps the corrected 27 built-in looks, speeds up highlight compositing and shows installed author/user film icons in INFO, including direct playback startup. Camera testing is still required. Stable downloads remain available.",
+          "standardDownload": "Download highlight & INFO test \u00b7 {revision} \u00b7 Standard .bin",
+          "enhancedDownload": "Download highlight & INFO test \u00b7 {revision} \u00b7 Enhanced .bin"
+        },
+        "ja": {
+          "title": "\u30cf\u30a4\u30e9\u30a4\u30c8\u9ad8\u901f\u5316\u30fbINFO\u4fee\u6b63\u30c6\u30b9\u30c8\u7248",
+          "note": "\u4fee\u6b63\u6e08\u307f27\u7a2e\u985e\u306e\u8272\u3092\u7dad\u6301\u3057\u3001\u30cf\u30a4\u30e9\u30a4\u30c8\u51e6\u7406\u3092\u9ad8\u901f\u5316\u3002\u4f5c\u8005\u30fb\u30e6\u30fc\u30b6\u30fc\u30d5\u30a3\u30eb\u30e0\u306e\u30a2\u30a4\u30b3\u30f3\u3092INFO\u306b\u8868\u793a\u3057\u3001\u518d\u751f\u3067\u306e\u76f4\u63a5\u8d77\u52d5\u306b\u3082\u5bfe\u5fdc\u3057\u307e\u3059\u3002\u5b9f\u6a5f\u3067\u3054\u78ba\u8a8d\u304f\u3060\u3055\u3044\u3002\u6b63\u5f0f\u7248\u3082\u5f15\u304d\u7d9a\u304d\u5229\u7528\u3067\u304d\u307e\u3059\u3002",
+          "standardDownload": "\u30cf\u30a4\u30e9\u30a4\u30c8\u30fbINFO\u30c6\u30b9\u30c8\u7248 \u00b7 {revision} \u00b7 \u901a\u5e38\u7248 .bin",
+          "enhancedDownload": "\u30cf\u30a4\u30e9\u30a4\u30c8\u30fbINFO\u30c6\u30b9\u30c8\u7248 \u00b7 {revision} \u00b7 \u62e1\u5f35\u7248 .bin"
+        }
+      }
+    }
+  },
+  "release.json": {
+    "version": "V3.11",
+    "baseVersion": "1.11",
+    "camera": "RICOH GR IV",
+    "filename": "fwdc248b.bin",
+    "size": 46244928,
+    "sha256": "937a9747f37501e6f98a3ab73c017036cad3eab31930ed51856763351ef3be99",
+    "hardwareTested": false,
+    "parts": [
+      {
+        "file": "firmware-gr4-v3.11-v58.part1",
+        "size": 16777216,
+        "sha256": "8d2fe11d22d80b41b2dae4c1bd3da3c2c0883a4649ae6a98283b3a9b44ad51c6"
+      },
+      {
+        "file": "firmware-gr4-v3.11-v58.part2",
+        "size": 16777216,
+        "sha256": "ca49cd2363088c189dbbd211cd1666cc325a33aeca6b4d091dd98eb7e1e216f4"
+      },
+      {
+        "file": "firmware-gr4-v3.11-v58.part3",
+        "size": 12690496,
+        "sha256": "5e9fde002c2aedd96ee27c783f02181bd90787550d32f24cf8b54f1ca8b505ca"
+      }
+    ],
+    "internalVersion": "v58",
+    "installationVersion": "1.11",
+    "releaseDate": "2026-10-26",
+    "releaseApproved": true,
+    "statisticsVersion": "V3.11",
+    "downloadVariant": "standard"
+  },
+  "enhanced-release.json": {
+    "version": "V3.11",
+    "internalVersion": "v58-H",
+    "installationVersion": "1.12.10.7",
+    "baseVersion": "1.11",
+    "camera": "RICOH GR IV",
+    "filename": "fwdc248b.bin",
+    "size": 46323400,
+    "sha256": "28c02cecb54cd699319bd90d35a5ff4d24ac3334ed0cd587516fff0723cf5866",
+    "hardwareTested": false,
+    "parts": [
+      {
+        "file": "firmware-gr4-v3.11-v58-enhanced.part1",
+        "size": 16777216,
+        "sha256": "484616008367e2a31acd623bb22313c50e5e6ae3190e39d85f98cbe000e133a5"
+      },
+      {
+        "file": "firmware-gr4-v3.11-v58-enhanced.part2",
+        "size": 16777216,
+        "sha256": "b288bad8f19cb55ceee8fb68c752e90cffa58e911e455e60e3b74a22f40b7392"
+      },
+      {
+        "file": "firmware-gr4-v3.11-v58-enhanced.part3",
+        "size": 12768968,
+        "sha256": "9297507358753cd3513e9c8da575ea965cc466c403813a596909e7f1e476b982"
+      }
+    ],
+    "releaseDate": "2026-10-26",
+    "releaseApproved": true,
+    "statisticsVersion": "V3.11",
+    "downloadVariant": "enhanced"
+  },
+  "gr3-release.json": {
+    "version": "V3.11",
+    "internalVersion": "R39",
+    "statisticsVersion": "V3.11",
+    "downloadVariant": "standard",
+    "baseVersion": "2.10",
+    "installationVersion": "2.10",
+    "camera": "RICOH GR III / HDF",
+    "filename": "fwdc239b.bin",
+    "size": 38319284,
+    "sha256": "010398c0d00d4985318227b34502a44f92f53a95205b9fdd0921f3eb5387680a",
+    "hardwareTested": false,
+    "releaseApproved": true,
+    "releaseDate": "2026-10-26",
+    "parts": [
+      {
+        "file": "firmware-gr3-v3.11-r39.part1",
+        "size": 16777216,
+        "sha256": "4d0e4f5c886e054790ac6fdd42c6af10ced547b81107d1e44663d48a03a82e09"
+      },
+      {
+        "file": "firmware-gr3-v3.11-r39.part2",
+        "size": 16777216,
+        "sha256": "ee0292852974583d29a934c7e72b5b8f9cf9ed2a304408f37edb8a7adc866a32"
+      },
+      {
+        "file": "firmware-gr3-v3.11-r39.part3",
+        "size": 4764852,
+        "sha256": "34b527dcdf50dc273fded93d7202246d11ede90e82047b7c7f0de86e00cadff2"
+      }
+    ]
+  },
+  "gr3-enhanced-release.json": {
+    "version": "V3.11",
+    "internalVersion": "R39-H",
+    "statisticsVersion": "V3.11",
+    "downloadVariant": "enhanced",
+    "baseVersion": "2.10",
+    "installationVersion": "2.11",
+    "camera": "RICOH GR III / HDF",
+    "filename": "fwdc239b.bin",
+    "size": 38356480,
+    "sha256": "8c5b1da8c96ed28e0203ee4c4460471a3953f0bb7a1b55974d2bba571d9f2e3a",
+    "hardwareTested": false,
+    "releaseApproved": true,
+    "releaseDate": "2026-10-26",
+    "parts": [
+      {
+        "file": "firmware-gr3-v3.11-r39-enhanced.part1",
+        "size": 16777216,
+        "sha256": "c13db6fea3f9e31e904c6fb42bf20690e8f6a171050ea1bba18fee36e275e722"
+      },
+      {
+        "file": "firmware-gr3-v3.11-r39-enhanced.part2",
+        "size": 16777216,
+        "sha256": "c7a3b4af529cfef4081f5d409d0856a8da877039b4ef0a20e2558ac1f4509ccb"
+      },
+      {
+        "file": "firmware-gr3-v3.11-r39-enhanced.part3",
+        "size": 4802048,
+        "sha256": "e55409642cc82e9bd987d2022eea58919300ff86499e7dddbab0b3b9be392370"
+      }
+    ]
+  },
+  "gr3x-release.json": {
+    "version": "V3.0",
+    "internalVersion": "R31",
+    "baseVersion": "1.60",
+    "installationVersion": "1.60",
+    "camera": "RICOH GR IIIx / HDF",
+    "filename": "fwdc243b.bin",
+    "size": 38168248,
+    "sha256": "fe50d2d36059a6c3a9928d06330e1f36403365204dc16a7b534b71a504fce946",
+    "hardwareTested": true,
+    "releaseDate": "2026-10-25",
+    "parts": [
+      {
+        "file": "firmware-gr3x-v3.part1",
+        "size": 16777216,
+        "sha256": "4bdd15f934a201ae9b2ac71918a0dd558414ff9305540ddf5596f9e629ea3dae"
+      },
+      {
+        "file": "firmware-gr3x-v3.part2",
+        "size": 16777216,
+        "sha256": "0f72ef2cf47bf76d5be04f462c8c79f1dde43a7a2cad1cfdc5d99a792f788389"
+      },
+      {
+        "file": "firmware-gr3x-v3.part3",
+        "size": 4613816,
+        "sha256": "17eea89f0ccb926d0ed2ac57b898e9440821f63fdff744cba2c9015e43618173"
+      }
+    ],
+    "nativeCinema": true
+  },
+  "gr3x-enhanced-release.json": {
+    "version": "V3.0",
+    "internalVersion": "R31-H",
+    "baseVersion": "1.60",
+    "installationVersion": "1.61",
+    "camera": "RICOH GR IIIx / HDF",
+    "filename": "fwdc243b.bin",
+    "size": 38209008,
+    "sha256": "98def0db42b23ab6699ab535ea520364ce8a52b7e72a9ad57962a666b959c33e",
+    "hardwareTested": true,
+    "releaseDate": "2026-10-25",
+    "parts": [
+      {
+        "file": "firmware-gr3x-v3-enhanced.part1",
+        "size": 16777216,
+        "sha256": "8fdaee996485040be6ebf3aac7c902f2ba1eb990bfd9d738bbae5decea1b9a55"
+      },
+      {
+        "file": "firmware-gr3x-v3-enhanced.part2",
+        "size": 16777216,
+        "sha256": "30a4c9ccfc40b18fc75a14d946c2dcaba3e5d8a9a0a9a62eca9261657bfe84f8"
+      },
+      {
+        "file": "firmware-gr3x-v3-enhanced.part3",
+        "size": 4654576,
+        "sha256": "4956f9e69ee7b064663237a8b10a5ae0dba1f874ca24de105a2b84f1de7b760c"
+      }
+    ]
+  }
+}

@@ -7,6 +7,7 @@ const css=html.match(/<style>([\s\S]*?)<\/style>/)?.[1];
 let js=html.match(/<script nonce="__NONCE__">([\s\S]*?)<\/script>/)?.[1];
 if(!css || !js || !js.includes("fetch('/api/stats?'+range()")) throw Error('Unexpected admin template');
 js=js.replace("fetch('/api/stats?'+range()",`fetch('${endpoint}?'+range()`);
+js=js.replace("const releaseAPI='/api/releases';","const releaseAPI='https://xerfilm-download-statistics.xerfilm-download-statistics.workers.dev/api/releases';");
 const fingerprint=value=>createHash('sha256').update(value).digest('hex').slice(0,12);
 const stylesheet=`admin-${fingerprint(css)}.css`,script=`admin-${fingerprint(js)}.js`;
 const policy="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src https://xerfilm-download-statistics.xerfilm-download-statistics.workers.dev; img-src 'self' data:; form-action 'self'; base-uri 'none'; object-src 'none'";

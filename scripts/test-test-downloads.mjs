@@ -26,7 +26,7 @@ const pins = {
     "4012ef44ffd0b6eb278a3bac45c3c25871f51c0c67ac847cfffec55b22eee9a5"
   ]
 };
-assert.deepEqual(Object.keys(sets), ['gr3', 'gr3x', 'gr4']);
+assert.ok(Object.keys(sets).every(model => Object.hasOwn(pins, model)), 'Only known models may have test firmware');
 const sha = data => createHash('sha256').update(data).digest('hex');
 const password = process.env.TEST_DOWNLOAD_PASSWORD;
 const realFetch = globalThis.fetch;

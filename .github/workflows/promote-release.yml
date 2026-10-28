@@ -1,0 +1,67 @@
+name: Publish tested firmware
+run-name: Release ${{ fromJSON(inputs.request).model }} ${{ fromJSON(inputs.request).id }}
+on:
+  workflow_dispatch:
+    inputs:
+      request:
+        description: Authenticated release request JSON
+        required: true
+        type: string
+      dry_run:
+        description: Validate and build only; do not publish
+        type: boolean
+        default: true
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  prepare:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm ci --prefix studio
+      - name: Verify and prepare exact test BINs
+        run: node scripts/promote-release.mjs
+        env:
+          RELEASE_REQUEST: ${{ inputs.request }}
+          FIRMWARE_TEST_PASSWORD: ${{ secrets.FIRMWARE_TEST_PASSWORD }}
+      - run: npm run check:release
+      - run: npm run test:downloads
+      - run: npm run test:statistics
+      - run: npm run test:summary
+      - run: npm run build
+      - name: Commit only verified publication files
+        if: ${{ !inputs.dry_run }}
+        run: node scripts/commit-release.mjs
+        env:
+          RELEASE_REQUEST: ${{ inputs.request }}
+      - uses: actions/configure-pages@v5
+        if: ${{ !inputs.dry_run }}
+      - uses: actions/upload-pages-artifact@v3
+        if: ${{ !inputs.dry_run }}
+        with:
+          path: dist
+  deploy:
+    if: ${{ !inputs.dry_run }}
+    needs: prepare
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy verified release
+        id: deployment
+        uses: actions/deploy-pages@v4

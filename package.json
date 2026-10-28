@@ -12,7 +12,8 @@
     "test:original-restore": "node --test scripts/test-original-restore-gate.mjs",
     "test:statistics": "node --test statistics/test/*.test.mjs",
     "test:photography": "node scripts/test-photography.mjs",
-    "test:summary": "node --test public-summary/test/*.test.mjs"
+    "test:summary": "node --test public-summary/test/*.test.mjs",
+    "test:publisher": "node --test statistics/test/publisher.test.mjs scripts/test-promotion.mjs"
   },
   "dependencies": {
     "fflate": "0.8.2",

@@ -3,19 +3,20 @@
 const adminOrigin = 'https://filmgr.xergnik.com';
 export async function handleAdminAccess(request, next) {
   const origin = request.headers.get('Origin');
-  if (new URL(request.url).pathname !== '/api/stats' || !origin) return next();
+  const publishing=new URL(request.url).pathname.startsWith('/api/releases');
+  if ((!publishing && new URL(request.url).pathname !== '/api/stats') || !origin) return next();
   if (origin !== adminOrigin) return new Response(null, { status:403, headers:{ 'Cache-Control':'no-store' } });
   const cors = {
     'Access-Control-Allow-Origin':adminOrigin,
-    'Access-Control-Allow-Methods':'GET, OPTIONS',
-    'Access-Control-Allow-Headers':'Authorization',
+    'Access-Control-Allow-Methods':publishing?'GET, POST, OPTIONS':'GET, OPTIONS',
+    'Access-Control-Allow-Headers':publishing?'Authorization, Content-Type':'Authorization',
     'Cache-Control':'no-store',
     'Vary':'Origin',
   };
   if (request.method === 'OPTIONS') {
     const method = request.headers.get('Access-Control-Request-Method');
     const headers = (request.headers.get('Access-Control-Request-Headers') || '').split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
-    if (method !== 'GET' || headers.some(header => header !== 'authorization')) return new Response(null, {status:403,headers:cors});
+    if (!(publishing?['GET','POST']:['GET']).includes(method) || headers.some(header => !['authorization',...(publishing?['content-type']:[])].includes(header))) return new Response(null, {status:403,headers:cors});
     return new Response(null, {status:204,headers:cors});
   }
   const response = await next();
