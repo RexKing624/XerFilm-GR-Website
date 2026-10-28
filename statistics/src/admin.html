@@ -353,7 +353,7 @@ function drawPublisher(){
  $('release-models').replaceChildren(...(releaseCatalog?.models||[]).map(m=>{
   const b=document.createElement('button');b.type='button';b.className='release-model';b.setAttribute('aria-pressed',String(m.id===releaseModel));b.disabled=releaseSubmitting||releaseActive(releaseJob);const title=document.createElement('strong');title.textContent=m.label;const stable=document.createElement('small');stable.textContent=pt('stable')+' · '+m.stable[0].version+' / '+m.stable[0].revision;const test=document.createElement('small');test.textContent=m.candidate?pt('candidate')+' · '+m.candidate.revision:pt('none');b.append(title,stable,test);b.onclick=()=>selectRelease(m.id);return b;
  }));
- $('release-publish').disabled=!$('release-confirm').checked||releaseSubmitting||releaseActive(releaseJob);
+ $('release-publish').disabled=releaseCatalog?.configured===false||!$('release-confirm').checked||releaseSubmitting||releaseActive(releaseJob);
  $('release-refresh').disabled=releaseSubmitting||releaseActive(releaseJob);
  $('release-status').textContent=releaseSubmitting?pt('dispatching'):releaseJob?pt(releaseJob.status):'';
  $('release-history').replaceChildren(...(releaseCatalog?.jobs||[]).map(job=>{const p=document.createElement('p');p.textContent=(releaseCatalog.models.find(m=>m.id===job.model)?.label||job.model)+' · '+job.version+' / '+job.revision+' · '+pt(job.status)+' ';if(job.runURL){const a=document.createElement('a');a.href=job.runURL;a.textContent=pt('details');a.target='_blank';a.rel='noopener noreferrer';p.append(a);}if(job.status==='failed'&&!releaseActive(releaseJob)){const b=document.createElement('button');b.type='button';b.textContent=pt('retry');b.onclick=()=>retryRelease(job);p.append(b);}return p;}));
@@ -364,7 +364,7 @@ function selectRelease(id){
  if(m?.candidate){$('release-version').value=m.candidate.version;for(const lang of ['zh','en','ja'])$('release-'+lang).value=releaseCatalog.notes[lang].join('\n');}drawPublisher();
 }
 async function loadPublisher(){
- if(!token)return;const credential=token;try{const catalog=await releaseFetch();if(token!==credential)return;releaseCatalog=catalog;$('release-error').textContent='';releaseJob=releaseCatalog.jobs.find(releaseActive)||releaseCatalog.jobs[0]||null;const selected=releaseCatalog.models.find(m=>m.id===releaseModel&&m.candidate)||releaseCatalog.models.find(m=>m.candidate)||releaseCatalog.models[0];selectRelease(selected.id);if(releaseActive(releaseJob))scheduleRelease();}catch(e){$('release-error').textContent=publisherError(e);drawPublisher();}
+ if(!token)return;const credential=token;try{const catalog=await releaseFetch();if(token!==credential)return;releaseCatalog=catalog;$('release-error').textContent=catalog.configured===false?pt('configuration'):'';releaseJob=releaseCatalog.jobs.find(releaseActive)||releaseCatalog.jobs[0]||null;const selected=releaseCatalog.models.find(m=>m.id===releaseModel&&m.candidate)||releaseCatalog.models.find(m=>m.candidate)||releaseCatalog.models[0];selectRelease(selected.id);if(releaseActive(releaseJob))scheduleRelease();}catch(e){$('release-error').textContent=publisherError(e);drawPublisher();}
 }
 function scheduleRelease(){clearTimeout(releaseTimer);if(token&&releaseActive(releaseJob))releaseTimer=setTimeout(pollRelease,6000);}
 async function pollRelease(){

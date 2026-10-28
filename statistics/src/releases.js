@@ -2,7 +2,7 @@ import {isAdmin,bodyJSON,json} from './core.js';
 import {releaseModels,defaultReleaseNotes,candidateSnapshot,validNotes,validVersion,compareVersions,uuidPattern} from '../../scripts/release-promotion-shared.mjs';
 const repository='RexKing624/XerFilm-GR-Website',workflow='promote-release.yml',active=['dispatching','queued','in_progress','attention'];
 async function github(env,path,options={}){
- const r=await (env.RELEASE_FETCH||fetch)(`https://api.github.com/repos/${repository}/${path}`,{...options,signal:AbortSignal.timeout(15000),redirect:'error',headers:{Accept:'application/vnd.github+json',Authorization:'Bearer '+env.RELEASE_GITHUB_TOKEN,'X-GitHub-Api-Version':'2026-03-10','User-Agent':'XerFilm-release-admin','Content-Type':'application/json',...options.headers}});
+ const r=await (env.RELEASE_FETCH||fetch)(`https://api.github.com/repos/${repository}/${path}`,{...options,signal:AbortSignal.timeout(15000),redirect:'error',headers:{Accept:'application/vnd.github+json',...(env.RELEASE_GITHUB_TOKEN?{Authorization:'Bearer '+env.RELEASE_GITHUB_TOKEN}:{}),'X-GitHub-Api-Version':'2026-03-10','User-Agent':'XerFilm-release-admin','Content-Type':'application/json',...options.headers}});
  if(!r.ok){const e=Error('github-unavailable');e.definitive=r.status>=400&&r.status<500;throw e;}if(r.status===204)return null;const text=await r.text();return text?JSON.parse(text):null;
 }
 const file=(env,name,head)=>github(env,`contents/src/${name}?ref=${head}`,{headers:{Accept:'application/vnd.github.raw+json'}});
@@ -30,8 +30,8 @@ export async function handleReleases(request,env){
  if(origin&&origin!=='https://filmgr.xergnik.com'&&origin!==url.origin)return json({error:'origin'},403);
  if(!await isAdmin(request,env))return json({error:'unauthorized'},401);
  if(env.EVENT_LIMITER&&!(await env.EVENT_LIMITER.limit({key:'release-admin'})).success)return json({error:'rate-limit'},429);
- if(!env.RELEASE_GITHUB_TOKEN)return json({error:'publisher-not-configured'},503);
- if(url.pathname==='/api/releases'&&request.method==='GET'){const jobs=await rows(env,'SELECT * FROM release_jobs ORDER BY created_at DESC LIMIT 10'),refreshed=await Promise.all(jobs.map(j=>reconcile(env,j)));return json({...await catalog(env),jobs:refreshed.map(publicJob)});}
+ if(!env.RELEASE_GITHUB_TOKEN&&request.method!=='GET')return json({error:'publisher-not-configured'},503);
+ if(url.pathname==='/api/releases'&&request.method==='GET'){const jobs=await rows(env,'SELECT * FROM release_jobs ORDER BY created_at DESC LIMIT 10'),refreshed=await Promise.all(jobs.map(j=>reconcile(env,j)));return json({...await catalog(env),configured:!!env.RELEASE_GITHUB_TOKEN,jobs:refreshed.map(publicJob)});}
  const retry=url.pathname.match(/^\/api\/releases\/jobs\/([a-f0-9-]{36})\/retry$/);
  if(retry&&request.method==='POST'){
   const job=(await rows(env,'SELECT * FROM release_jobs WHERE id=?',retry[1]))[0];

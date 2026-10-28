@@ -70,3 +70,7 @@ test('CORS allows authenticated publication only from the official admin',async(
   const r=await handleAdminAccess(new Request(base+'/publish',{method:'OPTIONS',headers:{Origin:o,'Access-Control-Request-Method':'POST','Access-Control-Request-Headers':'authorization, content-type'}}),()=>{throw Error('Unexpected next');});assert.equal(r.status,status);
  }
 });
+
+test('without deployment credentials the owner can review public candidates but cannot dispatch',async()=>{
+ const s=setup(),p=await s.plan('gr4');delete s.env.RELEASE_GITHUB_TOKEN;const response=await s.call();assert.equal(response.status,200);assert.equal((await response.json()).configured,false);assert.equal((await s.call('/publish',p)).status,503);assert.equal(s.state.dispatches.length,0);
+});
