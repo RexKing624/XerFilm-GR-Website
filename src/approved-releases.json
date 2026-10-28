@@ -21,23 +21,23 @@
   },
   "gr3-release.json": {
     "identity": [
-      "R39",
+      "R41",
       "2.10",
       "fwdc239b.bin",
-      "010398c0d00d4985318227b34502a44f92f53a95205b9fdd0921f3eb5387680a"
+      "4a6005e8aad5253badd8c5ecbca3aa0bfbb63aa73c0da10e80fddc499ba4c371"
     ],
-    "version": "V3.11",
-    "hardwareTested": false
+    "version": "V3.12",
+    "hardwareTested": true
   },
   "gr3-enhanced-release.json": {
     "identity": [
-      "R39-H",
+      "R41-H",
       "2.11",
       "fwdc239b.bin",
-      "8c5b1da8c96ed28e0203ee4c4460471a3953f0bb7a1b55974d2bba571d9f2e3a"
+      "7f1a5e6b744a4e5d4039a1c6687795cbf4d8f2366541c581ba0e2ce38b0d5b7e"
     ],
-    "version": "V3.11",
-    "hardwareTested": false
+    "version": "V3.12",
+    "hardwareTested": true
   },
   "gr3x-release.json": {
     "identity": [

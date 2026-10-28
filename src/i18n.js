@@ -162,12 +162,12 @@ export const copy = {
       },
       "gr3": {
         "compatible": "RICOH GR III / HDF · 原厂基础版本 2.10",
-        "note": "V3.11：画幅实时预览，修复影像控制微调冲突，并完善胶片包支持。",
-        "changesTitle": "V3.11 更新",
+        "note": "V3.12：改善胶片色彩表现。 加快高光模拟处理与照片回放。 修复补充胶片在回放 INFO 中的图标显示。",
+        "changesTitle": "V3.12 更新",
         "changes": [
-          "新增 ADJ 画幅实时预览。",
-          "修复原生影像控制与 XerFilm GR 的 Fn 微调冲突。",
-          "完善对后续胶片包的支持。"
+          "改善胶片色彩表现。",
+          "加快高光模拟处理与照片回放。",
+          "修复补充胶片在回放 INFO 中的图标显示。"
         ],
         "rollback": "回退到旧版或原厂前：先关闭胶片模拟，把影像控制选回 Std，并重启确认已保存。旧固件不识别新增的电影编号。",
         "frameDesc": "原机、645、67、XPan、1:1，可在设置或独立 ADJ 入口中选择。取景保留完整 3:2 画面，半透明蒙版与加粗白线标出裁切范围。JPG 按所选比例裁切，RAW 保留完整画面。"
@@ -210,7 +210,7 @@ export const copy = {
     "enhancedModels": {
       "gr3": {
         "enhancedIntro": "用于官方活动更换关机画面后，仍显示 2.10、但无法安装普通版的 GR III / HDF。请先尝试普通版，再考虑下方增强型固件。",
-        "enhancedTestNote": "增强版无需下载密码，保留 V3.11 全部功能，安装版本提高至 2.11。这不是官方 2.20 的兼容版本；已升级至该版本的机身请勿尝试。"
+        "enhancedTestNote": "增强版无需下载密码，保留 V3.12 全部功能，安装版本提高至 2.11。这不是官方 2.20 的兼容版本；已升级至该版本的机身请勿尝试。"
       },
       "gr3x": {
         "enhancedIntro": "用于官方活动更换关机画面后，仍显示 1.60、但无法安装普通版的 GR IIIx / HDF。请先尝试普通版，再考虑下方增强型固件。",
@@ -384,12 +384,12 @@ export const copy = {
       },
       "gr3": {
         "compatible": "RICOH GR III / HDF · based on official firmware 2.10",
-        "note": "V3.11: live framing previews, an Image Control adjustment fix and improved film-pack support.",
-        "changesTitle": "V3.11 UPDATE",
+        "note": "V3.12：Improve film colour rendering. Speed up highlight simulation processing and photo playback. Fix add-on film icons in playback INFO.",
+        "changesTitle": "V3.12 UPDATE",
         "changes": [
-          "Live framing previews while browsing ADJ ratios.",
-          "Fix the Fn adjustment conflict between native Image Control and XerFilm GR.",
-          "Improve support for upcoming film packs."
+          "Improve film colour rendering.",
+          "Speed up highlight simulation processing and photo playback.",
+          "Fix add-on film icons in playback INFO."
         ],
         "rollback": "Before restoring an older or official firmware: switch film simulation off, select Std in Image Control, then restart and confirm it was saved. Older firmware does not recognize the new Cinema IDs.",
         "frameDesc": "Original, 645, 67, XPan and 1:1, available in settings or a dedicated ADJ entry. Live view keeps the full 3:2 image, with a translucent mask and thick white crop borders. JPG is cropped; RAW retains the full image."
@@ -432,7 +432,7 @@ export const copy = {
     "enhancedModels": {
       "gr3": {
         "enhancedIntro": "For GR III / HDF cameras that still show 2.10 after an official event shutdown-screen service but reject the standard build. Try the standard build first.",
-        "enhancedTestNote": "No download password is required. Includes all V3.11 features with installation version 2.11. This is not a compatible build for official 2.20; do not use it on cameras already running that version."
+        "enhancedTestNote": "No download password is required. Includes all V3.12 features with installation version 2.11. This is not a compatible build for official 2.20; do not use it on cameras already running that version."
       },
       "gr3x": {
         "enhancedIntro": "For GR IIIx / HDF cameras that still show 1.60 after an official event shutdown-screen service but reject the standard build. Try the standard build first.",
@@ -606,12 +606,12 @@ export const copy = {
       },
       "gr3": {
         "compatible": "RICOH GR III / HDF・純正 2.10 ベース",
-        "note": "V3.11：ADJ画角のリアルタイムプレビュー、イメージコントロールの微調整の競合修正、フィルムパック対応の改善。",
-        "changesTitle": "V3.11 更新内容",
+        "note": "V3.12：フィルムの色表現を改善。 ハイライト処理と写真の再生を高速化。 追加フィルムの再生 INFO アイコンを修正。",
+        "changesTitle": "V3.12 更新内容",
         "changes": [
-          "ADJで画角を選ぶ際のリアルタイムプレビューを追加。",
-          "純正イメージコントロールと XerFilm GR のFn微調整の競合を修正。",
-          "今後のフィルムパックへの対応を改善。"
+          "フィルムの色表現を改善。",
+          "ハイライト処理と写真の再生を高速化。",
+          "追加フィルムの再生 INFO アイコンを修正。"
         ],
         "rollback": "旧版・純正へ戻す前に：フィルムを無効にし、イメージコントロールを Std に戻して再起動し、保存を確認してください。旧ファームウェアは追加した Cinema の番号を認識しません。",
         "frameDesc": "純正、645、67、XPan、1:1を設定または独立したADJ項目から選択。全体の3:2ライブビューに半透明マスクと太い白線で範囲を表示。JPGのみクロップし、RAWは全画面を保持。"
@@ -654,7 +654,7 @@ export const copy = {
     "enhancedModels": {
       "gr3": {
         "enhancedIntro": "公式イベントで終了画面を変更した後も 2.10 と表示され、通常版を導入できない GR III / HDF 向けです。まず通常版をお試しください。",
-        "enhancedTestNote": "ダウンロードパスワードは不要です。V3.11 の全機能を保持し、導入バージョンを 2.11 に引き上げています。純正 2.20 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。"
+        "enhancedTestNote": "ダウンロードパスワードは不要です。V3.12 の全機能を保持し、導入バージョンを 2.11 に引き上げています。純正 2.20 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。"
       },
       "gr3x": {
         "enhancedIntro": "公式イベントで終了画面を変更した後も 1.60 と表示され、通常版を導入できない GR IIIx / HDF 向けです。まず通常版をお試しください。",

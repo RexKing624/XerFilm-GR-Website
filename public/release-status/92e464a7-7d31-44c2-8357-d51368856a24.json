@@ -1,0 +1,39 @@
+{
+  "id": "92e464a7-7d31-44c2-8357-d51368856a24",
+  "model": "gr3",
+  "revision": "R41",
+  "version": "V3.12",
+  "sourceCommit": "78baf0be5fdbf055b19ff518601d2dff07ef2469",
+  "sourceSnapshot": "7742bcebbaf881e37e445d67fa5b6a6af416b65202cc9c16093610ccc2d6f3e7",
+  "publishedAt": "2026-10-28T12:12:23.332Z",
+  "firmware": [
+    {
+      "variant": "standard",
+      "revision": "R41",
+      "sha256": "4a6005e8aad5253badd8c5ecbca3aa0bfbb63aa73c0da10e80fddc499ba4c371"
+    },
+    {
+      "variant": "enhanced",
+      "revision": "R41-H",
+      "sha256": "7f1a5e6b744a4e5d4039a1c6687795cbf4d8f2366541c581ba0e2ce38b0d5b7e"
+    }
+  ],
+  "changes": {
+    "zh": [
+      "改善胶片色彩表现。",
+      "加快高光模拟处理与照片回放。",
+      "修复补充胶片在回放 INFO 中的图标显示。"
+    ],
+    "en": [
+      "Improve film colour rendering.",
+      "Speed up highlight simulation processing and photo playback.",
+      "Fix add-on film icons in playback INFO."
+    ],
+    "ja": [
+      "フィルムの色表現を改善。",
+      "ハイライト処理と写真の再生を高速化。",
+      "追加フィルムの再生 INFO アイコンを修正。"
+    ]
+  },
+  "hardwareTestAttestation": "Owner confirmed both variants before requesting publication."
+}
