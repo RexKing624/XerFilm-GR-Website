@@ -10,8 +10,8 @@ import preview6 from '../../src/gr3x-enhanced-release.json' with {type:'json'};
 const previewFiles={'test-releases.json':preview0,'release.json':preview1,'enhanced-release.json':preview2,'gr3-release.json':preview3,'gr3-enhanced-release.json':preview4,'gr3x-release.json':preview5,'gr3x-enhanced-release.json':preview6};
 const repository='RexKing624/XerFilm-GR-Website',workflow='promote-release.yml',active=['dispatching','queued','in_progress','attention'];
 async function github(env,path,options={}){
- const r=await (env.RELEASE_FETCH||fetch)(`https://api.github.com/repos/${repository}/${path}`,{...options,signal:AbortSignal.timeout(15000),redirect:'error',headers:{Accept:'application/vnd.github+json',...(env.RELEASE_GITHUB_TOKEN?{Authorization:'Bearer '+env.RELEASE_GITHUB_TOKEN}:{}),'X-GitHub-Api-Version':'2026-03-10','User-Agent':'XerFilm-release-admin','Content-Type':'application/json',...options.headers}});
- if(!r.ok){const e=Error('github-unavailable');e.definitive=r.status>=400&&r.status<500;throw e;}if(r.status===204)return null;const text=await r.text();return text?JSON.parse(text):null;
+ const r=await (env.RELEASE_FETCH||fetch)(`https://api.github.com/repos/${repository}/${path}`,{...options,signal:AbortSignal.timeout(15000),redirect:'manual',headers:{Accept:'application/vnd.github+json',...(env.RELEASE_GITHUB_TOKEN?{Authorization:'Bearer '+env.RELEASE_GITHUB_TOKEN.trim()}:{}),'X-GitHub-Api-Version':'2026-03-10','User-Agent':'XerFilm-release-admin','Content-Type':'application/json',...options.headers}});
+ if(!r.ok){const e=Error('github-unavailable');e.definitive=r.status>=400&&r.status<500;e.diagnostic='github-http-'+r.status;throw e;}if(r.status===204)return null;const text=await r.text();return text?JSON.parse(text):null;
 }
 const file=(env,name,head)=>!env.RELEASE_GITHUB_TOKEN?structuredClone(previewFiles[name]):github(env,`contents/src/${name}?ref=${head}`,{headers:{Accept:'application/vnd.github.raw+json'}});
 async function catalog(env){
@@ -28,7 +28,7 @@ async function reconcile(env,row){
  else{const runs=await github(env,`actions/workflows/${workflow}/runs?event=workflow_dispatch&branch=main&per_page=100`);run=runs.workflow_runs.find(r=>r.display_title===`Release ${row.model} ${row.id}`);}
  let state=row.status;
  if(run){state=run.status==='completed'?(run.conclusion==='success'?'success':'failed'):(run.status==='in_progress'?'in_progress':'queued');
- if(state==='success'){const r=await (env.RELEASE_FETCH||fetch)(`https://filmgr.xergnik.com/release-status/${row.id}.json?t=${Date.now()}`,{signal:AbortSignal.timeout(10000),redirect:'error',cache:'no-store'});if(!r.ok)state='in_progress';else{const receipt=await r.json();if(receipt.id!==row.id||receipt.model!==row.model||receipt.revision!==row.revision||receipt.version!==row.version)state='in_progress';}}
+ if(state==='success'){const r=await (env.RELEASE_FETCH||fetch)(`https://filmgr.xergnik.com/release-status/${row.id}.json?t=${Date.now()}`,{signal:AbortSignal.timeout(10000),redirect:'manual',cache:'no-store'});if(!r.ok)state='in_progress';else{const receipt=await r.json();if(receipt.id!==row.id||receipt.model!==row.model||receipt.revision!==row.revision||receipt.version!==row.version)state='in_progress';}}
  }else if(Date.now()-Date.parse(row.created_at)>10*60000)state='attention';
  const updated=new Date().toISOString();await env.DB.prepare('UPDATE release_jobs SET status=?,run_id=?,updated_at=? WHERE id=? AND status IN (?,?,?,?)').bind(state,run?.id||row.run_id||null,updated,row.id,...active).run();return (await rows(env,'SELECT * FROM release_jobs WHERE id=?',row.id))[0];
 }
@@ -66,5 +66,5 @@ export async function handleReleases(request,env){
  catch(e){await env.DB.prepare('UPDATE release_jobs SET status=? WHERE id=?').bind(e.definitive?'failed':'attention',b.id).run();return json({error:e.definitive?'dispatch-failed':'dispatch-uncertain',id:b.id},e.definitive?503:202);}
  const runID=Number.isSafeInteger(result?.workflow_run_id)?result.workflow_run_id:null;
  await env.DB.prepare('UPDATE release_jobs SET status=?,run_id=? WHERE id=?').bind('queued',runID,b.id).run();return json(publicJob((await rows(env,'SELECT * FROM release_jobs WHERE id=?',b.id))[0]),202);
- }catch{return json({error:'release-service-unavailable'},503);}
+ }catch(error){const code=error.diagnostic||error.message;const diagnostic=/^(github-http-\d{3}|invalid-head|invalid-candidate|already-released)$/.test(code)?code:error.name==='SyntaxError'?'github-response-json':error.name==='TypeError'?'service-type-error':error.name==='TimeoutError'?'github-timeout':'service-unavailable';return json({error:'release-service-unavailable',diagnostic},503);}
 }

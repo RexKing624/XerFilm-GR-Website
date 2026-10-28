@@ -12,7 +12,7 @@ function setup(){
  const db=new DatabaseSync(':memory:');for(const f of readdirSync(new URL('../migrations/',import.meta.url)).filter(n=>n.endsWith('.sql')).sort())db.exec(readFileSync(new URL('../migrations/'+f,import.meta.url),'utf8'));
  const state={head:'a'.repeat(40),dispatches:[],retries:0,runs:[{id:123,status:'queued'}],receipt:null,dispatchStatus:200,apiCalls:0};
  const env={ADMIN_TOKEN:'test-management-credential-at-least-32',RELEASE_GITHUB_TOKEN:'test-deployment-credential',DB:{prepare(sql){let args=[];return{bind(...v){args=v;return this;},async all(){return{results:db.prepare(sql).all(...args)};},async run(){return db.prepare(sql).run(...args);}}}},RELEASE_FETCH:async(url,options={})=>{
-  state.apiCalls++;const u=new URL(url);assert.equal(options.redirect,'error');
+  state.apiCalls++;const u=new URL(url);assert.equal(options.redirect,'manual');
   if(u.hostname==='filmgr.xergnik.com')return state.receipt?Response.json(state.receipt):new Response('pending',{status:404});
   assert.equal(u.hostname,'api.github.com');assert.ok(u.pathname.startsWith('/repos/RexKing624/XerFilm-GR-Website/'));
   if(u.pathname.endsWith('/commits/main'))return Response.json({sha:state.head});
