@@ -41,22 +41,22 @@
   },
   "gr3x-release.json": {
     "identity": [
-      "R31",
+      "R40",
       "1.60",
       "fwdc243b.bin",
-      "fe50d2d36059a6c3a9928d06330e1f36403365204dc16a7b534b71a504fce946"
+      "66bd85b1fe3935da9f3d5f368a5706f255a019d23e8146090f58d7b17f4c6c5f"
     ],
-    "version": "V3.0",
+    "version": "V3.12",
     "hardwareTested": true
   },
   "gr3x-enhanced-release.json": {
     "identity": [
-      "R31-H",
+      "R40-H",
       "1.61",
       "fwdc243b.bin",
-      "98def0db42b23ab6699ab535ea520364ce8a52b7e72a9ad57962a666b959c33e"
+      "a0019889a7e03b5338ba8dc394950545b5422d0f1f97af90e821eaa6ebc9b752"
     ],
-    "version": "V3.0",
+    "version": "V3.12",
     "hardwareTested": true
   }
 }

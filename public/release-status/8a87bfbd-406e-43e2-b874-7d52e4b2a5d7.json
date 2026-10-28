@@ -1,0 +1,39 @@
+{
+  "id": "8a87bfbd-406e-43e2-b874-7d52e4b2a5d7",
+  "model": "gr3x",
+  "revision": "R40",
+  "version": "V3.12",
+  "sourceCommit": "17763698444c311ffee9a11e178799f983bb79fd",
+  "sourceSnapshot": "dea812a55b8cd0e8bddd20bae50d8fa35dbb873412bb7bace4d0217bebd5ce94",
+  "publishedAt": "2026-10-28T12:17:12.556Z",
+  "firmware": [
+    {
+      "variant": "standard",
+      "revision": "R40",
+      "sha256": "66bd85b1fe3935da9f3d5f368a5706f255a019d23e8146090f58d7b17f4c6c5f"
+    },
+    {
+      "variant": "enhanced",
+      "revision": "R40-H",
+      "sha256": "a0019889a7e03b5338ba8dc394950545b5422d0f1f97af90e821eaa6ebc9b752"
+    }
+  ],
+  "changes": {
+    "zh": [
+      "改善胶片色彩表现。",
+      "加快高光模拟处理与照片回放。",
+      "修复补充胶片在回放 INFO 中的图标显示。"
+    ],
+    "en": [
+      "Improve film colour rendering.",
+      "Speed up highlight simulation processing and photo playback.",
+      "Fix add-on film icons in playback INFO."
+    ],
+    "ja": [
+      "フィルムの色表現を改善。",
+      "ハイライト処理と写真の再生を高速化。",
+      "追加フィルムの再生 INFO アイコンを修正。"
+    ]
+  },
+  "hardwareTestAttestation": "Owner confirmed both variants before requesting publication."
+}
