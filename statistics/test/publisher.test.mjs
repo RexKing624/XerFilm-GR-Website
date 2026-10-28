@@ -10,7 +10,7 @@ const fixture=JSON.parse(readFileSync(new URL('./fixtures/release-catalog.json',
 const origin='https://filmgr.xergnik.com',base='https://backend.example/api/releases',root=new URL('../../',import.meta.url);
 function setup(){
  const db=new DatabaseSync(':memory:');for(const f of readdirSync(new URL('../migrations/',import.meta.url)).filter(n=>n.endsWith('.sql')).sort())db.exec(readFileSync(new URL('../migrations/'+f,import.meta.url),'utf8'));
- const state={head:'a'.repeat(40),dispatches:[],runs:[{id:123,status:'queued'}],receipt:null,dispatchStatus:200,apiCalls:0};
+ const state={head:'a'.repeat(40),dispatches:[],retries:0,runs:[{id:123,status:'queued'}],receipt:null,dispatchStatus:200,apiCalls:0};
  const env={ADMIN_TOKEN:'test-management-credential-at-least-32',RELEASE_GITHUB_TOKEN:'test-deployment-credential',DB:{prepare(sql){let args=[];return{bind(...v){args=v;return this;},async all(){return{results:db.prepare(sql).all(...args)};},async run(){return db.prepare(sql).run(...args);}}}},RELEASE_FETCH:async(url,options={})=>{
   state.apiCalls++;const u=new URL(url);assert.equal(options.redirect,'error');
   if(u.hostname==='filmgr.xergnik.com')return state.receipt?Response.json(state.receipt):new Response('pending',{status:404});
@@ -18,7 +18,7 @@ function setup(){
   if(u.pathname.endsWith('/commits/main'))return Response.json({sha:state.head});
   if(u.pathname.includes('/contents/src/'))return Response.json(structuredClone(fixture[u.pathname.split('/').at(-1)]));
   if(u.pathname.endsWith('/dispatches')){state.dispatches.push(JSON.parse(options.body));if(state.lostResponse)throw TypeError('lost');return state.dispatchStatus===204?new Response(null,{status:204}):Response.json({workflow_run_id:123},{status:state.dispatchStatus});}
-  if(u.pathname.endsWith('/rerun-failed-jobs'))return new Response(null,{status:201});
+  if(u.pathname.endsWith('/rerun-failed-jobs')){state.retries++;return new Response(null,{status:201});}
   if(u.pathname.endsWith('/actions/runs/123'))return Response.json(state.runs[0]);
   if(u.pathname.endsWith('/runs'))return Response.json({workflow_runs:state.runs});
   throw Error('Unexpected URL '+u.pathname);
@@ -73,4 +73,10 @@ test('CORS allows authenticated publication only from the official admin',async(
 
 test('without deployment credentials the owner can review public candidates but cannot dispatch',async()=>{
  const s=setup(),p=await s.plan('gr4');delete s.env.RELEASE_GITHUB_TOKEN;const response=await s.call();assert.equal(response.status,200);assert.equal((await response.json()).configured,false);assert.equal((await s.call('/publish',p)).status,503);assert.equal(s.state.dispatches.length,0);
+});
+
+test('concurrent retry clicks claim the failed run once',async()=>{
+ const s=setup(),p=await s.plan('gr4');await s.call('/publish',p);s.state.runs=[{id:123,status:'completed',conclusion:'failure'}];await s.call('/jobs/'+p.id);
+ const retry=()=>handleReleases(new Request(base+'/jobs/'+p.id+'/retry',{method:'POST',headers:{Authorization:'Bearer '+s.env.ADMIN_TOKEN}}),s.env);
+ const responses=await Promise.all([retry(),retry()]);assert.deepEqual(responses.map(r=>r.status).sort(),[202,409]);assert.equal(s.state.retries,1);
 });

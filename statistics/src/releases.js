@@ -30,7 +30,7 @@ async function reconcile(env,row){
  if(run){state=run.status==='completed'?(run.conclusion==='success'?'success':'failed'):(run.status==='in_progress'?'in_progress':'queued');
  if(state==='success'){const r=await (env.RELEASE_FETCH||fetch)(`https://filmgr.xergnik.com/release-status/${row.id}.json?t=${Date.now()}`,{signal:AbortSignal.timeout(10000),redirect:'error',cache:'no-store'});if(!r.ok)state='in_progress';else{const receipt=await r.json();if(receipt.id!==row.id||receipt.model!==row.model||receipt.revision!==row.revision||receipt.version!==row.version)state='in_progress';}}
  }else if(Date.now()-Date.parse(row.created_at)>10*60000)state='attention';
- const updated=new Date().toISOString();await env.DB.prepare('UPDATE release_jobs SET status=?,run_id=?,updated_at=? WHERE id=?').bind(state,run?.id||row.run_id||null,updated,row.id).run();return {...row,status:state,run_id:run?.id||row.run_id,updated_at:updated};
+ const updated=new Date().toISOString();await env.DB.prepare('UPDATE release_jobs SET status=?,run_id=?,updated_at=? WHERE id=? AND status IN (?,?,?,?)').bind(state,run?.id||row.run_id||null,updated,row.id,...active).run();return (await rows(env,'SELECT * FROM release_jobs WHERE id=?',row.id))[0];
 }
 export async function handleReleases(request,env){
  try{
@@ -44,7 +44,7 @@ export async function handleReleases(request,env){
  if(retry&&request.method==='POST'){
   const job=(await rows(env,'SELECT * FROM release_jobs WHERE id=?',retry[1]))[0];
   if(!job||job.status!=='failed'||!job.run_id)return json({error:'invalid-retry'},409);
-  try{await env.DB.prepare('UPDATE release_jobs SET status=? WHERE id=? AND status=?').bind('queued',job.id,'failed').run();}catch{return json({error:'release-in-progress'},409);}
+  try{const claimed=await env.DB.prepare('UPDATE release_jobs SET status=? WHERE id=? AND status=?').bind('queued',job.id,'failed').run();if((claimed.meta?.changes??claimed.changes)!==1)return json({error:'release-in-progress'},409);}catch{return json({error:'release-in-progress'},409);}
   try{await github(env,`actions/runs/${job.run_id}/rerun-failed-jobs`,{method:'POST'});}catch(e){await env.DB.prepare('UPDATE release_jobs SET status=? WHERE id=?').bind(e.definitive?'failed':'attention',job.id).run();return json({error:'dispatch-uncertain',id:job.id},503);}
   return json(publicJob({...job,status:'queued'}),202);
  }
