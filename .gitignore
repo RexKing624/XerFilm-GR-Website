@@ -83,3 +83,8 @@ public-summary/.wrangler/
 
 # GR IV v61 startup and highlight performance test, encrypted BIN parts.
 !public/downloads/test-gr4-performance-v61-*-20261028.part*
+
+# Three-camera highlight performance and INFO icon tests, encrypted BIN parts.
+!public/downloads/test-gr3-info-r41-*-20261028.part*
+!public/downloads/test-gr3x-info-r40-*-20261028.part*
+!public/downloads/test-gr4-info-v62-*-20261028.part*

@@ -1,10 +1,10 @@
 # XerFilm GR
 
-## Color repair test builds — 2026-10-28
+## Highlight performance and INFO icon test builds — 2026-10-28
 
-GR III / HDF R40 and GR IIIx / HDF R39 are available in separate password-gated test sections labeled “颜色修复测试版” with their build numbers. Standard and Enhanced are mutually exclusive side-by-side choices; only the selected BIN download appears after the existing reading confirmations, test acknowledgement and successful password verification.
+GR IV / HDF v62, GR III / HDF R41 and GR IIIx / HDF R40 are available in their password-gated test sections labeled “高光提速与 INFO 修复测试版” with their build numbers. These retain the corrected 27 looks, share the v61 highlight optimization, and display installed author/user icons in INFO, including direct playback startup. Standard and Enhanced are mutually exclusive side-by-side choices; only the selected BIN download appears after the existing reading confirmations, test acknowledgement and successful password verification.
 
-The four encrypted test assets contain the exact locally validated BINs with the new 27-look palette and duplicate-override startup optimization. No sample kit or ZIP download is offered. These builds still require camera testing. Existing stable firmware, changelogs, original backups and the domain remain unchanged; the former IIIx R38 test assets are withdrawn.
+The six encrypted test assets contain the exact locally validated BINs. All retain each model’s original boot/copy/BSS layout and installation metadata; the III/IIIx images add the same position-independent highlight code used in IV v61. No sample kit or ZIP download is offered. These builds still require camera testing. Existing stable firmware, changelogs, original backups and the domain remain unchanged; the previous IV v61, III R40 and IIIx R39 test assets are replaced.
 
 **XerFilm GR** 是为 RICOH GR IV / HDF、GR III / HDF 与 GR IIIx / HDF 胶片模拟固件制作的 Vue 3 下载网站。
 

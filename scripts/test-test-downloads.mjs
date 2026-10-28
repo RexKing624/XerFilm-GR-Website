@@ -8,20 +8,25 @@ const root = new URL('../', import.meta.url);
 const sets = JSON.parse(await readFile(new URL('src/test-releases.json', root)));
 const pins = {
   "gr3": [
-    "R40",
+    "R41",
     "fwdc239b.bin",
-    "d35b36867bfc3bdc1594cd6afef27ddc50847342271b1201aa31c59025308476",
-    "86b801b4e5baa66e2fbfa63dfde8c1aaa2abdc31ec69fd84e7c7e14f770403c7"
+    "4a6005e8aad5253badd8c5ecbca3aa0bfbb63aa73c0da10e80fddc499ba4c371",
+    "7f1a5e6b744a4e5d4039a1c6687795cbf4d8f2366541c581ba0e2ce38b0d5b7e"
   ],
   "gr3x": [
-    "R39",
+    "R40",
     "fwdc243b.bin",
-    "8a2d4e5be87839335ebcfa51b9c379852b71208c43b3f3adb46f74081c571fd9",
-    "cddbf0404bb424a2d55d1dd02490d07fb6d646bec07d490e8145cbbe600fad74"
+    "66bd85b1fe3935da9f3d5f368a5706f255a019d23e8146090f58d7b17f4c6c5f",
+    "a0019889a7e03b5338ba8dc394950545b5422d0f1f97af90e821eaa6ebc9b752"
+  ],
+  "gr4": [
+    "v62",
+    "fwdc248b.bin",
+    "501d8f199b926ac2970fb30f62168a5ac537a128366fba615eda6e6c0130a7cf",
+    "4012ef44ffd0b6eb278a3bac45c3c25871f51c0c67ac847cfffec55b22eee9a5"
   ]
 };
 assert.deepEqual(Object.keys(sets), ['gr3', 'gr3x', 'gr4']);
-pins.gr4=['v61','fwdc248b.bin','33ac26c188ea066237009f0aac8ded3ccbb9502e75c891fd7dab46aed65fd0f4','d1c20c6217bc5eec415eda8b0557c32523d9f3a2afe786cc29716e6ff1a9c3a8'];
 const sha = data => createHash('sha256').update(data).digest('hex');
 const password = process.env.TEST_DOWNLOAD_PASSWORD;
 const realFetch = globalThis.fetch;
@@ -44,7 +49,7 @@ try {
       assert.equal(release.filename, pins[model][1]);
       assert.equal(release.sha256, pins[model][2 + index]);
       assert.equal(release.testRelease, true);
-      assert.equal(release.version, model === 'gr4' ? '启动与高光优化测试版' : '颜色修复测试版');
+      assert.equal(release.version, '高光提速与 INFO 修复测试版');
       assert.equal(release.hardwareTested, false);
       assert.equal(release.statisticsVersion, 'V3.11-test');
       assert.equal(release.downloadVariant, index ? 'enhanced' : 'standard');
@@ -99,5 +104,5 @@ try {
   assert.ok(ui.includes('watch(selectedVariant, cancel)') && ui.includes('const asset = selectedAsset.value;'));
   const remaining = await (await import('node:fs/promises')).readdir(new URL('public/downloads/', root));
   assert.ok(!remaining.some(name => /^test-gr3x-v311-r38-|supplement/.test(name)), 'Retired test firmware and sample kits are not deployed');
-  console.log(`GR III R40 / IIIx R39 color repair test downloads: ciphertext integrity and locked behavior verified${password ? '; correct-password roundtrip, cancellation and corruption verified' : ''}.`);
+  console.log(`GR III R41 / IIIx R40 / IV v62 highlight and INFO test downloads: ciphertext integrity and locked behavior verified${password ? '; correct-password roundtrip, cancellation and corruption verified' : ''}.`);
 } finally { globalThis.fetch = realFetch; }
