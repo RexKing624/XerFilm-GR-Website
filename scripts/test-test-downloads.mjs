@@ -20,7 +20,8 @@ const pins = {
     "cddbf0404bb424a2d55d1dd02490d07fb6d646bec07d490e8145cbbe600fad74"
   ]
 };
-assert.deepEqual(Object.keys(sets), ['gr3', 'gr3x']);
+assert.deepEqual(Object.keys(sets), ['gr3', 'gr3x', 'gr4']);
+pins.gr4=['v61','fwdc248b.bin','33ac26c188ea066237009f0aac8ded3ccbb9502e75c891fd7dab46aed65fd0f4','d1c20c6217bc5eec415eda8b0557c32523d9f3a2afe786cc29716e6ff1a9c3a8'];
 const sha = data => createHash('sha256').update(data).digest('hex');
 const password = process.env.TEST_DOWNLOAD_PASSWORD;
 const realFetch = globalThis.fetch;
@@ -43,7 +44,7 @@ try {
       assert.equal(release.filename, pins[model][1]);
       assert.equal(release.sha256, pins[model][2 + index]);
       assert.equal(release.testRelease, true);
-      assert.equal(release.version, '颜色修复测试版');
+      assert.equal(release.version, model === 'gr4' ? '启动与高光优化测试版' : '颜色修复测试版');
       assert.equal(release.hardwareTested, false);
       assert.equal(release.statisticsVersion, 'V3.11-test');
       assert.equal(release.downloadVariant, index ? 'enhanced' : 'standard');

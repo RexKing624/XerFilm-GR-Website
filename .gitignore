@@ -80,3 +80,6 @@ public-summary/.wrangler/
 # Password-gated colour repair tests: GR III R40 and GR IIIx R39.
 !public/downloads/test-gr3-colour-r40-*-20261028.part*
 !public/downloads/test-gr3x-colour-r39-*-20261028.part*
+
+# GR IV v61 startup and highlight performance test, encrypted BIN parts.
+!public/downloads/test-gr4-performance-v61-*-20261028.part*

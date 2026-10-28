@@ -194,5 +194,123 @@
         }
       }
     ]
+  },
+  "gr4": {
+    "id": "gr4",
+    "camera": "RICOH GR IV / HDF",
+    "revision": "v61",
+    "version": "启动与高光优化测试版",
+    "firmware": [
+      {
+        "version": "启动与高光优化测试版",
+        "internalVersion": "v61",
+        "statisticsVersion": "V3.11-test",
+        "downloadVariant": "standard",
+        "baseVersion": "1.11",
+        "installationVersion": "1.11",
+        "camera": "RICOH GR IV / HDF",
+        "filename": "fwdc248b.bin",
+        "size": 46244928,
+        "sha256": "33ac26c188ea066237009f0aac8ded3ccbb9502e75c891fd7dab46aed65fd0f4",
+        "hardwareTested": false,
+        "testRelease": true,
+        "releaseDate": "2026-10-28",
+        "parts": [
+          {
+            "file": "test-gr4-performance-v61-standard-20261028.part1",
+            "size": 16777216,
+            "sha256": "f05eca18b02778630a4f8d7f585765b59b817b07c428b07825d3fec15285c1c9"
+          },
+          {
+            "file": "test-gr4-performance-v61-standard-20261028.part2",
+            "size": 16777216,
+            "sha256": "e03f34559afa5aeaea4e7d94ef538a002b0ad15405c7e714bb4788f12c05c7ee"
+          },
+          {
+            "file": "test-gr4-performance-v61-standard-20261028.part3",
+            "size": 12690512,
+            "sha256": "20328f57d096b8de579ddf80d159ab3478a0959b55a22495adf4235b33168f41"
+          }
+        ],
+        "downloadSize": 46244944,
+        "transportSha256": "99cdbb226d36b5ef2e32934a29b417aaf8f786d3aa41a0d49360fe00269829a9",
+        "encryption": {
+          "algorithm": "AES-GCM",
+          "kdf": "PBKDF2",
+          "iterations": 210000,
+          "salt": "nOFYT/gXw/dWrlXysj+ybA==",
+          "iv": "URkhL5WyzQRKp7+H",
+          "check": {
+            "iv": "i357tWOoHg/3LQ0K",
+            "ciphertext": "lzoz4RWaDhXlXbi0gRMgey0n4n7368zwzKIhaEHYW9WfrsTicxw6OY0DPpf1QTM74rB0HgBS1njbC7PmRd65tcI8WLPkGyNfIM00pzcKMg=="
+          }
+        }
+      },
+      {
+        "version": "启动与高光优化测试版",
+        "internalVersion": "v61-H",
+        "statisticsVersion": "V3.11-test",
+        "downloadVariant": "enhanced",
+        "baseVersion": "1.11",
+        "installationVersion": "1.12.10.7",
+        "camera": "RICOH GR IV / HDF",
+        "filename": "fwdc248b.bin",
+        "size": 46323400,
+        "sha256": "d1c20c6217bc5eec415eda8b0557c32523d9f3a2afe786cc29716e6ff1a9c3a8",
+        "hardwareTested": false,
+        "testRelease": true,
+        "releaseDate": "2026-10-28",
+        "parts": [
+          {
+            "file": "test-gr4-performance-v61-enhanced-20261028.part1",
+            "size": 16777216,
+            "sha256": "aa724ac2a107a66a2af672e41149b264e460c1e58e388eb54bea5e2075fbfaa4"
+          },
+          {
+            "file": "test-gr4-performance-v61-enhanced-20261028.part2",
+            "size": 16777216,
+            "sha256": "3a695b79afc564b6fbcd4518cbfc1dfde5e6c088bcf31292651134eb1df5ff57"
+          },
+          {
+            "file": "test-gr4-performance-v61-enhanced-20261028.part3",
+            "size": 12768984,
+            "sha256": "7df9f90d256c3fbdb3217aceb79073ae3a3f0da92e2ed87e2ee1921b8e47976e"
+          }
+        ],
+        "downloadSize": 46323416,
+        "transportSha256": "f9c7a1d465bfb6957be8cf2a3427a1c4b659433706b79e26633df113ce49281c",
+        "encryption": {
+          "algorithm": "AES-GCM",
+          "kdf": "PBKDF2",
+          "iterations": 210000,
+          "salt": "nOFYT/gXw/dWrlXysj+ybA==",
+          "iv": "yyBGg53Kv7n30l4u",
+          "check": {
+            "iv": "LgrleOkTkHdEUihu",
+            "ciphertext": "ytg2rX/WV2y/JoOy8214z/SmBXx1jc5cVV658V1oKXogzyQYtISP9hAjQSzZPlwiHq2BgceirDsBmFk+CZQT/iIEOC3GdSXposwks41a4Q=="
+          }
+        }
+      }
+    ],
+    "copy": {
+      "zh": {
+        "title": "启动与高光优化测试版",
+        "note": "基于 v60，保留 27 款修复后的配色，优化胶片加载校验及高光模拟的照片处理。效果保持一致，实际启动及回看速度待实机确认。正式版下载保留。",
+        "standardDownload": "下载启动与高光优化测试版 · {revision} · 普通版 .bin",
+        "enhancedDownload": "下载启动与高光优化测试版 · {revision} · 增强版 .bin"
+      },
+      "en": {
+        "title": "Startup & highlight performance test",
+        "note": "Based on v60 with the corrected 27 built-in looks. Optimizes film loading verification and highlight compositing while preserving output. Camera startup and review timings still require testing. Stable downloads remain available.",
+        "standardDownload": "Download performance test · {revision} · Standard .bin",
+        "enhancedDownload": "Download performance test · {revision} · Enhanced .bin"
+      },
+      "ja": {
+        "title": "起動・ハイライト最適化テスト版",
+        "note": "v60の修正済み27種類の色を維持し、フィルム読み込み時の検証処理とハイライト処理を最適化しました。起動・再生速度は実機でご確認ください。正式版も引き続きダウンロードできます。",
+        "standardDownload": "最適化テスト版 · {revision} · 通常版 .bin",
+        "enhancedDownload": "最適化テスト版 · {revision} · 拡張版 .bin"
+      }
+    }
   }
 }

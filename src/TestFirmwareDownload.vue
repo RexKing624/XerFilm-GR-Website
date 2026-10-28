@@ -6,7 +6,7 @@ import { testFirmwareCopy } from './test-firmware-copy';
 
 const props = defineProps({ releaseSet: { type: Object, required: true }, language: String, t: Object, verified: Boolean, baseBusy: Boolean });
 const emit = defineEmits(['busy']);
-const labels = computed(() => testFirmwareCopy[props.language]);
+const labels = computed(() => ({ ...testFirmwareCopy[props.language], ...props.releaseSet.copy?.[props.language] }));
 const id = computed(() => `${props.releaseSet.id}-test`);
 const accepted = ref(false), password = ref(''), passwordError = ref(false), unlocking = ref(false);
 const selectedVariant = ref('standard');
