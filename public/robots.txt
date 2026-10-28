@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /downloads/
+Disallow: /*.zip$
+
+Sitemap: https://filmgr.xergnik.com/sitemap.xml

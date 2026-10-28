@@ -1,5 +1,9 @@
 # XerFilm GR
 
+**官网：[XerFilm GR — 理光 GR III / IIIx / IV 胶片模拟固件](https://filmgr.xergnik.com/)**
+
+[社群与摄影作品](https://filmgr.xergnik.com/community/) · [胶片工作室](https://filmgr.xergnik.com/community/studio/)
+
 ## Highlight performance and INFO icon test builds — 2026-10-28
 
 GR IV / HDF v62, GR III / HDF R41 and GR IIIx / HDF R40 are available in their password-gated test sections labeled “高光提速与 INFO 修复测试版” with their build numbers. These retain the corrected 27 looks, share the v61 highlight optimization, and display installed author/user icons in INFO, including direct playback startup. Standard and Enhanced are mutually exclusive side-by-side choices; only the selected BIN download appears after the existing reading confirmations, test acknowledgement and successful password verification.

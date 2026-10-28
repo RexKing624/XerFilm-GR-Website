@@ -13,7 +13,8 @@
     "test:statistics": "node --test statistics/test/*.test.mjs",
     "test:photography": "node scripts/test-photography.mjs",
     "test:summary": "node --test public-summary/test/*.test.mjs",
-    "test:publisher": "node --test statistics/test/publisher.test.mjs scripts/test-promotion.mjs"
+    "test:publisher": "node --test statistics/test/publisher.test.mjs scripts/test-promotion.mjs",
+    "test:seo": "node scripts/test-seo.mjs"
   },
   "dependencies": {
     "fflate": "0.8.2",

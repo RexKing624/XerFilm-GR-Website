@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import { existsSync, readFileSync, readdirSync, rmSync, mkdirSync, copyFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, rmSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { writeSeoPages } from './scripts/seo-pages.mjs';
 for (const manifest of ['release.json','gr3-release.json','gr3x-release.json','enhanced-release.json', 'gr3-enhanced-release.json', 'gr3x-enhanced-release.json']) {
   const release = JSON.parse(readFileSync(resolve('src', manifest), 'utf8'));
   if (!release.parts.every(part => existsSync(resolve('public/downloads', part.file)))) {
@@ -17,10 +18,7 @@ export default defineConfig({
   plugins: [vue(), {
     name: 'same-site-page-entries',
     closeBundle() {
-      mkdirSync(resolve('dist/community'), { recursive: true });
-      copyFileSync(resolve('dist/index.html'), resolve('dist/community/index.html'));
-      mkdirSync(resolve('dist/community/studio'), { recursive: true });
-      copyFileSync(resolve('dist/index.html'), resolve('dist/community/studio/index.html'));
+      writeSeoPages();
     },
     configureServer(server) {
       server.middlewares.use((request, response, next) => {

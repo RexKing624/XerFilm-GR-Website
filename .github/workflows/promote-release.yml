@@ -43,6 +43,7 @@ jobs:
       - run: npm run test:statistics
       - run: npm run test:summary
       - run: npm run build
+      - run: npm run test:seo
       - name: Commit only verified publication files
         if: ${{ !inputs.dry_run }}
         run: node scripts/commit-release.mjs

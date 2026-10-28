@@ -22,6 +22,7 @@ import DateStamp from './DateStamp.vue';
 import StudioEditor from './StudioEditor.vue';
 import { communityCopy } from './community-copy';
 import { SITE_VERSION } from './site-version';
+import { updatePageSeo } from './seo.js';
 import {startPublicEngagement} from './public-engagement';
 let stopEngagement;
 onMounted(()=>{stopEngagement=startPublicEngagement();});
@@ -126,7 +127,9 @@ watch(selectedModel, () => {
   acks.value = emptyAcknowledgements(); typed.value = ''; inputHint.value = '';
 });
 watch(password, () => { passwordError.value = false; });
-watch([language, communityPage, studioPage], ([value, community, studio]) => { document.documentElement.lang = value === 'zh' ? 'zh-CN' : value; document.title = `XerFilm GR ${SITE_VERSION} · ${studio ? communityCopy[value].studioNav : community ? communityCopy[value].nav : copy[value].download}`; }, { immediate: true });
+watch([language, communityPage, studioPage], ([value, community, studio]) => {
+  updatePageSeo(studio ? '/community/studio/' : community ? '/community/' : '/', value);
+}, { immediate: true });
 watch(theme, value => { document.documentElement.dataset.theme = value; document.documentElement.style.colorScheme = value; savePreference('site-theme', value); }, { immediate: true });
 watch(allAcknowledged, value => { if (!value) { typed.value = ''; if (drawer.value === 'download') closeDrawer(); } });
 watch(verified, value => { if (value) openDrawer('download'); });

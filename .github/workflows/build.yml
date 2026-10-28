@@ -27,6 +27,7 @@ jobs:
       - run: npm run test:statistics
       - run: npm run test:summary
       - run: npm run build
+      - run: npm run test:seo
       - uses: actions/configure-pages@v5
         if: github.event_name != 'pull_request'
       - uses: actions/upload-pages-artifact@v3
