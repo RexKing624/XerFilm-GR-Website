@@ -1,5 +1,11 @@
 # XerFilm GR
 
+## Color repair test builds — 2026-10-28
+
+GR III / HDF R40 and GR IIIx / HDF R39 are available in separate password-gated test sections labeled “颜色修复测试版” with their build numbers. Standard and Enhanced are mutually exclusive side-by-side choices; only the selected BIN download appears after the existing reading confirmations, test acknowledgement and successful password verification.
+
+The four encrypted test assets contain the exact locally validated BINs with the new 27-look palette and duplicate-override startup optimization. No sample kit or ZIP download is offered. These builds still require camera testing. Existing stable firmware, changelogs, original backups and the domain remain unchanged; the former IIIx R38 test assets are withdrawn.
+
 **XerFilm GR** 是为 RICOH GR IV / HDF、GR III / HDF 与 GR IIIx / HDF 胶片模拟固件制作的 Vue 3 下载网站。
 
 [网站源码](https://github.com/RexKing624/XerFilm-GR-Website) · [作者](https://xergnik.com/) · [联系](mailto:hello@xergnik.com)

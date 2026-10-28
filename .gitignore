@@ -76,3 +76,7 @@ public-summary/.wrangler/
 
 # Public author add-on products; never author signing keys or private masters.
 !public/author-packs/*.zip
+
+# Password-gated colour repair tests: GR III R40 and GR IIIx R39.
+!public/downloads/test-gr3-colour-r40-*-20261028.part*
+!public/downloads/test-gr3x-colour-r39-*-20261028.part*

@@ -7,14 +7,20 @@ import { testFirmwareCopy } from '../src/test-firmware-copy.js';
 const root = new URL('../', import.meta.url);
 const sets = JSON.parse(await readFile(new URL('src/test-releases.json', root)));
 const pins = {
+  "gr3": [
+    "R40",
+    "fwdc239b.bin",
+    "d35b36867bfc3bdc1594cd6afef27ddc50847342271b1201aa31c59025308476",
+    "86b801b4e5baa66e2fbfa63dfde8c1aaa2abdc31ec69fd84e7c7e14f770403c7"
+  ],
   "gr3x": [
-    "R38",
+    "R39",
     "fwdc243b.bin",
-    "99352242d2f32e3e300e2ed0c23b59287146ae0e5005fc8d3cf736a95f48a507",
-    "2e8299cc57f125d90e2808bf95486d945feae5b21b4e1250c3abed5cf7d17039"
+    "8a2d4e5be87839335ebcfa51b9c379852b71208c43b3f3adb46f74081c571fd9",
+    "cddbf0404bb424a2d55d1dd02490d07fb6d646bec07d490e8145cbbe600fad74"
   ]
 };
-assert.deepEqual(Object.keys(sets), ['gr3x']);
+assert.deepEqual(Object.keys(sets), ['gr3', 'gr3x']);
 const sha = data => createHash('sha256').update(data).digest('hex');
 const password = process.env.TEST_DOWNLOAD_PASSWORD;
 const realFetch = globalThis.fetch;
@@ -29,12 +35,15 @@ try {
     const first = set.firmware[0];
     let key;
     await assert.rejects(unlockFirmware(first, 'incorrect-test-password'));
+    await assert.rejects(unlockFirmware(first, '3333'));
+    await assert.rejects(unlockFirmware(first, '2222'));
     if (password) key = await unlockFirmware(first, password);
     for (const [index, release] of set.firmware.entries()) {
       assert.equal(release.internalVersion, pins[model][0] + (index ? '-H' : ''));
       assert.equal(release.filename, pins[model][1]);
       assert.equal(release.sha256, pins[model][2 + index]);
       assert.equal(release.testRelease, true);
+      assert.equal(release.version, '颜色修复测试版');
       assert.equal(release.hardwareTested, false);
       assert.equal(release.statisticsVersion, 'V3.11-test');
       assert.equal(release.downloadVariant, index ? 'enhanced' : 'standard');
@@ -70,8 +79,9 @@ try {
   }
   for (const language of ['zh', 'en', 'ja']) {
     const text = testFirmwareCopy[language];
-    for (const field of ['title', 'warning', 'note', 'ack', 'password', 'passed', 'standardDownload', 'enhancedDownload']) assert.ok(text[field]);
+    for (const field of ['title', 'warning', 'note', 'variant', 'ack', 'password', 'passed', 'standardDownload', 'enhancedDownload']) assert.ok(text[field]);
     assert.equal(text.supplementHint, undefined);
+    assert.ok(text.standardDownload.includes('{revision}') && text.enhancedDownload.includes('{revision}'));
   }
   const app = await readFile(new URL('src/App.vue', root), 'utf8');
   assert.ok(app.indexOf('<TestFirmwareDownload') > app.indexOf('<EnhancedDownload'));
@@ -83,5 +93,10 @@ try {
   assert.ok(!ui.includes('download(releaseSet.supplement)'));
   assert.ok(ui.includes('watch(() => props.releaseSet, reset)') && ui.includes('onBeforeUnmount(reset)'));
   assert.ok(ui.includes('if (!asset.supplement) trackFirmwareDownload'));
-  console.log(`GR IIIx V3.11 test downloads: ciphertext integrity and locked behavior verified${password ? '; correct-password roundtrip, cancellation and corruption verified' : ''}.`);
+  assert.ok(ui.includes('type="radio"') && ui.includes('grid-template-columns:repeat(2,minmax(0,1fr))'));
+  assert.ok(ui.includes('const selectedAsset = computed') && !ui.includes('v-for="asset in releaseSet.firmware"'));
+  assert.ok(ui.includes('watch(selectedVariant, cancel)') && ui.includes('const asset = selectedAsset.value;'));
+  const remaining = await (await import('node:fs/promises')).readdir(new URL('public/downloads/', root));
+  assert.ok(!remaining.some(name => /^test-gr3x-v311-r38-|supplement/.test(name)), 'Retired test firmware and sample kits are not deployed');
+  console.log(`GR III R40 / IIIx R39 color repair test downloads: ciphertext integrity and locked behavior verified${password ? '; correct-password roundtrip, cancellation and corruption verified' : ''}.`);
 } finally { globalThis.fetch = realFetch; }

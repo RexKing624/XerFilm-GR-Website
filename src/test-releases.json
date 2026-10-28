@@ -1,98 +1,195 @@
 {
+  "gr3": {
+    "id": "gr3",
+    "camera": "RICOH GR III / HDF",
+    "revision": "R40",
+    "version": "颜色修复测试版",
+    "firmware": [
+      {
+        "version": "颜色修复测试版",
+        "internalVersion": "R40",
+        "statisticsVersion": "V3.11-test",
+        "downloadVariant": "standard",
+        "baseVersion": "2.10",
+        "installationVersion": "2.10",
+        "camera": "RICOH GR III / HDF",
+        "filename": "fwdc239b.bin",
+        "size": 38319284,
+        "sha256": "d35b36867bfc3bdc1594cd6afef27ddc50847342271b1201aa31c59025308476",
+        "hardwareTested": false,
+        "testRelease": true,
+        "releaseDate": "2026-10-28",
+        "parts": [
+          {
+            "file": "test-gr3-colour-r40-standard-20261028.part1",
+            "size": 16777216,
+            "sha256": "7a28eaac6ba03c29d16891852f4298659271f80fedbc8b1ab00ec4d2872ffd82"
+          },
+          {
+            "file": "test-gr3-colour-r40-standard-20261028.part2",
+            "size": 16777216,
+            "sha256": "baed31da2234d4f8a136e11c880bd25cca28503f8d954366fff72860e1ea3a4f"
+          },
+          {
+            "file": "test-gr3-colour-r40-standard-20261028.part3",
+            "size": 4764868,
+            "sha256": "3a93149cb65bdf0a2fe8168d5a696baa7348dbf099c0b9f0891153920cf31c38"
+          }
+        ],
+        "downloadSize": 38319300,
+        "transportSha256": "342fecdf202dcbe4d9d02bf1d4370402ac79883dc67fa4154a455b543b208e3a",
+        "encryption": {
+          "algorithm": "AES-GCM",
+          "kdf": "PBKDF2",
+          "iterations": 210000,
+          "salt": "3hGUNJ4zHQ3BZ8lMQdsg9w==",
+          "iv": "9L8WzBKv34Y8/dr0",
+          "check": {
+            "iv": "/u9cqpYXeQgjDI1Z",
+            "ciphertext": "HaNDvrMFXDBTwVQ3GF7ReG1VGUKDUOWrb6bIn9NVr/Ldv4Ova9zZQq+BpRI5czfjR6g/Z4Nia2UJ2rNwRvVAtm8UZ0Gco/8="
+          }
+        }
+      },
+      {
+        "version": "颜色修复测试版",
+        "internalVersion": "R40-H",
+        "statisticsVersion": "V3.11-test",
+        "downloadVariant": "enhanced",
+        "baseVersion": "2.10",
+        "installationVersion": "2.11",
+        "camera": "RICOH GR III / HDF",
+        "filename": "fwdc239b.bin",
+        "size": 38356480,
+        "sha256": "86b801b4e5baa66e2fbfa63dfde8c1aaa2abdc31ec69fd84e7c7e14f770403c7",
+        "hardwareTested": false,
+        "testRelease": true,
+        "releaseDate": "2026-10-28",
+        "parts": [
+          {
+            "file": "test-gr3-colour-r40-enhanced-20261028.part1",
+            "size": 16777216,
+            "sha256": "373eb370b4368083040d4f40deb503fa56c34d26445ae095cb5a0cb21b50473f"
+          },
+          {
+            "file": "test-gr3-colour-r40-enhanced-20261028.part2",
+            "size": 16777216,
+            "sha256": "c813f252cf4f1a546e9ece91df98385888e40f7aba5b99db438e1bbd73d74551"
+          },
+          {
+            "file": "test-gr3-colour-r40-enhanced-20261028.part3",
+            "size": 4802064,
+            "sha256": "e81cb76ff058d4e9230f8a3532655b2d113454b39eab31fd0e9b10baf8e4fa6d"
+          }
+        ],
+        "downloadSize": 38356496,
+        "transportSha256": "9d281a4bb84e96566fb34079f0810800cb48149af59f8484c5a0d7b5c6515354",
+        "encryption": {
+          "algorithm": "AES-GCM",
+          "kdf": "PBKDF2",
+          "iterations": 210000,
+          "salt": "3hGUNJ4zHQ3BZ8lMQdsg9w==",
+          "iv": "iO7IxByqqUgeljR9",
+          "check": {
+            "iv": "Dz58Lyrk+t7NjDd+",
+            "ciphertext": "Mm186oM2MxgD8xEZiJuoYI8OLvAlpo1mmOD7mAGWcqJezM98Hjn0thCdMuZPl2fGEJxJpmVp1P5mG4+fcrwX7DnuY2aCekE="
+          }
+        }
+      }
+    ]
+  },
   "gr3x": {
     "id": "gr3x",
     "camera": "RICOH GR IIIx / HDF",
-    "revision": "R38",
-    "version": "V3.11 测试版",
+    "revision": "R39",
+    "version": "颜色修复测试版",
     "firmware": [
       {
-        "version": "V3.11 测试版",
-        "internalVersion": "R38",
+        "version": "颜色修复测试版",
+        "internalVersion": "R39",
+        "statisticsVersion": "V3.11-test",
+        "downloadVariant": "standard",
         "baseVersion": "1.60",
         "installationVersion": "1.60",
         "camera": "RICOH GR IIIx / HDF",
         "filename": "fwdc243b.bin",
         "size": 38319288,
-        "sha256": "99352242d2f32e3e300e2ed0c23b59287146ae0e5005fc8d3cf736a95f48a507",
+        "sha256": "8a2d4e5be87839335ebcfa51b9c379852b71208c43b3f3adb46f74081c571fd9",
         "hardwareTested": false,
-        "releaseDate": "2026-10-26",
+        "testRelease": true,
+        "releaseDate": "2026-10-28",
         "parts": [
           {
-            "file": "test-gr3x-v311-r38-standard.part1",
+            "file": "test-gr3x-colour-r39-standard-20261028.part1",
             "size": 16777216,
-            "sha256": "5fb67fd170bece2719a3b4b24fccb746abf7f0df915af7ff9443f0ce542218f9"
+            "sha256": "846b786a17951f9f98542b248fb88949f56a44ec3376ff56b64b960a065d9a31"
           },
           {
-            "file": "test-gr3x-v311-r38-standard.part2",
+            "file": "test-gr3x-colour-r39-standard-20261028.part2",
             "size": 16777216,
-            "sha256": "362f6601b725dee9592f99364cc5c1deda7faf6faaffbe268073ec7c727b1fe9"
+            "sha256": "bd78ddebc486c0ef7628148009ec024e4f1d9f77f2a167bab2f60072f4923732"
           },
           {
-            "file": "test-gr3x-v311-r38-standard.part3",
+            "file": "test-gr3x-colour-r39-standard-20261028.part3",
             "size": 4764872,
-            "sha256": "6ea487d1af15407ab22b8720c14e0614e8a60cca0f46304db9ffd906f7718e27"
+            "sha256": "3489fc3da50d877f2dec921508d2323abb31f30c1a2dffe3564dce50c7a220b0"
           }
         ],
-        "nativeCinema": true,
-        "statisticsVersion": "V3.11-test",
-        "downloadVariant": "standard",
-        "testRelease": true,
         "downloadSize": 38319304,
-        "transportSha256": "7584f3761e62431f3264e124d4b635602336ad408bb4948e3fcd7edbb638847f",
+        "transportSha256": "f663e0323422b92097dc46e8630dafce7b4555677bf556df6138eece734f9ccf",
         "encryption": {
           "algorithm": "AES-GCM",
           "kdf": "PBKDF2",
           "iterations": 210000,
-          "salt": "dVw31Cz8xX/jjau2XChppA==",
-          "iv": "RuBFKuATYLwn/RMJ",
+          "salt": "3hGUNJ4zHQ3BZ8lMQdsg9w==",
+          "iv": "EUiI1eEZfE0bKNAU",
           "check": {
-            "iv": "fvF7ih5RwKNJFaun",
-            "ciphertext": "D3AX2Dd247XWQMly4PDkvQxluEuoBimaekVStgaDvaBmF2w2q9JbsNaKNvEYJ03grOq+9NyAgHTuZO3/h8TBQ9j+"
+            "iv": "jnsGDAN3bNy8bF9W",
+            "ciphertext": "aJTWIj1PnmEicRMRYopTtAd41PDNlu/Oo2Gw9CoW9M53AS/21kRsomC07lIUtQC8wY+yCqgJCP0iBOlvMbzyOtnAu+UReQ1M"
           }
         }
       },
       {
-        "version": "V3.11 测试版",
-        "internalVersion": "R38-H",
+        "version": "颜色修复测试版",
+        "internalVersion": "R39-H",
+        "statisticsVersion": "V3.11-test",
+        "downloadVariant": "enhanced",
         "baseVersion": "1.60",
         "installationVersion": "1.61",
         "camera": "RICOH GR IIIx / HDF",
         "filename": "fwdc243b.bin",
         "size": 38356476,
-        "sha256": "2e8299cc57f125d90e2808bf95486d945feae5b21b4e1250c3abed5cf7d17039",
+        "sha256": "cddbf0404bb424a2d55d1dd02490d07fb6d646bec07d490e8145cbbe600fad74",
         "hardwareTested": false,
-        "releaseDate": "2026-10-26",
+        "testRelease": true,
+        "releaseDate": "2026-10-28",
         "parts": [
           {
-            "file": "test-gr3x-v311-r38-enhanced.part1",
+            "file": "test-gr3x-colour-r39-enhanced-20261028.part1",
             "size": 16777216,
-            "sha256": "cd535cdd9e4a54807610a97b3bb05b1f4905ccac6f1b80126763411e90b306f6"
+            "sha256": "90093a7d6926800fd067694bb8e60d81518ca6accd03da156f88a2233dcf3f18"
           },
           {
-            "file": "test-gr3x-v311-r38-enhanced.part2",
+            "file": "test-gr3x-colour-r39-enhanced-20261028.part2",
             "size": 16777216,
-            "sha256": "002df0cac3bc74582c72fa4874b928511e57910ba6ed9778a7a17c14cf5b4bde"
+            "sha256": "c64bd913abb0abf04b9bed3509208e3239580ff40a7004ba2e5176dd6fc74d77"
           },
           {
-            "file": "test-gr3x-v311-r38-enhanced.part3",
+            "file": "test-gr3x-colour-r39-enhanced-20261028.part3",
             "size": 4802060,
-            "sha256": "93e713c0d0513da4c90ff574ebd567942274e5d9f82163fb9f75b853f6d04a0c"
+            "sha256": "a274748c773f2b467e3fe40e66d9a8398b00911a639ba019fd933df977b24298"
           }
         ],
-        "statisticsVersion": "V3.11-test",
-        "downloadVariant": "enhanced",
-        "testRelease": true,
         "downloadSize": 38356492,
-        "transportSha256": "5b005f5aaa88c74511e51585e46e864204244f8e9db4a6c2b42b290e82c34a75",
+        "transportSha256": "da1581767a9dc2962fedd665cc63ef4cbc5a16e954561ba43dfbc6bd90f3bcfe",
         "encryption": {
           "algorithm": "AES-GCM",
           "kdf": "PBKDF2",
           "iterations": 210000,
-          "salt": "dVw31Cz8xX/jjau2XChppA==",
-          "iv": "FErR7Mg5c4tER6nW",
+          "salt": "3hGUNJ4zHQ3BZ8lMQdsg9w==",
+          "iv": "q7iGtUlbZshorlFg",
           "check": {
-            "iv": "q6tQ7NoP3cQj3NpO",
-            "ciphertext": "Cog+UE8WOyxGkXoaTvYweYJkKb0iBo0Jqp/AmJ/yOizf0dFj+TCpO0QGcflXMfws4WLO79ccytZvHAIL9idXigdY"
+            "iv": "E8v73slqvs1QWAZ/",
+            "ciphertext": "U8S5T/et25BnEsh5Shr+W4shzdH75el4UxrJQ1uaUDyEGffUlY2NByMBRLRaUnvTu7Zs6M6qaD0Py8G+RIo1+BoTtd2xPGbU"
           }
         }
       }
