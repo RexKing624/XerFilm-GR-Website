@@ -1,23 +1,23 @@
 {
   "release.json": {
     "identity": [
-      "v58",
+      "v62",
       "1.11",
       "fwdc248b.bin",
-      "937a9747f37501e6f98a3ab73c017036cad3eab31930ed51856763351ef3be99"
+      "501d8f199b926ac2970fb30f62168a5ac537a128366fba615eda6e6c0130a7cf"
     ],
-    "version": "V3.11",
-    "hardwareTested": false
+    "version": "V3.12",
+    "hardwareTested": true
   },
   "enhanced-release.json": {
     "identity": [
-      "v58-H",
+      "v62-H",
       "1.12.10.7",
       "fwdc248b.bin",
-      "28c02cecb54cd699319bd90d35a5ff4d24ac3334ed0cd587516fff0723cf5866"
+      "4012ef44ffd0b6eb278a3bac45c3c25871f51c0c67ac847cfffec55b22eee9a5"
     ],
-    "version": "V3.11",
-    "hardwareTested": false
+    "version": "V3.12",
+    "hardwareTested": true
   },
   "gr3-release.json": {
     "identity": [

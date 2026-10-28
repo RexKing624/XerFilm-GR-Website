@@ -3,7 +3,7 @@ export const copy = {
     "enhancedIntro": "部分新出厂或已安装理光官方 30 周年固件的 GR IV 机身存在固件安装限制。基础版无法安装时，再尝试下方增强型固件。",
     "enhancedTitle": "增强型固件",
     "enhancedWarning": "只有在基础版固件安装失败时使用",
-    "enhancedTestNote": "包含 GR IV V3.11 的全部功能；增强版调整安装版本号，功能与普通版相同。",
+    "enhancedTestNote": "包含 GR IV V3.12 的全部功能；增强版调整安装版本号，功能与普通版相同。",
     "enhancedAck": "基础版安装失败，申请下载增强型固件。",
     "enhancedDownloadFile": "下载增强型 .bin 固件",
     "projectSource": "网站源码",
@@ -149,12 +149,12 @@ export const copy = {
     "modelReleases": {
       "gr4": {
         "compatible": "RICOH GR IV / HDF · 原厂基础版本 1.11",
-        "note": "V3.11：画幅实时预览，修复影像控制微调冲突，并完善胶片包支持。",
-        "changesTitle": "V3.11 更新",
+        "note": "V3.12：改善胶片色彩表现。 加快高光模拟处理与照片回放。 修复补充胶片在回放 INFO 中的图标显示。",
+        "changesTitle": "V3.12 更新",
         "changes": [
-          "新增 ADJ 画幅实时预览。",
-          "修复原生影像控制与 XerFilm GR 的 Fn 微调冲突。",
-          "完善对后续胶片包的支持。"
+          "改善胶片色彩表现。",
+          "加快高光模拟处理与照片回放。",
+          "修复补充胶片在回放 INFO 中的图标显示。"
         ],
         "frameDesc": "原机、645、67、XPan、1:1，可在设置或独立 ADJ 入口中选择。取景保留完整 3:2 画面，半透明蒙版与加粗白线标出裁切范围。JPG 按所选比例裁切，RAW 保留完整画面。",
         "sourceLabel": "闪光功能项目来源：GR4-GF2Unlock ↗",
@@ -196,7 +196,11 @@ export const copy = {
     "originalDownload": "下载原版 .bin",
     "originalRestoreTitle": "刷回原版前，必须先重设相机。",
     "originalRestoreRisk": "高风险提醒：未完成相机重设便刷回原版固件，极易导致死机或无法开机。请勿跳过以下步骤。",
-    "originalRestoreSteps": ["在相机中执行「设置 → 重设 → 重设全部」。", "完成重设后，关闭相机，再重新开机。", "确认 XerFilm GR 等第三方功能已关闭，再刷回原版固件。"],
+    "originalRestoreSteps": [
+      "在相机中执行「设置 → 重设 → 重设全部」。",
+      "完成重设后，关闭相机，再重新开机。",
+      "确认 XerFilm GR 等第三方功能已关闭，再刷回原版固件。"
+    ],
     "originalRestoreIncomplete": "尚未完成上述操作，请取消下载，先在相机上完成重设与重新开机。",
     "originalRestoreWait": "请仔细阅读，{seconds} 秒后显示必选确认。",
     "originalRestoreAcknowledge": "我已在相机执行「重设全部」，重新开机并确认 XerFilm GR 等第三方功能已关闭。我已知晓，未完成还原就刷回原版固件，可能导致死机或无法开机。确认已完成，申请下载。",
@@ -221,7 +225,7 @@ export const copy = {
     "enhancedIntro": "Some newly manufactured GR IV bodies, or bodies updated with Ricoh’s official 30th Anniversary firmware, have firmware installation restrictions. If the standard build cannot be installed, try the enhanced build below.",
     "enhancedTitle": "Enhanced firmware",
     "enhancedWarning": "USE ONLY IF THE STANDARD FIRMWARE FAILS TO INSTALL",
-    "enhancedTestNote": "Includes all GR IV V3.11 features. The enhanced build changes the installation version; its features match the standard build.",
+    "enhancedTestNote": "Includes all GR IV V3.12 features. The enhanced build changes the installation version; its features match the standard build.",
     "enhancedAck": "The standard firmware failed to install. I request the enhanced build.",
     "enhancedDownloadFile": "Download enhanced .bin",
     "projectSource": "Website source",
@@ -367,12 +371,12 @@ export const copy = {
     "modelReleases": {
       "gr4": {
         "compatible": "RICOH GR IV / HDF · based on official firmware 1.11",
-        "note": "V3.11: live framing previews, an Image Control adjustment fix and improved film-pack support.",
-        "changesTitle": "V3.11 UPDATE",
+        "note": "V3.12：Improve film colour rendering. Speed up highlight simulation processing and photo playback. Fix add-on film icons in playback INFO.",
+        "changesTitle": "V3.12 UPDATE",
         "changes": [
-          "Live framing previews while browsing ADJ ratios.",
-          "Fix the Fn adjustment conflict between native Image Control and XerFilm GR.",
-          "Improve support for upcoming film packs."
+          "Improve film colour rendering.",
+          "Speed up highlight simulation processing and photo playback.",
+          "Fix add-on film icons in playback INFO."
         ],
         "frameDesc": "Original, 645, 67, XPan and 1:1, available in settings or a dedicated ADJ entry. Live view keeps the full 3:2 image, with a translucent mask and thick white crop borders. JPG is cropped; RAW retains the full image.",
         "sourceLabel": "Flash feature project: GR4-GF2Unlock ↗",
@@ -414,7 +418,11 @@ export const copy = {
     "originalDownload": "Download original .bin",
     "originalRestoreTitle": "Reset your camera before restoring stock firmware.",
     "originalRestoreRisk": "HIGH RISK: Restoring stock firmware without resetting the camera can cause freezing or prevent it from turning on. Do not skip these steps.",
-    "originalRestoreSteps": ["On the camera, select Setup → Reset → Reset All.", "After the reset, turn the camera off and then on again.", "Confirm that XerFilm GR and other third-party features are disabled before restoring stock firmware."],
+    "originalRestoreSteps": [
+      "On the camera, select Setup → Reset → Reset All.",
+      "After the reset, turn the camera off and then on again.",
+      "Confirm that XerFilm GR and other third-party features are disabled before restoring stock firmware."
+    ],
     "originalRestoreIncomplete": "If you have not completed these steps, cancel the download and reset and restart your camera first.",
     "originalRestoreWait": "Read carefully. The required confirmation appears in {seconds} seconds.",
     "originalRestoreAcknowledge": "I have run Reset All, restarted my camera and confirmed that XerFilm GR and other third-party features are disabled. I understand that restoring stock firmware without completing these steps may freeze the camera or prevent it from turning on. I have completed the steps and request the download.",
@@ -439,7 +447,7 @@ export const copy = {
     "enhancedIntro": "新しく製造された GR IV、またはリコー公式の 30 周年ファームウェアを適用した機体には、導入制限がある場合があります。通常版をインストールできない場合に、下の拡張版をお試しください。",
     "enhancedTitle": "拡張ファームウェア",
     "enhancedWarning": "通常版のインストールに失敗した場合のみ使用",
-    "enhancedTestNote": "GR IV V3.11 の全機能を含みます。拡張版はインストール用バージョンを変更し、機能は通常版と同じです。",
+    "enhancedTestNote": "GR IV V3.12 の全機能を含みます。拡張版はインストール用バージョンを変更し、機能は通常版と同じです。",
     "enhancedAck": "通常版をインストールできなかったため、拡張版のダウンロードを希望します。",
     "enhancedDownloadFile": "拡張版 .bin をダウンロード",
     "projectSource": "サイトのソース",
@@ -585,12 +593,12 @@ export const copy = {
     "modelReleases": {
       "gr4": {
         "compatible": "RICOH GR IV / HDF・純正 1.11 ベース",
-        "note": "V3.11：ADJ画角のリアルタイムプレビュー、イメージコントロールの微調整の競合修正、フィルムパック対応の改善。",
-        "changesTitle": "V3.11 更新内容",
+        "note": "V3.12：フィルムの色表現を改善。 ハイライト処理と写真の再生を高速化。 追加フィルムの再生 INFO アイコンを修正。",
+        "changesTitle": "V3.12 更新内容",
         "changes": [
-          "ADJで画角を選ぶ際のリアルタイムプレビューを追加。",
-          "純正イメージコントロールと XerFilm GR のFn微調整の競合を修正。",
-          "今後のフィルムパックへの対応を改善。"
+          "フィルムの色表現を改善。",
+          "ハイライト処理と写真の再生を高速化。",
+          "追加フィルムの再生 INFO アイコンを修正。"
         ],
         "frameDesc": "純正、645、67、XPan、1:1を設定または独立したADJ項目から選択。全体の3:2ライブビューに半透明マスクと太い白線で範囲を表示。JPGのみクロップし、RAWは全画面を保持。",
         "sourceLabel": "フラッシュ機能の出典：GR4-GF2Unlock ↗",
@@ -632,7 +640,11 @@ export const copy = {
     "originalDownload": "純正 .bin をダウンロード",
     "originalRestoreTitle": "純正に戻す前に、必ずカメラをリセット。",
     "originalRestoreRisk": "重大なリスク：リセットせずに純正ファームウェアへ戻すと、フリーズや起動不能を招くおそれがあります。以下の手順を省略しないでください。",
-    "originalRestoreSteps": ["カメラで「設定 → リセット → すべてリセット」を実行します。", "リセット後、電源を切り、もう一度入れ直します。", "XerFilm GR などの非公式機能が無効になったことを確認してから、純正ファームウェアへ戻します。"],
+    "originalRestoreSteps": [
+      "カメラで「設定 → リセット → すべてリセット」を実行します。",
+      "リセット後、電源を切り、もう一度入れ直します。",
+      "XerFilm GR などの非公式機能が無効になったことを確認してから、純正ファームウェアへ戻します。"
+    ],
     "originalRestoreIncomplete": "未完了の場合はダウンロードをキャンセルし、先にカメラのリセットと再起動を行ってください。",
     "originalRestoreWait": "必ずお読みください。{seconds} 秒後に必須の確認欄が表示されます。",
     "originalRestoreAcknowledge": "すべてリセットを実行し、カメラを再起動して XerFilm GR などの非公式機能が無効になったことを確認しました。未実施のまま純正に戻すと、フリーズや起動不能のおそれがあると理解しています。手順の完了を確認し、ダウンロードを希望します。",
