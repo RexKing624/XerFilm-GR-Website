@@ -101,26 +101,31 @@ test('a lost like response recovers the saved state; stale polls cannot overwrit
  let defer=false;const c=engagementClient(env,{send:async(url,options={})=>{if(defer&&url.endsWith('/api/public-stats')){defer=false;return new Promise(r=>{resolve=r})}return handleEngagement(new Request(url,{...options,headers:{...options.headers,Origin:origin}}),env);}});await c.client.refresh();defer=true;const pending=c.client.refresh();await c.client.toggle(lookId);resolve(new Response(JSON.stringify(old),{headers:{'Content-Type':'application/json'}}));await pending;assert.equal(c.client.snapshot().looks[lookId].likes,2);
 });
 
-test('GR III R39 stable downloads separate variants and preserve prior test records',async()=>{
- const env=environment();
- for(const manifest of ['gr3-release.json','gr3-enhanced-release.json']){
-  const release=JSON.parse(readFileSync(new URL(`../../src/${manifest}`,import.meta.url),'utf8'));
-  assert.equal(release.statisticsVersion,'V3.11');
-  const a={kind:'firmware',model:'gr3',variant:release.downloadVariant,version:release.statisticsVersion,revision:release.internalVersion,sha256:release.sha256};
+for(const [model,manifests,priorRevision] of [
+ ['gr3',['gr3-release.json','gr3-enhanced-release.json'],'R32'],
+ ['gr3x',['gr3x-release.json','gr3x-enhanced-release.json'],'R29'],
+ ['gr4',['release.json','enhanced-release.json'],'v61'],
+])test(`${model} approved stable downloads separate variants and preserve prior test records`,async()=>{
+ const env=environment(),expected=[];
+ const approved=JSON.parse(readFileSync(new URL('../../src/approved-releases.json',import.meta.url),'utf8'));
+ for(const [index,manifest] of manifests.entries()){
+  const release=JSON.parse(readFileSync(new URL(`../../src/${manifest}`,import.meta.url),'utf8')),pin=approved[manifest];
+  assert.equal(release.statisticsVersion||release.version,pin.version);
+  assert.equal(release.internalVersion,pin.identity[0]);
+  assert.equal(release.downloadVariant||(['standard','enhanced'][index]),['standard','enhanced'][index]);
+  const a={kind:'firmware',model,variant:['standard','enhanced'][index],version:release.statisticsVersion||release.version,revision:release.internalVersion,sha256:release.sha256};
   assert.ok(validAsset(a));
-  const prior={...a,version:'V3.0-test',revision:a.variant==='enhanced'?'R32-H':'R32'};
+  const prior={...a,version:'V3.0-test',revision:priorRevision+(index?'-H':'')};
   for(const asset of [prior,a]){
    const event={eventId:randomUUID(),asset};
    assert.equal((await handleRequest(request(event),env)).status,200);
    assert.equal((await handleRequest(request(event),env)).status,200);
+   expected.push([asset.model,asset.variant,asset.version,asset.revision,1]);
   }
  }
  const data=await(await stats(env)).json();
  assert.equal(data.summary.total,4);
- assert.deepEqual(data.downloads.map(x=>[x.model,x.variant,x.version,x.revision,x.count]).sort(),[
-  ['gr3','enhanced','V3.0-test','R32-H',1],['gr3','enhanced','V3.11','R39-H',1],
-  ['gr3','standard','V3.0-test','R32',1],['gr3','standard','V3.11','R39',1]
- ]);
+ assert.deepEqual(data.downloads.map(x=>[x.model,x.variant,x.version,x.revision,x.count]).sort(),expected.sort());
  assert.equal((await handleRequest(new Request(base+'/api/stats'),env)).status,401);
 });
 
