@@ -204,3 +204,40 @@ body:has(.photography-gallery){min-width:0}
 .original-restore-ack input{appearance:auto;accent-color:var(--restore-red);flex:none;width:19px;height:19px;margin:4px 0 0;cursor:pointer}.original-restore-ack:focus-within{outline:2px solid var(--restore-red);outline-offset:4px}
 .original-restore-actions{display:flex;align-items:stretch;gap:12px;margin-top:22px}.original-restore-actions .outlined{flex:none}.original-restore-download{flex:1;min-width:0;background:var(--restore-red);color:var(--bg);font-size:12px;line-height:1.7}.original-restore-download>span:first-child{font-size:inherit;font-weight:600;line-height:inherit}
 @media(max-width:650px){.original-restore-drawer .drawer-surface{padding:20px}.original-restore-drawer .drawer-header h2{font-size:23px}.original-restore-actions{flex-wrap:wrap}.original-restore-download{flex-basis:100%}}
+
+/* Download choices follow the camera's native firmware base before a BIN is offered. */
+.firmware-choice-step{border:0;padding:0;margin:30px 0 0;min-width:0}
+.firmware-choice-step legend{display:flex;align-items:center;gap:12px;width:100%;padding:0;font-size:18px;line-height:1.6;font-weight:550}
+.firmware-choice-step legend>span{font:11px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--accent);letter-spacing:.08em}
+.firmware-step-help{color:var(--muted);font-size:12px;line-height:1.9;margin:9px 0 18px}
+.firmware-base-options,.firmware-variant-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.firmware-choice-card{position:relative;display:flex;align-items:flex-start;gap:13px;min-width:0;border:1px solid var(--line);padding:22px 18px;cursor:pointer;background:var(--panel);transition:background .15s,border-color .15s}
+.firmware-choice-card:hover{border-color:var(--muted)}
+.firmware-choice-card.selected{border-color:var(--accent);background:var(--soft)}
+.firmware-choice-card:focus-within{outline:2px solid var(--accent);outline-offset:3px}
+.firmware-choice-card>input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;margin:0}
+.firmware-radio{width:15px;height:15px;border:1px solid var(--muted);border-radius:50%;flex:0 0 15px;margin-top:3px;display:grid;place-items:center}
+.selected .firmware-radio{border-color:var(--accent)}
+.selected .firmware-radio::after{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.firmware-choice-content{display:grid;gap:8px;min-width:0}
+.firmware-choice-content>small{font-size:10px;line-height:1.5;color:var(--muted)}
+.firmware-choice-content>strong{font-size:23px;line-height:1.4;font-weight:550;font-variant-numeric:tabular-nums}
+.firmware-choice-content>span{font-size:11px;line-height:1.8;color:var(--muted)}
+.firmware-choice-card.selected strong{color:var(--accent)}
+.firmware-version-help{font-size:11px;line-height:1.9;color:var(--muted);margin-top:13px}
+.firmware-variant-step{margin-top:30px;padding-top:26px;border-top:1px solid var(--line)}
+.firmware-variant-options{margin-top:17px}
+.firmware-variant-options .firmware-choice-content>strong{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:18px}
+.firmware-recommended{font-size:10px;font-weight:400;color:var(--accent);border-bottom:1px solid var(--accent);line-height:1.5;white-space:nowrap}
+.firmware-choice-content>.firmware-variant-hint{font-size:10px;line-height:1.8}
+.firmware-selected-file{margin-top:24px}
+.firmware-base-warning{font-size:11px;line-height:1.9;color:var(--warm);margin-top:8px}
+.firmware-enhanced-note{font-size:11px;line-height:1.9;color:var(--muted);margin-top:12px}
+.firmware-file-checksum{font-size:10px;margin-top:18px;color:var(--muted)}
+.firmware-file-checksum summary{cursor:pointer;line-height:1.8}
+.firmware-file-checksum code{display:block;overflow-wrap:anywhere;line-height:1.9;margin-top:8px}
+.firmware-choice-pending{font-size:12px;line-height:1.8;text-align:center;color:var(--muted);margin:28px 0 12px;padding:20px 0;border-top:1px solid var(--line)}
+@media(max-width:540px){.firmware-base-options{gap:10px}.firmware-choice-card{padding:18px 12px;gap:9px}.firmware-choice-content>strong{font-size:20px}.firmware-choice-step legend{font-size:16px}.firmware-variant-options{grid-template-columns:1fr}.firmware-variant-options .firmware-choice-content{gap:5px}.firmware-variant-hint{max-width:35ch}}
+.firmware-enhanced-policy{font-size:12px;line-height:1.9;color:var(--warm);margin-top:17px;font-weight:550}
+.firmware-downgrade-warning,.firmware-choice-content>.firmware-downgrade-warning{font-size:12px;line-height:1.8;color:var(--warm);font-weight:650;margin-top:8px}
+.firmware-release-channel{color:var(--accent)}.firmware-release-channel.is-test,.firmware-test-note{color:var(--warm)}.firmware-test-note{font-size:12px;line-height:1.9;margin-bottom:16px}.firmware-test-ack{margin-top:18px}

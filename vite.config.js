@@ -9,6 +9,10 @@ for (const manifest of ['release.json','gr3-release.json','gr3x-release.json','e
     throw new Error(`Missing download files for ${manifest}. Restore the release assets before building.`);
   }
 }
+const latestBases = JSON.parse(readFileSync(resolve('src/latest-base-releases.json'), 'utf8'));
+for (const [model, variants] of Object.entries(latestBases)) for (const release of Object.values(variants)) {
+  if (!release.parts.every(part => existsSync(resolve('public/downloads', part.file)))) throw new Error(`Missing latest-base download files for ${model}. Restore the approved release assets before building.`);
+}
 const originals = JSON.parse(readFileSync(resolve('src/original-releases.json'), 'utf8'));
 for (const release of originals) if (!release.parts.every(part => existsSync(resolve('public/downloads', part.file)))) throw new Error('Missing original firmware backup: '+release.camera);
 const availability = JSON.parse(readFileSync(resolve('src/download-availability.json'), 'utf8'));

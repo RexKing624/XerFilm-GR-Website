@@ -1,8 +1,8 @@
 export const copy = {
   "zh": {
-    "enhancedIntro": "部分新出厂或已安装理光官方 30 周年固件的 GR IV 机身存在固件安装限制。基础版无法安装时，再尝试下方增强型固件。",
+    "enhancedIntro": "所有增强版仅在普通版无法安装时使用。请先尝试对应基底的普通版。",
     "enhancedTitle": "增强型固件",
-    "enhancedWarning": "只有在基础版固件安装失败时使用",
+    "enhancedWarning": "仅在普通版无法安装时使用",
     "enhancedTestNote": "包含 GR IV V3.12 的全部功能；增强版调整安装版本号，功能与普通版相同。",
     "enhancedAck": "基础版安装失败，申请下载增强型固件。",
     "enhancedDownloadFile": "下载增强型 .bin 固件",
@@ -148,7 +148,7 @@ export const copy = {
     "unlockDownload": "解锁下载",
     "modelReleases": {
       "gr4": {
-        "compatible": "RICOH GR IV / HDF · 原厂基础版本 1.11",
+        "compatible": "RICOH GR IV / HDF · 原厂 1.11 及以下 / 1.20，下载时选择对应基底",
         "note": "V3.12：改善胶片色彩表现。 加快高光模拟处理与照片回放。 修复补充胶片在回放 INFO 中的图标显示。",
         "changesTitle": "V3.12 更新",
         "changes": [
@@ -161,7 +161,7 @@ export const copy = {
         "sourceURL": "https://github.com/lemonadesaltbagel/GR4-GF2Unlock"
       },
       "gr3": {
-        "compatible": "RICOH GR III / HDF · 原厂基础版本 2.10",
+        "compatible": "RICOH GR III / HDF · 原厂 2.10 及以下 / 2.20，下载时选择对应基底",
         "note": "V3.12：改善胶片色彩表现。 加快高光模拟处理与照片回放。 修复补充胶片在回放 INFO 中的图标显示。",
         "changesTitle": "V3.12 更新",
         "changes": [
@@ -173,7 +173,7 @@ export const copy = {
         "frameDesc": "原机、645、67、XPan、1:1，可在设置或独立 ADJ 入口中选择。取景保留完整 3:2 画面，半透明蒙版与加粗白线标出裁切范围。JPG 按所选比例裁切，RAW 保留完整画面。"
       },
       "gr3x": {
-        "compatible": "RICOH GR IIIx / HDF · 原厂基础版本 1.60",
+        "compatible": "RICOH GR IIIx / HDF · 原厂 1.60 及以下 / 1.70，下载时选择对应基底",
         "note": "V3.12：改善胶片色彩表现。 加快高光模拟处理与照片回放。 修复补充胶片在回放 INFO 中的图标显示。",
         "changesTitle": "V3.12 更新",
         "changes": [
@@ -189,8 +189,8 @@ export const copy = {
     "originalFirmware": "原版固件备份",
     "originalTitle": "本人备份的原厂固件",
     "originalIntro": "以下为本人备份的旧版原厂固件，不含 XerFilm 修改。请核对机型和版本；提供备份不代表已升级的相机能够降级。",
-    "officialUpdateTitle": "如需使用本项目，请暂勿更新官方固件。",
-    "officialUpdateNotice": "理光已发布新版官方固件，可能影响第三方固件安装。本项目适用于当前原厂固件为 GR III 2.10 及以下、GR IIIx 1.60 及以下、GR IV 1.11 及以下的相机。若已升级至高于上述范围的版本，请勿强行降级或刷入本项目，等待后续兼容版本通知；目前暂无发布时间。",
+    "officialUpdateTitle": "新旧原厂基底均已适配，请按版本选择。",
+    "officialUpdateNotice": "GR IV 支持原厂 1.11 及以下或 1.20，GR III 支持 2.10 及以下或 2.20，GR IIIx 支持 1.60 及以下或 1.70。完成确认后，请在下载抽屉选择对应基底；不同基底的固件不能混用，更新版本请勿强行刷入。",
     "originalDownload": "下载原版 .bin",
     "originalRestoreTitle": "刷回原版前，必须先重设相机。",
     "originalRestoreRisk": "高风险提醒：未完成相机重设便刷回原版固件，极易导致死机或无法开机。请勿跳过以下步骤。",
@@ -207,22 +207,23 @@ export const copy = {
     "originalBackupOnly": "仅下载文件，不会连接或刷写相机。每个文件均按备份的完整 SHA-256 校验，保持原始文件名。",
     "enhancedModels": {
       "gr3": {
-        "enhancedIntro": "用于官方活动更换关机画面后，仍显示 2.10、但无法安装普通版的 GR III / HDF。请先尝试普通版，再考虑下方增强型固件。",
+        "enhancedIntro": "所有增强版仅在普通版无法安装时使用。请先尝试对应基底的普通版。",
         "enhancedTestNote": "增强版无需下载密码，保留 V3.12 全部功能，安装版本提高至 2.11。这不是官方 2.20 的兼容版本；已升级至该版本的机身请勿尝试。"
       },
       "gr3x": {
-        "enhancedIntro": "用于官方活动更换关机画面后，仍显示 1.60、但无法安装普通版的 GR IIIx / HDF。请先尝试普通版，再考虑下方增强型固件。",
+        "enhancedIntro": "所有增强版仅在普通版无法安装时使用。请先尝试对应基底的普通版。",
         "enhancedTestNote": "增强版已由使用者完成实机测试，无需下载密码。保留 V3.12 全部功能，安装版本提高至 1.61。这不是官方 1.70 的兼容版本；已升级至该版本的机身请勿尝试。",
         "enhancedTitle": "增强型固件"
       }
     },
     "downloadSuspended": "暂停下载",
-    "downloadSuspensionNotice": "新版本测试中"
+    "downloadSuspensionNotice": "新版本测试中",
+    "baseVariants": "双基底可选"
   },
   "en": {
-    "enhancedIntro": "Some newly manufactured GR IV bodies, or bodies updated with Ricoh’s official 30th Anniversary firmware, have firmware installation restrictions. If the standard build cannot be installed, try the enhanced build below.",
+    "enhancedIntro": "Try the standard build for the matching official base first. All enhanced builds are only for cameras that cannot install the standard build.",
     "enhancedTitle": "Enhanced firmware",
-    "enhancedWarning": "USE ONLY IF THE STANDARD FIRMWARE FAILS TO INSTALL",
+    "enhancedWarning": "Use only if the standard build cannot be installed",
     "enhancedTestNote": "Includes all GR IV V3.12 features. The enhanced build changes the installation version; its features match the standard build.",
     "enhancedAck": "The standard firmware failed to install. I request the enhanced build.",
     "enhancedDownloadFile": "Download enhanced .bin",
@@ -368,7 +369,7 @@ export const copy = {
     "unlockDownload": "Unlock download",
     "modelReleases": {
       "gr4": {
-        "compatible": "RICOH GR IV / HDF · based on official firmware 1.11",
+        "compatible": "RICOH GR IV / HDF · official 1.11 or earlier / 1.20; select the matching base when downloading",
         "note": "V3.12：Improve film colour rendering. Speed up highlight simulation processing and photo playback. Fix add-on film icons in playback INFO.",
         "changesTitle": "V3.12 UPDATE",
         "changes": [
@@ -381,7 +382,7 @@ export const copy = {
         "sourceURL": "https://github.com/lemonadesaltbagel/GR4-GF2Unlock"
       },
       "gr3": {
-        "compatible": "RICOH GR III / HDF · based on official firmware 2.10",
+        "compatible": "RICOH GR III / HDF · official 2.10 or earlier / 2.20; select the matching base when downloading",
         "note": "V3.12：Improve film colour rendering. Speed up highlight simulation processing and photo playback. Fix add-on film icons in playback INFO.",
         "changesTitle": "V3.12 UPDATE",
         "changes": [
@@ -393,7 +394,7 @@ export const copy = {
         "frameDesc": "Original, 645, 67, XPan and 1:1, available in settings or a dedicated ADJ entry. Live view keeps the full 3:2 image, with a translucent mask and thick white crop borders. JPG is cropped; RAW retains the full image."
       },
       "gr3x": {
-        "compatible": "RICOH GR IIIx / HDF · based on official firmware 1.60",
+        "compatible": "RICOH GR IIIx / HDF · official 1.60 or earlier / 1.70; select the matching base when downloading",
         "note": "V3.12：Improve film colour rendering. Speed up highlight simulation processing and photo playback. Fix add-on film icons in playback INFO.",
         "changesTitle": "V3.12 UPDATE",
         "changes": [
@@ -409,8 +410,8 @@ export const copy = {
     "originalFirmware": "Original firmware backups",
     "originalTitle": "My original firmware backups",
     "originalIntro": "These are original firmware files I backed up, without XerFilm modifications. Check the model and version. Providing these backups does not mean an updated camera can be downgraded.",
-    "officialUpdateTitle": "To keep using this project, please do not update the official firmware for now.",
-    "officialUpdateNotice": "Ricoh has released newer official firmware that may affect third-party firmware installation. This project is for cameras currently running official GR III firmware 2.10 or earlier, GR IIIx firmware 1.60 or earlier, or GR IV firmware 1.11 or earlier. If you have updated beyond these versions, do not force a downgrade or install this project. Wait for a future compatibility announcement; no release date is available yet.",
+    "officialUpdateTitle": "Both official firmware bases are supported. Choose the matching one.",
+    "officialUpdateNotice": "GR IV supports official 1.11 or earlier, or 1.20; GR III supports 2.10 or earlier, or 2.20; GR IIIx supports 1.60 or earlier, or 1.70. After completing the acknowledgements, select the matching base in the download drawer. Builds for different bases are not interchangeable. Do not force installation on a later unsupported version.",
     "originalDownload": "Download original .bin",
     "originalRestoreTitle": "Reset your camera before restoring stock firmware.",
     "originalRestoreRisk": "HIGH RISK: Restoring stock firmware without resetting the camera can cause freezing or prevent it from turning on. Do not skip these steps.",
@@ -427,22 +428,23 @@ export const copy = {
     "originalBackupOnly": "Downloads files only; it does not connect to or flash your camera. Each file is checked against its archived full SHA-256 and saved with its original filename.",
     "enhancedModels": {
       "gr3": {
-        "enhancedIntro": "For GR III / HDF cameras that still show 2.10 after an official event shutdown-screen service but reject the standard build. Try the standard build first.",
+        "enhancedIntro": "Try the standard build for the matching official base first. All enhanced builds are only for cameras that cannot install the standard build.",
         "enhancedTestNote": "No download password is required. Includes all V3.12 features with installation version 2.11. This is not a compatible build for official 2.20; do not use it on cameras already running that version."
       },
       "gr3x": {
-        "enhancedIntro": "For GR IIIx / HDF cameras that still show 1.60 after an official event shutdown-screen service but reject the standard build. Try the standard build first.",
+        "enhancedIntro": "Try the standard build for the matching official base first. All enhanced builds are only for cameras that cannot install the standard build.",
         "enhancedTestNote": "The enhanced build has been tested successfully on a physical camera by a user. No download password is required. Includes all V3.12 features with installation version 1.61. This is not a compatible build for official 1.70; do not use it on cameras already running that version.",
         "enhancedTitle": "Enhanced firmware"
       }
     },
     "downloadSuspended": "Downloads paused",
-    "downloadSuspensionNotice": "New version under testing"
+    "downloadSuspensionNotice": "New version under testing",
+    "baseVariants": "Two firmware bases"
   },
   "ja": {
-    "enhancedIntro": "新しく製造された GR IV、またはリコー公式の 30 周年ファームウェアを適用した機体には、導入制限がある場合があります。通常版をインストールできない場合に、下の拡張版をお試しください。",
+    "enhancedIntro": "対応する純正ベースの通常版を先にお試しください。拡張版は、通常版を導入できない場合のみ使用してください。",
     "enhancedTitle": "拡張ファームウェア",
-    "enhancedWarning": "通常版のインストールに失敗した場合のみ使用",
+    "enhancedWarning": "通常版を導入できない場合のみ使用",
     "enhancedTestNote": "GR IV V3.12 の全機能を含みます。拡張版はインストール用バージョンを変更し、機能は通常版と同じです。",
     "enhancedAck": "通常版をインストールできなかったため、拡張版のダウンロードを希望します。",
     "enhancedDownloadFile": "拡張版 .bin をダウンロード",
@@ -588,7 +590,7 @@ export const copy = {
     "unlockDownload": "ダウンロードを解除",
     "modelReleases": {
       "gr4": {
-        "compatible": "RICOH GR IV / HDF・純正 1.11 ベース",
+        "compatible": "RICOH GR IV / HDF・純正 1.11 以下 / 1.20。ダウンロード時に対応するベースを選択",
         "note": "V3.12：フィルムの色表現を改善。 ハイライト処理と写真の再生を高速化。 追加フィルムの再生 INFO アイコンを修正。",
         "changesTitle": "V3.12 更新内容",
         "changes": [
@@ -601,7 +603,7 @@ export const copy = {
         "sourceURL": "https://github.com/lemonadesaltbagel/GR4-GF2Unlock"
       },
       "gr3": {
-        "compatible": "RICOH GR III / HDF・純正 2.10 ベース",
+        "compatible": "RICOH GR III / HDF・純正 2.10 以下 / 2.20。ダウンロード時に対応するベースを選択",
         "note": "V3.12：フィルムの色表現を改善。 ハイライト処理と写真の再生を高速化。 追加フィルムの再生 INFO アイコンを修正。",
         "changesTitle": "V3.12 更新内容",
         "changes": [
@@ -613,7 +615,7 @@ export const copy = {
         "frameDesc": "純正、645、67、XPan、1:1を設定または独立したADJ項目から選択。全体の3:2ライブビューに半透明マスクと太い白線で範囲を表示。JPGのみクロップし、RAWは全画面を保持。"
       },
       "gr3x": {
-        "compatible": "RICOH GR IIIx / HDF・純正 1.60 ベース",
+        "compatible": "RICOH GR IIIx / HDF・純正 1.60 以下 / 1.70。ダウンロード時に対応するベースを選択",
         "note": "V3.12：フィルムの色表現を改善。 ハイライト処理と写真の再生を高速化。 追加フィルムの再生 INFO アイコンを修正。",
         "changesTitle": "V3.12 更新内容",
         "changes": [
@@ -629,8 +631,8 @@ export const copy = {
     "originalFirmware": "純正ファームウェアのバックアップ",
     "originalTitle": "私が保存した純正ファームウェア",
     "originalIntro": "以下は私がバックアップした旧バージョンの純正ファームウェアです。XerFilm の変更は含みません。機種とバージョンを確認してください。ファイルの提供は、更新済みのカメラをダウングレードできることを意味しません。",
-    "officialUpdateTitle": "本プロジェクトを引き続き使う場合は、当面、純正ファームウェアを更新しないでください。",
-    "officialUpdateNotice": "リコーから新しい純正ファームウェアが公開され、非公式ファームウェアの導入に影響する可能性があります。本プロジェクトは、現在の純正ファームウェアが GR III 2.10 以下、GR IIIx 1.60 以下、GR IV 1.11 以下のカメラが対象です。上記を超えるバージョンに更新済みの場合、無理なダウングレードや本プロジェクトの導入は行わず、今後の対応のお知らせをお待ちください。公開時期は未定です。",
+    "officialUpdateTitle": "新旧の純正ベースに対応しています。バージョンに合わせて選択してください。",
+    "officialUpdateNotice": "GR IV は純正 1.11 以下または 1.20、GR III は 2.10 以下または 2.20、GR IIIx は 1.60 以下または 1.70 に対応しています。確認後、ダウンロード画面で対応するベースを選択してください。異なるベースのファームウェアは混用できません。未対応の新しいバージョンには無理に導入しないでください。",
     "originalDownload": "純正 .bin をダウンロード",
     "originalRestoreTitle": "純正に戻す前に、必ずカメラをリセット。",
     "originalRestoreRisk": "重大なリスク：リセットせずに純正ファームウェアへ戻すと、フリーズや起動不能を招くおそれがあります。以下の手順を省略しないでください。",
@@ -647,16 +649,17 @@ export const copy = {
     "originalBackupOnly": "ファイルのダウンロードのみで、カメラへの接続や書き込みは行いません。保存済みファイルの SHA-256 と照合し、元のファイル名で保存します。",
     "enhancedModels": {
       "gr3": {
-        "enhancedIntro": "公式イベントで終了画面を変更した後も 2.10 と表示され、通常版を導入できない GR III / HDF 向けです。まず通常版をお試しください。",
+        "enhancedIntro": "対応する純正ベースの通常版を先にお試しください。拡張版は、通常版を導入できない場合のみ使用してください。",
         "enhancedTestNote": "ダウンロードパスワードは不要です。V3.12 の全機能を保持し、導入バージョンを 2.11 に引き上げています。純正 2.20 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。"
       },
       "gr3x": {
-        "enhancedIntro": "公式イベントで終了画面を変更した後も 1.60 と表示され、通常版を導入できない GR IIIx / HDF 向けです。まず通常版をお試しください。",
+        "enhancedIntro": "対応する純正ベースの通常版を先にお試しください。拡張版は、通常版を導入できない場合のみ使用してください。",
         "enhancedTestNote": "利用者による実機テストで正常動作を確認しました。ダウンロードパスワードは不要です。V3.12 の全機能を保持し、導入バージョンを 1.61 に引き上げています。純正 1.70 への対応版ではありません。同バージョンに更新済みの機体には使用しないでください。",
         "enhancedTitle": "拡張版ファームウェア"
       }
     },
     "downloadSuspended": "ダウンロード停止中",
-    "downloadSuspensionNotice": "新バージョンをテスト中"
+    "downloadSuspensionNotice": "新バージョンをテスト中",
+    "baseVariants": "2つのベースに対応"
   }
 };

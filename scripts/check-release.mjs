@@ -28,6 +28,31 @@ for (const manifest of ['release.json', 'gr3-release.json', 'gr3x-release.json',
 }
 for (const name of ['LICENSE.txt']) if (!(await stat(new URL(name, base))).size) throw new Error(`Missing release asset: ${name}`);
 
+const latestBases = JSON.parse(await readFile(new URL('../src/latest-base-releases.json', import.meta.url)));
+const latestPins = JSON.parse(await readFile(new URL('../src/approved-latest-base-releases.json', import.meta.url)));
+if (Object.keys(latestBases).sort().join(',') !== 'gr3,gr3x,gr4') throw new Error('Latest-base releases must cover all three models');
+for (const [model, variants] of Object.entries(latestBases)) {
+  if (Object.keys(variants).sort().join(',') !== 'enhanced,standard') throw new Error('Each latest base requires a standard/enhanced pair');
+  for (const [variant, release] of Object.entries(variants)) {
+    const pin = latestPins[`${model}:${variant}`];
+    const testing = model !== 'gr3x';
+    if (!pin || !release.releaseApproved || release.hardwareTested !== pin.hardwareTested || release.version !== pin.version || release.downloadVariant !== variant || !!release.testRelease !== testing || pin.testRelease !== testing || !!release.encryption !== testing || JSON.stringify([release.internalVersion, release.installationVersion, release.filename, release.sha256]) !== JSON.stringify(pin.identity)) throw new Error('Latest-base approval mismatch: '+model+'/'+variant);
+    if (testing && (release.encryption.algorithm !== 'AES-GCM' || release.encryption.kdf !== 'PBKDF2' || release.encryption.iterations < 210000 || release.downloadSize !== release.size + 16 || release.transportSha256 !== pin.transportSha256 || release.statisticsVersion !== 'V3.12-test')) throw new Error('Latest-base test protection mismatch: '+model+'/'+variant);
+    const chunks = [];
+    for (const part of release.parts) {
+      const b = await readFile(new URL(part.file, base));
+      if (b.length !== part.size || hash(b) !== part.sha256) throw new Error('Latest-base part corrupted: '+part.file);
+      chunks.push(b);
+    }
+    const b = Buffer.concat(chunks);
+    if (b.length !== (release.downloadSize ?? release.size) || hash(b) !== (release.transportSha256 ?? release.sha256)) throw new Error('Latest-base complete download hash mismatch: '+model+'/'+variant);
+    if (testing && (hash(b) === release.sha256 || !release.parts.every(p=>p.file.includes('-test-')))) throw new Error('Plaintext test download exposed: '+model+'/'+variant);
+    console.log(`${model} official ${release.baseVersion} ${variant}: ${testing ? 'encrypted test assets and approved BIN identity' : 'exact approved BIN'} verified.`);
+  }
+}
+const latestFiles = new Set(Object.values(latestBases).flatMap(v=>Object.values(v).flatMap(r=>r.parts.map(p=>p.file))));
+for (const name of await readdir(base)) if (/^firmware-gr(?:3|4)-v3\.12-base/.test(name) && !latestFiles.has(name)) throw new Error('Unreferenced latest-base test asset exposed: '+name);
+
 const exposed = (await readdir(base)).filter(name => /source|源码|verification/i.test(name));
 if (exposed.length) throw new Error(`Source archives must not be deployed: ${exposed.join(', ')}`);
 

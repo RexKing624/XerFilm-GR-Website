@@ -6,6 +6,7 @@ import gr3x from './gr3x-release.json';
 import gr4Enhanced from './enhanced-release.json';
 import gr3Enhanced from './gr3-enhanced-release.json';
 import gr3xEnhanced from './gr3x-enhanced-release.json';
+import latestBaseReleases from './latest-base-releases.json';
 
 export const cameras = [
   { id: 'gr4', label: 'GR IV / HDF', release: gr4 },
@@ -13,4 +14,8 @@ export const cameras = [
   { id: 'gr3x', label: 'GR IIIx / HDF', release: gr3x },
 ];
 export const enhancedReleases = { gr4: gr4Enhanced, gr3: gr3Enhanced, gr3x: gr3xEnhanced };
+export const firmwareFamilies = Object.fromEntries(cameras.map(camera => [camera.id, [
+  { id: 'legacy', legacy: true, baseVersion: camera.release.baseVersion, standard: camera.release, enhanced: enhancedReleases[camera.id] },
+  { id: 'current', legacy: false, baseVersion: latestBaseReleases[camera.id].standard.baseVersion, ...latestBaseReleases[camera.id] },
+]]));
 export const fileSize = release => `${(release.size / 1048576).toFixed(1)} MiB`;

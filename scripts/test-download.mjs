@@ -35,3 +35,4 @@ try{
  console.log('All three stable pairs: approved BINs, password-free save, cancellation, corruption and language/version consistency passed.');
 }finally{globalThis.fetch=realFetch;}
 await import('./test-test-downloads.mjs');
+await import('./test-firmware-bases.mjs');

@@ -47,6 +47,8 @@ npm run preview
 
 网站使用 GitHub Actions → GitHub Pages，正式域名为 https://filmgr.xergnik.com/ 。推送 main 后自动构建并发布，`public/CNAME` 保留该域名。
 
+2026-11-02：下载抽屉先选择原厂基底，再选择普通版／增强版。保留旧基底正式版；新增 GR IIIx 1.70 基底正式版，GR III 2.20 与 GR IV 1.20 基底以密码验证的测试版提供。测试分片采用 PBKDF2/AES-GCM，下载解密后仍核对实测 BIN 的完整 SHA-256，不公开对应明文分片。所有增强版仅在普通版无法安装时使用，新基底增强版另提示无法降级。中英日文同步，XerFilm GR 版本号仍为 V3.12。
+
 GitHub Pages 同时部署网站与 `public/downloads/` 中的各机型发布文件。浏览器下载分片并校验 SHA-256，分别保存为 GR IV 的 `fwdc248b.bin`、GR III 的 `fwdc239b.bin` 或 GR IIIx 的 `fwdc243b.bin`。分片不能单独用于刷机。
 
 - 安装：`npm ci`
