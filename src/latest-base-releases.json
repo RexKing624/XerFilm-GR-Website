@@ -97,7 +97,7 @@
     "standard": {
       "version": "V3.12",
       "internalVersion": "2.20-R1",
-      "statisticsVersion": "V3.12-test",
+      "statisticsVersion": "V3.12",
       "downloadVariant": "standard",
       "baseVersion": "2.20",
       "installationVersion": "2.20",
@@ -110,40 +110,26 @@
       "releaseDate": "2026-11-02",
       "parts": [
         {
-          "file": "firmware-gr3-v3.12-base220-r1-test-standard-7aafb9b6.part1",
+          "file": "firmware-gr3-v3.12-base220-r1-standard-9e2d19b5.part1",
           "size": 16777216,
-          "sha256": "b1bbe0b67bccc84cb4c4596ded9ce4a6c363f4452d7ddc31999f51fc1e60e7ff"
+          "sha256": "4f3c1eb3ea3a0719579734f135cd95ef5434e0d0eb80a9874ebb8cfb9748288c"
         },
         {
-          "file": "firmware-gr3-v3.12-base220-r1-test-standard-7aafb9b6.part2",
+          "file": "firmware-gr3-v3.12-base220-r1-standard-9e2d19b5.part2",
           "size": 16777216,
-          "sha256": "02284b1802d04ba5ae7b5853885f29d45e3b78e07e29341a7bc39e3736eabde1"
+          "sha256": "8292793ad043e9c73d32a324dc25f0d07609cef42bbd077c31ca84322c70ff2e"
         },
         {
-          "file": "firmware-gr3-v3.12-base220-r1-test-standard-7aafb9b6.part3",
-          "size": 4903488,
-          "sha256": "b6b346f9a1248d9d728f79aed355a436cefd9f2b7bb94d60176dfb4fe76a6df9"
+          "file": "firmware-gr3-v3.12-base220-r1-standard-9e2d19b5.part3",
+          "size": 4903472,
+          "sha256": "6631e5fb22a10ae77a440dacdf30f89f8109e3fd7c823e1fe8b6087ac9980bae"
         }
-      ],
-      "testRelease": true,
-      "downloadSize": 38457920,
-      "transportSha256": "7aafb9b66324c85ab65c76bf4bee5e2be431a127b0e8e1336994836f63f2cd45",
-      "encryption": {
-        "algorithm": "AES-GCM",
-        "kdf": "PBKDF2",
-        "iterations": 310000,
-        "salt": "jA12TH12K8QKS7Yp11X03g==",
-        "iv": "lLHs6qkTgslImpay",
-        "check": {
-          "iv": "rAkLR4aUOTr5wAyi",
-          "ciphertext": "Xr4+7qpdAlV4Wc+O6pJTIyLlrgeGK4wE32z3ksl4j34JbwF4dsXhUksCCNtBM06rYL4z3OQkAQ=="
-        }
-      }
+      ]
     },
     "enhanced": {
       "version": "V3.12",
       "internalVersion": "2.20-R1-H",
-      "statisticsVersion": "V3.12-test",
+      "statisticsVersion": "V3.12",
       "downloadVariant": "enhanced",
       "baseVersion": "2.20",
       "installationVersion": "2.21",
@@ -156,35 +142,21 @@
       "releaseDate": "2026-11-02",
       "parts": [
         {
-          "file": "firmware-gr3-v3.12-base220-h-test-enhanced-9b340898.part1",
+          "file": "firmware-gr3-v3.12-base220-r1-enhanced-59faa70e.part1",
           "size": 16777216,
-          "sha256": "d7b89e9ac4b9f61acb2d199c8d2dd434d984a1f5467e3a4fe08460efdcc39d6c"
+          "sha256": "c3911ae7bbf0363a6f8d92199596017c4ee9e8f573a6fedd7e1be6ea31901e2c"
         },
         {
-          "file": "firmware-gr3-v3.12-base220-h-test-enhanced-9b340898.part2",
+          "file": "firmware-gr3-v3.12-base220-r1-enhanced-59faa70e.part2",
           "size": 16777216,
-          "sha256": "8ff588018772ff7a9c5ba570922af4664bb0772cd6a395e8a95960ff72ca3c38"
+          "sha256": "672a2f208a878ef090008974d2cbd9a1f1fa0d335621d2cc7062d2e4ef624c6a"
         },
         {
-          "file": "firmware-gr3-v3.12-base220-h-test-enhanced-9b340898.part3",
-          "size": 4929200,
-          "sha256": "a024936a2cfbd38eb8bf5b1f6af81bede3eeea3df56a4b1592290ef66e32aaf6"
+          "file": "firmware-gr3-v3.12-base220-r1-enhanced-59faa70e.part3",
+          "size": 4929184,
+          "sha256": "a0f0e95ac8a7c3b4f10877d2baff5cc8787ecd04107b24ad3e5b3566366881b1"
         }
-      ],
-      "testRelease": true,
-      "downloadSize": 38483632,
-      "transportSha256": "9b3408985d68e663859bfcfcbf6d867e36af7640135fbfeb1218845a78666705",
-      "encryption": {
-        "algorithm": "AES-GCM",
-        "kdf": "PBKDF2",
-        "iterations": 310000,
-        "salt": "Dl/Fk/7+/9wUZICc2km0LA==",
-        "iv": "cqAcF18BIp7Zwluy",
-        "check": {
-          "iv": "K2uwgueFoNm7XIOt",
-          "ciphertext": "IiVVTv+KU96y6YWlLuuvJbZDjb1ShZe4RIx9ZmDXxeI7o1HBNabplGWpvOjZVRzFdRhFadNmgg=="
-        }
-      }
+      ]
     }
   },
   "gr3x": {

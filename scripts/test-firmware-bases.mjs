@@ -14,7 +14,7 @@ try{
  for(const [model,[old,base,enhanced,filename,standardHash,enhancedHash]]of Object.entries(expected)){
   const oldRelease=await json(model==='gr4'?'release.json':`${model}-release.json`);assert.equal(oldRelease.baseVersion,old);
   for(const variant of ['standard','enhanced']){
-   const r=latest[model][variant],p=pins[`${model}:${variant}`],testing=model!=='gr3x';assert.equal(r.sha256,variant==='standard'?standardHash:enhancedHash);assert.equal(r.baseVersion,base);assert.equal(r.installationVersion,variant==='standard'?base:enhanced);assert.equal(r.filename,filename);assert.equal(r.downloadVariant,variant);assert.equal(r.hardwareTested,true);assert.equal(!!r.encryption,testing);assert.equal(!!r.testRelease,testing);assert.equal(p.testRelease,testing);assert.equal(r.releaseApproved,true);assert.equal(r.version,'V3.12');assert.deepEqual(p.identity,[r.internalVersion,r.installationVersion,r.filename,r.sha256]);
+   const r=latest[model][variant],p=pins[`${model}:${variant}`],testing=model==='gr4';assert.equal(r.sha256,variant==='standard'?standardHash:enhancedHash);assert.equal(r.baseVersion,base);assert.equal(r.installationVersion,variant==='standard'?base:enhanced);assert.equal(r.filename,filename);assert.equal(r.downloadVariant,variant);assert.equal(r.hardwareTested,true);assert.equal(!!r.encryption,testing);assert.equal(!!r.testRelease,testing);assert.equal(p.testRelease,testing);assert.equal(r.releaseApproved,true);assert.equal(r.version,'V3.12');assert.equal(r.statisticsVersion,testing?'V3.12-test':'V3.12');assert.deepEqual(p.identity,[r.internalVersion,r.installationVersion,r.filename,r.sha256]);
    let decryptionKey;
    if(testing){
     await assert.rejects(loadFirmware(r),/Password required/);
@@ -33,5 +33,5 @@ try{
   for(const lang of ['zh','en','ja']){assert.ok(copy[lang].modelReleases[model].compatible.includes(base));assert.ok(copy[lang].modelReleases[model].compatible.includes(old));assert.ok(copy[lang].officialUpdateNotice.includes(base));const l=firmwareBaseCopy[lang];for(const key of Object.keys(firmwareBaseCopy.zh))assert.equal(typeof l[key],'string',lang+' '+key);assert.ok(l.earlier.includes('{version}')&&l.identify.includes('{standard}')&&l.identify.includes('{enhanced}'));}
  }
  assert.equal(Object.keys(pins).length,6);
- console.log('Legacy pairs remain stable. Latest IIIx is open; latest III/IV require encrypted test downloads. All three languages match. Fetch calls:',calls);
+ console.log('Legacy pairs remain stable. Latest III/IIIx are open; latest IV requires encrypted test downloads. All three languages match. Fetch calls:',calls);
 }finally{globalThis.fetch=realFetch;}

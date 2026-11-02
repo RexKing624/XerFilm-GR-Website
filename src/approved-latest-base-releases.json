@@ -32,8 +32,7 @@
     ],
     "version": "V3.12",
     "hardwareTested": true,
-    "testRelease": true,
-    "transportSha256": "7aafb9b66324c85ab65c76bf4bee5e2be431a127b0e8e1336994836f63f2cd45"
+    "testRelease": false
   },
   "gr3:enhanced": {
     "identity": [
@@ -44,8 +43,7 @@
     ],
     "version": "V3.12",
     "hardwareTested": true,
-    "testRelease": true,
-    "transportSha256": "9b3408985d68e663859bfcfcbf6d867e36af7640135fbfeb1218845a78666705"
+    "testRelease": false
   },
   "gr3x:standard": {
     "identity": [
