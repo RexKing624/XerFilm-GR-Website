@@ -44,7 +44,8 @@
           "iv": "+q+90PEc3Vyl4w5u",
           "ciphertext": "mJx0aecj/Y1WQgQStAwdy79XaEslXVspX1lNw6NJJ6xtHnAegaAzSMlQzIuN1Kc3xq6iNQtO"
         }
-      }
+      },
+      "downloadSuspended": true
     },
     "enhanced": {
       "version": "V3.12",
@@ -90,7 +91,8 @@
           "iv": "XFvzkNq9bl7wJ0uC",
           "ciphertext": "7L7L3zli1sSpAxX+94ZLAQOwZ5+VxaFKymYgxBYsF4q5c29/pav7okoMkFXJhFbwfnAfgmlv"
         }
-      }
+      },
+      "downloadSuspended": true
     }
   },
   "gr3": {

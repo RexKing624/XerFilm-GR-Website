@@ -10,6 +10,7 @@ for (const manifest of ['release.json','gr3-release.json','gr3x-release.json','e
   }
 }
 const latestBases = JSON.parse(readFileSync(resolve('src/latest-base-releases.json'), 'utf8'));
+const suspendedBaseFiles = new Set(Object.values(latestBases).flatMap(variants=>Object.values(variants).filter(release=>release.downloadSuspended).flatMap(release=>release.parts.map(part=>part.file))));
 for (const [model, variants] of Object.entries(latestBases)) for (const release of Object.values(variants)) {
   if (!release.parts.every(part => existsSync(resolve('public/downloads', part.file)))) throw new Error(`Missing latest-base download files for ${model}. Restore the approved release assets before building.`);
 }
@@ -17,7 +18,7 @@ const originals = JSON.parse(readFileSync(resolve('src/original-releases.json'),
 for (const release of originals) if (!release.parts.every(part => existsSync(resolve('public/downloads', part.file)))) throw new Error('Missing original firmware backup: '+release.camera);
 const availability = JSON.parse(readFileSync(resolve('src/download-availability.json'), 'utf8'));
 const withdrawnAssets = name => /^firmware-gr3x?-v(?:2(?:-enhanced)?\.part|3-test-)/.test(name);
-const suspendedAssets = name => withdrawnAssets(name) || Object.entries(availability).some(([model, available]) => !available && (name.startsWith(`firmware-${model}-`) || name.startsWith(`stock-${model}-`)));
+const suspendedAssets = name => suspendedBaseFiles.has(name) || withdrawnAssets(name) || Object.entries(availability).some(([model, available]) => !available && (name.startsWith(`firmware-${model}-`) || name.startsWith(`stock-${model}-`)));
 export default defineConfig({
   plugins: [vue(), {
     name: 'same-site-page-entries',

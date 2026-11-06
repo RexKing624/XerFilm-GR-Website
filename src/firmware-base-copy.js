@@ -2,6 +2,8 @@ export const firmwareBaseCopy = {
   zh: {
     chooseBase: '选择相机的原厂基底',
     stable: '正式版', test: '测试版',
+    suspended: '暂停下载',
+    suspensionNote: 'GR IV 原厂 {version} 适配版收到曝光设置及回放异常反馈，普通版与增强版均已暂停下载，等待修复验证。请勿为安装旧基底固件而强行降级。',
     testNote: '此原厂基底目前提供测试版；确认参与测试并验证密码后，才可下载。现有正式版保留。',
     testAck: '我已知晓这是测试版，已核对机型与原厂基底，自愿参与测试。',
     testPassword: '测试版下载密码',
@@ -24,6 +26,8 @@ export const firmwareBaseCopy = {
   en: {
     chooseBase: 'Choose your camera’s official firmware base',
     stable: 'Stable', test: 'Test build',
+    suspended: 'Downloads paused',
+    suspensionNote: 'Both GR IV builds based on official {version} are withdrawn after reports of exposure-control and playback problems, pending a verified fix. Do not force a downgrade to an older base.',
     testNote: 'This official base currently has test builds. Confirm participation and verify the password to download. Existing stable builds remain available.',
     testAck: 'I understand this is a test build, have checked the model and official base, and choose to participate.',
     testPassword: 'Test build password',
@@ -46,6 +50,8 @@ export const firmwareBaseCopy = {
   ja: {
     chooseBase: 'カメラの純正ベースを選択',
     stable: '正式版', test: 'テスト版',
+    suspended: 'ダウンロード停止中',
+    suspensionNote: '純正 {version} ベースの GR IV 版で露出設定と再生の不具合報告があり、通常版・拡張版とも修正確認まで配布を停止しています。旧ベース版を導入するための無理なダウングレードはしないでください。',
     testNote: 'この純正ベースは現在テスト版です。テストへの参加確認とパスワード認証後にダウンロードできます。既存の正式版も引き続き利用できます。',
     testAck: 'テスト版であることを理解し、機種と純正ベースを確認した上でテストに参加します。',
     testPassword: 'テスト版ダウンロードパスワード',

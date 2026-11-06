@@ -241,3 +241,4 @@ body:has(.photography-gallery){min-width:0}
 .firmware-enhanced-policy{font-size:12px;line-height:1.9;color:var(--warm);margin-top:17px;font-weight:550}
 .firmware-downgrade-warning,.firmware-choice-content>.firmware-downgrade-warning{font-size:12px;line-height:1.8;color:var(--warm);font-weight:650;margin-top:8px}
 .firmware-release-channel{color:var(--accent)}.firmware-release-channel.is-test,.firmware-test-note{color:var(--warm)}.firmware-test-note{font-size:12px;line-height:1.9;margin-bottom:16px}.firmware-test-ack{margin-top:18px}
+.firmware-choice-card.suspended{opacity:.5;cursor:not-allowed}

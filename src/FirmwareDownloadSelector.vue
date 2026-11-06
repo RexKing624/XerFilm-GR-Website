@@ -16,7 +16,7 @@ const acceptedEnhanced = ref(false);
 const acceptedTest = ref(false);
 const busy = ref(false), unlocking = ref(false), progress = ref(0), status = ref('');
 const password = ref(''), passwordError = ref(false), decryptionKey = shallowRef(null);
-const allowed = computed(() => props.verified && !!release.value && (!release.value.testRelease || acceptedTest.value) && (selectedVariant.value === 'standard' || acceptedEnhanced.value));
+const allowed = computed(() => props.verified && !!release.value && !release.value.downloadSuspended && (!release.value.testRelease || acceptedTest.value) && (selectedVariant.value === 'standard' || acceptedEnhanced.value));
 let controller, attempt = 0;
 const shortVersion = item => item.installationVersion.split('.').slice(0, 2).join('.');
 const baseLabel = item => (item.legacy ? labels.value.earlier : labels.value.current).replace('{version}', item.baseVersion);
@@ -57,11 +57,12 @@ onBeforeUnmount(resetDownload);
 <template>
  <section class="firmware-selector" data-testid="firmware-selector">
   <p class="firmware-enhanced-policy" role="note">{{ labels.enhancedPolicy }}</p>
+  <p v-for="item in families.filter(item => item.standard.downloadSuspended)" :key="`suspended-${item.id}`" class="firmware-downgrade-warning" role="alert" data-testid="base-suspension-notice">{{ labels.suspensionNote.replace('{version}',item.baseVersion) }}</p>
   <fieldset class="firmware-choice-step"><legend><span>01</span>{{ labels.chooseBase }}</legend><p class="firmware-step-help">{{ labels.baseHelp }}</p>
    <div class="firmware-base-options">
-    <label v-for="item in families" :key="item.id" class="firmware-choice-card" :class="{selected:selectedBase === item.id}" :data-testid="`base-${item.id}`">
-     <input v-model="selectedBase" type="radio" name="firmware-base" :value="item.id" :disabled="baseBusy"><span class="firmware-radio" aria-hidden="true"></span>
-     <span class="firmware-choice-content"><small>{{ labels.baseVersion }} · <span class="firmware-release-channel" :class="{'is-test':item.standard.testRelease}" :data-testid="`channel-${item.id}`">{{ item.standard.testRelease ? labels.test : labels.stable }}</span></small><strong>{{ baseLabel(item) }}</strong><span>{{ versionSummary(item) }}</span></span>
+    <label v-for="item in families" :key="item.id" class="firmware-choice-card" :class="{selected:selectedBase === item.id,suspended:item.standard.downloadSuspended}" :data-testid="`base-${item.id}`">
+     <input v-model="selectedBase" type="radio" name="firmware-base" :value="item.id" :disabled="baseBusy || item.standard.downloadSuspended"><span class="firmware-radio" aria-hidden="true"></span>
+     <span class="firmware-choice-content"><small>{{ labels.baseVersion }} · <span class="firmware-release-channel" :class="{'is-test':item.standard.testRelease}" :data-testid="`channel-${item.id}`">{{ item.standard.downloadSuspended ? labels.suspended : item.standard.testRelease ? labels.test : labels.stable }}</span></small><strong>{{ baseLabel(item) }}</strong><span>{{ versionSummary(item) }}</span></span>
     </label>
    </div><p class="firmware-version-help">{{ labels.versionHelp }}</p>
   </fieldset>
