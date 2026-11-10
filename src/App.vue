@@ -70,9 +70,11 @@ const emptyAcknowledgements = () => t.value.checks.map(() => false);
 const acks = ref(emptyAcknowledgements());
 const acknowledged = computed(() => acks.value.filter(Boolean).length);
 const allAcknowledged = computed(() => acknowledged.value === t.value.checks.length);
+const traditionalConfirmation = ref(false);
+const confirmationPhrase = computed(() => language.value === 'zh' && traditionalConfirmation.value ? '我已知曉請求下載' : t.value.phrase);
 const typed = ref('');
 const inputHint = ref('');
-const verified = computed(() => allAcknowledged.value && typed.value === t.value.phrase);
+const verified = computed(() => allAcknowledged.value && typed.value === confirmationPhrase.value);
 const dialog = ref(null);
 const drawer = ref('');
 const filter = ref('all');
@@ -113,8 +115,12 @@ const selectedStampMode=ref('ymdt');
 const stampExample=computed(()=>stampExamples.find(example=>example.id===selectedStampMode.value));
 
 watch(language, () => {
-  acks.value = emptyAcknowledgements(); typed.value = ''; inputHint.value = '';
+  acks.value = emptyAcknowledgements(); traditionalConfirmation.value = false; typed.value = ''; inputHint.value = '';
   closeDrawer(); savePreference('site-language', language.value);
+});
+watch(traditionalConfirmation, () => {
+  typed.value = ''; inputHint.value = '';
+  if (drawer.value === 'download') closeDrawer();
 });
 watch(selectedModel, () => {
   closeDrawer();
@@ -207,7 +213,15 @@ onBeforeUnmount(() => { stopEngagement?.(); window.removeEventListener('hashchan
     <div class="terms"><section><h3><span>!</span>{{ t.riskTitle }}</h3><p>{{ t.risk }}</p><p>{{ t.compatibility }}</p></section><section class="reset-warning" role="note"><h3><span>!</span>{{ t.resetTitle }}</h3><p>{{ t.resetWarning }}</p><strong class="reset-menu-path">{{ t.resetPath }}</strong><p class="reset-settings-note">{{ t.resetSettingsNote }}</p></section><section><h3>{{ t.communityTitle }}</h3><p>{{ t.community }}</p><p class="license-note">{{ t.license }}</p></section></div>
     <fieldset class="acknowledgements"><legend class="sr-only">{{ t.getSub }}</legend><label v-for="(label,i) in t.checks" :key="i" :class="{ checked: acks[i] }"><input v-model="acks[i]" type="checkbox" required :data-testid="`ack-${i}`"><span class="custom-check" aria-hidden="true">{{ acks[i] ? '✓' : '' }}</span><span>{{ label }}</span></label></fieldset>
     <div class="ack-progress"><span>{{ acknowledged }}/{{ t.checks.length }} {{ t.acknowledged }}</span><span class="mini-bars"><i v-for="i in t.checks.length" :key="i" :class="{ done: acknowledged >= i }"></i></span></div>
-    <div v-if="allAcknowledged && isModelAvailable(selectedModel)" class="manual-confirm"><label for="confirmation">{{ t.typeTitle }}</label><p>{{ t.typeHelp }}</p><p class="confirmation-phrase" @copy.prevent @cut.prevent @contextmenu.prevent @dragstart.prevent>{{ t.phrase }}</p><input id="confirmation" v-model="typed" :placeholder="t.placeholder" :aria-describedby="'confirmation-hint'" autocomplete="off" autocorrect="off" autocapitalize="off" :spellcheck="false" @paste="blockTransfer" @copy.prevent @cut.prevent @drop="blockTransfer" @dragover.prevent @contextmenu.prevent @beforeinput="beforeInput" @input="inputHint = ''"><p id="confirmation-hint" role="status" class="input-hint">{{ inputHint || (verified ? t.valid : t.typing) }}</p></div>
+    <div v-if="allAcknowledged && isModelAvailable(selectedModel)" class="manual-confirm">
+     <label for="confirmation">{{ t.typeTitle }}</label><p>{{ t.typeHelp }}</p>
+     <div class="confirmation-phrase-row">
+      <p id="confirmation-phrase" class="confirmation-phrase" :lang="language === 'zh' ? (traditionalConfirmation ? 'zh-Hant' : 'zh-Hans') : language" @copy.prevent @cut.prevent @contextmenu.prevent @dragstart.prevent>{{ confirmationPhrase }}</p>
+      <label v-if="language === 'zh'" class="confirmation-script-toggle" lang="zh-Hant"><input v-model="traditionalConfirmation" type="checkbox"><span>繁體中文</span></label>
+     </div>
+     <input id="confirmation" v-model="typed" :placeholder="t.placeholder" aria-describedby="confirmation-phrase confirmation-hint" autocomplete="off" autocorrect="off" autocapitalize="off" :spellcheck="false" @paste="blockTransfer" @copy.prevent @cut.prevent @drop="blockTransfer" @dragover.prevent @contextmenu.prevent @beforeinput="beforeInput" @input="inputHint = ''">
+     <p id="confirmation-hint" role="status" class="input-hint">{{ inputHint || (verified ? t.valid : t.typing) }}</p>
+    </div>
     <button class="primary request-button" :disabled="!verified || !isModelAvailable(selectedModel)" @click="openDrawer('download')"><span>{{ !isModelAvailable(selectedModel) ? t.downloadSuspended : verified ? t.request : allAcknowledged ? t.typeTitle : t.locked }}</span><span aria-hidden="true">↗</span></button>
     <p class="gate-note">{{ t.manualOnly }}</p>
    </aside>
