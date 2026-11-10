@@ -53,6 +53,18 @@ export const copy = {
     "valid": "校验通过",
     "request": "打开下载抽屉",
     "locked": "完成四项确认后继续",
+    "traditionalConfirmation": {
+      "typeTitle": "最後一步：手動輸入",
+      "typeHelp": "請逐字輸入以下文字，不能複製、貼上或拖入。",
+      "phrase": "我已知曉請求下載",
+      "placeholder": "在這裡手動輸入確認文字",
+      "typing": "文字完全一致後，將開啟下載抽屜。",
+      "blocked": "請手動輸入，貼上和拖入不可用。",
+      "valid": "校驗通過",
+      "request": "開啟下載抽屜",
+      "locked": "完成四項確認後繼續",
+      "manualOnly": "手動確認僅用於閱讀提醒，不是加密或防破解措施。"
+    },
     "featureTitle": "为拍摄而做的细节。",
     "featureKicker": "WHAT’S INSIDE",
     "filmTitle": "胶片模拟",
