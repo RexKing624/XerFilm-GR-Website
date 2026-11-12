@@ -165,3 +165,8 @@ GR III 的三语言日志更新为 V3.0，社群兼容说明加入 GR III / HDF�
 介绍文字下显示“XerFilm GR，已被选择 XXX 次。”，数字使用主题强调色；下一行显示“截至 YYYY 年 MM 月 DD 日 · 数据依据：固件总下载量”。中英日文同步，日期使用日本时间。数字来自现有数据库中定制固件的自动记录及历史补录，不加重复基数，排除原厂备份、社群和工具导出。
 
 `public-summary/` 提供独立只读接口，仅公开总数和日期；不改变原有统计后台、凭据及私有明细。页面每个可见分钟更新，异常时保留已有结果或不显示数字。详见 `public-summary/README.md`，验证命令 `npm run test:summary`。
+
+
+## GR IV official 1.21 R2 stable — 2026-11-12
+
+The owner approved publishing the exact R2 BINs after testing the preceding full-feature R1. R2 changes only the two Film List footer key glyph instructions (MENU and OK); no other feature bytes differ from R1. The latest GR IV selector is labeled “1.20 or later”, with official base 1.21, standard installation version 1.21 and enhanced 1.22. The old suspended 1.20 encrypted test assets are withdrawn. Downloads are password-free after the existing reading confirmations; enhanced remains restricted to cameras that cannot install standard, with the no-downgrade warning. Project version remains V3.12. R2-specific hardware testing is not asserted; approval is recorded separately from hardwareTested. GR III/IIIx and legacy-base BINs are unchanged.

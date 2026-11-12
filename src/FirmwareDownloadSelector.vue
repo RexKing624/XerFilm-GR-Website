@@ -19,7 +19,7 @@ const password = ref(''), passwordError = ref(false), decryptionKey = shallowRef
 const allowed = computed(() => props.verified && !!release.value && !release.value.downloadSuspended && (!release.value.testRelease || acceptedTest.value) && (selectedVariant.value === 'standard' || acceptedEnhanced.value));
 let controller, attempt = 0;
 const shortVersion = item => item.installationVersion.split('.').slice(0, 2).join('.');
-const baseLabel = item => (item.legacy ? labels.value.earlier : labels.value.current).replace('{version}', item.baseVersion);
+const baseLabel = item => (item.legacy ? labels.value.earlier : item.standard.selectionMinimumVersion ? labels.value.currentFrom : labels.value.current).replace('{version}', item.standard.selectionMinimumVersion || item.baseVersion);
 const versionSummary = item => labels.value.identify.replace('{standard}', shortVersion(item.standard)).replace('{enhanced}', shortVersion(item.enhanced));
 function cancel() { controller?.abort(); controller = undefined; attempt++; busy.value = false; unlocking.value = false; status.value = ''; progress.value = 0; emit('busy', false); }
 function resetDownload() { cancel(); acceptedEnhanced.value = false; acceptedTest.value = false; password.value = ''; passwordError.value = false; decryptionKey.value = null; }

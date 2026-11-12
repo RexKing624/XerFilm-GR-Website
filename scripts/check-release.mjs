@@ -35,7 +35,7 @@ for (const [model, variants] of Object.entries(latestBases)) {
   if (Object.keys(variants).sort().join(',') !== 'enhanced,standard') throw new Error('Each latest base requires a standard/enhanced pair');
   for (const [variant, release] of Object.entries(variants)) {
     const pin = latestPins[`${model}:${variant}`];
-    const testing = model === 'gr4';
+    const testing = pin?.testRelease === true;
     if (!pin || !release.releaseApproved || release.hardwareTested !== pin.hardwareTested || release.version !== pin.version || release.downloadVariant !== variant || !!release.testRelease !== testing || pin.testRelease !== testing || !!release.encryption !== testing || JSON.stringify([release.internalVersion, release.installationVersion, release.filename, release.sha256]) !== JSON.stringify(pin.identity)) throw new Error('Latest-base approval mismatch: '+model+'/'+variant);
     if (testing && (release.encryption.algorithm !== 'AES-GCM' || release.encryption.kdf !== 'PBKDF2' || release.encryption.iterations < 210000 || release.downloadSize !== release.size + 16 || release.transportSha256 !== pin.transportSha256 || release.statisticsVersion !== 'V3.12-test')) throw new Error('Latest-base test protection mismatch: '+model+'/'+variant);
     if (!testing && (release.statisticsVersion !== 'V3.12' || release.downloadSize || release.transportSha256)) throw new Error('Stable latest-base download must be password-free: '+model+'/'+variant);

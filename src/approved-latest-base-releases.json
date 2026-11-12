@@ -1,27 +1,25 @@
 {
   "gr4:standard": {
     "identity": [
-      "1.20-R3",
-      "1.20",
+      "1.21-R2",
+      "1.21",
       "fwdc248b.bin",
-      "c3db9b1f2ed7d9a5221849b49d7cfdd3e0de11cec5e57636c4fc60558617f5e5"
+      "ea1a52dd43f75328dac4701f61d16e78e3eeade5023391ba8a1b5e802713598a"
     ],
     "version": "V3.12",
-    "hardwareTested": true,
-    "testRelease": true,
-    "transportSha256": "df3ae51d0db384333237595ac9098106edd195c6182cc34dca657b9697854c3e"
+    "hardwareTested": false,
+    "testRelease": false
   },
   "gr4:enhanced": {
     "identity": [
-      "1.20-R3-H",
-      "1.21",
+      "1.21-R2-H",
+      "1.22",
       "fwdc248b.bin",
-      "88fb8193526484a4e9c5b80f274a36c5dfb0cd2d0a1571b9cd31ce65415831e7"
+      "51a39920ea8be55e488ed561e74b6244d2d6377cbef8722abbb52961b3d88096"
     ],
     "version": "V3.12",
-    "hardwareTested": true,
-    "testRelease": true,
-    "transportSha256": "70eee36c32ccce9d995be49b9832cacb670dc3e9c75f419b3388e6f8a3c390f8"
+    "hardwareTested": false,
+    "testRelease": false
   },
   "gr3:standard": {
     "identity": [

@@ -160,7 +160,7 @@ export const copy = {
     "unlockDownload": "解锁下载",
     "modelReleases": {
       "gr4": {
-        "compatible": "RICOH GR IV / HDF · 原厂 1.11 及以下 / 1.20，下载时选择对应基底",
+        "compatible": "RICOH GR IV / HDF · 原厂 1.11 及以下 / 1.20 及以上（当前适配基底 1.21），下载时选择对应基底",
         "note": "V3.12：改善胶片色彩表现。 加快高光模拟处理与照片回放。 修复补充胶片在回放 INFO 中的图标显示。",
         "changesTitle": "V3.12 更新",
         "changes": [
@@ -202,7 +202,7 @@ export const copy = {
     "originalTitle": "本人备份的原厂固件",
     "originalIntro": "以下为本人备份的旧版原厂固件，不含 XerFilm 修改。请核对机型和版本；提供备份不代表已升级的相机能够降级。",
     "officialUpdateTitle": "新旧原厂基底均已适配，请按版本选择。",
-    "officialUpdateNotice": "GR IV 原厂 1.20 适配版因曝光设置及回放异常已暂停下载，请等待修复验证，勿强行降级。GR IV 旧基底支持原厂 1.11 及以下；GR III 支持 2.10 及以下或 2.20，GR IIIx 支持 1.60 及以下或 1.70。完成确认后，请在下载抽屉选择对应基底；不同基底的固件不能混用，更新版本请勿强行刷入。",
+    "officialUpdateNotice": "GR IV 支持原厂 1.11 及以下，或 1.20 及以上（当前适配基底 1.21）；GR III 支持 2.10 及以下或 2.20，GR IIIx 支持 1.60 及以下或 1.70。完成确认后，请在下载抽屉选择对应基底；不同基底的固件不能混用，未适配的更新版本请勿强行刷入。",
     "originalDownload": "下载原版 .bin",
     "originalRestoreTitle": "刷回原版前，必须先重设相机。",
     "originalRestoreRisk": "高风险提醒：未完成相机重设便刷回原版固件，极易导致死机或无法开机。请勿跳过以下步骤。",
@@ -381,7 +381,7 @@ export const copy = {
     "unlockDownload": "Unlock download",
     "modelReleases": {
       "gr4": {
-        "compatible": "RICOH GR IV / HDF · official 1.11 or earlier / 1.20; select the matching base when downloading",
+        "compatible": "RICOH GR IV / HDF · official 1.11 or earlier / 1.20 or later (current adapted base: 1.21); select the matching base when downloading",
         "note": "V3.12：Improve film colour rendering. Speed up highlight simulation processing and photo playback. Fix add-on film icons in playback INFO.",
         "changesTitle": "V3.12 UPDATE",
         "changes": [
@@ -423,7 +423,7 @@ export const copy = {
     "originalTitle": "My original firmware backups",
     "originalIntro": "These are original firmware files I backed up, without XerFilm modifications. Check the model and version. Providing these backups does not mean an updated camera can be downgraded.",
     "officialUpdateTitle": "Both official firmware bases are supported. Choose the matching one.",
-    "officialUpdateNotice": "GR IV official 1.20 builds are withdrawn after reports of exposure-control and playback problems. Wait for a verified fix; do not force a downgrade. The GR IV legacy base supports official 1.11 or earlier; GR III supports 2.10 or earlier, or 2.20; GR IIIx supports 1.60 or earlier, or 1.70. After completing the acknowledgements, select the matching base in the download drawer. Builds for different bases are not interchangeable. Do not force installation on a later unsupported version.",
+    "officialUpdateNotice": "GR IV supports official 1.11 or earlier, or 1.20 or later (current adapted base: 1.21); GR III supports 2.10 or earlier, or 2.20; GR IIIx supports 1.60 or earlier, or 1.70. After completing the acknowledgements, select the matching base in the download drawer. Builds for different bases are not interchangeable. Do not force installation on a later unsupported version.",
     "originalDownload": "Download original .bin",
     "originalRestoreTitle": "Reset your camera before restoring stock firmware.",
     "originalRestoreRisk": "HIGH RISK: Restoring stock firmware without resetting the camera can cause freezing or prevent it from turning on. Do not skip these steps.",
@@ -602,7 +602,7 @@ export const copy = {
     "unlockDownload": "ダウンロードを解除",
     "modelReleases": {
       "gr4": {
-        "compatible": "RICOH GR IV / HDF・純正 1.11 以下 / 1.20。ダウンロード時に対応するベースを選択",
+        "compatible": "RICOH GR IV / HDF・純正 1.11 以下 / 1.20 以上（現在の対応ベース：1.21）。ダウンロード時に対応するベースを選択",
         "note": "V3.12：フィルムの色表現を改善。 ハイライト処理と写真の再生を高速化。 追加フィルムの再生 INFO アイコンを修正。",
         "changesTitle": "V3.12 更新内容",
         "changes": [
@@ -644,7 +644,7 @@ export const copy = {
     "originalTitle": "私が保存した純正ファームウェア",
     "originalIntro": "以下は私がバックアップした旧バージョンの純正ファームウェアです。XerFilm の変更は含みません。機種とバージョンを確認してください。ファイルの提供は、更新済みのカメラをダウングレードできることを意味しません。",
     "officialUpdateTitle": "新旧の純正ベースに対応しています。バージョンに合わせて選択してください。",
-    "officialUpdateNotice": "GR IV 純正 1.20 ベース版は露出設定と再生の不具合報告により配布を停止しました。修正確認までお待ちください。無理なダウングレードはしないでください。 GR IV は純正 1.11 以下または 1.20、GR III は 2.10 以下または 2.20、GR IIIx は 1.60 以下または 1.70 に対応しています。確認後、ダウンロード画面で対応するベースを選択してください。異なるベースのファームウェアは混用できません。未対応の新しいバージョンには無理に導入しないでください。",
+    "officialUpdateNotice": "GR IV は純正 1.11 以下、または 1.20 以上（現在の対応ベース：1.21）、GR III は 2.10 以下または 2.20、GR IIIx は 1.60 以下または 1.70 に対応しています。確認後、ダウンロード画面で対応するベースを選択してください。異なるベースのファームウェアは混用できません。未対応の新しいバージョンには無理に導入しないでください。",
     "originalDownload": "純正 .bin をダウンロード",
     "originalRestoreTitle": "純正に戻す前に、必ずカメラをリセット。",
     "originalRestoreRisk": "重大なリスク：リセットせずに純正ファームウェアへ戻すと、フリーズや起動不能を招くおそれがあります。以下の手順を省略しないでください。",
