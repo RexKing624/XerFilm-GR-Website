@@ -6,9 +6,10 @@ import {filmPhotoFilterId,photoGalleryURL} from './photo-looks';
 import {photographyCopy} from './photography-copy';
 import release from './release.json';
 import originalReleases from './original-releases.json';
+import officialOriginalReleases from './official-original-releases.json';
 import historicalSource from './historical-source.json';
 import { loadFirmware } from './download';
-import { createOriginalRestoreGate } from './original-restore-gate';
+import { createOriginalRestoreGate, originalRestoreRequestId } from './original-restore-gate';
 import { trackFirmwareDownload } from './download-statistics';
 import { cameras, fileSize, firmwareFamilies, isModelAvailable } from './releases';
 import FirmwareDownloadSelector from './FirmwareDownloadSelector.vue';
@@ -97,6 +98,7 @@ const originalRestoreAcknowledged = ref(false);
 const originalRestoreGate = createOriginalRestoreGate();
 let originalRestoreTimer;
 const originalRestoreAllowed = computed(() => originalRestoreRemaining.value === 0 && originalRestoreAcknowledged.value && !!originalRestoreTarget.value);
+const originalRestoreFinished = computed(() => ['saved', 'openedOfficial'].includes(downloadState.value));
 let controller;
 let downloadAttempt = 0;
 let lastFocus;
@@ -150,9 +152,9 @@ function resetOriginalRestore() {
   originalRestoreTarget.value = null; originalRestoreRemaining.value = 10; originalRestoreAcknowledged.value = false;
 }
 function requestOriginal(target) {
-  if (!isModelAvailable(target.id) || drawer.value !== 'original' || busy.value || enhancedBusy.value || testBusy.value) return;
+  if ((!originalReleases.includes(target) && !officialOriginalReleases.includes(target)) || !isModelAvailable(target.id) || drawer.value !== 'original' || busy.value || enhancedBusy.value || testBusy.value) return;
   cancelDownload(); resetOriginalRestore(); originalRestoreTarget.value = target;
-  originalRestoreGate.start(target.id); drawer.value = 'original-confirm';
+  originalRestoreGate.start(originalRestoreRequestId(target)); drawer.value = 'original-confirm';
   originalRestoreTimer = setInterval(() => {
     originalRestoreRemaining.value = originalRestoreGate.remaining();
     if (!originalRestoreRemaining.value) { clearInterval(originalRestoreTimer); originalRestoreTimer = undefined; }
@@ -173,13 +175,17 @@ function onDialogClose() { cancelDownload(); resetOriginalRestore(); drawer.valu
 function blockTransfer(event) { event.preventDefault(); inputHint.value = confirmationCopy.value.blocked; }
 function beforeInput(event) { if (['insertFromPaste', 'insertFromDrop', 'insertReplacementText'].includes(event.inputType)) blockTransfer(event); }
 async function downloadOriginal(target) {
-  if (!target || !isModelAvailable(target.id) || drawer.value !== 'original-confirm' || originalRestoreTarget.value !== target || !originalRestoreGate.allows(target.id, originalRestoreAcknowledged.value) || busy.value || enhancedBusy.value || testBusy.value || downloadState.value === 'saved') return;
+  if (!target || !isModelAvailable(target.id) || drawer.value !== 'original-confirm' || originalRestoreTarget.value !== target || !originalRestoreGate.allows(originalRestoreRequestId(target), originalRestoreAcknowledged.value) || busy.value || enhancedBusy.value || testBusy.value || originalRestoreFinished.value) return;
+  if (target.officialFirmware) {
+    const anchor = document.createElement('a'); anchor.href = target.url; anchor.target = '_blank'; anchor.rel = 'noopener noreferrer';
+    dialog.value.append(anchor); anchor.click(); anchor.remove(); downloadState.value = 'openedOfficial'; return;
+  }
   const attempt = ++downloadAttempt;
   const activeController = new AbortController(); controller = activeController;
   busy.value = true; stockDownloadId.value = target.id; progress.value = 0; downloadState.value = 'downloading';
   try {
     const blob = await loadFirmware(target, { signal: activeController.signal, onProgress: value => { if (attempt !== downloadAttempt) return; progress.value = value; if (value === 1) downloadState.value = 'checking'; } });
-    if (attempt !== downloadAttempt || drawer.value !== 'original-confirm' || !originalRestoreGate.allows(target.id, originalRestoreAcknowledged.value)) return;
+    if (attempt !== downloadAttempt || drawer.value !== 'original-confirm' || !originalRestoreGate.allows(originalRestoreRequestId(target), originalRestoreAcknowledged.value)) return;
     const url = URL.createObjectURL(blob); const anchor = document.createElement('a'); anchor.href = url; anchor.download = target.filename;
     document.body.append(anchor); anchor.click(); anchor.remove(); setTimeout(() => URL.revokeObjectURL(url), 60000); downloadState.value = 'saved'; trackFirmwareDownload(target);
   } catch (error) { if (attempt === downloadAttempt && error.name !== 'AbortError') downloadState.value = 'failed'; }
@@ -255,20 +261,32 @@ onBeforeUnmount(() => { stopEngagement?.(); window.removeEventListener('hashchan
 
   <dialog ref="dialog" class="drawer" :class="{ 'download-drawer':drawer === 'download', 'original-restore-drawer':drawer === 'original-confirm' }" :role="drawer === 'original-confirm' ? 'alertdialog' : 'dialog'" :aria-describedby="drawer === 'original-confirm' ? 'original-restore-risk' : undefined" :aria-labelledby="'drawer-title'" @close="onDialogClose" @cancel.prevent="closeDrawer" @click="($event.target === dialog) && closeDrawer()">
    <div class="drawer-surface">
-    <div class="drawer-header"><div><span class="eyebrow">{{ `${drawer.startsWith('original') ? 'ORIGINAL FIRMWARE' : drawer === 'films' ? 'FILM CATALOG' : 'DOWNLOAD'} / ${drawer.startsWith('original') ? 'BACKUPS' : selectedRelease.version}` }}</span><h2 id="drawer-title">{{ drawer === 'original-confirm' ? t.originalRestoreTitle : drawer === 'original' ? t.originalTitle : drawer === 'films' ? t.library : selectedCamera.label }}</h2></div><button class="close-button" :aria-label="t.close" @click="closeDrawer">✕</button></div>
+    <div class="drawer-header"><div><span class="eyebrow">{{ `${drawer.startsWith('original') ? 'ORIGINAL FIRMWARE' : drawer === 'films' ? 'FILM CATALOG' : 'DOWNLOAD'} / ${drawer.startsWith('original') ? 'DOWNLOADS & BACKUPS' : selectedRelease.version}` }}</span><h2 id="drawer-title">{{ drawer === 'original-confirm' ? t.originalRestoreTitle : drawer === 'original' ? t.originalSourcesTitle : drawer === 'films' ? t.library : selectedCamera.label }}</h2></div><button class="close-button" :aria-label="t.close" @click="closeDrawer">✕</button></div>
     <template v-if="drawer === 'films'">
      <p class="drawer-intro">{{ t.libraryIntro }}</p><div class="catalog-toolbar"><div class="filters" role="group" :aria-label="t.library"><button v-for="brand in ['all','FUJIFILM','KODAK']" :key="brand" :class="{ active:filter === brand }" :aria-pressed="filter === brand" @click="filter = brand">{{ brand === 'all' ? t.all : brand }}</button></div><input v-model="search" type="search" :placeholder="t.search" :aria-label="t.search"></div><p class="catalog-count">{{ t.count }}</p>
      <div class="catalog-grid"><article v-for="film in filteredFilms" :key="film.name" class="catalog-film"><a class="catalog-family catalog-film-link" :href="photoGalleryURL(filmPhotoFilterId(film))" :aria-label="`${film.name} · ${photoLabels.viewPhotos}`"><img :src="filmIcon(film.icon)" :alt="film.name"><div><span>{{ film.brand }}</span><h3>{{ film.name }}</h3></div><span class="catalog-photo-arrow" aria-hidden="true">↗</span></a><div v-if="film.variants.length" class="variants"><span>{{ t.variants }}</span><a class="variant catalog-film-link" v-for="variant in film.variants" :key="variant.name" :href="photoGalleryURL(`builtin-${variant.icon}`)" :aria-label="`${film.name} ${variant.name} · ${photoLabels.viewPhotos}`"><img :src="filmIcon(variant.icon)" :alt="`${film.name} ${variant.name}`"><span>{{ variant.name }}</span></a></div></article></div><p v-if="!filteredFilms.length" class="empty">{{ t.noResult }}</p><div class="catalog-footer">{{ t.curated }} {{ ct.compatibility }}</div>
     </template>
     <template v-if="drawer === 'original'">
-     <p class="drawer-intro">{{ t.originalIntro }}</p>
+     <p class="drawer-intro">{{ t.originalSourcesIntro }}</p>
      <div class="official-update-alert" role="note"><strong>{{ t.officialUpdateTitle }}</strong><p>{{ t.officialUpdateNotice }}</p></div>
+     <section class="original-source-section" data-testid="official-original-section">
+      <h3 class="original-section-title"><span>01 /</span>{{ t.originalOfficialTitle }}</h3>
+      <p class="original-section-intro">{{ t.originalOfficialIntro }}</p>
+      <div class="original-firmware-grid"><article v-for="stock in officialOriginalReleases" :key="stock.id" class="original-firmware-card">
+       <h4>{{ stock.label }}</h4><p>{{ t.originalVersion }} {{ stock.version }} · {{ fileSize(stock) }}</p><code>{{ stock.filename }}</code>
+       <button class="outlined" type="button" :data-testid="`official-original-${stock.id}`" :disabled="!isModelAvailable(stock.id) || busy || enhancedBusy || testBusy" @click="requestOriginal(stock)">{{ !isModelAvailable(stock.id) ? t.downloadSuspended : t.originalOfficialDownload }} <span aria-hidden="true">↗</span></button>
+      </article></div>
+     </section>
+     <section class="original-source-section" data-testid="backup-original-section">
+     <h3 class="original-section-title"><span>02 /</span>{{ t.originalTitle }}</h3>
+     <p class="original-section-intro">{{ t.originalIntro }}</p>
      <div class="original-firmware-grid"><article v-for="stock in originalReleases" :key="stock.id" class="original-firmware-card">
-      <h3>{{ stock.label }}</h3><p>{{ t.originalVersion }} {{ stock.version }} · {{ fileSize(stock) }}</p><code>{{ stock.filename }}</code>
-      <button class="outlined" type="button" :disabled="!isModelAvailable(stock.id) || busy || enhancedBusy || testBusy" @click="requestOriginal(stock)">{{ !isModelAvailable(stock.id) ? t.downloadSuspended : t.originalDownload }} <span aria-hidden="true">↓</span></button>
+      <h4>{{ stock.label }}</h4><p>{{ t.originalVersion }} {{ stock.version }} · {{ fileSize(stock) }}</p><code>{{ stock.filename }}</code>
+      <button class="outlined" type="button" :data-testid="`backup-original-${stock.id}`" :disabled="!isModelAvailable(stock.id) || busy || enhancedBusy || testBusy" @click="requestOriginal(stock)">{{ !isModelAvailable(stock.id) ? t.downloadSuspended : t.originalDownload }} <span aria-hidden="true">↓</span></button>
       <template v-if="stockDownloadId === stock.id"><progress v-if="busy" :value="progress" max="1" :aria-label="t.downloading"></progress><div class="download-feedback" aria-live="polite"><span>{{ t[downloadState] }} {{ busy ? `${Math.round(progress*100)}%` : '' }}</span><button v-if="busy" class="text-link" @click="cancelDownload">{{ t.cancel }}</button></div></template>
       <details class="original-checksum"><summary>{{ t.checksum }}</summary><code>{{ stock.sha256 }}</code></details>
      </article></div><p class="download-hint">{{ t.originalBackupOnly }}</p>
+     </section>
     </template>
     <template v-if="drawer === 'original-confirm' && originalRestoreTarget">
      <p class="original-restore-model">{{ originalRestoreTarget.label }} · {{ t.originalVersion }} {{ originalRestoreTarget.version }} <code>{{ originalRestoreTarget.filename }}</code></p>
@@ -276,8 +294,8 @@ onBeforeUnmount(() => { stopEngagement?.(); window.removeEventListener('hashchan
      <ol class="original-restore-steps"><li v-for="step in t.originalRestoreSteps" :key="step">{{ step }}</li></ol>
      <p class="original-restore-incomplete">{{ t.originalRestoreIncomplete }}</p>
      <p v-if="originalRestoreRemaining > 0" class="original-restore-countdown" role="timer" aria-live="off">{{ t.originalRestoreWait.replace('{seconds}', originalRestoreRemaining) }}</p>
-     <label v-else class="original-restore-ack" :class="{checked:originalRestoreAcknowledged}"><input v-model="originalRestoreAcknowledged" type="checkbox" :disabled="busy || downloadState === 'saved'" required><span>{{ t.originalRestoreAcknowledge }}</span></label>
-     <div class="original-restore-actions"><button class="outlined" type="button" @click="backToOriginal">{{ t.cancel }}</button><button class="primary original-restore-download" type="button" :disabled="!originalRestoreAllowed || busy || enhancedBusy || testBusy || downloadState === 'saved'" @click="downloadOriginal(originalRestoreTarget)"><span>{{ busy || downloadState === 'saved' ? t[downloadState] : t.originalRestoreConfirm }}</span><span aria-hidden="true">↓</span></button></div>
+     <label v-else class="original-restore-ack" :class="{checked:originalRestoreAcknowledged}"><input v-model="originalRestoreAcknowledged" type="checkbox" :disabled="busy || originalRestoreFinished" data-testid="original-restore-ack" required><span>{{ t.originalRestoreAcknowledge }}</span></label>
+     <div class="original-restore-actions"><button class="outlined" type="button" @click="backToOriginal">{{ t.cancel }}</button><button class="primary original-restore-download" data-testid="original-restore-proceed" type="button" :disabled="!originalRestoreAllowed || busy || enhancedBusy || testBusy || originalRestoreFinished" @click="downloadOriginal(originalRestoreTarget)"><span>{{ busy || originalRestoreFinished ? t[downloadState] : originalRestoreTarget.officialFirmware ? t.originalOfficialConfirm : t.originalRestoreConfirm }}</span><span aria-hidden="true">{{ originalRestoreTarget.officialFirmware ? '↗' : '↓' }}</span></button></div>
      <progress v-if="busy" :value="progress" max="1" :aria-label="t.downloading"></progress><div class="download-feedback" aria-live="polite"><span v-if="downloadState">{{ t[downloadState] }} {{ busy ? `${Math.round(progress*100)}%` : '' }}</span><button v-if="busy" class="text-link" @click="cancelDownload">{{ t.cancel }}</button></div>
     </template>
     <template v-if="drawer === 'download' && isModelAvailable(selectedModel)">

@@ -40,6 +40,7 @@ jobs:
           FIRMWARE_TEST_PASSWORD: ${{ secrets.FIRMWARE_TEST_PASSWORD }}
       - run: npm run check:release
       - run: npm run test:downloads
+      - run: npm run test:original-restore
       - run: npm run test:statistics
       - run: npm run test:summary
       - run: npm run build

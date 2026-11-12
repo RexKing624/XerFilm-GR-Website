@@ -174,3 +174,10 @@ The owner approved publishing the exact R2 BINs after testing the preceding full
 ## New-base upgrade reminder — 2026-11-12
 
 All three new-base download sections now show a model-specific old-user restore reminder and an upgrade-confirmation checkbox, in Chinese, English and Japanese. Users coming from old-base XerFilm are instructed to reset/restart as described in the existing restore instructions, restore stock firmware, then directly install the new XerFilm build. No intermediate new-stock upgrade is required by this reminder. New users currently on stock firmware may skip the checkbox; it adds no new download lock. Old-base downloads and existing reading/enhanced-build confirmations are unchanged. The owner chose to keep GR IV enhanced at 1.22 after reviewing the proposed 1.211 numbering; firmware files, version metadata and all download hashes remain unchanged.
+
+
+## Official stock downloads and legacy backups — 2026-11-12
+
+The stock firmware drawer has two numbered sections: Ricoh-hosted ZIPs for IV1.21 / III2.20 / IIIx1.70, then the unchanged local older-stock BIN backups. Official links are pinned to exact versioned files, not the moving support pages (which now advertise III2.21 / IIIx1.71). All three remote ZIPs were fetched and CRC-checked, and their contained BINs matched archived originals before adding the links. No new stock firmware binary is hosted here.
+
+Both official redirects and backup downloads use the existing high-risk reset/restart warning, a fresh full ten-second monotonic wait, then a required acknowledgement. The gate is keyed by source/model/version; confirmation cannot carry across actions. Official redirects open only from the post-confirmation handler and are not recorded as completed checksum-verified downloads. The backup checksum/save/statistics path and all XerFilm firmware files are unchanged. Chinese, English and Japanese are synchronized.

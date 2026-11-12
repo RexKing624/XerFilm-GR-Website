@@ -1,0 +1,38 @@
+[
+  {
+    "id": "gr4",
+    "label": "GR IV / HDF",
+    "version": "1.21",
+    "filename": "gr4_v121.zip",
+    "url": "https://www.ricoh-imaging.co.jp/resources/japan/support/download/digital/FIRMWARE/gr4_v121.zip",
+    "size": 34697047,
+    "sha256": "ace9fc65f6e4fa3b1096d590ba4bddad4f4814e075a4d85a973cb943f166da73",
+    "officialFirmware": true,
+    "firmwareFilename": "fwdc248b.bin",
+    "firmwareSha256": "bf4d6c35f6da1c16ed5f2943af570eab8fef326f7501a2b3ce5413fa55ec5c99"
+  },
+  {
+    "id": "gr3",
+    "label": "GR III / HDF",
+    "version": "2.20",
+    "filename": "gr3_v220.zip",
+    "url": "https://www.ricoh-imaging.co.jp/resources/japan/support/download/digital/FIRMWARE/gr3_v220.zip",
+    "size": 28599247,
+    "sha256": "7b19f9c03f2448c2b674fb919f6a86d22d6d83801521a9c1226a0e20cf0b5a2f",
+    "officialFirmware": true,
+    "firmwareFilename": "fwdc239b.bin",
+    "firmwareSha256": "5c53760b3b564c87239dbf7f5c94d0f6fd91accd156ec4ba672ebfd6b861793e"
+  },
+  {
+    "id": "gr3x",
+    "label": "GR IIIx / HDF",
+    "version": "1.70",
+    "filename": "gr3x_v170.zip",
+    "url": "https://www.ricoh-imaging.co.jp/resources/japan/support/download/digital/FIRMWARE/gr3x_v170.zip",
+    "size": 28599250,
+    "sha256": "6a028e90b4f23c9e9af968b03bca5032b71f460be85fd2c49f4078366a71dc6d",
+    "officialFirmware": true,
+    "firmwareFilename": "fwdc243b.bin",
+    "firmwareSha256": "aa8e3ae1349d94e83be381c20530e41d5e57b75c27ef24ba81c7b017d6c11592"
+  }
+]

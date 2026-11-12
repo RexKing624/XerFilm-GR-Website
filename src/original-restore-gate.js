@@ -1,6 +1,11 @@
 export const ORIGINAL_RESTORE_WAIT_MS = 10000;
 
-// Each download request needs a fresh wait and acknowledgement for that model.
+export function originalRestoreRequestId(target) {
+  if (!target || !['gr4', 'gr3', 'gr3x'].includes(target.id) || !/^\d+\.\d+$/.test(target.version)) throw new TypeError('Invalid original firmware target');
+  return `${target.officialFirmware ? 'official' : 'backup'}:${target.id}:${target.version}`;
+}
+
+// Each source/model/version request needs a fresh wait and acknowledgement.
 // Use elapsed time so changing the system clock cannot shorten the reminder.
 export function createOriginalRestoreGate(now = () => performance.now()) {
   let model = null, readyAt = null;
