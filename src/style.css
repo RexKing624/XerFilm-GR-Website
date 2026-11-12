@@ -231,6 +231,11 @@ body:has(.photography-gallery){min-width:0}
 .firmware-recommended{font-size:10px;font-weight:400;color:var(--accent);border-bottom:1px solid var(--accent);line-height:1.5;white-space:nowrap}
 .firmware-choice-content>.firmware-variant-hint{font-size:10px;line-height:1.8}
 .firmware-selected-file{margin-top:24px}
+.firmware-upgrade-notice{margin:20px 0;padding:16px;border:1px solid var(--warm);line-height:1.9}
+.firmware-upgrade-notice>strong{display:block;color:var(--warm);font-size:13px}
+.firmware-upgrade-notice>p{font-size:12px;margin:10px 0 14px;color:var(--muted)}
+.firmware-upgrade-notice>.enhanced-ack{font-size:12px}
+.firmware-upgrade-notice>small{display:block;margin-top:10px;font-size:11px;color:var(--muted)}
 .firmware-base-warning{font-size:11px;line-height:1.9;color:var(--warm);margin-top:8px}
 .firmware-enhanced-note{font-size:11px;line-height:1.9;color:var(--muted);margin-top:12px}
 .firmware-file-checksum{font-size:10px;margin-top:18px;color:var(--muted)}

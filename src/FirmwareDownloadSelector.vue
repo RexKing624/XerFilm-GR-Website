@@ -14,6 +14,7 @@ const family = computed(() => props.families.find(item => item.id === selectedBa
 const release = computed(() => family.value?.[selectedVariant.value]);
 const acceptedEnhanced = ref(false);
 const acceptedTest = ref(false);
+const acceptedUpgrade = ref(false);
 const busy = ref(false), unlocking = ref(false), progress = ref(0), status = ref('');
 const password = ref(''), passwordError = ref(false), decryptionKey = shallowRef(null);
 const allowed = computed(() => props.verified && !!release.value && !release.value.downloadSuspended && (!release.value.testRelease || acceptedTest.value) && (selectedVariant.value === 'standard' || acceptedEnhanced.value));
@@ -21,8 +22,9 @@ let controller, attempt = 0;
 const shortVersion = item => item.installationVersion.split('.').slice(0, 2).join('.');
 const baseLabel = item => (item.legacy ? labels.value.earlier : item.standard.selectionMinimumVersion ? labels.value.currentFrom : labels.value.current).replace('{version}', item.standard.selectionMinimumVersion || item.baseVersion);
 const versionSummary = item => labels.value.identify.replace('{standard}', shortVersion(item.standard)).replace('{enhanced}', shortVersion(item.enhanced));
+const upgradeNote = computed(() => labels.value.upgradeNote.replace('{legacy}', props.families.find(item => item.legacy)?.baseVersion || ''));
 function cancel() { controller?.abort(); controller = undefined; attempt++; busy.value = false; unlocking.value = false; status.value = ''; progress.value = 0; emit('busy', false); }
-function resetDownload() { cancel(); acceptedEnhanced.value = false; acceptedTest.value = false; password.value = ''; passwordError.value = false; decryptionKey.value = null; }
+function resetDownload() { cancel(); acceptedEnhanced.value = false; acceptedTest.value = false; acceptedUpgrade.value = false; password.value = ''; passwordError.value = false; decryptionKey.value = null; }
 watch(selectedBase, () => { resetDownload(); selectedVariant.value = 'standard'; });
 watch(selectedVariant, resetDownload);
 watch(() => props.verified, value => { if (!value) { resetDownload(); selectedBase.value = ''; } });
@@ -79,6 +81,12 @@ onBeforeUnmount(resetDownload);
     <p v-if="release.testRelease" class="firmware-test-note" role="note">{{ labels.testNote }}</p>
     <p class="release-description">{{ family.legacy ? releaseCopy.note : labels.latestNote.replace('{version}', family.baseVersion) }}</p>
     <p class="firmware-base-warning">{{ labels.wrongBase }}</p>
+    <aside v-if="!family.legacy" class="firmware-upgrade-notice" role="note" data-testid="base-upgrade-notice">
+     <strong>{{ labels.upgradeTitle }}</strong>
+     <p>{{ upgradeNote }}</p>
+     <label class="enhanced-ack" :class="{checked:acceptedUpgrade}"><input v-model="acceptedUpgrade" type="checkbox" :disabled="baseBusy || busy || unlocking" data-testid="base-upgrade-ack"><span class="custom-check" aria-hidden="true">{{ acceptedUpgrade ? '✓' : '' }}</span><span>{{ labels.upgradeAck }}</span></label>
+     <small>{{ labels.upgradeSkip }}</small>
+    </aside>
     <template v-if="selectedVariant === 'enhanced'"><p v-if="!family.legacy" class="firmware-downgrade-warning" role="note">{{ labels.cannotDowngrade }}</p><p class="firmware-enhanced-note">{{ labels.enhancedNote }}</p><label class="enhanced-ack" :class="{checked:acceptedEnhanced}"><input v-model="acceptedEnhanced" type="checkbox" :disabled="baseBusy || busy || unlocking" data-testid="enhanced-ack"><span class="custom-check" aria-hidden="true">{{ acceptedEnhanced ? '✓' : '' }}</span><span>{{ labels.enhancedAck }}</span></label></template>
     <label v-if="release.testRelease" class="enhanced-ack firmware-test-ack" :class="{checked:acceptedTest}"><input v-model="acceptedTest" type="checkbox" :disabled="baseBusy || busy || unlocking" data-testid="base-test-ack"><span class="custom-check" aria-hidden="true">{{ acceptedTest ? '✓' : '' }}</span><span>{{ labels.testAck }}</span></label>
     <dl class="file-details"><div><dt>{{ labels.baseVersion }}</dt><dd>{{ family.baseVersion }}</dd></div><div><dt>{{ t.release }}</dt><dd>{{ release.version }}<template v-if="release.testRelease"> · {{ labels.test }}</template> · {{ release.internalVersion }}</dd></div><div><dt>{{ labels.installationVersion }}</dt><dd>{{ release.installationVersion }}</dd></div><div><dt>{{ t.filename }}</dt><dd>{{ release.filename }}</dd></div><div><dt>{{ t.sizeLabel }}</dt><dd>{{ fileSize(release) }}</dd></div></dl>
